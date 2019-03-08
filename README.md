@@ -1,2 +1,5 @@
 # culottes
-The culottes dapp is here. Culottes lets open communities decide who deserves or needs additional income and distributes that income accordingly. The culottes board game (its paper-based equivalent) is at https://gitlab.io/culottes
+
+The culottes dapp lets open communities decide who deserves or needs additional income, collects donations and distributes that income accordingly.
+
+The culottes board game (the paper-based equivalent and simulation of the culottes dapp) is at https://siggg.gitlab.io/culottes

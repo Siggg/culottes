@@ -1,4 +1,5 @@
 .idea
+.secret
 contracts/.placeholder
 test/.placeholder
 build

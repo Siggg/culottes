@@ -20,7 +20,7 @@ contract Culotte {
 
   mapping (address => Ballot) private ballots;
 
-  uint256 cashierBalance;
+  uint256 public cashierBalance;
 
   event BallotOpened(string indexed _eventName, address indexed _candidate);
   event BallotClosed(string indexed _eventName, address indexed _candidate);
@@ -114,4 +114,5 @@ contract Culotte {
     Ballot memory ballot = ballots[_candidate];
     return (ballot.pros.amount, ballot.cons.amount);
   }
+
 }

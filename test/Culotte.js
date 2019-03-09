@@ -1,59 +1,34 @@
-const Dareth = artifacts.require("./Dareth.sol");
+const Culotte = artifacts.require("./Culotte.sol");
 const expect = require('chai').expect;
 
-contract('Dareth', function(accounts) {
+contract('Culotte', function(accounts) {
 
   it("should be initialized correctly", async function() {
-    const monthlyPayment = 5000;
-    const nbOfMonths = 10;
+    const culotte = await Culotte.deployed();
+    expect(culotte).to.not.equal(0x0);
 
-    const instance = await Dareth.deployed();
-    const amount = await instance.amount();
-    expect(amount.toNumber()).to.equal(monthlyPayment * nbOfMonths);
-    const months = await instance.nbOfMonths();
-    expect(months.toNumber()).to.equal(nbOfMonths);
+    const criteria = await culotte.criteria();
+    expect(criteria).to.equal('Is a great OSS contributor');
+
   });
 
-  it("should subscribe participants", async function() {
-    const instance = await Dareth.deployed();
-    let nbOfParticipants = await instance.nbOfParticipants();
-    expect(nbOfParticipants.toNumber()).to.equal(0);
-    await instance.subscribe({from: accounts[0]});
-    nbOfParticipants = await instance.nbOfParticipants();
-    expect(nbOfParticipants.toNumber()).to.equal(1);
-    await instance.subscribe({from: accounts[1]});
-    nbOfParticipants = await instance.nbOfParticipants();
-    expect(nbOfParticipants.toNumber()).to.equal(2);
+  it("should be able to vote", async function() {
+    const culotte = await Culotte.deployed();
+
+    let candidate = accounts[9];
+    let receipt = await culotte.vote(true, candidate, {value: 100});
+    expect(receipt.logs.length).to.equal(0);
+
+    let forAmount = await culotte.getAmount(true, candidate);
+    expect(forAmount.toNumber()).to.equal(100);
+
+    receipt = await culotte.vote(false, candidate, {value: 300});
+    expect(receipt.logs.length).to.equal(0);
+
+    let againstAmount = await culotte.getAmount(false, candidate);
+    expect(againstAmount.toNumber()).to.equal(300);
+
   });
 
-  it("should accept payments from participants", async function() {
-    const monthlyPayment = 5000;
-    const instance = await Dareth.deployed();
-    await instance.subscribe({from: accounts[0]});
-    try {
-      await instance.makeMonthlyPayment({from: accounts[0], value: 5});
-    } catch (error) {
-      assert(error.message.indexOf('revert') >=0, 'Not enough ether to pay' );
-    }
-    await instance.makeMonthlyPayment({from: accounts[0], value: monthlyPayment});
-    let contractBalance = await web3.eth.getBalance(instance.address);
-    expect(contractBalance).to.equal(monthlyPayment.toString());
-
-    const subscriberBalance = await instance.getBalanceOf(accounts[0]);
-    expect(subscriberBalance.toNumber()).to.equal(monthlyPayment);
-  });
-
-  it("should not accept payments from non participants", async function() {
-
-    const monthlyPayment = 5000;
-    const instance = await Dareth.deployed();
-    await instance.subscribe({from: accounts[0]});
-    try {
-      await instance.makeMonthlyPayment({from: accounts[2], value: monthlyPayment});
-      assert.fail("Should not accept payment from non participants");
-    } catch (error) {
-      assert(error.message.indexOf('revert') >=0, 'Sender is not a participant' );
-    }
-  });
 
 });

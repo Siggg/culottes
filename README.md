@@ -8,4 +8,4 @@ The culottes board game (the paper-based simulation of this dapp) is at https://
 
 # Demo use case
 
-See [the description of our demo use case](demo_use_case).
+See [the description of our demo use case](demo_use_case.md).

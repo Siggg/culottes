@@ -15,8 +15,9 @@ Specific culottes could redistribute income for specific causes:
 * people struggling with **less than 1 dollar of income per day*
 * volunteers who give almost 100% of their culottes income directly to **homeless people**
 * _What's your social justice cause ? It probably deserves its own culottes game and source of income!_
+* ...
 
-Thanks to the culottes system, truth prevails more often than not and your culottes can enable social justice. Game theorists call this voting and betting system a "schelling game". It can serve any decentralized cause. It runs on the Ethereum blockchain. It is distributed under the GNU Affero General Public License 3.0.
+Thanks to the culottes system, truth prevails more often than not and your culottes can enable social justice. Game theorists call this voting and betting system a "Schelling game". It can serve any decentralized cause. It runs on the Ethereum blockchain. It is distributed under the GNU Affero General Public License 3.0.
 
 See also the culottes board game : it is a paper-based simulation of this software application and can be played with your friends from https://siggg.gitlab.io/culottes
 

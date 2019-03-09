@@ -1,0 +1,13 @@
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 10%;
+}
+
+.mainbox {
+	margin-top: 50px;
+	margin: auto;
+	max-width: 80%
+}
+

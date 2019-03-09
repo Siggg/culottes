@@ -44,9 +44,9 @@ Axel connects with Metamask and votes no.
 
 Or not.
 
-## Explore open votes
+## Explore open elections
 
-The culottes page displays the list of applicants and their status : verdict issued or not ? accepted or rejected ? how much Eth distributed to each so far ?
+The culottes page displays the list of elections and their status : verdict issued or not ? accepted or rejected ? how much Eth distributed to each so far ? how many votes for and against each candidate.
 
 # Create a culotte for your own cause
 

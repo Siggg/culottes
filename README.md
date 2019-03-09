@@ -1,5 +1,7 @@
 # culottes
 
-The culottes dapp lets open communities decide who deserves or needs additional income, collects donations and distributes that income accordingly.
+The culottes dapp is here. Culottes lets open communities vote and bet on who deserves or needs additional income. It collects donations and vote taxes then distributes that income according to the vote and bet results.
 
-The culottes board game (the paper-based equivalent and simulation of the culottes dapp) is at https://siggg.gitlab.io/culottes
+Game theorists call that a "schelling game". It can serve any decentralized cause. It stays on the Ethereum blockchain. It is distributed under the GNU Affero General Public License 3.0.
+
+The culottes board game (the paper-based simulation of this dapp) is at https://siggg.gitlab.io/culottes

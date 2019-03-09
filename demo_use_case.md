@@ -6,41 +6,43 @@ Jean: " Hey Mohamed, you are a big contributor to open source projects, aren't y
 
 Mohamed: " Sure, I spend hours on free software stuff. Why ? "
 
-Jean: " Look, there is this culottes source of Eth for big contributors to open source projects. I think you really deserve and need an access to this source. Flash it and I will vote for you. "
+Jean: " Look, there is this culottes source of Eth for big contributors to open source projects. I think you really deserve and need some additional income from this source. Flash it and I will vote for you. "
+
+## Mohamed votes Yes for himself
 
 Mohamed: " Well, ok. Let me flash it. "
 
-## Vote Yes for Mohamed
+Mohamed flashes this QRCode with his mobile phone wallet, from his Ethereum address.
 
-Mohamed sends a cent of Eth to the QR Code of the culotte for 'big contributors to open source projects'.
+He sends a cent of Eth to the culotte for 'big contributors to open source projects'.
 
-As soon as his Eth is recevied a vote if opened for him.
+The Culotte twitter account announces it received a 0.01 ETH ballot for Mohamed (Mohamed has an ENS name). The tweet links to Mohamed's election page.
 
-His wallet address is displayed on the screen, with a big question below :
+## Jean votes for Mohamed too
+
+Jean clicks on Mohamed's election link. Mohamed's ENS name is displayed on the screen, with a big question below :
 
 " Is this the address of a big contributor to open source projects ? "
 
-Below " Yes ", we already see one vote, with a cent of Eth.
+Mohamed's election gave him no ETH yet.
 
-Below " No ", there is no vote and 0 Eth.
+Below " Yes ", we already see 0.01 ETH, and 1 ballot from Mohamed himself.
 
-There is no verdict issued yet. So the question is still open. Mohamed has received no Eth from this culotte yet.
+Below " No ", there is 0 ETH and 0 ballots.
 
-Jean connects with Metamask to this page and sends some more Eth to the Yes vote for Mohamed as a big contributor to open source project.
+There is no verdict issued yet. So the question is still open.
 
-## Vote No for Mohamed
+Jean clicks on Yes and send some more Eth supporting Mohamed's election.
+
+## Axel votes against Mohamed
 
 Axel comes in : " Hey guys, are you serious ??? Mohamed sure contributes to open source projects. But I don't think he qualifies as a 'big' contributor. I'll vote No. "
 
-Axel connects with Metamasl and votes no.
+Axel connects with Metamask and votes no.
 
-## Monitor votes and verdicts
+## Mohamed earns his first income from the culotte
 
-Mohamed checks his vote page. Has a verdict been issued ? Did YES or NO win ? Does he get an additional income from this culotte as a big contributor to open source projects ?
-
-Mohamed subscribes to this culotte discord channel / twitter account / whatever.
-
-He sees notifications for the votes and maybe for a verdict.
+Or not.
 
 ## Explore open votes
 

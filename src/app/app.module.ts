@@ -22,6 +22,7 @@ import { AboutComponent } from "./about/about.component";
 import { OpenelectionComponent } from "./projects/electionTabs/openelection/openelection.component";
 import { CompletedelectionComponent } from "./projects/electionTabs/completedelection/completedelection.component";
 import { IdComponent } from './id/id.component';
+import { DonateComponent } from './donate/donate.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { IdComponent } from './id/id.component';
     AboutComponent,
     OpenelectionComponent,
 	CompletedelectionComponent,
-	IdComponent
+	IdComponent,
+	DonateComponent
   ],
   imports: [
     SuiModule,

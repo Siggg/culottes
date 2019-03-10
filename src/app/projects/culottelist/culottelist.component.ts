@@ -25,18 +25,12 @@ async ngOnInit() {
     console.log(this);
     this.watchAccount();
     this.web3Service.artifactsToContract(culotteABI)
-      .then((MetaCoinAbstraction) => {
-		this.culottes = MetaCoinAbstraction;
-		console.log("hey there");
-        this.culottes.deployed().then(deployed => {
-			console.log("hey there 2");
-          console.log(deployed);
-          deployed.Transfer({}, (err, ev) => {
-            console.log('Transfer event came in, refreshing balance');
-          });
+      .then((web3_eth_contract) => {
+        return web3_eth_contract.methods.criteria().call();
+        })
+      .then((criteria) => {
+        console.log("criteria: ", criteria);
         });
-
-      });
 }
 
 async watchAccount() {

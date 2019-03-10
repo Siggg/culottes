@@ -32,5 +32,17 @@
 						</button></a>
 					</td>
 				</tr>
+                                <tr tmp_ng-repeat="candidate in candidates">
+                                        <td><a href="/candidate/{{candidate.address}}">{{candidate.address}}</a></td>
+                                        <td>{{candidate.pros}} ETH</td>
+                                        <td>{{candidate.cons}} ETH</td>
+                                        <td>Rejected x?, Accepted x?</td>
+                                        <td class="right aligned">
+                                          <a href="/candidate/{{candidate.address}}"><button class="ui icon button">
+                                                        <i class="right arrow icon"></i>
+                                                </button></a>
+                                        </td>
+                                </tr>
+
 			</tbody>
 		</table>

@@ -41,35 +41,34 @@ export class Web3Service {
 
   
 
-  public async artifactsToContract(artifacts, address?) {
+/*  public async artifactsToContract(artifacts, address?) {
     if (!this.web3) {
       const delay = new Promise(resolve => setTimeout(resolve, 100));
       await delay;
       return await this.artifactsToContract(artifacts, address);
     }
 
-
+    console.log("hey me.");
     const contractAbstraction = contract({
 		abi: artifacts,
-		address: address
+		address: "0x4ae1e5b4FB7Ee9AcFE12dF24b966607c96104624"
 	});
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
-  }
+  }*/
 
 
-/*  public async artifactsToContractii(artifacts) {
+  public async artifactsToContract(artifacts) {
     if (!this.web3) {
       const delay = new Promise(resolve => setTimeout(resolve, 100));
       await delay;
       return await this.artifactsToContract(artifacts);
     }
-
-    const contractAbstraction = new this.web3.eth.Contract(artifacts, '0x4ae1e5b4FB7Ee9AcFE12dF24b966607c96104624');
+    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0x4ae1e5b4FB7Ee9AcFE12dF24b966607c96104624');
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
 
-  }*/
+  }
 
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {

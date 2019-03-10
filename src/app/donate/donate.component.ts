@@ -25,6 +25,7 @@ export class DonateComponent implements OnInit {
   }
 
 async ngOnInit() {
+
 	this.watchAccount();
     this.web3Service.artifactsToContract(culotteABI)
       .then((web3_eth_contract) => {
@@ -42,8 +43,8 @@ onClickMe() {
 		this.isOk=true;
 	else {
 		this.isOk=false;
-		console.log(this.account)
-		console.log("sendend : " + this.amount)
+		console.log(this.amount)
+		this.web3_eth_contract.util.toWei(this.amount, 'ether');
 		this.web3_eth_contract.sendTransaction({from: this.account, to: 0xe638ef3a6CdD6213c8df966e5a7aCcec2Ab3A50b, value: this.amount});
 		//this.web3_eth_contract.send({from: this.account, value:this.amount});
 	}

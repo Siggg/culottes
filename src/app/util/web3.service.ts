@@ -25,7 +25,8 @@ export class Web3Service {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
-      this.web3 = new Web3(window.web3.currentProvider);
+	  this.web3 = new Web3(window.web3.currentProvider);
+
     } else {
       console.log('No web3? You should consider trying MetaMask!');
 
@@ -38,18 +39,37 @@ export class Web3Service {
     setInterval(() => this.refreshAccounts(), 100);
   }
 
-  public async artifactsToContract(artifacts) {
+  
+
+  public async artifactsToContract(artifacts, address?) {
+    if (!this.web3) {
+      const delay = new Promise(resolve => setTimeout(resolve, 100));
+      await delay;
+      return await this.artifactsToContract(artifacts, address);
+    }
+
+
+    const contractAbstraction = contract({
+		abi: artifacts,
+		address: address
+	});
+    contractAbstraction.setProvider(this.web3.currentProvider);
+    return contractAbstraction;
+  }
+
+
+/*  public async artifactsToContractii(artifacts) {
     if (!this.web3) {
       const delay = new Promise(resolve => setTimeout(resolve, 100));
       await delay;
       return await this.artifactsToContract(artifacts);
     }
 
-    const contractAbstraction = contract(artifacts);
+    const contractAbstraction = new this.web3.eth.Contract(artifacts, '0x4ae1e5b4FB7Ee9AcFE12dF24b966607c96104624');
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
 
-  }
+  }*/
 
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { CulottelistComponent } from "./projects/culottelist/culottelist.component";
 import { AboutComponent } from "./about/about.component";
 import { IdComponent } from "./id/id.component";
+import { DonateComponent } from './donate/donate.component';
 
 const routes: Routes = [
   { path: "", component: CulottelistComponent },
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: "about", component: AboutComponent },
   { path: "candidate", component: CulottelistComponent },
   { path: "candidate/:address", component: IdComponent },
+  { path: "donate", component: DonateComponent },
 ];
 
 @NgModule({

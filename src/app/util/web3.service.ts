@@ -67,7 +67,7 @@ export class Web3Service {
       await delay;
       return await this.artifactsToContract(artifacts);
     }
-    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0xe638ef3a6CdD6213c8df966e5a7aCcec2Ab3A50b');
+    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0xf26110452429f39eD677F111E65bf0c1825705A4');
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
 

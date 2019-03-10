@@ -12,7 +12,7 @@ const culotteABI = require('../../../build/contracts/Culotte.json');
 })
 export class DonateComponent implements OnInit {
 
-	address: String = "0xe638ef3a6CdD6213c8df966e5a7aCcec2Ab3A50b";
+	address: String = "0xf26110452429f39eD677F111E65bf0c1825705A4";
 	purpose: String = "A frequent contributor to Open Source Projects"
 	culottes: any;
 	account: any;
@@ -45,7 +45,7 @@ onClickMe() {
 		this.isOk=false;
 		console.log(this.amount)
 		this.web3_eth_contract.util.toWei(this.amount, 'ether');
-		this.web3_eth_contract.sendTransaction({from: this.account, to: 0xe638ef3a6CdD6213c8df966e5a7aCcec2Ab3A50b, value: this.amount});
+		this.web3_eth_contract.sendTransaction({from: this.account, to: 0xf26110452429f39eD677F111E65bf0c1825705A4, value: this.amount});
 		//this.web3_eth_contract.send({from: this.account, value:this.amount});
 	}
 }

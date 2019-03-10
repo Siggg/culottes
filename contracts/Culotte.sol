@@ -3,6 +3,12 @@ pragma solidity ^0.5.0;
 contract Culotte {
 
   string public criteria;
+  uint paybackBlockPeriod;
+  uint paybackAmount;
+  uint lastPaybackBlockNumber;
+
+  bool withLottery;
+  bool withPayback;
 
   struct Bucket {
     address payable [] voters;
@@ -16,8 +22,10 @@ contract Culotte {
     Bucket cons;
     uint blockNumber;
     bool opened;
+    bool elected;
   }
 
+  address payable [] candidates;
   mapping (address => Ballot) private ballots;
 
   uint256 public cashierBalance;
@@ -27,18 +35,24 @@ contract Culotte {
   event VoteReceived(string indexed _eventName, address _from, address indexed _candidate, bool _vote, uint256 indexed _amount);
 
 
-  constructor() public{
-    criteria = 'a frequent contributor to open source projects';
+  constructor(string memory _criteria, uint _paybackBlockPeriod, uint _paybackAmount, bool _withLottery, bool _withPayback) public{
+    criteria = _criteria;
+    paybackBlockPeriod = _paybackBlockPeriod;
+    paybackAmount = _paybackAmount;
+    lastPaybackBlockNumber = block.number;
+    withLottery = _withLottery;
+    withPayback = _withPayback;
   }
 
-  function vote(bool _vote, address payable _candidate, bool _withLottery) public payable {
+  function vote(bool _vote, address payable _candidate) public payable {
     Ballot storage ballot = ballots[_candidate];
     if (ballot.candidate == address(0x0) ) {
       // this is a new ballot, emit an event
       emit BallotOpened('BallotOpened', _candidate);
+      candidates.push(_candidate);
+      ballot.candidate = _candidate;
     }
 
-    ballot.candidate = _candidate;
     Bucket storage bucket = ballot.pros;
     if (!_vote) {
       bucket = ballot.cons;
@@ -49,7 +63,7 @@ contract Culotte {
 
     emit VoteReceived('VoteReceived', msg.sender, _candidate, _vote, msg.value);
 
-    if(_withLottery && block.number > ballot.blockNumber) {
+    if(withLottery && block.number > ballot.blockNumber) {
       // update ballot block number
       ballot.blockNumber = block.number;
       // start closing ballot lottery
@@ -59,6 +73,10 @@ contract Culotte {
         closeBallot(_candidate);
       }
     }
+
+    if(withPayback) {
+      payback();
+    }
   }
 
   function closeBallot(address payable _candidate) public {
@@ -66,9 +84,11 @@ contract Culotte {
     // and the winner is ...
     Bucket storage winner = ballot.pros;
     Bucket storage loser = ballot.cons;
+    ballot.elected = true;
     if (winner.amount < ballot.cons.amount) {
       winner = ballot.cons;
       loser = ballot.pros;
+      ballot.elected = false;
     }
     // payback all that voted for winner
     for (uint i = 0; i < winner.voters.length; i++) {
@@ -93,6 +113,20 @@ contract Culotte {
 
   }
 
+  function payback() public {
+    for (uint i = 0; i < candidates.length; i++) {
+      address payable candidate = candidates[i];
+      Ballot memory ballot = ballots[candidate];
+      if (!ballot.opened &&
+          ballot.elected && cashierBalance > paybackAmount &&
+          (block.number >= lastPaybackBlockNumber + paybackBlockPeriod)) {
+        candidate.transfer(paybackAmount);
+        cashierBalance -= paybackAmount;
+        lastPaybackBlockNumber = block.number;
+      }
+    }
+  }
+
   function getAmount(bool _vote, address _candidate) public view returns (uint256){
     Ballot storage ballot = ballots[_candidate];
     if (_vote)
@@ -110,9 +144,9 @@ contract Culotte {
     return false;
   }
 
-  function ballotStatus(address _candidate) public view returns(uint256 pros, uint256 cons) {
+  function ballotStatus(address _candidate) public view returns(bool opened, bool elected,uint256 pros, uint256 cons) {
     Ballot memory ballot = ballots[_candidate];
-    return (ballot.pros.amount, ballot.cons.amount);
+    return (ballot.opened, ballot.elected, ballot.pros.amount, ballot.cons.amount);
   }
 
 }

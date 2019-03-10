@@ -9,7 +9,7 @@ contract('Culotte', function(accounts) {
     let culotteBalance = await web3.eth.getBalance(culotte.address);
 
     const criteria = await culotte.criteria();
-    expect(criteria).to.equal('Is a great OSS contributor');
+    expect(criteria).to.equal('a frequent contributor to open source projects');
 
   });
 
@@ -17,7 +17,7 @@ contract('Culotte', function(accounts) {
     const culotte = await Culotte.deployed();
 
     let candidate = accounts[9];
-    let receipt = await culotte.vote(true, candidate, false, {value: 100});
+    let receipt = await culotte.vote(true, candidate, {value: 100});
     //expect(receipt.logs.length).to.equal(2);
     expect(receipt.logs[0].event).to.equal('BallotOpened');
     expect(receipt.logs[0].args._candidate).to.equal(candidate);
@@ -30,7 +30,7 @@ contract('Culotte', function(accounts) {
     let forAmount = await culotte.getAmount(true, candidate);
     expect(forAmount.toNumber()).to.equal(100);
 
-    receipt = await culotte.vote(false, candidate, false, {value: 300});
+    receipt = await culotte.vote(false, candidate, {value: 300});
     //expect(receipt.logs.length).to.equal(1);
     expect(receipt.logs[0].args._from).to.equal(accounts[0]);
     expect(receipt.logs[0].args._candidate).to.equal(candidate);
@@ -62,6 +62,9 @@ contract('Culotte', function(accounts) {
   });
 
   it("Play", async function() {
+    let blockNumber = await web3.eth.getBlockNumber();
+    console.log('start blockNumber: ' + blockNumber);
+
     const culotte = await Culotte.deployed();
     let A = accounts[1];
     let B = accounts[2];
@@ -80,15 +83,15 @@ contract('Culotte', function(accounts) {
     expect(status.pros.toNumber()).to.equal(0);
     expect(status.cons.toNumber()).to.equal(0);
 
-    await culotte.vote(true, candidate, false, {from: A, value: 1});
-    await culotte.vote(true, candidate, false, {from: B, value: 2});
-    await culotte.vote(true, candidate, false, {from: C, value: 3});
+    await culotte.vote(true, candidate, {from: A, value: 1});
+    await culotte.vote(true, candidate, {from: B, value: 2});
+    await culotte.vote(true, candidate, {from: C, value: 3});
     status = await culotte.ballotStatus(candidate);
     expect(status.pros.toNumber()).to.equal(6);
     expect(status.cons.toNumber()).to.equal(0);
 
-    await culotte.vote(false, candidate, false, {from: D, value: 2});
-    await culotte.vote(false, candidate, false, {from: E, value: 2});
+    await culotte.vote(false, candidate, {from: D, value: 2});
+    await culotte.vote(false, candidate, {from: E, value: 2});
     status = await culotte.ballotStatus(candidate);
     expect(status.pros.toNumber()).to.equal(6);
     expect(status.cons.toNumber()).to.equal(4);
@@ -103,11 +106,29 @@ contract('Culotte', function(accounts) {
     let afterBalanceB = await web3.eth.getBalance(B);
     let afterBalanceC = await web3.eth.getBalance(C);
 
-    console.log(beforeBalanceA);
-    console.log(afterBalanceA);
-    expect(parseInt(afterBalanceA) - parseInt(beforeBalanceA)).to.equal(0);
-    expect(parseInt(afterBalanceB) - parseInt(beforeBalanceB)).to.equal(0);
-    expect(parseInt(afterBalanceC) - parseInt(beforeBalanceC)).to.equal(0);
+    expect(web3.utils.toBN(afterBalanceA).sub(web3.utils.toBN(beforeBalanceA)).toNumber()).to.equal(1);
+    expect(web3.utils.toBN(afterBalanceB).sub(web3.utils.toBN(beforeBalanceB)).toNumber()).to.equal(3);
+    expect(web3.utils.toBN(afterBalanceC).sub(web3.utils.toBN(beforeBalanceC)).toNumber()).to.equal(5);
+
+    status = await culotte.ballotStatus(candidate);
+    expect(status.pros.toNumber()).to.equal(0);
+    expect(status.cons.toNumber()).to.equal(0);
+    expect(status.opened).to.equal(false);
+    expect(status.elected).to.equal(true);
+
+    cashierBalance = await culotte.cashierBalance();
+    console.log('cashierBalance: ' + cashierBalance.toNumber());
+
+    blockNumber = await web3.eth.getBlockNumber();
+    console.log('end blockNumber: ' + blockNumber);
+
+    // expect(cashierBalance.toNumber()).to.equal(200);
+
+    let beforeBalanceCandidate = await web3.eth.getBalance(candidate);
+    await culotte.payback();
+    let afterBalanceCandidate = await web3.eth.getBalance(candidate);
+
+    expect(web3.utils.toBN(afterBalanceCandidate).sub(web3.utils.toBN(beforeBalanceCandidate)).toNumber()).to.equal(1);
 
   });
 

@@ -1,0 +1,42 @@
+
+.title {
+	text-align: center;
+	font-size: 2em;
+margin-bottom: 25px;
+}
+
+.purpose {
+	position: relative;
+	margin-top: 40px;
+	text-align: center;
+	font-size: 1em;
+	color: black;
+}
+
+.ethAmount {
+	position:relative;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	font-size: 2em;
+	text-align: center;
+	max-width: 35%;
+	min-width: 135px;
+}
+
+.tab {
+	margin-top: 15px;
+}
+
+.amounts {
+	margin-left: 35%;
+}
+
+.button {
+	min-width: 145px;
+}
+
+.fields{
+	max-width: 50%;
+	text-align:center;
+	margin: auto;
+}

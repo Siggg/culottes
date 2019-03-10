@@ -44,6 +44,10 @@ Axel connects with Metamask and votes no.
 
 Or not.
 
+## Candidates compare their contributions
+
+[This issue report](https://github.com/Siggg/culottes/issues/1) shows how github contributors could publish their Ethereum address so that anyone can vote for or against their address once they have visited the associated github profile and its contribution activity.
+
 ## Explore open elections
 
 The culottes page displays the list of elections and their status : verdict issued or not ? accepted or rejected ? how much Eth distributed to each so far ? how many votes for and against each candidate.

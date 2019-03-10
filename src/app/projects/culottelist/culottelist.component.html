@@ -1,28 +1,40 @@
 <div>
 	<div class="title">
-			Culottes "{{ title }}""
+			Are you "{{ purpose }}" ?
 	</div>
-	<div class="purpose">
+	<div class="purpose" style="display:none">
 		{{ purpose }}
 	</div>
 	
 	<div class="amounts">
 		<div class="ethAmount">
 			<div class="ui segment">	
-			Current culottes
+			Common pool to be distributed
 				<div class="ui left labeled button" tabindex="0">
 					<a class="ui basic label">
-						4.27
+						{{ cashierBalance }}
 					</a>
 					<div class="ui icon button">
 						ETH
 					</div>
 				</div>
 			</div>
+                        <div class="ui segment">
+                        Donate to the pool
+                        <div><button class="ui icon button">
+                            <i class="plus circle icon"></i>
+                        </button></div>
+                        </div>
+                        <div class="ui segment">
+                        Vote and bet for a new address
+                        <div><button class="ui icon button">
+                           <i class="thumbs up outline icon"></i>
+                        </button></div>
+                        </div>
 		</div>
-		<div class="ethAmount">
+		<div class="ethAmount" style="display:none">
 			<div class="ui segment">
-				Already distributed
+				Distributed so far
 				<div class="ui left labeled button" tabindex="0">
 					<a class="ui basic label">
 						72.32

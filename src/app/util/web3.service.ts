@@ -57,6 +57,9 @@ export class Web3Service {
     return contractAbstraction;
   }*/
 
+  public etherToWei(etherAmount) {
+    return this.web3.utils.toWei(etherAmount);
+  }
 
   public async artifactsToContract(artifacts) {
     if (!this.web3) {

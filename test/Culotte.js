@@ -13,6 +13,7 @@ contract('Culotte', function(accounts) {
 
   });
 
+
   it("Vote", async function() {
     const culotte = await Culotte.deployed();
 
@@ -129,6 +130,14 @@ contract('Culotte', function(accounts) {
     let afterBalanceCandidate = await web3.eth.getBalance(candidate);
 
     expect(web3.utils.toBN(afterBalanceCandidate).sub(web3.utils.toBN(beforeBalanceCandidate)).toNumber()).to.equal(1);
+
+  });
+
+  it("Fallback", async function() {
+    const culotte = await Culotte.deployed();
+    await web3.eth.sendTransaction({from: accounts[9], to: culotte.address, value: 100});
+    let cashierBalance = await culotte.cashierBalance();
+    expect(cashierBalance.toNumber()).to.equal(102);
 
   });
 

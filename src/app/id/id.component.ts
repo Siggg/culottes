@@ -43,9 +43,9 @@ onClickMeT() {
 		this.isOk=true;
 	else {
 		this.isOk=false;
-		console.log(this.account)
-		this.web3_eth_contract.methods.vote(true, this.address)
-		.send({from: this.account, value: this.amount})
+		const weiAmount = this.web3Service.etherToWei(this.amount);
+		console.log(weiAmount)
+		this.web3_eth_contract.methods.vote(true, this.address).send({from: this.account, value: weiAmount})
 	}
 }
 
@@ -54,9 +54,9 @@ onClickMeF() {
 		this.isOk=true;
 		else {
 			this.isOk=false;
-			console.log(this.account)
-			this.web3_eth_contract.methods.vote(false, this.address)
-			.send({from: this.account, value: this.amount})
+			const weiAmount = this.web3Service.etherToWei(this.amount);
+			console.log(weiAmount)
+			this.web3_eth_contract.methods.vote(false, this.address).send({from: this.account, value: weiAmount})
 		}
 }
 

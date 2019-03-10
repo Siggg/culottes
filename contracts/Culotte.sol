@@ -151,4 +151,7 @@ contract Culotte {
     return (ballot.opened, ballot.elected, ballot.pros.amount, ballot.cons.amount);
   }
 
+  function() payable external {
+    cashierBalance += msg.value;
+  }
 }

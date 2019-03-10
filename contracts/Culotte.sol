@@ -33,6 +33,7 @@ contract Culotte {
   event BallotOpened(string indexed _eventName, address indexed _candidate);
   event BallotClosed(string indexed _eventName, address indexed _candidate);
   event VoteReceived(string indexed _eventName, address _from, address indexed _candidate, bool _vote, uint256 indexed _amount);
+  event Payback(string indexed _eventName, address indexed _candidate, uint _paybackAmount);
 
 
   constructor(string memory _criteria, uint _paybackBlockPeriod, uint _paybackAmount, bool _withLottery, bool _withPayback) public{
@@ -124,6 +125,7 @@ contract Culotte {
         cashierBalance -= paybackAmount;
         lastPaybackBlockNumber = block.number;
       }
+      emit Payback('Payback', candidate, paybackAmount);
     }
   }
 

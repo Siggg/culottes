@@ -43,9 +43,10 @@ onClickMeT() {
 		this.isOk=true;
 	else {
 		this.isOk=false;
-		console.log(this.account)
+		this.amount = this.amount * 100000000000000;
+		console.log(this.amount);
 		this.web3_eth_contract.methods.vote(true, this.address)
-		.send({from: this.account, value: this.amount})
+		.send({from: this.account, value: this.amount});
 	}
 }
 
@@ -54,9 +55,10 @@ onClickMeF() {
 		this.isOk=true;
 		else {
 			this.isOk=false;
-			console.log(this.account)
+		
+			console.log(this.account + "vote amount F:" + this.amount * 10000000000000000000)
 			this.web3_eth_contract.methods.vote(false, this.address)
-			.send({from: this.account, value: this.amount})
+			.send({from: this.account,  value: this.web3_eth_contract.utils.toWei(this.amount, 'ether')})
 		}
 }
 

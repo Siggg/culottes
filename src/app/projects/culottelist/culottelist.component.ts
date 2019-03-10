@@ -13,7 +13,7 @@ export class CulottelistComponent implements OnInit {
 
 	title: String = "Open Source Contributors"
 	purpose: String = "Owners of addresses are frequent contributors to Open Source projects"
-        cashierBalance: String = "0"
+    cashierBalance: String = "1"
 	culottes: any;
 	account: any;
 
@@ -26,7 +26,7 @@ async ngOnInit() {
     console.log(this);
     this.watchAccount();
     let web3_eth_contract = await this.web3Service.artifactsToContract(culotteABI);
-    this.purpose = await web3_eth_contract.methods.criteria().call();
+	this.purpose = await web3_eth_contract.methods.criteria().call();
     this.cashierBalance = await web3_eth_contract.methods.cashierBalance().call();
 }
 

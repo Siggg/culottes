@@ -21,6 +21,7 @@ import { CulottelistComponent } from "./projects/culottelist/culottelist.compone
 import { AboutComponent } from "./about/about.component";
 import { OpenelectionComponent } from "./projects/electionTabs/openelection/openelection.component";
 import { CompletedelectionComponent } from "./projects/electionTabs/completedelection/completedelection.component";
+import { IdComponent } from './id/id.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CompletedelectionComponent } from "./projects/electionTabs/completedele
     CulottelistComponent,
     AboutComponent,
     OpenelectionComponent,
-    CompletedelectionComponent
+	CompletedelectionComponent,
+	IdComponent
   ],
   imports: [
     SuiModule,
@@ -43,7 +45,7 @@ import { CompletedelectionComponent } from "./projects/electionTabs/completedele
     FormsModule,
     HttpClientModule,
     MetaModule,
-    AppRoutingModule
+	AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

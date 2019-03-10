@@ -1,0 +1,61 @@
+<div>
+	<div class="title">
+			Address:<br/>{{ address }}
+	</div>
+
+	<div class="purpose">
+		Purpose:<br/>
+		{{ purpose }}
+	</div>
+
+	<div class="purpose">
+		<div class="ui left icon input">
+			<input [(ngModel)]="amount" type="number" placeholder="Bet some ETH...">
+		</div>
+	</div>
+	<div  *ngIf="isOk" >
+		<div class="ui red inverted segment center aligned" style="margin-top: 15px">
+				Should not be empty / Should contain only numbers
+		</div>
+	</div>
+	<div class="ui placeholder segment">
+		<div class="ui two column stackable center aligned grid">
+		  			
+			<div class="middle aligned row">
+			<div class="column">
+			  <div class="ui icon header">
+				<i class="thumbs up icon"></i>
+			  </div>
+			  <div class="field">
+				<div class="ui search">
+				  <div class="ui icon input">
+					<button (click)="onClickMeT()" class="ui primary button">
+							Vote For 
+					  </button>
+				  </div>
+				  <div class="results"></div>
+				</div>
+			  </div>
+			</div>
+
+
+
+			<div class="column">
+				<div class="ui icon header">
+				  <i class="thumbs down icon"></i>
+				</div>
+				<div class="field">
+				  <div class="ui search">
+					<div class="ui icon input">
+					  <button  (click)="onClickMeF()" class="ui primary button">
+						  Vote Against
+						</button>
+					</div>
+					<div class="results"></div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</div>
+	  </div>
+</div>

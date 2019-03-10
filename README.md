@@ -6,18 +6,18 @@ Anybody can claim they match the cause requirements and apply for income. Anybod
 
 Specific culottes could redistribute income for specific causes:
 
-* big contributors to **opensource software projects**
-* great **artists** with not so great income
-* winners of oceans cleaning bounties who keep **cleaning beaches** once bounties are over
-* big contributors to the **Wikipedia**
-* **social entrepreneurs** with a proven track of record
-* people currently living in **Mali**
-* people struggling with **less than 1 dollar of income per day*
-* volunteers who give almost 100% of their culottes income directly to **homeless people**
-* _What's your social justice cause ? It probably deserves its own culottes game and source of income!_
+* [big contributors to **opensource software projects**](/src/index.html)
+* [great **artists** with not so great income](how_to.md)
+* [winners of oceans cleaning bounties who keep **cleaning beaches** once bounties are over](how_to.md)
+* [big contributors to the **Wikipedia**](how_to.md)
+* [**social entrepreneurs** with a proven track of record](how_to.md)
+* [people currently living in **Mali**](how_to.md)
+* [people struggling with **less than 1 dollar of income per day*](how_to.md)
+* [volunteers who give almost 100% of their culottes income directly to **homeless people**](how_to.md)
+* [_What's your social justice cause ? It probably deserves its own culottes game and source of income!_](how_to.md)
 * ...
 
-Thanks to the culottes system, truth prevails more often than not and your culottes can enable social justice. Game theorists call this voting and betting system a "Schelling game". It can serve any decentralized cause. It runs on the Ethereum blockchain. It is distributed under the GNU Affero General Public License 3.0.
+Thanks to the culottes system, truth prevails more often than not and your culottes can enable social justice. Game theorists call this voting and betting system a "Schelling game". It can serve any decentralized cause and you can [create your own culottes for your community cause](how_to.md). It runs on the Ethereum blockchain. It is distributed under the GNU Affero General Public License 3.0.
 
 See also the culottes board game : it is a paper-based simulation of this software application and can be played with your friends from https://siggg.gitlab.io/culottes
 

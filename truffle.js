@@ -19,6 +19,7 @@
  */
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
+// Jean : const infuraKey = "3903f5945dfc4bf594b0efd21192d969";
 const infuraKey = "290a3dc9e27547d382d719e6c17f75fe";
 const fs = require('fs');
 const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -55,7 +56,9 @@ module.exports = {
     },
 
     infura: {
-      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
+      provider: function() {
+        return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`);
+      },
       network_id: "4"
     }
 

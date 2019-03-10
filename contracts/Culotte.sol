@@ -28,7 +28,7 @@ contract Culotte {
 
 
   constructor() public{
-    criteria = 'Is a great OSS contributor';
+    criteria = 'a frequent contributor to open source projects';
   }
 
   function vote(bool _vote, address payable _candidate, bool _withLottery) public payable {

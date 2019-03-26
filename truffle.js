@@ -22,7 +22,14 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 // Jean : const infuraKey = "3903f5945dfc4bf594b0efd21192d969";
 const infuraKey = "290a3dc9e27547d382d719e6c17f75fe";
 const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
+const mnemonic = "";
+try {
+  fs.readFileSync(".secret").toString().trim();
+}
+catch(error) {
+  console.log(error);
+  console.log("Maybe you forgot to create a .secret file with the secret seed phrase of your wallet ?")
+}
 
 module.exports = {
   /**

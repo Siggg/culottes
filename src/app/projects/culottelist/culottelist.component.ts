@@ -12,7 +12,7 @@ const culotteABI = require('../../../../build/contracts/Culotte.json')
 export class CulottelistComponent implements OnInit {
 
 	title: String = "Open Source Contributors"
-	purpose: String = "Owners of addresses are frequent contributors to Open Source projects"
+	purpose: String = "a frequent contributor to open source projects"
     cashierBalance: String = "1"
 	culottes: any;
 	account: any;

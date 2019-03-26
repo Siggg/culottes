@@ -13,6 +13,7 @@ npm test
 ng e2e
 ng lint
 
+npm run build
 
 #(0) 0x627306090abab3a6e1400e9345bc60c78a8bef57
 #(1) 0xf17f52151ebef6c7334fad080c5704d77216b732

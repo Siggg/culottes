@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "node patch.js",
+    "build": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs",
     "deploy": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs && npx ngh --dir=docs"
   },
   "private": true,

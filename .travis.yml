@@ -4,8 +4,41 @@ addons:
 language: node_js
 node_js:
 - "lts/*"
-install: ./ci/install-deps.sh
-script: ./ci/build.sh
+
+# fails as soon as an error occurs
+matrix:
+  fast_finish: true
+
+# puts node_modules in cache
+# please note that, with open libraries used via npm, 'npm prune' is
+# strongly recommended so that tests are not executed on packages
+# that would still be in cache but would not be in package.json
 cache:
   directories:
     - node_modules
+
+before_install:
+  - npm prune
+
+install: ./ci/install-deps.sh
+script: ./ci/build.sh
+
+deploy:
+  provider: pages
+
+  # very important : we keep our build or our built files would get deleted
+  skip_cleanup: true
+
+  # I suppose the value is read from travis-ci.org user config
+  github_token: $GITHUB_TOKEN
+  local_dir: docs
+  on:
+    branch: master
+
+# environment variables
+env:
+  global:
+    - NODE_ENV=production
+    - GIT_DEPLOY_REPO=https://$GITHUB_TOKEN@github.com/siggg/culottes.git
+
+# useful tips found at https://putaindecode.io/articles/deploiement-continu-avec-travis-ci-et-gh-pages/

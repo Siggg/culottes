@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 set -x
 set -e
-ganache-cli -m "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat" > /dev/null &
+ganache-cli -m "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat" &
+# > /dev/null &
 GANACHE_PID=$!
 trap "kill $GANACHE_PID" EXIT INT TERM
 

@@ -27,7 +27,7 @@ export class NewCitizenComponent implements OnInit {
 async ngOnInit() {
 	this.getAddress();
 	this.watchAccount();
-    this.web3Service.artifactsToContract(bastilleABI)
+    this.web3Service.artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
 		  	this.web3_eth_contract = web3_eth_contract;
 			return web3_eth_contract.methods.criteria().call();

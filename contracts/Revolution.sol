@@ -103,37 +103,50 @@ contract Revolution {
 
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
-    // and the winner is ...
-    // By default, citizens are seen as privileged.
+    // Issue a verdict : is this citizen a sans-culotte or a privileged ?
+    // By default, citizens are seen as privileged...
     JusticeScale storage winnerScale = trial.privilegedScale;
     JusticeScale storage loserScale = trial.sansculotteScale;
     trial.isSansculotte = false;
-    // Unless they get more votes on their sans-culotte scale than on their privileged scale.
+    // .. unless they get more votes on their sans-culotte scale than on their privileged scale.
     if (trial.sansculotteScale.amount > trial.privilegedScale.amount) {
       winnerScale = trial.sansculotteScale;
       loserScale = trial.privilegedScale;
       trial.isSansculotte = true;
     }
+
+    // Compute Bastille virtual vote
+    uint256 bastilleVote = winnerScale.amount - loserScale.amount;
+
     // distribute cakes to winners
     for (uint i = 0; i < winnerScale.voters.length; i++) {
       address payable voter = winnerScale.voters[i];
+      // First distribute cakes from the winner scale, also known as winning cakes
       // How many cakes did this voter put on the winnerScale ?
       uint256 winningCakes = winnerScale.votes[voter];
-      uint256 lostCakes = loserScale.amount * winnerScale.votes[voter] / winnerScale.amount;
-      voter.transfer(winningCakes);
-      voter.transfer(lostCakes);
+      // Send them back
       winnerScale.votes[voter]=0;
+      voter.transfer(winningCakes);
+      // How many cakes from the loser scale are to be rewarded to this winner citizen ?
+      // Rewards should be a share of the lost cakes that is proportionate to the fraction of
+      // winning cakes that were voted by this voting citizen, pretending that the Bastille
+      // itself took part in the vote.
+      uint256 rewardCakes = loserScale.amount * winningCakes / ( winnerScale.amount + bastilleVote );
+      // Send their fair share of lost cakes as reward.
+      voter.transfer(rewardCakes);
     }
-    // Compute Bastille virtual vote
-    bastilleBalance = winnerScale.amount - loserScale.amount;
+   
+    // distribute cakes to the Bastille
+    bastilleBalance += loserScale.amount * bastilleVote / ( winnerScale.amount + bastilleVote );
 
-    // share remaining lost cakes among winners proportionately to their winning votes
+    // Empty the winner scale
+    winnerScale.amount = 0;
+
+    // Empty the loser scale
     for (uint i = 0; i < loserScale.voters.length; i++) {
       address payable voter = loserScale.voters[i];
       loserScale.votes[voter]=0;
     }
-
-    winnerScale.amount = 0;
     loserScale.amount = 0;
 
   }

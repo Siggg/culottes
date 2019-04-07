@@ -25,8 +25,8 @@ contract Revolution {
   // received into a positive (or negative) justice scale.
   struct JusticeScale {
     address payable [] voters;
-    mapping (address => uint256) votes;
-    uint256 amount;
+    mapping (address => uint) votes;
+    uint amount;
   }
 
   // This the revolutionary trial for a given citizen
@@ -36,7 +36,7 @@ contract Revolution {
     JusticeScale privilegedScale;
     uint blockNumber;
     bool opened;
-    bool isSansculotte;
+    bool matchesCriteria;
   }
 
   // Citizens known at this Revolution
@@ -45,14 +45,14 @@ contract Revolution {
   mapping (address => Trial) private trials;
 
   // This is the amount of cakes in the Bastille
-  uint256 public bastilleBalance;
+  uint public bastilleBalance;
 
   // Start of new trial for a given citizen
   event TrialOpened(string indexed _eventName, address indexed _citizen);
   // End of trial for a given citizen
   event TrialClosed(string indexed _eventName, address indexed _citizen);
   // New cake-vote received for a given citizen
-  event VoteReceived(string indexed _eventName, address _from, address indexed _citizen, bool _vote, uint256 indexed _amount);
+  event VoteReceived(string indexed _eventName, address _from, address indexed _citizen, bool _vote, uint indexed _amount);
   // 
   event Distribution(string indexed _eventName, address indexed _citizen, uint _distributionAmount);
 
@@ -107,23 +107,33 @@ contract Revolution {
     // By default, citizens are seen as privileged...
     JusticeScale storage winnerScale = trial.privilegedScale;
     JusticeScale storage loserScale = trial.sansculotteScale;
-    trial.isSansculotte = false;
+    trial.matchesCriteria = false;
     // .. unless they get more votes on their sans-culotte scale than on their privileged scale.
     if (trial.sansculotteScale.amount > trial.privilegedScale.amount) {
       winnerScale = trial.sansculotteScale;
       loserScale = trial.privilegedScale;
-      trial.isSansculotte = true;
+      trial.matchesCriteria = true;
     }
 
     // Compute Bastille virtual vote
-    uint256 bastilleVote = winnerScale.amount - loserScale.amount;
+    uint bastilleVote = winnerScale.amount - loserScale.amount;
 
-    // distribute cakes to winners
+    // Distribute cakes to winners as rewards
+    // Side note : the reward scheme slightly differs from the culottes board game rules
+    // regarding the way decimal fractions of cakes to be given as rewards to winners are managed.
+    // The board game stipulates that fractions are rounded to the nearest integer and reward cakes
+    // are given in the descending order of winners (bigger winners first). But the code below
+    // states that only the integer part of reward cakes is taken into account. And the remaining
+    // reward cakes are put back into the Bastille. This slightly lessens the number of cakes
+    // rewarded to winners and slightly increases the number of cakes given to the Bastille.
+    // The main advantage is that it simplifies the algorithm a bit.
+    // But this rounding difference should not matter when dealing with Weis instead of real cakes.
+    uint remainingRewardCakes = loserScale.amount;
     for (uint i = 0; i < winnerScale.voters.length; i++) {
       address payable voter = winnerScale.voters[i];
       // First distribute cakes from the winner scale, also known as winning cakes
       // How many cakes did this voter put on the winnerScale ?
-      uint256 winningCakes = winnerScale.votes[voter];
+      uint winningCakes = winnerScale.votes[voter];
       // Send them back
       winnerScale.votes[voter]=0;
       voter.transfer(winningCakes);
@@ -131,13 +141,14 @@ contract Revolution {
       // Rewards should be a share of the lost cakes that is proportionate to the fraction of
       // winning cakes that were voted by this voting citizen, pretending that the Bastille
       // itself took part in the vote.
-      uint256 rewardCakes = loserScale.amount * winningCakes / ( winnerScale.amount + bastilleVote );
+      uint rewardCakes = loserScale.amount * winningCakes / ( winnerScale.amount + bastilleVote );
       // Send their fair share of lost cakes as reward.
       voter.transfer(rewardCakes);
+      remainingRewardCakes -= rewardCakes;
     }
    
     // distribute cakes to the Bastille
-    bastilleBalance += loserScale.amount * bastilleVote / ( winnerScale.amount + bastilleVote );
+    bastilleBalance += remainingRewardCakes;
 
     // Empty the winner scale
     winnerScale.amount = 0;
@@ -152,22 +163,29 @@ contract Revolution {
   }
 
   function distribute() public {
+    // For each citizen trial
     for (uint i = 0; i < citizens.length; i++) {
       address payable citizen = citizens[i];
       Trial memory trial = trials[citizen];
+      // Is the trial closed ?
+      // Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?
+      // Does the Bastille have more cakes left than the amount to be distributed ?
+      // Did the last distribution happen long enough ago ?
       if (!trial.opened &&
-          trial.isSansculotte &&
+          trial.matchesCriteria &&
           bastilleBalance > distributionAmount &&
-          (block.number >= lastDistributionBlockNumber + distributionBlockPeriod)) {
+          (block.number - lastDistributionBlockNumber >= distributionBlockPeriod)) {
+        // Then send this sans-culotte its fair share of Bastille cakes.
         citizen.transfer(distributionAmount);
         bastilleBalance -= distributionAmount;
+        // Remember when this distribution happened.
         lastDistributionBlockNumber = block.number;
       }
       emit Distribution('Distribution', citizen, distributionAmount);
     }
   }
 
-  function getAmount(bool _vote, address _citizen) public view returns (uint256){
+  function getAmount(bool _vote, address _citizen) public view returns (uint){
     Trial storage trial = trials[_citizen]; 
     if (_vote)
       return trial.sansculotteScale.amount;
@@ -176,6 +194,7 @@ contract Revolution {
   }
 
   function closingLottery() private view returns (bool) {
+    // returns true with a 30% probability ; false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint res = randomHash % 10;
     if(res > 6) {
@@ -184,9 +203,9 @@ contract Revolution {
     return false;
   }
 
-  function trialStatus(address _citizen) public view returns(bool opened, bool isSansculotte, uint256 sansculotteScale, uint256 privilegedScale) {
+  function trialStatus(address _citizen) public view returns(bool opened, bool matchesCriteria, uint sansculotteScale, uint privilegedScale) {
     Trial memory trial = trials[_citizen];
-    return (trial.opened, trial.isSansculotte, trial.sansculotteScale.amount, trial.privilegedScale.amount);
+    return (trial.opened, trial.matchesCriteria, trial.sansculotteScale.amount, trial.privilegedScale.amount);
   }
 
   function() payable external {

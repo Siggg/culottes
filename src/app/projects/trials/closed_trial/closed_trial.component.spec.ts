@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompletedelectionComponent } from './completedelection.component';
+import { ClosedtrialComponent } from './closed_trial.component';
 
-describe('CompletedelectionComponent', () => {
-  let component: CompletedelectionComponent;
-  let fixture: ComponentFixture<CompletedelectionComponent>;
+describe('ClosedtrialComponent', () => {
+  let component: ClosedtrialComponent;
+  let fixture: ComponentFixture<ClosedtrialComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CompletedelectionComponent ]
+      declarations: [ ClosedtrialComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CompletedelectionComponent);
+    fixture = TestBed.createComponent(ClosedtrialComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

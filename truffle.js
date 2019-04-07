@@ -28,7 +28,7 @@ try {
 }
 catch(error) {
   console.log(error);
-  console.log("Maybe you forgot to create a .secret file with the secret seed phrase of your wallet ?")
+  console.log("Maybe you have no .secret file in this environment and that's why there's this error log. But you may ignore it if you are just running tests.");
 }
 
 module.exports = {

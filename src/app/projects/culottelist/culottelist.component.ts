@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Web3Service} from '../../util/web3.service';
 
 declare let require:any;
-const culotteABI = require('../../../../build/contracts/Culotte.json')
+const contractABI = require('../../../../build/contracts/Bastille.json')
 
 @Component({
   selector: 'app-culottelist',
@@ -12,8 +12,8 @@ const culotteABI = require('../../../../build/contracts/Culotte.json')
 export class CulottelistComponent implements OnInit {
 
 	title: String = "Open Source Contributors"
-	purpose: String = "a frequent contributor to open source projects"
-    cashierBalance: String = "1"
+	criteria: String = "a frequent contributor to open source projects"
+    bastilleBalance: String = "1"
 	culottes: any;
 	account: any;
 
@@ -25,9 +25,9 @@ async ngOnInit() {
 	console.log('OnInit: ' + this.web3Service);
     console.log(this);
     this.watchAccount();
-    let web3_eth_contract = await this.web3Service.artifactsToContract(culotteABI);
-	this.purpose = await web3_eth_contract.methods.criteria().call();
-    this.cashierBalance = await web3_eth_contract.methods.cashierBalance().call();
+    let web3_eth_contract = await this.web3Service.artifactsToContract(contractABI);
+	this.criteria = await web3_eth_contract.methods.criteria().call();
+    this.bastilleBalance = await web3_eth_contract.methods.bastilleBalance().call();
 }
 
 async watchAccount() {

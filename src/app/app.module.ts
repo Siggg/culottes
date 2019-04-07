@@ -19,22 +19,22 @@ import {
 import { SuiModule } from "ng2-semantic-ui";
 import { CulottelistComponent } from "./projects/culottelist/culottelist.component";
 import { AboutComponent } from "./about/about.component";
-import { OpenelectionComponent } from "./projects/electionTabs/openelection/openelection.component";
-import { CompletedelectionComponent } from "./projects/electionTabs/completedelection/completedelection.component";
+import { OpentrialComponent } from "./projects/trials/open_trial/open_trial.component";
+import { ClosedtrialComponent } from "./projects/trials/closed_trial/closed_trial.component";
 import { IdComponent } from './id/id.component';
 import { DonateComponent } from './donate/donate.component';
-import { NewCandidateComponent } from './new-candidate/new-candidate.component';
+import { NewCitizenComponent } from './new-citizen/new-citizen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CulottelistComponent,
     AboutComponent,
-    OpenelectionComponent,
-	CompletedelectionComponent,
-	IdComponent,
-	DonateComponent,
-	NewCandidateComponent
+    OpentrialComponent,
+    ClosedtrialComponent,
+    IdComponent,
+    DonateComponent,
+    NewCitizenComponent
   ],
   imports: [
     SuiModule,

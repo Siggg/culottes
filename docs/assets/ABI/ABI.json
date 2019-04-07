@@ -30,7 +30,7 @@
           "type": "address"
         }
       ],
-      "name": "BallotOpened",
+      "name": "TrialOpened",
       "type": "event"
     },
     {
@@ -42,7 +42,7 @@
           "type": "address"
         }
       ],
-      "name": "BallotClosed",
+      "name": "TrialClosed",
       "type": "event"
     },
     {
@@ -127,7 +127,7 @@
   "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063633dfc701461006757806371131e16146100b757806384c2caf714610128578063b0afb95b14610157575b600080fd5b6100b56004803603604081101561007d57600080fd5b81019080803515159060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101e7565b005b3480156100c357600080fd5b50610112600480360360408110156100da57600080fd5b81019080803515159060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506104e1565b6040518082815260200191505060405180910390f35b34801561013457600080fd5b5061013d610547565b604051808215151515815260200191505060405180910390f35b34801561016357600080fd5b5061016c6105ae565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101ac578082015181840152602081019050610191565b50505050905090810190601f1680156101d95780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000209050600073ffffffffffffffffffffffffffffffffffffffff168160000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614156102e7577fdce54d332c0714f1ffba57612ac1a768b1ed73e8a6bad9e236aba5b638a4e6e582604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a15b818160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550821561039657348160010160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055503481600201600082825401925050819055506103f8565b348160030160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055503481600401600082825401925050819055505b7fd99b8f3269164ebc710bdbbdba53589c7df9e778c41d74228de52c6e9d4c7023338385604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182151515158152602001935050505060405180910390a180600501544311156104dc574381600501819055506104b8610547565b156104db5760008160060160006101000a81548160ff0219169083151502179055505b5b505050565b600080600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002090508315610538578060020154915050610541565b80600401549150505b92915050565b60008044426040516020018083815260200182815260200192505050604051602081830303815290604052805190602001206001900490506000600a8281151561058d57fe5b06905060068111156105a4576001925050506105ab565b6000925050505b90565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156106445780601f1061061957610100808354040283529160200191610644565b820191906000526020600020905b81548152906001019060200180831161062757829003601f168201915b50505050508156fea165627a7a723058206116373fb3050cb7cac9acc001cf1c0814353a18f5832a6b4625d8219d214cbc0029",
   "sourceMap": "25:1810:1:-;;;501:70;8:9:-1;5:2;;;30:1;27;20:12;5:2;501:70:1;527:39;;;;;;;;;;;;;;;;;;:8;:39;;;;;;;;;;;;:::i;:::-;;25:1810;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
   "deployedSourceMap": "25:1810:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;575:784;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;575:784:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1363:224;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1363:224:1;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1363:224:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1591:242;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1591:242:1;;;;;;;;;;;;;;;;;;;;;;;;;;;47:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;47:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;47:22:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;575:784;642:21;666:7;:19;674:10;666:19;;;;;;;;;;;;;;;642:43;;723:3;695:32;;:6;:16;;;;;;;;;;;;:32;;;691:127;;;787:24;800:10;787:24;;;;;;;;;;;;;;;;;;;;;;691:127;843:10;824:6;:16;;;:29;;;;;;;;;;;;;;;;;;863:5;859:208;;;909:9;878:6;:15;;:27;894:10;878:27;;;;;;;;;;;;;;;;:40;;;;;;;;;;;945:9;926:6;:16;;;:28;;;;;;;;;;;859:208;;;1010:9;975:6;:19;;:31;995:10;975:31;;;;;;;;;;;;;;;;:44;;;;;;;;;;;1051:9;1027:6;:20;;;:33;;;;;;;;;;;859:208;1077:43;1090:10;1102;1114:5;1077:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1145:6;:18;;;1130:12;:33;1127:228;;;1230:12;1209:6;:18;;:33;;;;1291:16;:14;:16::i;:::-;1288:61;;;1335:5;1319:6;:13;;;:21;;;;;;;;;;;;;;;;;;1288:61;1127:228;575:784;;;:::o;1363:224::-;1435:7;1449:21;1473:7;:19;1481:10;1473:19;;;;;;;;;;;;;;;1449:43;;1502:5;1498:84;;;1522:6;:16;;;1515:23;;;;;1498:84;1562:6;:20;;;1555:27;;;1363:224;;;;;:::o;1591:242::-;1638:4;1650:15;1700:16;1717:15;1683:50;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1683:50:1;;;1673:61;;;;;;1668:67;;;1650:85;;1741:8;1765:2;1752:10;:15;;;;;;;;1741:26;;1782:1;1776:3;:7;1773:38;;;1800:4;1793:11;;;;;;1773:38;1823:5;1816:12;;;;1591:242;;:::o;47:22::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.5.0;\n\ncontract Culotte {\n\n  string public criteria;\n\n  struct Ballot {\n    address candidate;\n    mapping (address => uint256) votesFor;\n    uint256 forAmount;\n    mapping (address => uint256)votesAgainst;\n    uint256 againstAmount;\n    uint blockNumber;\n    bool opened;\n  }\n\n  mapping (address => Ballot) private ballots;\n\n  event BallotOpened(address _candidate);\n  event BallotClosed(address _candidate);\n  event VoteReceived(address _from, address _candidate, bool _vote);\n\n\n  constructor() public{\n    criteria = 'Is a great OSS contributor';\n  }\n\n  function vote(bool _vote, address _candidate) public payable {\n    Ballot storage ballot = ballots[_candidate];\n    if (ballot.candidate == address(0x0)) {\n      // this is a new ballot, emit an event\n      emit BallotOpened(_candidate);\n    }\n\n    ballot.candidate = _candidate;\n    if (_vote) {\n      ballot.votesFor[msg.sender] += msg.value;\n      ballot.forAmount+= msg.value;\n    } else {\n      ballot.votesAgainst[msg.sender] += msg.value;\n      ballot.againstAmount += msg.value;\n    }\n    emit VoteReceived(msg.sender, _candidate, _vote);\n\n    if(block.number > ballot.blockNumber) {\n      // update ballot block number\n      ballot.blockNumber = block.number;\n      // start closing ballot lottery\n      if(closingLottery()) {\n        ballot.opened = false;\n      }\n    }\n  }\n\n  function getAmount(bool _vote, address _candidate) public view returns (uint256){\n    Ballot storage ballot = ballots[_candidate];\n    if (_vote)\n      return ballot.forAmount;\n    else\n      return ballot.againstAmount;\n  }\n\n  function closingLottery() public view returns (bool) {\n    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));\n    uint res = randomHash % 10;\n    if(res > 6) {\n      return true;\n    }\n    return false;\n  }\n}\n",
+  "source": "pragma solidity ^0.5.0;\n\ncontract Culotte {\n\n  string public criteria;\n\n  struct Trial {\n    address candidate;\n    mapping (address => uint256) votesFor;\n    uint256 forAmount;\n    mapping (address => uint256)votesAgainst;\n    uint256 againstAmount;\n    uint blockNumber;\n    bool opened;\n  }\n\n  mapping (address => Trial) private ballots;\n\n  event TrialOpened(address _candidate);\n  event TrialClosed(address _candidate);\n  event VoteReceived(address _from, address _candidate, bool _vote);\n\n\n  constructor() public{\n    criteria = 'Is a great OSS contributor';\n  }\n\n  function vote(bool _vote, address _candidate) public payable {\n    Trial storage ballot = ballots[_candidate];\n    if (ballot.candidate == address(0x0)) {\n      // this is a new ballot, emit an event\n      emit TrialOpened(_candidate);\n    }\n\n    ballot.candidate = _candidate;\n    if (_vote) {\n      ballot.votesFor[msg.sender] += msg.value;\n      ballot.forAmount+= msg.value;\n    } else {\n      ballot.votesAgainst[msg.sender] += msg.value;\n      ballot.againstAmount += msg.value;\n    }\n    emit VoteReceived(msg.sender, _candidate, _vote);\n\n    if(block.number > ballot.blockNumber) {\n      // update ballot block number\n      ballot.blockNumber = block.number;\n      // start closing ballot lottery\n      if(closingLottery()) {\n        ballot.opened = false;\n      }\n    }\n  }\n\n  function getAmount(bool _vote, address _candidate) public view returns (uint256){\n    Trial storage ballot = ballots[_candidate];\n    if (_vote)\n      return ballot.forAmount;\n    else\n      return ballot.againstAmount;\n  }\n\n  function closingLottery() public view returns (bool) {\n    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));\n    uint res = randomHash % 10;\n    if(res > 6) {\n      return true;\n    }\n    return false;\n  }\n}\n",
   "sourcePath": "/Users/axel/angu/culottes/contracts/Culotte.sol",
   "ast": {
     "absolutePath": "/Users/axel/angu/culottes/contracts/Culotte.sol",
@@ -190,7 +190,7 @@
             "visibility": "public"
           },
           {
-            "canonicalName": "Culotte.Ballot",
+            "canonicalName": "Culotte.Trial",
             "id": 39,
             "members": [
               {
@@ -415,7 +415,7 @@
                 "visibility": "internal"
               }
             ],
-            "name": "Ballot",
+            "name": "Trial",
             "nodeType": "StructDefinition",
             "scope": 228,
             "src": "74:220:1",
@@ -431,8 +431,8 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-              "typeString": "mapping(address => struct Culotte.Ballot)"
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+              "typeString": "mapping(address => struct Culotte.Trial)"
             },
             "typeName": {
               "id": 42,
@@ -449,19 +449,19 @@
               "nodeType": "Mapping",
               "src": "298:27:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                "typeString": "mapping(address => struct Culotte.Ballot)"
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                "typeString": "mapping(address => struct Culotte.Trial)"
               },
               "valueType": {
                 "contractScope": null,
                 "id": 41,
-                "name": "Ballot",
+                "name": "Trial",
                 "nodeType": "UserDefinedTypeName",
                 "referencedDeclaration": 39,
                 "src": "318:6:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                  "typeString": "struct Culotte.Ballot"
+                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                  "typeString": "struct Culotte.Trial"
                 }
               }
             },
@@ -472,7 +472,7 @@
             "anonymous": false,
             "documentation": null,
             "id": 47,
-            "name": "BallotOpened",
+            "name": "TrialOpened",
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 46,
@@ -515,7 +515,7 @@
             "anonymous": false,
             "documentation": null,
             "id": 51,
-            "name": "BallotClosed",
+            "name": "TrialClosed",
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 50,
@@ -757,19 +757,19 @@
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                        "typeString": "struct Culotte.Ballot"
+                        "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                        "typeString": "struct Culotte.Trial"
                       },
                       "typeName": {
                         "contractScope": null,
                         "id": 74,
-                        "name": "Ballot",
+                        "name": "Trial",
                         "nodeType": "UserDefinedTypeName",
                         "referencedDeclaration": 39,
                         "src": "642:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial"
                         }
                       },
                       "value": null,
@@ -788,8 +788,8 @@
                       "referencedDeclaration": 43,
                       "src": "666:7:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                        "typeString": "mapping(address => struct Culotte.Ballot storage ref)"
+                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                        "typeString": "mapping(address => struct Culotte.Trial storage ref)"
                       }
                     },
                     "id": 78,
@@ -813,8 +813,8 @@
                     "nodeType": "IndexAccess",
                     "src": "666:19:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Ballot_$39_storage",
-                      "typeString": "struct Culotte.Ballot storage ref"
+                      "typeIdentifier": "t_struct$_Trial_$39_storage",
+                      "typeString": "struct Culotte.Trial storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -843,8 +843,8 @@
                         "referencedDeclaration": 75,
                         "src": "695:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 81,
@@ -960,7 +960,7 @@
                               }
                             ],
                             "id": 86,
-                            "name": "BallotOpened",
+                            "name": "TrialOpened",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 47,
@@ -1010,8 +1010,8 @@
                         "referencedDeclaration": 75,
                         "src": "824:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 94,
@@ -1093,8 +1093,8 @@
                                 "referencedDeclaration": 75,
                                 "src": "975:6:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                  "typeString": "struct Culotte.Ballot storage pointer"
+                                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                  "typeString": "struct Culotte.Trial storage pointer"
                                 }
                               },
                               "id": 121,
@@ -1212,8 +1212,8 @@
                               "referencedDeclaration": 75,
                               "src": "1027:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 129,
@@ -1302,8 +1302,8 @@
                                 "referencedDeclaration": 75,
                                 "src": "878:6:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                  "typeString": "struct Culotte.Ballot storage pointer"
+                                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                  "typeString": "struct Culotte.Trial storage pointer"
                                 }
                               },
                               "id": 103,
@@ -1421,8 +1421,8 @@
                               "referencedDeclaration": 75,
                               "src": "926:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 111,
@@ -1641,8 +1641,8 @@
                         "referencedDeclaration": 75,
                         "src": "1145:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 146,
@@ -1693,8 +1693,8 @@
                               "referencedDeclaration": 75,
                               "src": "1209:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 150,
@@ -1811,8 +1811,8 @@
                                     "referencedDeclaration": 75,
                                     "src": "1319:6:1",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                      "typeString": "struct Culotte.Ballot storage pointer"
+                                      "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                      "typeString": "struct Culotte.Trial storage pointer"
                                     }
                                   },
                                   "id": 159,
@@ -1967,19 +1967,19 @@
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                        "typeString": "struct Culotte.Ballot"
+                        "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                        "typeString": "struct Culotte.Trial"
                       },
                       "typeName": {
                         "contractScope": null,
                         "id": 177,
-                        "name": "Ballot",
+                        "name": "Trial",
                         "nodeType": "UserDefinedTypeName",
                         "referencedDeclaration": 39,
                         "src": "1449:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial"
                         }
                       },
                       "value": null,
@@ -1998,8 +1998,8 @@
                       "referencedDeclaration": 43,
                       "src": "1473:7:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                        "typeString": "mapping(address => struct Culotte.Ballot storage ref)"
+                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                        "typeString": "mapping(address => struct Culotte.Trial storage ref)"
                       }
                     },
                     "id": 181,
@@ -2023,8 +2023,8 @@
                     "nodeType": "IndexAccess",
                     "src": "1473:19:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Ballot_$39_storage",
-                      "typeString": "struct Culotte.Ballot storage ref"
+                      "typeIdentifier": "t_struct$_Trial_$39_storage",
+                      "typeString": "struct Culotte.Trial storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -2056,8 +2056,8 @@
                         "referencedDeclaration": 178,
                         "src": "1562:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 188,
@@ -2094,8 +2094,8 @@
                         "referencedDeclaration": 178,
                         "src": "1522:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 185,
@@ -2775,7 +2775,7 @@
             "visibility": "public"
           },
           {
-            "canonicalName": "Culotte.Ballot",
+            "canonicalName": "Culotte.Trial",
             "id": 39,
             "members": [
               {
@@ -3000,7 +3000,7 @@
                 "visibility": "internal"
               }
             ],
-            "name": "Ballot",
+            "name": "Trial",
             "nodeType": "StructDefinition",
             "scope": 228,
             "src": "74:220:1",
@@ -3016,8 +3016,8 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-              "typeString": "mapping(address => struct Culotte.Ballot)"
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+              "typeString": "mapping(address => struct Culotte.Trial)"
             },
             "typeName": {
               "id": 42,
@@ -3034,19 +3034,19 @@
               "nodeType": "Mapping",
               "src": "298:27:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                "typeString": "mapping(address => struct Culotte.Ballot)"
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                "typeString": "mapping(address => struct Culotte.Trial)"
               },
               "valueType": {
                 "contractScope": null,
                 "id": 41,
-                "name": "Ballot",
+                "name": "Trial",
                 "nodeType": "UserDefinedTypeName",
                 "referencedDeclaration": 39,
                 "src": "318:6:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                  "typeString": "struct Culotte.Ballot"
+                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                  "typeString": "struct Culotte.Trial"
                 }
               }
             },
@@ -3057,7 +3057,7 @@
             "anonymous": false,
             "documentation": null,
             "id": 47,
-            "name": "BallotOpened",
+            "name": "TrialOpened",
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 46,
@@ -3100,7 +3100,7 @@
             "anonymous": false,
             "documentation": null,
             "id": 51,
-            "name": "BallotClosed",
+            "name": "TrialClosed",
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 50,
@@ -3342,19 +3342,19 @@
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                        "typeString": "struct Culotte.Ballot"
+                        "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                        "typeString": "struct Culotte.Trial"
                       },
                       "typeName": {
                         "contractScope": null,
                         "id": 74,
-                        "name": "Ballot",
+                        "name": "Trial",
                         "nodeType": "UserDefinedTypeName",
                         "referencedDeclaration": 39,
                         "src": "642:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial"
                         }
                       },
                       "value": null,
@@ -3373,8 +3373,8 @@
                       "referencedDeclaration": 43,
                       "src": "666:7:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                        "typeString": "mapping(address => struct Culotte.Ballot storage ref)"
+                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                        "typeString": "mapping(address => struct Culotte.Trial storage ref)"
                       }
                     },
                     "id": 78,
@@ -3398,8 +3398,8 @@
                     "nodeType": "IndexAccess",
                     "src": "666:19:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Ballot_$39_storage",
-                      "typeString": "struct Culotte.Ballot storage ref"
+                      "typeIdentifier": "t_struct$_Trial_$39_storage",
+                      "typeString": "struct Culotte.Trial storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -3428,8 +3428,8 @@
                         "referencedDeclaration": 75,
                         "src": "695:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 81,
@@ -3545,7 +3545,7 @@
                               }
                             ],
                             "id": 86,
-                            "name": "BallotOpened",
+                            "name": "TrialOpened",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 47,
@@ -3595,8 +3595,8 @@
                         "referencedDeclaration": 75,
                         "src": "824:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 94,
@@ -3678,8 +3678,8 @@
                                 "referencedDeclaration": 75,
                                 "src": "975:6:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                  "typeString": "struct Culotte.Ballot storage pointer"
+                                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                  "typeString": "struct Culotte.Trial storage pointer"
                                 }
                               },
                               "id": 121,
@@ -3797,8 +3797,8 @@
                               "referencedDeclaration": 75,
                               "src": "1027:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 129,
@@ -3887,8 +3887,8 @@
                                 "referencedDeclaration": 75,
                                 "src": "878:6:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                  "typeString": "struct Culotte.Ballot storage pointer"
+                                  "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                  "typeString": "struct Culotte.Trial storage pointer"
                                 }
                               },
                               "id": 103,
@@ -4006,8 +4006,8 @@
                               "referencedDeclaration": 75,
                               "src": "926:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 111,
@@ -4226,8 +4226,8 @@
                         "referencedDeclaration": 75,
                         "src": "1145:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 146,
@@ -4278,8 +4278,8 @@
                               "referencedDeclaration": 75,
                               "src": "1209:6:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                "typeString": "struct Culotte.Ballot storage pointer"
+                                "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                "typeString": "struct Culotte.Trial storage pointer"
                               }
                             },
                             "id": 150,
@@ -4396,8 +4396,8 @@
                                     "referencedDeclaration": 75,
                                     "src": "1319:6:1",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                                      "typeString": "struct Culotte.Ballot storage pointer"
+                                      "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                                      "typeString": "struct Culotte.Trial storage pointer"
                                     }
                                   },
                                   "id": 159,
@@ -4552,19 +4552,19 @@
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                        "typeString": "struct Culotte.Ballot"
+                        "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                        "typeString": "struct Culotte.Trial"
                       },
                       "typeName": {
                         "contractScope": null,
                         "id": 177,
-                        "name": "Ballot",
+                        "name": "Trial",
                         "nodeType": "UserDefinedTypeName",
                         "referencedDeclaration": 39,
                         "src": "1449:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial"
                         }
                       },
                       "value": null,
@@ -4583,8 +4583,8 @@
                       "referencedDeclaration": 43,
                       "src": "1473:7:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Ballot_$39_storage_$",
-                        "typeString": "mapping(address => struct Culotte.Ballot storage ref)"
+                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Trial_$39_storage_$",
+                        "typeString": "mapping(address => struct Culotte.Trial storage ref)"
                       }
                     },
                     "id": 181,
@@ -4608,8 +4608,8 @@
                     "nodeType": "IndexAccess",
                     "src": "1473:19:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Ballot_$39_storage",
-                      "typeString": "struct Culotte.Ballot storage ref"
+                      "typeIdentifier": "t_struct$_Trial_$39_storage",
+                      "typeString": "struct Culotte.Trial storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -4641,8 +4641,8 @@
                         "referencedDeclaration": 178,
                         "src": "1562:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 188,
@@ -4679,8 +4679,8 @@
                         "referencedDeclaration": 178,
                         "src": "1522:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Ballot_$39_storage_ptr",
-                          "typeString": "struct Culotte.Ballot storage pointer"
+                          "typeIdentifier": "t_struct$_Trial_$39_storage_ptr",
+                          "typeString": "struct Culotte.Trial storage pointer"
                         }
                       },
                       "id": 185,

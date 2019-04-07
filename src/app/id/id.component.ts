@@ -3,7 +3,7 @@ import {Web3Service} from '../util/web3.service';
 import { ActivatedRoute } from '@angular/router';
 
 declare let require:any;
-const culotteABI = require('../../../build/contracts/Culotte.json');
+const contractABI = require('../../../build/contracts/Bastille.json');
 
 @Component({
   selector: 'app-id',
@@ -13,7 +13,7 @@ const culotteABI = require('../../../build/contracts/Culotte.json');
 export class IdComponent implements OnInit {
 
 	address: String = "0x";
-	purpose: String = "A frequent contributor to Open Source Projects"
+	criteria: String = "A frequent contributor to Open Source Projects"
 	culottes: any;
 	account: any;
 	accounth: any;
@@ -27,7 +27,7 @@ export class IdComponent implements OnInit {
 async ngOnInit() {
 	this.getAddress();
 	this.watchAccount();
-    this.web3Service.artifactsToContract(culotteABI)
+    this.web3Service.artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
 		  	this.web3_eth_contract = web3_eth_contract;
 			return web3_eth_contract.methods.criteria().call();

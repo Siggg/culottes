@@ -1,9 +1,9 @@
 <div>
 	<div class="title">
-			Are you "{{ purpose }}" ?
+			Are you "{{ criteria }}" ?
 	</div>
-	<div class="purpose" style="display:none">
-		{{ purpose }}
+	<div class="criteria" style="display:none">
+		{{ criteria }}
 	</div>
 	
 	<div class="amounts">
@@ -12,7 +12,7 @@
 			Common pool to be distributed
 				<div class="ui left labeled button" tabindex="0">
 					<a class="ui basic label">
-						{{ cashierBalance }}
+						{{ bastilleBalance }}
 					</a>
 					<div class="ui icon button">
 						ETH
@@ -26,7 +26,7 @@
                         </button></a>
                         </div>
                         <div class="ui segment">
-                        <a href="/candidate/">Vote and bet for a new address<br />
+                        <a href="/citizen/">Vote and bet for a new address<br />
                         <button class="ui icon button">
                            <i class="thumbs up outline icon"></i>
                         </button></a>
@@ -47,10 +47,10 @@
 		</div>
 	</div>
 	<div class="tab">
-		<app-completedelection></app-completedelection>
+		<app-closed_trial></app-closed_trial>
 	</div>
 	<div class="tab">
-		<app-openelection></app-openelection>
+		<app-open_trial></app-open_trial>
 	</div>
 </div>
 

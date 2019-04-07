@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms'; 
+import { Web3Service } from '../util/web3.service';
+import { ActivatedRoute } from '@angular/router';
 
 import { DonateComponent } from './donate.component';
 
@@ -6,9 +9,16 @@ describe('DonateComponent', () => {
   let component: DonateComponent;
   let fixture: ComponentFixture<DonateComponent>;
 
+	const fakeActivatedRoute = {
+		snapshot: { data: {} }
+	} as ActivatedRoute;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DonateComponent ]
+	imports: [ FormsModule ],
+	declarations: [ DonateComponent ],
+	providers: [ Web3Service,
+		{ provide: ActivatedRoute, useValue: fakeActivatedRoute } ]
     })
     .compileComponents();
   }));

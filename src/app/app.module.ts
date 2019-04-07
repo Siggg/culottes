@@ -49,7 +49,7 @@ import { NewCitizenComponent } from './new-citizen/new-citizen.component';
     FormsModule,
     HttpClientModule,
     MetaModule,
-	AppRoutingModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

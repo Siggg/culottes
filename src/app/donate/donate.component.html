@@ -1,42 +1,32 @@
 <div>	
-		<div class="criteria">
-			You can only receive income from this pool if you are {{ criteria }}.
+	<div class="criteria">
+		You can only receive income from this pool if you are {{ criteria }}.
+	</div>
+	<div class="criteria">
+		You can donate to this pool by sending ETH to this address :<br/>
+		{{ address }}
+	</div>
+	<div class="criteria">
+		<div class="ui left icon input">
+			<input [(ngModel)]="amount" type="number" placeholder="20">
 		</div>
-		<div class="criteria">
-			You can donate to this pool by sending ETH to this address :<br/>
-			{{ address }}
+	</div>
+	<div  *ngIf="isOk" >
+		<div class="ui red inverted segment center aligned" style="margin-top: 15px">
+			Should not be empty / Should contain only numbers
 		</div>
-	
-		<div class="criteria">
-			<div class="ui left icon input">
-				<input [(ngModel)]="amount" type="number" placeholder="20">
-			</div>
-		</div>
-		
-
-		
-		<div  *ngIf="isOk" >
-			<div class="ui red inverted segment center aligned" style="margin-top: 15px">
-					Should not be empty / Should contain only numbers
-			</div>
-		</div>
-
-
-		<div class="criteria">
-				<div class="field">
-				  <div class="ui search">
-					<div class="ui icon input">
-					  <button  (click)="onClickMe()" class="ui primary button">
-						  DONATE !
-						</button>
-					</div>
-					<div class="results"></div>
-				  </div>
+	</div>
+	<div class="criteria">
+		<div class="field">
+			<div class="ui search">
+				<div class="ui icon input">
+					<button  (click)="onClickMe()" class="ui primary button">
+					  DONATE !
+					</button>
 				</div>
-			  </div>
+				<div class="results"></div>
 			</div>
-
-		
-		
-
+		</div>
+	</div>
+</div>
 

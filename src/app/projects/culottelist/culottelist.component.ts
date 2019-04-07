@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Web3Service} from '../../util/web3.service';
+import { Web3Service } from '../../util/web3.service';
 
 declare let require:any;
 const contractABI = require('../../../../build/contracts/Revolution.json')
@@ -11,7 +11,7 @@ const contractABI = require('../../../../build/contracts/Revolution.json')
 })
 export class CulottelistComponent implements OnInit {
 
-	title: String = "Open Source Contributors"
+	title: String = "Your revolution"
 	criteria: String = "a frequent contributor to open source projects"
     bastilleBalance: String = "1"
 	culottes: any;

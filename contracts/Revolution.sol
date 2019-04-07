@@ -1,12 +1,12 @@
 pragma solidity ^0.5.0;
 
-contract Bastille {
+contract Revolution {
 
   // Criteria the citizen should match to win votes
   // e.g. : "a sans-culotte"
   string public criteria;
 
-  // Minimum number of blocks before next cake distribution from the Bastille
+  // Minimum number of blocks before next cake distribution from the Revolution
   uint distributionBlockPeriod;
 
   // Amount of ETH to be distributed to each citizen matchin criteria
@@ -15,10 +15,10 @@ contract Bastille {
   // Number of the block at last distribution
   uint lastDistributionBlockNumber;
 
-  // Will this Bastille randomly close its votes ?
+  // Will this Revolution randomly close its votes ?
   bool withLottery;
 
-  // Will this Bastille distribute cakes ?
+  // Will this Revolution distribute cakes ?
   bool withDistribution;
 
   // For a given citizen, let's put all positive (or negative) votes
@@ -39,9 +39,9 @@ contract Bastille {
     bool verdict;
   }
 
-  // Citizens known at this Bastille
+  // Citizens known at this Revolution
   address payable [] citizens;
-  // Trials known at this Bastille
+  // Trials known at this Revolution
   mapping (address => Trial) private trials;
 
   // This is the amount of cakes in the Bastille

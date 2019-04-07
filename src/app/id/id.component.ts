@@ -3,7 +3,7 @@ import {Web3Service} from '../util/web3.service';
 import { ActivatedRoute } from '@angular/router';
 
 declare let require:any;
-const contractABI = require('../../../build/contracts/Bastille.json');
+const contractABI = require('../../../build/contracts/Revolution.json');
 
 @Component({
   selector: 'app-id',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Web3Service} from '../../util/web3.service';
 
 declare let require:any;
-const contractABI = require('../../../../build/contracts/Bastille.json')
+const contractABI = require('../../../../build/contracts/Revolution.json')
 
 @Component({
   selector: 'app-culottelist',

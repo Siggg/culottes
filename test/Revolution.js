@@ -1,24 +1,24 @@
-const Bastille = artifacts.require("./Bastille.sol");
+const Revolution = artifacts.require("./Revolution.sol");
 const expect = require('chai').expect;
 
-contract('Bastille', function(accounts) {
+contract('Revolution', function(accounts) {
 
   it("Init", async function() {
-    const bastille = await Bastille.deployed();
-    expect(bastille).to.not.equal(0x0);
-    let balance = await web3.eth.getBalance(bastille.address);
+    const revolution = await Revolution.deployed();
+    expect(revolution).to.not.equal(0x0);
+    let balance = await web3.eth.getBalance(revolution.address);
 
-    const criteria = await bastille.criteria();
+    const criteria = await revolution.criteria();
     expect(criteria).to.equal('a frequent contributor to open source projects');
 
   });
 
 
   it("Vote", async function() {
-    const bastille = await Bastille.deployed();
+    const revolution = await Revolution.deployed();
 
     let citizen = accounts[9];
-    let receipt = await bastille.vote(true, citizen, {value: 100});
+    let receipt = await revolution.vote(true, citizen, {value: 100});
     //expect(receipt.logs.length).to.equal(2);
     expect(receipt.logs[0].event).to.equal('TrialOpened');
     expect(receipt.logs[0].args._citizen).to.equal(citizen);
@@ -28,35 +28,35 @@ contract('Bastille', function(accounts) {
     expect(receipt.logs[1].args._vote).to.equal(true);
     expect(receipt.logs[1].args._amount.toNumber()).to.equal(100);
 
-    let sansculotteAmount = await bastille.getAmount(true, citizen);
+    let sansculotteAmount = await revolution.getAmount(true, citizen);
     expect(sansculotteAmount.toNumber()).to.equal(100);
 
-    receipt = await bastille.vote(false, citizen, {value: 300});
+    receipt = await revolution.vote(false, citizen, {value: 300});
     //expect(receipt.logs.length).to.equal(1);
     expect(receipt.logs[0].args._from).to.equal(accounts[0]);
     expect(receipt.logs[0].args._citizen).to.equal(citizen);
     expect(receipt.logs[0].args._vote).to.equal(false);
 
-    let privilegedAmount = await bastille.getAmount(false, citizen);
+    let privilegedAmount = await revolution.getAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(300);
 
   });
 
   it("Vote closing", async function() {
-    const bastille = await Bastille.deployed();
+    const revolution = await Revolution.deployed();
     let citizen = accounts[9];
 
-    let balance = await web3.eth.getBalance(bastille.address);
+    let balance = await web3.eth.getBalance(revolution.address);
     expect(balance).to.equal('400');
-    let status = await bastille.trialStatus(citizen);
+    let status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(100);
     expect(status.privileged.toNumber()).to.equal(300);
 
-    await bastille.closeTrial(citizen);
+    await revolution.closeTrial(citizen);
 
-    balance = await web3.eth.getBalance(bastille.address);
+    balance = await web3.eth.getBalance(revolution.address);
     expect(balance).to.equal('0');
-    status = await bastille.trialStatus(citizen);
+    status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(0);
     expect(status.privileged.toNumber()).to.equal(0);
 
@@ -66,7 +66,7 @@ contract('Bastille', function(accounts) {
     let blockNumber = await web3.eth.getBlockNumber();
     console.log('start blockNumber: ' + blockNumber);
 
-    const bastille = await Bastille.deployed();
+    const revolution = await Revolution.deployed();
     let A = accounts[1];
     let B = accounts[2];
     let C = accounts[3];
@@ -75,25 +75,25 @@ contract('Bastille', function(accounts) {
 
     let citizen = accounts[9];
 
-    let balance = await web3.eth.getBalance(bastille.address);
+    let balance = await web3.eth.getBalance(revolution.address);
     expect(balance).to.equal('0');
 
-    let bastilleBalance = await bastille.bastilleBalance();
+    let bastilleBalance = await revolution.bastilleBalance();
     expect(bastilleBalance.toNumber()).to.equal(200);
-    let status = await bastille.trialStatus(citizen);
+    let status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(0);
     expect(status.privileged.toNumber()).to.equal(0);
 
-    await bastille.vote(true, citizen, {from: A, value: 1});
-    await bastille.vote(true, citizen, {from: B, value: 2});
-    await bastille.vote(true, citizen, {from: C, value: 3});
-    status = await bastille.trialStatus(citizen);
+    await revolution.vote(true, citizen, {from: A, value: 1});
+    await revolution.vote(true, citizen, {from: B, value: 2});
+    await revolution.vote(true, citizen, {from: C, value: 3});
+    status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(6);
     expect(status.privileged.toNumber()).to.equal(0);
 
-    await bastille.vote(false, citizen, {from: D, value: 2});
-    await bastille.vote(false, citizen, {from: E, value: 2});
-    status = await bastille.trialStatus(citizen);
+    await revolution.vote(false, citizen, {from: D, value: 2});
+    await revolution.vote(false, citizen, {from: E, value: 2});
+    status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(6);
     expect(status.privileged.toNumber()).to.equal(4);
 
@@ -101,7 +101,7 @@ contract('Bastille', function(accounts) {
     let beforeBalanceB = await web3.eth.getBalance(B);
     let beforeBalanceC = await web3.eth.getBalance(C);
 
-    await bastille.closeTrial(citizen);
+    await revolution.closeTrial(citizen);
 
     let afterBalanceA = await web3.eth.getBalance(A);
     let afterBalanceB = await web3.eth.getBalance(B);
@@ -111,13 +111,13 @@ contract('Bastille', function(accounts) {
     expect(web3.utils.toBN(afterBalanceB).sub(web3.utils.toBN(beforeBalanceB)).toNumber()).to.equal(2+1);
     expect(web3.utils.toBN(afterBalanceC).sub(web3.utils.toBN(beforeBalanceC)).toNumber()).to.equal(3+2);
 
-    status = await bastille.trialStatus(citizen);
+    status = await revolution.trialStatus(citizen);
     expect(status.sansculotte.toNumber()).to.equal(0);
     expect(status.privileged.toNumber()).to.equal(0);
     expect(status.opened).to.equal(false);
     expect(status.verdict).to.equal(true);
 
-    bastilleBalance = await bastille.bastilleBalance();
+    bastilleBalance = await revolution.bastilleBalance();
     console.log('bastilleBalance: ' + bastilleBalance.toNumber());
 
     blockNumber = await web3.eth.getBlockNumber();
@@ -127,7 +127,7 @@ contract('Bastille', function(accounts) {
 
     let beforeBalanceCitizen = await web3.eth.getBalance(citizen);
     console.log('beforeBalanceCitizen: ', beforeBalanceCitizen);
-    await bastille.distribute();
+    await revolution.distribute();
     let afterBalanceCitizen = await web3.eth.getBalance(citizen);
     console.log('afterBalanceCitizen: ', afterBalanceCitizen);
 
@@ -136,9 +136,9 @@ contract('Bastille', function(accounts) {
   });
 
   it("Fallback", async function() {
-    const bastille = await Bastille.deployed();
-    await web3.eth.sendTransaction({from: accounts[9], to: bastille.address, value: 100});
-    let bastilleBalance = await bastille.bastilleBalance();
+    const revolution = await Revolution.deployed();
+    await web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 100});
+    let bastilleBalance = await revolution.bastilleBalance();
     expect(bastilleBalance.toNumber()).to.equal(102);
 
   });

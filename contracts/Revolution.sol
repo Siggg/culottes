@@ -32,11 +32,11 @@ contract Revolution {
   // This the revolutionary trial for a given citizen
   struct Trial {
     address payable citizen;
-    JusticeScale sansculotte;
-    JusticeScale privileged;
+    JusticeScale sansculotteScale;
+    JusticeScale privilegedScale;
     uint blockNumber;
     bool opened;
-    bool verdict;
+    bool isSansculotte;
   }
 
   // Citizens known at this Revolution
@@ -75,9 +75,9 @@ contract Revolution {
       trial.citizen = _citizen;
     }
 
-    JusticeScale storage scale = trial.sansculotte;
+    JusticeScale storage scale = trial.sansculotteScale;
     if (!_vote) {
-      scale = trial.privileged;
+      scale = trial.privilegedScale;
     }
     scale.voters.push(msg.sender);
     scale.votes[msg.sender] += msg.value;
@@ -104,34 +104,37 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
     // and the winner is ...
-    JusticeScale storage winner = trial.sansculotte;
-    JusticeScale storage loser = trial.privileged;
-    trial.verdict = true;
-    if (winner.amount < trial.privileged.amount) {
-      winner = trial.privileged;
-      loser = trial.sansculotte;
-      trial.verdict = false;
+    // By default, citizens are seen as privileged.
+    JusticeScale storage winnerScale = trial.privilegedScale;
+    JusticeScale storage loserScale = trial.sansculotteScale;
+    trial.isSansculotte = false;
+    // Unless they get more votes on their sans-culotte scale than on their privileged scale.
+    if (trial.sansculotteScale.amount > trial.privilegedScale.amount) {
+      winnerScale = trial.sansculotteScale;
+      loserScale = trial.privilegedScale;
+      trial.isSansculotte = true;
     }
-    // distribute winning cakes to winners
-    for (uint i = 0; i < winner.voters.length; i++) {
-      address payable voter = winner.voters[i];
-      uint256 winAmount = winner.votes[voter];
-      uint256 loseAmount = loser.amount * winner.votes[voter] / winner.amount;
-      voter.transfer(winAmount);
-      voter.transfer(loseAmount);
-      winner.votes[voter]=0;
+    // distribute cakes to winners
+    for (uint i = 0; i < winnerScale.voters.length; i++) {
+      address payable voter = winnerScale.voters[i];
+      // How many cakes did this voter put on the winnerScale ?
+      uint256 winningCakes = winnerScale.votes[voter];
+      uint256 lostCakes = loserScale.amount * winnerScale.votes[voter] / winnerScale.amount;
+      voter.transfer(winningCakes);
+      voter.transfer(lostCakes);
+      winnerScale.votes[voter]=0;
     }
     // Compute Bastille virtual vote
-    bastilleBalance = winner.amount - loser.amount;
+    bastilleBalance = winnerScale.amount - loserScale.amount;
 
     // share remaining lost cakes among winners proportionately to their winning votes
-    for (uint i = 0; i < loser.voters.length; i++) {
-      address payable voter = loser.voters[i];
-      loser.votes[voter]=0;
+    for (uint i = 0; i < loserScale.voters.length; i++) {
+      address payable voter = loserScale.voters[i];
+      loserScale.votes[voter]=0;
     }
 
-    winner.amount = 0;
-    loser.amount = 0;
+    winnerScale.amount = 0;
+    loserScale.amount = 0;
 
   }
 
@@ -140,7 +143,7 @@ contract Revolution {
       address payable citizen = citizens[i];
       Trial memory trial = trials[citizen];
       if (!trial.opened &&
-          trial.verdict &&
+          trial.isSansculotte &&
           bastilleBalance > distributionAmount &&
           (block.number >= lastDistributionBlockNumber + distributionBlockPeriod)) {
         citizen.transfer(distributionAmount);
@@ -154,9 +157,9 @@ contract Revolution {
   function getAmount(bool _vote, address _citizen) public view returns (uint256){
     Trial storage trial = trials[_citizen]; 
     if (_vote)
-      return trial.sansculotte.amount;
+      return trial.sansculotteScale.amount;
     else
-      return trial.privileged.amount;
+      return trial.privilegedScale.amount;
   }
 
   function closingLottery() private view returns (bool) {
@@ -168,9 +171,9 @@ contract Revolution {
     return false;
   }
 
-  function trialStatus(address _citizen) public view returns(bool opened, bool verdict, uint256 sansculotte, uint256 privileged) {
+  function trialStatus(address _citizen) public view returns(bool opened, bool isSansculotte, uint256 sansculotteScale, uint256 privilegedScale) {
     Trial memory trial = trials[_citizen];
-    return (trial.opened, trial.verdict, trial.sansculotte.amount, trial.privileged.amount);
+    return (trial.opened, trial.isSansculotte, trial.sansculotteScale.amount, trial.privilegedScale.amount);
   }
 
   function() payable external {

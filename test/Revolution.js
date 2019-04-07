@@ -49,16 +49,16 @@ contract('Revolution', function(accounts) {
     let balance = await web3.eth.getBalance(revolution.address);
     expect(balance).to.equal('400');
     let status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(100);
-    expect(status.privileged.toNumber()).to.equal(300);
+    expect(status.sansculotteScale.toNumber()).to.equal(100);
+    expect(status.privilegedScale.toNumber()).to.equal(300);
 
     await revolution.closeTrial(citizen);
 
     balance = await web3.eth.getBalance(revolution.address);
     expect(balance).to.equal('0');
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(0);
-    expect(status.privileged.toNumber()).to.equal(0);
+    expect(status.sansculotteScale.toNumber()).to.equal(0);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
 
   });
 
@@ -81,21 +81,21 @@ contract('Revolution', function(accounts) {
     let bastilleBalance = await revolution.bastilleBalance();
     expect(bastilleBalance.toNumber()).to.equal(200);
     let status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(0);
-    expect(status.privileged.toNumber()).to.equal(0);
+    expect(status.sansculotteScale.toNumber()).to.equal(0);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
 
     await revolution.vote(true, citizen, {from: A, value: 1});
     await revolution.vote(true, citizen, {from: B, value: 2});
     await revolution.vote(true, citizen, {from: C, value: 3});
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(6);
-    expect(status.privileged.toNumber()).to.equal(0);
+    expect(status.sansculotteScale.toNumber()).to.equal(6);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
 
     await revolution.vote(false, citizen, {from: D, value: 2});
     await revolution.vote(false, citizen, {from: E, value: 2});
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(6);
-    expect(status.privileged.toNumber()).to.equal(4);
+    expect(status.sansculotteScale.toNumber()).to.equal(6);
+    expect(status.privilegedScale.toNumber()).to.equal(4);
 
     let beforeBalanceA = await web3.eth.getBalance(A);
     let beforeBalanceB = await web3.eth.getBalance(B);
@@ -112,10 +112,10 @@ contract('Revolution', function(accounts) {
     expect(web3.utils.toBN(afterBalanceC).sub(web3.utils.toBN(beforeBalanceC)).toNumber()).to.equal(3+2);
 
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotte.toNumber()).to.equal(0);
-    expect(status.privileged.toNumber()).to.equal(0);
+    expect(status.sansculotteScale.toNumber()).to.equal(0);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
     expect(status.opened).to.equal(false);
-    expect(status.verdict).to.equal(true);
+    expect(status.isSansculotte).to.equal(true);
 
     bastilleBalance = await revolution.bastilleBalance();
     console.log('bastilleBalance: ' + bastilleBalance.toNumber());

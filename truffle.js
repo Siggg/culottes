@@ -27,7 +27,7 @@ try {
   fs.readFileSync(".secret").toString().trim();
 }
 catch(error) {
-  # console.log(error);
+  // console.log(error);
   console.log("WARNING : Maybe you have no .secret file in this environment and that's why there's this error log. But you may ignore it if you are just running tests.");
 }
 

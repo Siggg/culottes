@@ -21,6 +21,7 @@ before_install:
   - npm prune
 
 install: ./ci/install-deps.sh
+
 script: ./ci/build.sh
 
 deploy:

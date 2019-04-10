@@ -4,3 +4,4 @@ contracts/.placeholder
 test/.placeholder
 build
 node_modules
+package-lock.json

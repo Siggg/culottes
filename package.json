@@ -48,6 +48,9 @@
     "ts-node": "^3.3.0",
     "tslib": "^1.9.0",
     "typescript": "3.1.6",
+    "@types/jasmine": "^2.8.16",
+    "@types/jasminewd2": "^2.0.6",
+    "@types/node": "^6.14.2",
     "web3": "1.0.0-beta.37",
     "webpack": "^4.26.1",
     "zone.js": "^0.8.26"
@@ -55,9 +58,6 @@
   "devDependencies": {
     "@angular-devkit/core": "0.8.1",
     "@angular/language-service": "7.1.0",
-    "@types/jasmine": "^2.8.16",
-    "@types/jasminewd2": "^2.0.6",
-    "@types/node": "^6.14.2",
     "angular-cli-ghpages": "^0.5.3",
     "codelyzer": "^4.4.4",
     "jasmine-spec-reporter": "^4.2.1",

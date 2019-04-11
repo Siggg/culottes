@@ -16,7 +16,7 @@ import {
   MatToolbarModule
 } from "@angular/material";
 
-import { SuiModule } from "ng2-semantic-ui";
+// import { SuiModule } from "ng2-semantic-ui";
 import { CulottelistComponent } from "./projects/culottelist/culottelist.component";
 import { AboutComponent } from "./about/about.component";
 import { OpentrialComponent } from "./projects/trials/open_trial/open_trial.component";
@@ -37,7 +37,7 @@ import { NewCitizenComponent } from './new-citizen/new-citizen.component';
     NewCitizenComponent
   ],
   imports: [
-    SuiModule,
+  //  SuiModule,
     BrowserAnimationsModule,
     CommonModule,
     MatButtonModule,

@@ -7,8 +7,8 @@ describe('angular-truffle-box App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the criteria question', () => {
     page.navigateTo();
-    expect(page.getHeader()).toContain('Angular Truffle Box');
+    expect(page.getCriteria()).toContain('Are they "');
   });
 });

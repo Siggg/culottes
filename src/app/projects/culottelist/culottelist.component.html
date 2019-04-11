@@ -1,6 +1,6 @@
 <div>
-	<div class="title">
-			Are you "{{ criteria }}" ?
+	<div class="title" id="criteria">
+			Are they "{{ criteria }}" ?
 	</div>
 	<div class="criteria" style="display:none">
 		{{ criteria }}
@@ -11,7 +11,7 @@
 			<div class="ui segment">	
 			Common pool to be distributed
 				<div class="ui left labeled button" tabindex="0">
-					<a class="ui basic label">
+					<a class="ui basic label" id="balance">
 						{{ bastilleBalance }}
 					</a>
 					<div class="ui icon button">

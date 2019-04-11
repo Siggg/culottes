@@ -7,8 +7,8 @@ export class AppPage {
     return browser.driver.sleep(1000);
   }
 
-  getHeader() {
-    return element(by.css('mat-toolbar')).getText();
+  getCriteria() {
+    return element(by.id('criteria')).getText();
   }
 
   getButton() {

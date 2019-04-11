@@ -13,9 +13,9 @@ describe('angular-truffle-box meta-sender', () => {
     page.setAddress(0);
     browser.driver.sleep(100);
 
-    expect(page.getBalance()).toBe('10000');
+    expect(page.getBalance()).toBe('1');
 
-    page.setAmount('50');
+    page.setAmount('0.1');
     page.setToAddress('0xf17f52151ebef6c7334fad080c5704d77216b732');
     page.clickSend();
 
@@ -24,10 +24,10 @@ describe('angular-truffle-box meta-sender', () => {
     // Auto-refresh is broken in test for some reason
     page.navigateTo();
 
-    expect(page.getBalance()).toBe('9950');
+    expect(page.getBalance()).toBe('0.9');
     page.clickSelect();
     page.setAddress(1);
     browser.driver.sleep(100);
-    expect(page.getBalance()).toBe('50');
+    expect(page.getBalance()).toBe('1.1');
   });
 });

@@ -12,7 +12,7 @@ truffle test
 
 npm test
 ng e2e
-ng lint
+# ng lint
 
 npm run build
 

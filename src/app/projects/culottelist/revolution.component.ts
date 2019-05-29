@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3Service } from '../../util/web3.service';
+import { Web3Service } from '../util/web3.service';
 
 declare let require:any;
-const contractABI = require('../../../../build/contracts/Revolution.json')
+const contractABI = require('../../../build/contracts/Revolution.json')
 
 @Component({
-  selector: 'app-culottelist',
-  templateUrl: './culottelist.component.html',
-  styleUrls: ['./culottelist.component.css']
+  selector: 'app-revolution',
+  templateUrl: './revolution.component.html',
+  styleUrls: ['./revolution.component.css']
 })
-export class CulottelistComponent implements OnInit {
+export class RevolutionComponent implements OnInit {
 
 	title: String = "Your revolution"
 	criteria: String = "a frequent contributor to open source projects"

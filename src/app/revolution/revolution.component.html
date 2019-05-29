@@ -1,15 +1,18 @@
 <div>
-	<div class="title" id="criteria">
-			Are they "{{ criteria }}" ?
-	</div>
-	<div class="criteria" style="display:none">
-		{{ criteria }}
+	<div class="title">
+		A Bastille collecting donations and distributing them to <strong id="criteria">{{ criteria }}</strong>.
 	</div>
 	
 	<div class="amounts">
 		<div class="ethAmount">
+                        <div class="ui segment">
+                        <a href="donate">Donate to this Bastille<br />
+                        <button routerLink="donate" class="ui icon button">
+                            <i class="plus circle icon"></i>
+                        </button></a>
+                        </div>
 			<div class="ui segment">	
-			Common pool to be distributed
+			Amount of cryptomoney currently in this Bastille
 				<div class="ui left labeled button" tabindex="0">
 					<a class="ui basic label" id="balance">
 						{{ bastilleBalance }}
@@ -20,13 +23,7 @@
 				</div>
 			</div>
                         <div class="ui segment">
-                        <a href="donate">Donate to the pool<br />
-                        <button routerLink="donate" class="ui icon button">
-                            <i class="plus circle icon"></i>
-                        </button></a>
-                        </div>
-                        <div class="ui segment">
-                        <a href="citizen">Vote and bet for a new address<br />
+                        <a href="citizen">Add new {{ criteria }} to this Bastille<br />
                         <button class="ui icon button">
                            <i class="thumbs up outline icon"></i>
                         </button></a>

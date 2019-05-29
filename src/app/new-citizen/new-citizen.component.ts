@@ -13,7 +13,7 @@ const contractABI = require('../../../build/contracts/Revolution.json');
 export class NewCitizenComponent implements OnInit {
 
 	address: String = "0x";
-	criteria: String = "A frequent contributor to Open Source Projects"
+	criteria: String = "default criteria from new-citizen.component.ts"
 	culottes: any;
 	account: any;
 	accounth: any;

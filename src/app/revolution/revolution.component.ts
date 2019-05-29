@@ -12,7 +12,7 @@ const contractABI = require('../../../build/contracts/Revolution.json')
 export class RevolutionComponent implements OnInit {
 
 	title: String = "Your revolution"
-	criteria: String = "a frequent contributor to open source projects"
+	criteria: String = "default criteria from revolution.component.ts"
     bastilleBalance: String = "1"
 	culottes: any;
 	account: any;

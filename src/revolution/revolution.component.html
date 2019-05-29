@@ -1,0 +1,55 @@
+<div>
+	<div class="title" id="criteria">
+			Are they "{{ criteria }}" ?
+	</div>
+	<div class="criteria" style="display:none">
+		{{ criteria }}
+	</div>
+	
+	<div class="amounts">
+		<div class="ethAmount">
+			<div class="ui segment">	
+			Common pool to be distributed
+				<div class="ui left labeled button" tabindex="0">
+					<a class="ui basic label" id="balance">
+						{{ bastilleBalance }}
+					</a>
+					<div class="ui icon button">
+						ETH
+					</div>
+				</div>
+			</div>
+                        <div class="ui segment">
+                        <a href="/donate">Donate to the pool<br />
+                        <button routerLink="/donate" class="ui icon button">
+                            <i class="plus circle icon"></i>
+                        </button></a>
+                        </div>
+                        <div class="ui segment">
+                        <a href="/citizen/">Vote and bet for a new address<br />
+                        <button class="ui icon button">
+                           <i class="thumbs up outline icon"></i>
+                        </button></a>
+                        </div>
+		</div>
+		<div class="ethAmount" style="display:none">
+			<div class="ui segment">
+				Distributed so far
+				<div class="ui left labeled button" tabindex="0">
+					<a class="ui basic label">
+						72.32
+					</a>
+					<div class="ui icon button">
+						ETH
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tab">
+		<app-closed_trial></app-closed_trial>
+	</div>
+	<div class="tab">
+		<app-open_trial></app-open_trial>
+	</div>
+</div>

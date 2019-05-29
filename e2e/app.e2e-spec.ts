@@ -9,6 +9,6 @@ describe('angular-truffle-box App', () => {
 
   it('should display the criteria question', () => {
     page.navigateTo();
-    expect(page.getCriteria()).toContain('Are they "');
+    expect(page.getCriteria()).toContain('currently in this Bastille');
   });
 });

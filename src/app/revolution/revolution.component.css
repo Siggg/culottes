@@ -1,0 +1,30 @@
+
+.title {
+	text-align: center;
+	font-size: 2em;
+}
+
+.criteria {
+	position: relative;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 1em;
+}
+
+.ethAmount {
+	position:relative;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	font-size: 2em;
+	text-align: center;
+	max-width: 35%;
+	min-width: 135px;
+}
+
+.tab {
+	margin-top: 15px;
+}
+
+.amounts {
+	margin-left: 35%;
+}

@@ -18,6 +18,7 @@ cache:
     - node_modules
 
 before_install:
+  - rm -rf node_modules/websocket/.git
   - npm prune
 
 install: ./ci/install-deps.sh

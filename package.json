@@ -9,6 +9,7 @@
     "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "preinstall": "rm -rf node_modules/websocket/.git",
     "postinstall": "node patch.js",
     "deploy": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs && npx ngh --dir=docs"
   },

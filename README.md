@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/Siggg/culottes.svg?branch=master)](https://travis-ci.org/Siggg/culottes)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Maintainability](https://api.codeclimate.com/v1/badges/46003502d86e3dbcf15e/maintainability)](https://codeclimate.com/github/Siggg/culottes/maintainability)
+https://img.shields.io/github/last-commit/Siggg/culottes.svg
+[![Issues](https://img.shields.io/codeclimate/issues/twbs/bootstrap.svg)](https://codeclimate.com/github/Siggg/culottes/issues)
 
 # culottes
 

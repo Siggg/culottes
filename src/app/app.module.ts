@@ -17,10 +17,10 @@ import {
 } from "@angular/material";
 
 // import { SuiModule } from "ng2-semantic-ui";
-import { CulottelistComponent } from "./projects/culottelist/culottelist.component";
+import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
-import { OpentrialComponent } from "./projects/trials/open_trial/open_trial.component";
-import { ClosedtrialComponent } from "./projects/trials/closed_trial/closed_trial.component";
+import { OpentrialComponent } from "./trials/open_trial/open_trial.component";
+import { ClosedtrialComponent } from "./trials/closed_trial/closed_trial.component";
 import { IdComponent } from './id/id.component';
 import { DonateComponent } from './donate/donate.component';
 import { NewCitizenComponent } from './new-citizen/new-citizen.component';
@@ -28,7 +28,7 @@ import { NewCitizenComponent } from './new-citizen/new-citizen.component';
 @NgModule({
   declarations: [
     AppComponent,
-    CulottelistComponent,
+    RevolutionComponent,
     AboutComponent,
     OpentrialComponent,
     ClosedtrialComponent,

@@ -56,6 +56,7 @@
     "typescript": "3.1.6",
     "web3": "1.0.0-beta.55",
     "webpack": "^4.32.2",
+    "webpack-dev-server": "^3.4.1",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {

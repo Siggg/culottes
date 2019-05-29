@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Siggg/culottes.svg?branch=master)](https://travis-ci.org/Siggg/culottes)
+
 # culottes
 
 Culottes lets your community vote and bet on whoever deserves or needs additional income according to your cause requirements. It collects donations and vote taxes then redistributes that income among winners.

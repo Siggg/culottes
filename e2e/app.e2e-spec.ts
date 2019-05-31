@@ -9,6 +9,6 @@ describe('angular-truffle-box App', () => {
 
   it('should display the criteria question', () => {
     page.navigateTo();
-    expect(page.getCriteria()).toContain('currently in this Bastille');
+    expect(page.getCriteria()).toContain('frequent contributor to open source projects');
   });
 });

@@ -1,6 +1,6 @@
 <div>
-  <div class="title">
-    This Bastille collects donations and distributes them to
+  <div class="title" id="criteriaLabel">
+    This bastille collects donations and distributes them to
     <strong id="criteria">{{ criteria }}</strong
     >.
   </div>
@@ -9,13 +9,13 @@
     <div class="ethAmount">
       <div class="ui segment">
         <a routerLink="donate"
-          >Donate to this Bastille<br />
+          >Donate to this bastille<br />
           <button routerLink="donate" class="ui icon button">
             <i class="plus circle icon"></i></button
         ></a>
       </div>
       <div class="ui segment">
-        Amount of cryptomoney currently in this Bastille:<br />
+        Amount of cryptomoney currently in this bastille:<br />
         <div class="ui left labeled basic label" tabindex="0">
           <a id="balance">
             {{ bastilleBalance }}
@@ -25,7 +25,7 @@
       </div>
       <div class="ui segment">
         <a routerLink="citizen"
-          >Add new {{ criteria }} to this Bastille<br />
+          >Add new {{ criteria }} to this bastille<br />
           <button class="ui icon button">
             <i class="thumbs up outline icon"></i></button
         ></a>

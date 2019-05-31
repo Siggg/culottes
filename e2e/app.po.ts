@@ -7,6 +7,10 @@ export class AppPage {
     return browser.driver.sleep(1000);
   }
 
+  getCriteriaLabel() {
+    return element(by.id('criteriaLabel')).getText();
+  }
+
   getCriteria() {
     return element(by.id('criteria')).getText();
   }

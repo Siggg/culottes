@@ -21,9 +21,9 @@ import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
 import { OpentrialComponent } from "./open_trial/open_trial.component";
 import { ClosedtrialComponent } from "./closed_trial/closed_trial.component";
-import { IdComponent } from './id/id.component';
-import { DonateComponent } from './donate/donate.component';
-import { NewCitizenComponent } from './new-citizen/new-citizen.component';
+import { IdComponent } from "./id/id.component";
+import { DonateComponent } from "./donate/donate.component";
+import { NewCitizenComponent } from "./new-citizen/new-citizen.component";
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { NewCitizenComponent } from './new-citizen/new-citizen.component';
     NewCitizenComponent
   ],
   imports: [
-  //  SuiModule,
+    //  SuiModule,
     BrowserAnimationsModule,
     CommonModule,
     MatButtonModule,
@@ -49,7 +49,7 @@ import { NewCitizenComponent } from './new-citizen/new-citizen.component';
     FormsModule,
     HttpClientModule,
     MetaModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

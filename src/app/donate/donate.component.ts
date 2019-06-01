@@ -12,7 +12,7 @@ const contractABI = require('../../../build/contracts/Revolution.json');
 })
 export class DonateComponent implements OnInit {
 
-	address: String = "0xf26110452429f39eD677F111E65bf0c1825705A4";
+	address: String = "default address from donate.component.ts";
 	criteria: String = "default criteria from donate.component.ts"
 	culottes: any;
 	account: any;

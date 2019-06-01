@@ -6,14 +6,14 @@ declare let require:any;
 const contractABI = require('../../../build/contracts/Revolution.json');
 
 @Component({
-  selector: 'app-new-citizen',
-  templateUrl: './new-citizen.component.html',
-  styleUrls: ['./new-citizen.component.css']
+  selector: 'app-citizen',
+  templateUrl: './citizen.component.html',
+  styleUrls: ['./citizen.component.css']
 })
-export class NewCitizenComponent implements OnInit {
+export class CitizenComponent implements OnInit {
 
 	address: String = "0x";
-	criteria: String = "default criteria from new-citizen.component.ts"
+	criteria: String = "default criteria from citizen.component.ts"
 	culottes: any;
 	account: any;
 	accounth: any;

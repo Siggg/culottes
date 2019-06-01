@@ -23,7 +23,7 @@ import { OpentrialComponent } from "./open_trial/open_trial.component";
 import { ClosedtrialComponent } from "./closed_trial/closed_trial.component";
 import { IdComponent } from "./id/id.component";
 import { DonateComponent } from "./donate/donate.component";
-import { NewCitizenComponent } from "./new-citizen/new-citizen.component";
+import { CitizenComponent } from "./citizen/citizen.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { NewCitizenComponent } from "./new-citizen/new-citizen.component";
     ClosedtrialComponent,
     IdComponent,
     DonateComponent,
-    NewCitizenComponent
+    CitizenComponent
   ],
   imports: [
     //  SuiModule,

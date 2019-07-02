@@ -22,14 +22,29 @@ export class Web3Service {
   }
 
   public bootstrapWeb3() {
+    // Modern dapp browsers...
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        this.web3 = window.web3;
+     /*   try {
+            // Request account access if needed
+            await ethereum.enable();
+            // Acccounts now exposed
+            web3.eth.sendTransaction({ });
+        } catch (error) {
+            // User denied account access...
+        }*/
+    }
+    // Legacy dapp browsers...
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof window.web3 !== 'undefined') {
+    else if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
 	  this.web3 = new Web3(window.web3.currentProvider);
 
-    } else {
+    }
+    else {
       console.log('No web3? You should consider trying MetaMask!');
-
+      
       // Hack to provide backwards compatibility for Truffle, which uses web3js 0.20.x
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)

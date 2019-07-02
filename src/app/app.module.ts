@@ -38,6 +38,7 @@ import { CitizenComponent } from "./citizen/citizen.component";
   ],
   imports: [
     //  SuiModule,
+    BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     MatButtonModule,
@@ -45,7 +46,6 @@ import { CitizenComponent } from "./citizen/citizen.component";
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,
-    BrowserModule,
     FormsModule,
     HttpClientModule,
     MetaModule,

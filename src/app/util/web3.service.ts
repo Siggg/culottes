@@ -24,7 +24,7 @@ export class Web3Service {
   public bootstrapWeb3() {
     // Modern dapp browsers...
     if (window.ethereum) {
-        ethereum = window.ethereum;
+        let ethereum = window.ethereum;
         window.web3 = new Web3(ethereum);
         this.web3 = window.web3;
      /*   try {

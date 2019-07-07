@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
 import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+
 declare let require: any;
 const Web3 = require('web3');
 
@@ -14,6 +16,8 @@ export class Web3Service {
   public ready = false;
 
   public accountsObservable = new Subject<string[]>();
+  
+  public web3Status = new BehaviorSubject<string>("no attempt to access your blockchain accounts yet, please wait or reload the app");
 
   constructor() {
     window.addEventListener('load', (event) => {
@@ -27,6 +31,7 @@ export class Web3Service {
         let ethereum = window.ethereum;
         window.web3 = new Web3(ethereum);
         this.web3 = window.web3;
+        this.web3Status.next("connecting to the blockchain");
      /*   try {
             // Request account access if needed
             await ethereum.enable();
@@ -41,6 +46,7 @@ export class Web3Service {
     else if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
 	  this.web3 = new Web3(window.web3.currentProvider);
+	  this.web3Status("connecting to the blockchain via Metamask or Mist");
 
     }
     else {
@@ -50,6 +56,7 @@ export class Web3Service {
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+      thid.web3Status.next("could not detect a blockchain-enabled browser, trying to connect to a blockchain node running on port 8545 on your machine");
     }
 
     setInterval(() => this.refreshAccounts(), 100);
@@ -94,12 +101,14 @@ export class Web3Service {
       console.log('Refreshing accounts');
       if (err != null) {
         console.warn('There was an error fetching your accounts.');
+        this.web3Status.next("Could connect to your blockchain browser or node but an error occurred while trying to read your accounts");
         return;
       }
 
       // Get the initial account balance so it can be displayed.
       if (accs.length === 0) {
         console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
+        this.web3Status("Could connect to your blockchain browser or node but no blockchain account is available");
         return;
       }
 
@@ -108,6 +117,7 @@ export class Web3Service {
 
         this.accountsObservable.next(accs);
         this.accounts = accs;
+        this.web3Status("Blockchain accounts ready");
       }
 
       this.ready = true;

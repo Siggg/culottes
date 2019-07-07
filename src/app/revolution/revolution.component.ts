@@ -15,6 +15,7 @@ export class RevolutionComponent implements OnInit {
   bastilleBalance: String = "1";
   culottes: any;
   account: any;
+  web3Status: String = "Status of connection to your blockchain accounts";
 
   constructor(private web3Service: Web3Service) {}
 
@@ -32,6 +33,8 @@ export class RevolutionComponent implements OnInit {
   }
 
   async watchAccount() {
+  
+      this.web3Service.web3Status.subscribe(status => { this.web3Status = status; });
     this.web3Service.accountsObservable.subscribe(accounts => {
       this.account = accounts[0];
     });

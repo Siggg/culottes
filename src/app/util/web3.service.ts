@@ -108,7 +108,7 @@ export class Web3Service {
       // Get the initial account balance so it can be displayed.
       if (accs.length === 0) {
         console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
-        this.web3Status("Could connect to your blockchain browser or node but no blockchain account is available");
+        this.web3Status.next("Could connect to your blockchain browser or node but no blockchain account is available");
         return;
       }
 
@@ -117,7 +117,7 @@ export class Web3Service {
 
         this.accountsObservable.next(accs);
         this.accounts = accs;
-        this.web3Status("Blockchain accounts ready");
+        this.web3Status.next("Blockchain accounts ready");
       }
 
       this.ready = true;

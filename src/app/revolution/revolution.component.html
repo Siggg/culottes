@@ -1,55 +1,57 @@
 <div>
-  <div class="title" id="criteriaLabel">
-    This bastille collects donations and distributes them to
-    <strong id="criteria">{{ criteria }}</strong
-    >.
-  </div>
+
   <div class="ui segment">
     {{ web3Status }}
   </div>
 
-    <div class="ethAmount">
-      <div class="ui segment">
-        <a routerLink="/donate"
-          >Donate to this bastille<br />
-          <button routerLink="/donate" class="ui icon button">
-            <i class="plus circle icon"></i></button
-        ></a>
-      </div>
-      <div class="ui segment">
-        Current amount in this bastille:<br />
-        <div class="ui left labeled basic label" tabindex="0">
-          <a id="balance">
-            {{ bastilleBalance }}
-          </a>
-          ETH
-        </div>
-      </div>
-      <div class="ui segment">
-        <a routerLink="/citizen"
-          >Add new {{ criteria }} to this bastille<br />
-          <button class="ui icon button">
-            <i class="thumbs up outline icon"></i></button
-        ></a>
+  <div class="title" id="criteriaLabel">
+    This bastille collects donations which you can receive an income from if and only if you are a 
+    <strong id="criteria">{{ criteria }}</strong
+    >.
+  </div>
+
+  <div class="ui segment ethAmount">
+    <a routerLink="/donate"
+    >Donate to this bastille<br />
+      <button routerLink="/donate" class="ui icon button">
+        <i class="plus circle icon"></i></button
+      ></a>
+  </div>
+  
+  <div class="ui segment ethAmount">
+    Current amount in this bastille:<br />
+    <div class="left labeled basic label" tabindex="0">
+      <a id="balance">
+        {{ bastilleBalance }}
+      </a> ETH
+    </div>
+  </div>
+  
+  <div class="ui segment">
+    <a routerLink="/citizen"
+    >Add new {{ criteria }} to this bastille<br />
+      <button class="ui icon button">
+        <i class="thumbs up outline icon"></i>
+      </button>
+    </a>
+  </div>
+  
+  <div style="display:none">
+    <div class="ui segment ethAmount">
+      Distributed so far
+      <div class="ui left labeled button" tabindex="0">
+        <a class="ui basic label">
+          72.32
+        </a> ETH
       </div>
     </div>
-    <div class="ethAmount" style="display:none">
-      <div class="ui segment">
-        Distributed so far
-        <div class="ui left labeled button" tabindex="0">
-          <a class="ui basic label">
-            72.32
-          </a>
-          <div class="ui icon button">
-            ETH
-          </div>
-        </div>
-      </div>
+    
+    <div class="tab">
+      <app-closed_trial></app-closed_trial>
     </div>
-  <div class="tab">
-    <app-closed_trial></app-closed_trial>
+    <div class="tab">
+      <app-open_trial></app-open_trial>
+    </div>
   </div>
-  <div class="tab">
-    <app-open_trial></app-open_trial>
-  </div>
+  
 </div>

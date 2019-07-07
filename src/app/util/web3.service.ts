@@ -60,6 +60,7 @@ export class Web3Service {
     }
 
     setInterval(() => this.refreshAccounts(), 100);
+    
   }
 
   
@@ -92,6 +93,12 @@ export class Web3Service {
     }
     const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0xf26110452429f39eD677F111E65bf0c1825705A4');
     contractAbstraction.setProvider(this.web3.currentProvider);
+     try {
+    contractAbstraction.methods.criteria.call();
+    } catch (error) {
+      this.web3Status.next("This bastille is not on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten.");
+    }
+    
     return contractAbstraction;
 
   }

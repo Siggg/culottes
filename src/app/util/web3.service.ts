@@ -56,7 +56,7 @@ export class Web3Service {
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-      this.web3Status.next("could not detect a blockchain-enabled browser, trying to connect to a blockchain node running on port 8545 on your machine");
+      this.web3Status.next("Could not detect a blockchain-enabled browser. On desktop, you should install Metamask for Firefox or Chrome. On mobile, you should install Coinbase Wallet. Meanwhile trying to connect to a blockchain node on your machine with port 8545.");
     }
 
     setInterval(() => this.refreshAccounts(), 100);
@@ -99,16 +99,16 @@ export class Web3Service {
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {
       console.log('Refreshing accounts');
-      if (err != null) {
+      if (err != null && err != false) {
         console.warn('There was an error fetching your accounts.');
-        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to read your accounts: " + err.toString() + " with accounts: " + accs.toString() );
+        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to access your accounts. Error message was ´´ " + err.toString() + " ´´ .");
         return;
       }
 
       // Get the initial account balance so it can be displayed.
       if (accs.length === 0) {
         console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
-        this.web3Status.next("Could connect to your blockchain browser or node but no blockchain account is available");
+        this.web3Status.next("Connected to your blockchain browser or node but it could not find your accounts on the blockchain.");
         return;
       }
 

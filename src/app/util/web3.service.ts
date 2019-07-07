@@ -101,7 +101,7 @@ export class Web3Service {
       console.log('Refreshing accounts');
       if (err != null) {
         console.warn('There was an error fetching your accounts.');
-        this.web3Status.next("Could connect to your blockchain browser or node but an error occurred while trying to read your accounts");
+        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to read your accounts: " + err.message);
         return;
       }
 

@@ -56,7 +56,7 @@ export class Web3Service {
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-      thid.web3Status.next("could not detect a blockchain-enabled browser, trying to connect to a blockchain node running on port 8545 on your machine");
+      this.web3Status.next("could not detect a blockchain-enabled browser, trying to connect to a blockchain node running on port 8545 on your machine");
     }
 
     setInterval(() => this.refreshAccounts(), 100);

@@ -12,7 +12,7 @@ const contractABI = require("../../../build/contracts/Revolution.json");
 export class RevolutionComponent implements OnInit {
   title: String = "Your revolution";
   criteria: String = "default criteria from revolution.component.ts";
-  bastilleBalance: String = "1";
+  bastilleBalance: String = "42";
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";

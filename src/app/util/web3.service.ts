@@ -46,7 +46,7 @@ export class Web3Service {
     else if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
 	  this.web3 = new Web3(window.web3.currentProvider);
-	  this.web3Status("connecting to the blockchain via Metamask or Mist");
+	  this.web3Status.next("connecting to the blockchain via Metamask or Mist");
 
     }
     else {

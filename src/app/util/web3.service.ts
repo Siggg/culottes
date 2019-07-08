@@ -94,7 +94,8 @@ export class Web3Service {
     const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0xf26110452429f39eD677F111E65bf0c1825705A4');
     contractAbstraction.setProvider(this.web3.currentProvider);
      try {
-    contractAbstraction.methods.criteria.call();
+    contractAbstraction.methods.criteria.call().on("error", this.web3Status.next("error")).then(
+    this.web3Status.next("Bastille ready"));
     } catch (error) {
       this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten. The error message was: " + error.toString());
     }

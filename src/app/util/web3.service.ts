@@ -97,7 +97,11 @@ export class Web3Service {
     try {
       contractAbstraction.methods.criteria.call()
       .then( (result) => {
-        this.web3Status.next("Bastille ready. Criteria is " + result);
+        if (result != null) {
+          this.web3Status.next("Bastille ready.");
+        } else {
+          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten.");
+        }
       })
       .catch( (error) => {
         this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten. The error message was: " + error.toString());

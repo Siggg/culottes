@@ -100,14 +100,14 @@ export class Web3Service {
         if (result != null) {
           this.web3Status.next("Bastille ready. Connection result is: " + result);
         } else {
-          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten.");
+          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Rinkeby blockchain.");
         }
       })
       .catch( (error) => {
-        this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten. The error message was: " + error.toString());
+        this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Rinkeby. The error message was: " + error.toString());
       });
     } catch (error) {
-      this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Ropsten. The error message was: " + error.toString());
+      this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Rinkeby. The error message was: " + error.toString());
     }
     
     return contractAbstraction;

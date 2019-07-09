@@ -32,13 +32,13 @@ export class RevolutionComponent implements OnInit {
       .call()
       .then( (result) => {
         if (result == null) {
-          this.web3Status.next("bastilleBalance is null !");
+          this.web3Service.web3Status.next("bastilleBalance is null !");
         } else {
-          this.web3Status.next("bastilleBalance ready.");
+          this.web3Service.web3Status.next("bastilleBalance ready.");
         }
       })
       .catch( (error) => {
-        this.web3Status.next("An error occuree while read bastilleBalance: " + error);
+        this.web3Service.web3Status.next("An error occuree while read bastilleBalance: " + error);
       });
   }
 

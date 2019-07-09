@@ -98,16 +98,16 @@ export class Web3Service {
       contractAbstraction.methods.criteria.call()
       .then( (result) => {
         if (result != null) {
-          this.web3Status.next("Bastille ready. Connection result is: " + result);
+          this.web3Status.next("Bastille ready.");
         } else {
-          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Rinkeby blockchain.");
+          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain.");
         }
       })
       .catch( (error) => {
-        this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Rinkeby. The error message was: " + error.toString());
+        this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain. The error message was: " + error.toString());
       });
     } catch (error) {
-      this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to Rinkeby. The error message was: " + error.toString());
+      this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain. The error message was: " + error.toString());
     }
     
     return contractAbstraction;
@@ -119,7 +119,7 @@ export class Web3Service {
       console.log('Refreshing accounts');
       if (err != null && err != false) {
         console.warn('There was an error fetching your accounts.');
-        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to access your accounts. Error message was ´´ " + err.toString() + " ´´ .");
+        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to access your accounts on the blockchain. Error message was ´´ " + err.toString() + " ´´ .");
         return;
       }
 
@@ -135,7 +135,7 @@ export class Web3Service {
 
         this.accountsObservable.next(accs);
         this.accounts = accs;
-        this.web3Status.next("Blockchain accounts ready");
+        this.web3Status.next("Blockchain accounts ready.");
       }
 
       this.ready = true;

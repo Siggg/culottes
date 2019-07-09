@@ -25,6 +25,7 @@ export class DonateComponent implements OnInit {
 	}
 
 	async ngOnInit() {
+	  this.address = this.web3Service.revolutionAddress;
 		this.watchAccount();
 		this.web3Service.artifactsToContract(contractABI)
 			.then((web3_eth_contract) => {
@@ -43,8 +44,7 @@ export class DonateComponent implements OnInit {
 			this.isOk=false;
 			console.log(this.amount)
 			this.web3_eth_contract.util.toWei(this.amount, 'ether');
-			this.web3_eth_contract.sendTransaction({from: this.account, to: 0xf26110452429f39eD677F111E65bf0c1825705A4, value: this.amount});
-			//this.web3_eth_contract.send({from: this.account, value:this.amount});
+			this.web3_eth_contract.sendTransaction({from: this.account, to: this.address, value: this.amount});
 		}
 	}
 	

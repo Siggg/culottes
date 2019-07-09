@@ -14,6 +14,7 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public ready = false;
+  public revolutionAddress = "0xf26110452429f39eD677F111E65bf0c1825705A4";
 
   public accountsObservable = new Subject<string[]>();
   
@@ -58,28 +59,9 @@ export class Web3Service {
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
       this.web3Status.next("Could not detect a blockchain-enabled browser. On desktop, you should install Metamask for Firefox or Chrome. On mobile, you should install Coinbase Wallet. Meanwhile trying to connect to a blockchain node on your machine with port 8545.");
     }
-
     setInterval(() => this.refreshAccounts(), 100);
     
   }
-
-  
-
-/*  public async artifactsToContract(artifacts, address?) {
-    if (!this.web3) {
-      const delay = new Promise(resolve => setTimeout(resolve, 100));
-      await delay;
-      return await this.artifactsToContract(artifacts, address);
-    }
-
-    console.log("hey me.");
-    const contractAbstraction = contract({
-		abi: artifacts,
-		address: "0x4ae1e5b4FB7Ee9AcFE12dF24b966607c96104624"
-	});
-    contractAbstraction.setProvider(this.web3.currentProvider);
-    return contractAbstraction;
-  }*/
 
   public etherToWei(etherAmount) {
     return this.web3.utils.toWei(etherAmount);
@@ -91,7 +73,7 @@ export class Web3Service {
       await delay;
       return await this.artifactsToContract(artifacts);
     }
-    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, '0xf26110452429f39eD677F111E65bf0c1825705A4');
+    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, this.revolutionAddress);
     contractAbstraction.setProvider(this.web3.currentProvider);
     
     try {

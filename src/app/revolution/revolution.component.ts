@@ -29,7 +29,17 @@ export class RevolutionComponent implements OnInit {
     this.criteria = await web3_eth_contract.methods.criteria().call();
     this.bastilleBalance = await web3_eth_contract.methods
       .bastilleBalance()
-      .call();
+      .call()
+      .then( (result) => {
+        if (result == null) {
+          this.web3Status.next("bastilleBalance is null !");
+        } else {
+          this.web3Status.next("bastilleBalance ready.");
+        }
+      })
+      .catch( (error) => {
+        this.web3Status.next("An error occuree while read bastilleBalance: " + error);
+      });
   }
 
   async watchAccount() {

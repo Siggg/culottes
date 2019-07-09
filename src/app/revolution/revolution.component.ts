@@ -13,6 +13,7 @@ export class RevolutionComponent implements OnInit {
   title: String = "Your revolution";
   criteria: String = "default criteria from revolution.component.ts";
   bastilleBalance: String = "42";
+  revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";
@@ -27,6 +28,7 @@ export class RevolutionComponent implements OnInit {
       contractABI
     );
     this.criteria = await web3_eth_contract.methods.criteria().call();
+    this.revolutionAddress = this.web3Service.revolutionAddress;
     this.bastilleBalance = await web3_eth_contract.methods
       .bastilleBalance()
       .call()

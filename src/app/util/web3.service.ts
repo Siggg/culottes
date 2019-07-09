@@ -79,10 +79,10 @@ export class Web3Service {
     try {
       contractAbstraction.methods.criteria.call()
       .then( (result) => {
-        if (result != null) {
-          this.web3Status.next("Bastille ready.");
-        } else {
+        if (result === null) {
           this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain.");
+        } else {
+          this.web3Status.next("Bastille ready.");
         }
       })
       .catch( (error) => {

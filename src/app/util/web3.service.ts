@@ -57,7 +57,7 @@ export class Web3Service {
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-      this.web3Status.next("Could not detect a blockchain-enabled browser. On desktop, you should install Metamask for Firefox or Chrome. On mobile, you should install Coinbase Wallet. Meanwhile trying to connect to a blockchain node on your machine with port 8545.");
+      this.web3Status.next("Could not detect a blockchain-enabled browser. On desktop, you should install Metamask for Firefox or for Chrome. On mobile, you should install Cipher Wallet or Coinbase Wallet. Meanwhile trying to connect to a blockchain node on your machine with port 8545.");
     }
     setInterval(() => this.refreshAccounts(), 100);
     

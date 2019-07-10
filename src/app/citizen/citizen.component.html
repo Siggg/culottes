@@ -1,38 +1,34 @@
 <div>
-  <div class="title">Does the address below belong to one of them ?</div>
+  <div class="title">Does the address below belong to {{ criteria }} and is this their unique address for this bastille ?</div>
 </div>
 
-<div class="fields">
-  <div class="ui fluid icon input">
-    <input [(ngModel)]="address" type="text" placeholder="0.x424242424242" />
-    <div class="ui button">Address</div>
+<form class="ui form">
+  <div class="field fluid input">
+    <label>Address vote about</label>
+    <input [(ngModel)]="address" type="text" placeholder="0x00" />
   </div>
-  <div class="ui fluid input">
-    <input [(ngModel)]="amount" type="text" placeholder="3,2" />
-    <div class="ui button">Bet Some ETH</div>
+  <div class="field fluid input">
+    <label>Amount of ETH you stake on this vote</label>
+    <input [(ngModel)]="amount" type="text" placeholder="0,0" />
   </div>
-</div>
-
-<div class="criteria">
   <div *ngIf="isOk">
-    <div
-      class="ui red inverted segment center aligned"
-      style="margin-top: 15px"
-    >
-      Should not be empty / Should contain only (numbers || address)
+    <div class="error message">
+      <div class="header">Valeur interdite</div>
+      <p>Ne peut pas être vide. Ne doit contenir  que des nombres ou une adresse Ethereum valide.</p>
     </div>
   </div>
-  <div class="ui placeholder segment">
-    <div class="ui two column stackable center aligned grid">
+  
+  <div class="placeholder segment">
+    <div class="two column stackable center aligned grid">
       <div class="middle aligned row">
         <div class="column">
-          <div class="ui icon header">
+          <div class="icon header">
             <i class="thumbs up icon"></i>
           </div>
           <div class="field">
-            <div class="ui search">
-              <div class="ui icon input">
-                <button (click)="onClickMeT()" class="ui primary button">
+            <div class="search">
+              <div class="icon input">
+                <button (click)="onClickMeT()" class="primary button">
                   Vote and bet YES
                 </button>
               </div>
@@ -42,12 +38,12 @@
         </div>
 
         <div class="column">
-          <div class="ui icon header">
+          <div class="icon header">
             <i class="thumbs down icon"></i>
           </div>
           <div class="field">
-            <div class="ui search">
-              <div class="ui icon input">
+            <div class="search">
+              <div class="icon input">
                 <button (click)="onClickMeF()" class="ui primary button">
                   Vote and bet NO
                 </button>
@@ -59,4 +55,4 @@
       </div>
     </div>
   </div>
-</div>
+</form>

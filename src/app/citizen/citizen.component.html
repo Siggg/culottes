@@ -1,7 +1,3 @@
-<div>
-  <div class="title">Does the address below belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</div>
-</div>
-
 <form class="ui form">
   <div class="field fluid input">
     <label>Address you are voting about</label>
@@ -19,10 +15,12 @@
     </div>
   </div>
   
+  <div class="title">Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</div>
+  
   <div class="ui buttons">
     <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
     <div class="or"></div>
-    <div class="ui button negative primary icon labeled right"  (click)="onClickMeF()"><i class="icon thumbs down"></i>NO</div>
+    <div class="ui button negative primary icon labeled right"  (click)="onClickMeF()">NO<i class="icon thumbs down"></i></div>
   </div>
   
   <div class="results"></div>

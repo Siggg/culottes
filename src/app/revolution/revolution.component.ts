@@ -34,7 +34,7 @@ export class RevolutionComponent implements OnInit {
       .call()
       .then( (result) => {
         if (result === null) {
-          this.web3Service.web3Status.next("bastilleBalance is null !");
+          this.web3Service.web3Status.next("The balance of this bastille is null !");
           this.bastilleBalance = "0";
         } else {
           this.web3Service.web3Status.next("bastilleBalance ready.");

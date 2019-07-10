@@ -1,58 +1,29 @@
 <div>
-  <div class="title">Does the address below belong to {{ criteria }} and is this their unique address for this bastille ?</div>
+  <div class="title">Does the address below belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</div>
 </div>
 
 <form class="ui form">
   <div class="field fluid input">
-    <label>Address vote about</label>
+    <label>Address you are voting about</label>
     <input [(ngModel)]="address" type="text" placeholder="0x00" />
   </div>
   <div class="field fluid input">
-    <label>Amount of ETH you stake on this vote</label>
+    <label>Amount of ETH you are staking on this vote</label>
     <input [(ngModel)]="amount" type="text" placeholder="0,0" />
   </div>
+  
   <div *ngIf="isOk">
     <div class="error message">
-      <div class="header">Valeur interdite</div>
-      <p>Ne peut pas être vide. Ne doit contenir  que des nombres ou une adresse Ethereum valide.</p>
+      <div class="header">Forbidden value</div>
+      <p>Should not be empty. Should only contain a number or a valid Ethereum address.</p>
     </div>
   </div>
   
-  <div class="placeholder segment">
-    <div class="two column stackable center aligned grid">
-      <div class="middle aligned row">
-        <div class="column">
-          <div class="icon header">
-            <i class="thumbs up icon"></i>
-          </div>
-          <div class="field">
-            <div class="search">
-              <div class="icon input">
-                <button (click)="onClickMeT()" class="primary button">
-                  Vote and bet YES
-                </button>
-              </div>
-              <div class="results"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="icon header">
-            <i class="thumbs down icon"></i>
-          </div>
-          <div class="field">
-            <div class="search">
-              <div class="icon input">
-                <button (click)="onClickMeF()" class="ui primary button">
-                  Vote and bet NO
-                </button>
-              </div>
-              <div class="results"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="ui buttons">
+    <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
+    <div class="or"></div>
+    <div class="ui button negative primary icon labeled"  (click)="onClickMeF()"><i class="icon thumbs down"></i>NO</div>
   </div>
+  
+  <div class="results"></div>
 </form>

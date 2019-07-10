@@ -9,7 +9,7 @@
   </div>
   <div class="field fluid input">
     <label>Amount of ETH you are staking on this vote</label>
-    <input [(ngModel)]="amount" type="text" placeholder="0,0" />
+    <input [(ngModel)]="amount" type="text" placeholder="0" />
   </div>
   
   <div *ngIf="isOk">
@@ -22,7 +22,7 @@
   <div class="ui buttons">
     <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
     <div class="or"></div>
-    <div class="ui button negative primary icon labeled"  (click)="onClickMeF()"><i class="icon thumbs down"></i>NO</div>
+    <div class="ui button negative primary icon labeled right"  (click)="onClickMeF()"><i class="icon thumbs down"></i>NO</div>
   </div>
   
   <div class="results"></div>

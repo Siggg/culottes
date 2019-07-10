@@ -34,6 +34,7 @@ async ngOnInit() {
         })
       .then((criteria) => {
         console.log("criteria: ", criteria);
+        this.criteria = criteria;
         });
 }
 

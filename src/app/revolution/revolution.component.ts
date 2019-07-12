@@ -31,7 +31,6 @@ export class RevolutionComponent implements OnInit {
     this.revolutionAddress = this.web3Service.revolutionAddress;
     this.bastilleBalance = await web3_eth_contract.methods.bastilleBalance()
       .call();
-      /*
       .then( (result) => {
         if (result === null) {
           this.web3Service.web3Status.next("The balance of this bastille is null !");
@@ -43,7 +42,7 @@ export class RevolutionComponent implements OnInit {
       })
       .catch( (error) => {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
-      });*/
+      });
   }
 
   async watchAccount() {

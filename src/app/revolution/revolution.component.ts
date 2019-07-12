@@ -29,8 +29,7 @@ export class RevolutionComponent implements OnInit {
     );
     this.criteria = await web3_eth_contract.methods.criteria().call();
     this.revolutionAddress = this.web3Service.revolutionAddress;
-    this.bastilleBalance = await web3_eth_contract.methods
-      .bastilleBalance
+    this.bastilleBalance = await web3_eth_contract.bastilleBalance
       .call()
       .then( (result) => {
         if (result === null) {

@@ -3,5 +3,6 @@
 contracts/.placeholder
 test/.placeholder
 build
+docs
 node_modules
 package-lock.json

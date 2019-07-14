@@ -23,7 +23,7 @@ Your preferred cause probably deserves its own culottes.
 
 6. Setup your culottes smart contract
 
-  * Open contracts/Culotte.sol in a text editor
+  * Open contracts/Revolution.sol in a text editor
   * Set the criteria to match for your cause (e.g. is this the address of "a frequent contributor to open source projects" ?)
   * Set the probability that a new vote will close its election (e.g. res > 6 means there is a 60% probability a new vote won't close their election)
   * Set the minimum number of blockchain blocks that any election will last

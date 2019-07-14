@@ -22,12 +22,12 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 // Jean : const infuraKey = "3903f5945dfc4bf594b0efd21192d969";
 const infuraKey = "290a3dc9e27547d382d719e6c17f75fe";
 const fs = require('fs');
-const mnemonic = "";
+var mnemonic = "";
 try {
-  fs.readFileSync(".secret").toString().trim();
+  mnemonic = fs.readFileSync(".secret").toString().trim();
 }
 catch(error) {
-  // console.log(error);
+  console.log(error);
   console.log("WARNING : Maybe you have no .secret file in this environment and that's why there's this error log. But you may ignore it if you are just running tests.");
 }
 
@@ -59,7 +59,7 @@ module.exports = {
       host: "localhost",     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
       from: "0x44b1451F16ddD490EE0Be676C7C85096bB61134D",
-      network_id: "5",       // Any network (default: none)
+      network_id: "4",       // Any network (default: none)
       gas: 4700000
     },
 

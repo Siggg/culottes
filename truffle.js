@@ -18,18 +18,14 @@
  *
  */
 
-const HDWalletProvider = require('truffle-hdwallet-provider');
-// Jean : const infuraKey = "3903f5945dfc4bf594b0efd21192d969";
-const infuraKey = "290a3dc9e27547d382d719e6c17f75fe";
-const fs = require('fs');
-var mnemonic = "";
-try {
-  mnemonic = fs.readFileSync(".secret").toString().trim();
-}
-catch(error) {
-  console.log(error);
-  console.log("WARNING : Maybe you have no .secret file in this environment and that's why there's this error log. But you may ignore it if you are just running tests.");
-}
+require('dotenv').config();
+
+// define the UPPERCASE variables in a file called .env
+const infuraAPIKey = process.env.INFURA_API_KEY;
+const contractOwner = process.env.CONTRACT_OWNER;
+const privateKeyOfContractOwner = process.env.PRIVATE_KEY;
+
+const PrivateKeyProvider = require("truffle-privatekey-provider");
 
 module.exports = {
   /**
@@ -58,17 +54,15 @@ module.exports = {
     rinkeby: {
       host: "localhost",     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
-      from: "0x44b1451F16ddD490EE0Be676C7C85096bB61134D",
+      from: contractOwner,
       network_id: "4",       // Any network (default: none)
       gas: 4700000
     },
 
-    infura: {
-      provider: function() {
-        return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`);
-      },
-      network_id: "4"
-    }
+    rinkebyInfura: {
+      provider: () => new PrivateKeyProvider(privateKeyOfContractOwner, "https://rinkeby.infura.io/v3/" + infuraAPIKey),
+      network_id: "4",
+    },
 
     // Another network with more advanced options...
     // advanced: {

@@ -1,5 +1,5 @@
 .idea
-.secret
+.env
 contracts/.placeholder
 test/.placeholder
 build

@@ -14,7 +14,7 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public ready = false;
-  public revolutionAddress = "0xf26110452429f39eD677F111E65bf0c1825705A4";
+  public revolutionAddress = "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053"; // "0xf26110452429f39eD677F111E65bf0c1825705A4";
 
   public accountsObservable = new Subject<string[]>();
   

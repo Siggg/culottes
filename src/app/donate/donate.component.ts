@@ -43,8 +43,8 @@ export class DonateComponent implements OnInit {
 		else {
 			this.isOk=false;
 			console.log(this.amount)
-			this.web3_eth_contract.util.toWei(this.amount, 'ether');
-			this.web3_eth_contract.sendTransaction({from: this.account, to: this.address, value: this.amount});
+			this.web3Service.util.toWei(this.amount, 'ether');
+			this.web3Service.sendTransaction({from: this.account, to: this.address, value: this.amount});
 		}
 	}
 	

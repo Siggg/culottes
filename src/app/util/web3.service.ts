@@ -98,7 +98,7 @@ export class Web3Service {
 
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {
-      console.log('Refreshing accounts');
+      // console.log('Refreshing accounts');
       if (err != null && err != false) {
         console.warn('There was an error fetching your accounts.');
         this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to access your accounts on the blockchain. Error message was ´´ " + err.toString() + err.message + " ´´ .");
@@ -107,7 +107,7 @@ export class Web3Service {
 
       // Get the initial account balance so it can be displayed.
       if (accs.length === 0) {
-        console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
+        // console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
         this.web3Status.next("Connected to your blockchain browser or node but it could not find your accounts on the blockchain.");
         return;
       }

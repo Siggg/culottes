@@ -10,9 +10,9 @@ const contractABI = require("../../../build/contracts/Revolution.json");
   styleUrls: ["./revolution.component.css"]
 })
 export class RevolutionComponent implements OnInit {
-  title: String = "Your revolution";
-  criteria: String = "default criteria from revolution.component.ts";
-  bastilleBalance: String = "42";
+  title: String = "<loading title>";
+  criteria: String = "<loading criteria>";
+  bastilleBalance: String = "?";
   revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;

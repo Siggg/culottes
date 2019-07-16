@@ -1,11 +1,11 @@
 <form class="ui form">
   <div class="field fluid input">
     <label>Address you are voting about</label>
-    <input [(ngModel)]="address" type="text" placeholder="0x00" />
+    <input [(ngModel)]="address" name="address" type="text" placeholder="0x00" />
   </div>
   <div class="field fluid input">
     <label>Amount of ETH you are staking on this vote</label>
-    <input [(ngModel)]="amount" type="text" placeholder="0" />
+    <input [(ngModel)]="amount" name="amount" type="text" placeholder="0" />
   </div>
   
   <div *ngIf="isOk">

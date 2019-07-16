@@ -19,7 +19,7 @@ export class Web3Service {
   public accountsObservable = new Subject<string[]>();
   
   public web3Status = new BehaviorSubject<string>("no attempt to access your blockchain accounts yet, please wait or reload the app");
-
+  
   constructor() {
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
@@ -66,6 +66,8 @@ export class Web3Service {
   public etherToWei(etherAmount) {
     return this.web3.utils.toWei(etherAmount);
   }
+  
+   public.sendTransaction(tx) { return this.web3.eth.sendTransaction(tx); }
 
   public async artifactsToContract(artifacts) {
     if (!this.web3) {

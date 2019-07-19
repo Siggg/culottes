@@ -66,8 +66,12 @@ export class Web3Service {
   public etherToWei(etherAmount) {
     return this.web3.utils.toWei(etherAmount);
   }
+
+  public weiToEther(weiAmount) {
+    return this.web3.utils.fromWei(weiAmount);
+  }
   
-   public sendTransaction(tx) { return this.web3.eth.sendTransaction(tx); }
+  public sendTransaction(tx) { return this.web3.eth.sendTransaction(tx); }
 
   public async artifactsToContract(artifacts) {
     if (!this.web3) {

@@ -44,6 +44,7 @@ export class DonateComponent implements OnInit {
 			this.isOk=false;
 			console.log("amount to be donated:" + this.amount);
 			if (this.account == undefined) {
+			  this.web3Service.refreshAccounts();
 			  this.ethereum.enable();
 			}
 			console.log("donated from:" + this.account);

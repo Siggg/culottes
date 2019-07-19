@@ -43,7 +43,7 @@ export class DonateComponent implements OnInit {
 		else {
 			this.isOk=false;
 			console.log("amount to be donated:" + this.amount);
-			if (this.account == undefined) {
+			if (this.account == undefined && window.ethereum != undefined) {
 			  window.ethereum.enable();
 			}
 			console.log("donated from:" + this.account);

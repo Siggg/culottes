@@ -45,20 +45,22 @@ onClickMeT() {
 	else {
 		this.isOk=false;
 		const weiAmount = this.web3Service.etherToWei(this.amount.toString());
-		console.log(weiAmount)
-		this.web3_eth_contract.methods.vote(true, this.address).send({from: this.account, value: weiAmount})
+		console.log("Stake (in wei): " + weiAmount.toString());
+		console.log("Vote by: " + this.account);
+		this.web3_eth_contract.methods.vote(true, this.address).send({from: this.account, value: weiAmount});
 	}
 }
 
 onClickMeF() {
 	if (!this.amount)
 		this.isOk=true;
-		else {
-			this.isOk=false;
-			const weiAmount = this.web3Service.etherToWei(this.amount.toString());
-			console.log(weiAmount)
-			this.web3_eth_contract.methods.vote(false, this.address).send({from: this.account, value: weiAmount})
-		}
+	else {
+		this.isOk=false;
+		const weiAmount = this.web3Service.etherToWei(this.amount.toString());
+		console.log("Stake (in wei): " + weiAmount.toString());
+		console.log("Vote by: " + this.account);
+		this.web3_eth_contract.methods.vote(false, this.address).send({from: this.account, value: weiAmount});
+	}
 }
 
 

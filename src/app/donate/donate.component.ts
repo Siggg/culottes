@@ -43,6 +43,9 @@ export class DonateComponent implements OnInit {
 		else {
 			this.isOk=false;
 			console.log("amount to be donated:" + this.amount);
+			if (this.account == undefined) {
+			  this.ethereum.enable();
+			}
 			console.log("donated from:" + this.account);
 			var wei = this.web3Service.etherToWei(this.amount.toString());
 			this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});

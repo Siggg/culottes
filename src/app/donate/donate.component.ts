@@ -44,6 +44,7 @@ export class DonateComponent implements OnInit {
 		else {
 			this.isOk=false;
 			console.log("amount to be donated:" + this.amount);
+			var wei = this.web3Service.etherToWei(this.amount.toString());
 			if (this.account == undefined) {
 			  // Maybe metamask has not been enabled yet 
                           try {
@@ -51,16 +52,17 @@ export class DonateComponent implements OnInit {
                             await window.ethereum.enable().then(() =>  {
                               window.web3.eth.getAccounts((err, accs) => {
 				this.account = accs[0];
-			        console.log("Accounts refreshed: " + err + accs);
+			        console.log("Accounts refreshed: " + this.account);
+                                this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});
 			      });
 			    });
                           } catch (error) {
                             console.log('Metamask not enabled');
                           }
-                        }
-			console.log("donated from:" + this.account);
-			var wei = this.web3Service.etherToWei(this.amount.toString());
-			this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});
+                        } else {
+			  console.log("donated from: " + this.account);
+			  this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});
+			}
 		}
 	}
 	

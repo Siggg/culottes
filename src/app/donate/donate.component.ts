@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from '../util/web3.service';
 import { ActivatedRoute } from '@angular/router';
 
-declare let require:any;
+declare let require: any;
+declare let window: any;
 const contractABI = require('../../../build/contracts/Revolution.json');
 
 @Component({
@@ -37,12 +38,23 @@ export class DonateComponent implements OnInit {
 			});
 	}
 
-	onClickMe() {
+	async onClickMe() {
 		if (!this.amount)
 			this.isOk=true;
 		else {
 			this.isOk=false;
 			console.log("amount to be donated:" + this.amount);
+			if (this.account == undefined) {
+			  // Maybe metamask has not been enabled yet 
+                          try {
+                            // Request account access if needed
+                            await window.ethereum.enable();
+			    this.web3Service.refreshAccounts();
+			    console.log("Accounts refreshed");
+                          } catch (error) {
+                            console.log('Metamask not enabled');
+                          }
+                        }
 			console.log("donated from:" + this.account);
 			var wei = this.web3Service.etherToWei(this.amount.toString());
 			this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});

@@ -33,14 +33,6 @@ export class Web3Service {
         window.web3 = new Web3(ethereum);
         this.web3 = window.web3;
         this.web3Status.next("connecting to the blockchain");
-     /*   try {
-            // Request account access if needed
-            await ethereum.enable();
-            // Acccounts now exposed
-            web3.eth.sendTransaction({ });
-        } catch (error) {
-            // User denied account access...
-        }*/
     }
     // Legacy dapp browsers...
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -71,8 +63,26 @@ export class Web3Service {
     return this.web3.utils.fromWei(weiAmount.toString());
   }
   
-  public sendTransaction(tx) {
-    return this.web3.eth.sendTransaction(tx);
+  public async sendTransaction(tx) {
+    if (window.ethereum) {
+        try {
+            // Request account access if needed
+            await window.ethereum.enable();
+            // Acccounts now exposed
+            this.web3.eth.sendTransaction(tx);
+        } catch (error) {
+            this.web3Status.next('User denied account access...');
+        }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+        // Acccounts always exposed
+        this.web3.eth.sendTransaction(tx);
+    }
+    // Non-dapp browsers...
+    else {
+        this.web3Status.next('Non-Ethereum browser detected. You should consider trying MetaMask with Firefox or Chrome (on Desktop) or Coinbase Wallet or Cipher Wallet (on mobile).');
+    }
   }
 
   public async artifactsToContract(artifacts) {

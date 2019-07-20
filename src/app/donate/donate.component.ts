@@ -49,8 +49,10 @@ export class DonateComponent implements OnInit {
                           try {
                             // Request account access if needed
                             await window.ethereum.enable().then(() =>  {
-			      this.web3Service.refreshAccounts();
-			      console.log("Accounts refreshed");
+                              window.web3.eth.getAccounts((err, accs) => {
+				this.account = accs[0];
+			        console.log("Accounts refreshed");
+			      });
 			    });
                           } catch (error) {
                             console.log('Metamask not enabled');

@@ -51,7 +51,7 @@ export class DonateComponent implements OnInit {
                             await window.ethereum.enable().then(() =>  {
                               window.web3.eth.getAccounts((err, accs) => {
 				this.account = accs[0];
-			        console.log("Accounts refreshed");
+			        console.log("Accounts refreshed: " + err + accs);
 			      });
 			    });
                           } catch (error) {

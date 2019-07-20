@@ -114,7 +114,7 @@ export class Web3Service {
 
   }
 
-  private refreshAccounts() {
+  public refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {
       // console.log('Refreshing accounts');
       if (err != null && err != false) {

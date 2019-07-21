@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Web3Service} from '../util/web3.service';
 import { ActivatedRoute } from '@angular/router';
 
-declare let require:any;
+declare let require: any;
+declare let window: any;
 const contractABI = require('../../../build/contracts/Revolution.json');
 
 @Component({
@@ -24,7 +25,7 @@ export class CitizenComponent implements OnInit {
   constructor(private web3Service: Web3Service, private route: ActivatedRoute,) {
   }
 
-async ngOnInit() {
+  async ngOnInit() {
 	this.getAddress();
 	this.watchAccount();
     this.web3Service.artifactsToContract(contractABI)
@@ -36,41 +37,51 @@ async ngOnInit() {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
         });
-}
+  }
 
+  async cakeVote(vote) {
+    if (!this.amount)
+      this.isOk=true;
+    else {
+      this.isOk=false;
+      const weiAmount = this.web3Service.etherToWei(this.amount.toString());
+      console.log("Stake (in wei): " + weiAmount.toString());
+      if (this.account == undefined) {
+        // Maybe metamask has not been enabled yet
+        try {
+          // Request account access if needed
+          await window.ethereum.enable().then(() =>  {
+            window.web3.eth.getAccounts((err, accs) => {
+              this.account = accs[0];
+              console.log("Accounts refreshed: " + this.account);
+              this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount});
+            });
+          });
+        } catch (error) {
+          console.log('Metamask not enabled');
+        }
+      } else {
+        console.log("Vote by: " + this.account);
+        this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount});
+      }
+    }
+  }
 
-onClickMeT() {
-	if (!this.amount)
-		this.isOk=true;
-	else {
-		this.isOk=false;
-		const weiAmount = this.web3Service.etherToWei(this.amount.toString());
-		console.log("Stake (in wei): " + weiAmount.toString());
-		console.log("Vote by: " + this.account);
-		this.web3_eth_contract.methods.vote(true, this.address).send({from: this.account, value: weiAmount});
-	}
-}
+  onClickMeT() {
+    this.cakeVote(true);
+  }
 
-onClickMeF() {
-	if (!this.amount)
-		this.isOk=true;
-	else {
-		this.isOk=false;
-		const weiAmount = this.web3Service.etherToWei(this.amount.toString());
-		console.log("Stake (in wei): " + weiAmount.toString());
-		console.log("Vote by: " + this.account);
-		this.web3_eth_contract.methods.vote(false, this.address).send({from: this.account, value: weiAmount});
-	}
-}
+  onClickMeF() {
+    this.cakeVote(false);
+  }
 
-
-getAddress(): void {
+  getAddress(): void {
 	this.address = this.route.snapshot.paramMap.get('address');
   }
 
-async watchAccount() {
-  this.web3Service.accountsObservable.subscribe((accounts) => {
-    this.account = accounts[0];
-  });
-}
+  async watchAccount() {
+    this.web3Service.accountsObservable.subscribe((accounts) => {
+      this.account = accounts[0];
+    });
+  }
 }

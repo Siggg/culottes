@@ -28,7 +28,7 @@ contract('Revolution', function(accounts) {
     expect(receipt.logs[1].args._vote).to.equal(true);
     expect(receipt.logs[1].args._amount.toNumber()).to.equal(100);
 
-    let sansculotteAmount = await revolution.getAmount(true, citizen);
+    let sansculotteAmount = await revolution.getScaleAmount(true, citizen);
     expect(sansculotteAmount.toNumber()).to.equal(100);
 
     receipt = await revolution.vote(false, citizen, {value: 300});
@@ -37,7 +37,7 @@ contract('Revolution', function(accounts) {
     expect(receipt.logs[0].args._citizen).to.equal(citizen);
     expect(receipt.logs[0].args._vote).to.equal(false);
 
-    let privilegedAmount = await revolution.getAmount(false, citizen);
+    let privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(300);
 
   });

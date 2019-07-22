@@ -40,7 +40,7 @@ contract Revolution {
   }
 
   // Citizens known at this Revolution
-  address payable [] citizens;
+  address payable [] public citizens;
   // Trials known at this Revolution
   mapping (address => Trial) private trials;
 
@@ -185,7 +185,7 @@ contract Revolution {
     }
   }
 
-  function getAmount(bool _vote, address _citizen) public view returns (uint){
+  function getScaleAmount(bool _vote, address _citizen) public view returns (uint){
     Trial storage trial = trials[_citizen]; 
     if (_vote)
       return trial.sansculotteScale.amount;

@@ -14,7 +14,8 @@ export class Web3Service {
   private accounts: string[];
   public ready = false;
   public revolutionAddress = "0x6953CE5fE1B7983DaA4b705bef73B96A701DEeda"; // @rinkeby with 3 1337 true true
-	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false
+	// "0x7C47382c5F56dB3b89be79F20DF2d7350551577B" @rinkeby with 3 142 false false
+	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false but citizesn was private
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balancea
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
 

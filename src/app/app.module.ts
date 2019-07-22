@@ -5,7 +5,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
-import { MetaModule } from "./meta/meta.module";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
@@ -48,7 +47,6 @@ import { CitizenComponent } from "./citizen/citizen.component";
     MatToolbarModule,
     FormsModule,
     HttpClientModule,
-    MetaModule,
     AppRoutingModule
   ],
   providers: [],

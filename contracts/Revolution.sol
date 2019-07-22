@@ -7,19 +7,19 @@ contract Revolution {
   string public criteria;
 
   // Minimum number of blocks before next cake distribution from the Revolution
-  uint distributionBlockPeriod;
+  uint public distributionBlockPeriod;
 
-  // Amount of ETH to be distributed to each citizen matchin criteria
-  uint distributionAmount;
+  // Amount of WEI to be distributed to each citizen matching criteria
+  uint public distributionAmount;
 
   // Number of the block at last distribution
   uint lastDistributionBlockNumber;
 
-  // Will this Revolution randomly close its votes ?
-  bool withLottery;
+  // Will this Revolution randomly close its trials ?
+  bool public withLottery;
 
-  // Will this Revolution distribute cakes ?
-  bool withDistribution;
+  // Will this Revolution automatically consider distributing cakes after each vote ?
+  bool public withDistribution;
 
   // For a given citizen, let's put all positive (or negative) votes
   // received into a positive (or negative) justice scale.

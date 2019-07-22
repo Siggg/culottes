@@ -76,7 +76,7 @@ contract Revolution {
     }
 
     JusticeScale storage scale = trial.sansculotteScale;
-    if (!_vote) {
+    if (_vote == false) {
       scale = trial.privilegedScale;
     }
     scale.voters.push(msg.sender);
@@ -85,18 +85,18 @@ contract Revolution {
 
     emit VoteReceived('VoteReceived', msg.sender, _citizen, _vote, msg.value);
 
-    if(withLottery && block.number > trial.blockNumber) {
+    if(withLottery == true && block.number > trial.blockNumber) {
       // update trial block number
       trial.blockNumber = block.number;
       // start closing trial lottery
-      if(closingLottery()) {
+      if(closingLottery() == true) {
         trial.opened = false;
         emit TrialClosed('TrialClosed', _citizen);
         closeTrial(_citizen);
       }
     }
 
-    if(withDistribution) {
+    if(withDistribution == true) {
       distribute();
     }
   }
@@ -171,8 +171,8 @@ contract Revolution {
       // Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?
       // Does the Bastille have more cakes left than the amount to be distributed ?
       // Did the last distribution happen long enough ago ?
-      if (!trial.opened &&
-          trial.matchesCriteria &&
+      if (trial.opened == false &&
+          trial.matchesCriteria == true &&
           bastilleBalance > distributionAmount &&
           (block.number - lastDistributionBlockNumber >= distributionBlockPeriod)) {
         // Then send this sans-culotte its fair share of Bastille cakes.
@@ -187,7 +187,7 @@ contract Revolution {
 
   function getScaleAmount(bool _vote, address _citizen) public view returns (uint){
     Trial storage trial = trials[_citizen]; 
-    if (_vote)
+    if (_vote == true)
       return trial.sansculotteScale.amount;
     else
       return trial.privilegedScale.amount;

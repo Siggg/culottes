@@ -16,6 +16,7 @@ import {
 } from "@angular/material";
 
 // import { SuiModule } from "ng2-semantic-ui";
+import {UtilModule} from './util/util.module';
 import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
 import { OpentrialComponent } from "./open_trial/open_trial.component";
@@ -47,7 +48,8 @@ import { CitizenComponent } from "./citizen/citizen.component";
     MatToolbarModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UtilModule
   ],
   providers: [],
   bootstrap: [AppComponent]

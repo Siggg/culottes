@@ -13,7 +13,7 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public ready = false;
-  public revolutionAddress = "0x357ecf2e77791a562ade2a05dd18a460e73956ef79994548dbd0c96b56a372b1"; // @rinkeby with 3 1337 true true
+  public revolutionAddress = "0x6953CE5fE1B7983DaA4b705bef73B96A701DEeda"; // @rinkeby with 3 1337 true true
 	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balancea
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters

@@ -29,7 +29,7 @@ Your preferred cause probably deserves its own culottes.
   * Set the minimum number of blockchain blocks that any election will last
   * truffle compile
   * truffle build
-  * truffle migrate
+  * truffle migrate -f 2 --network rinkebyInfura --reset --compile-all
 
 7. Setup your Twitter bot
 

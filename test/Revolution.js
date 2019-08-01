@@ -74,6 +74,14 @@ contract('Revolution', function(accounts) {
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(0);
     expect(status.privilegedScale.toNumber()).to.equal(0);
+    
+    // The trial should be closed
+    
+    expect(status.opened).to.equal(false);
+    
+    // The verdict should be "privileged"
+    
+    expect(status.matchesCriteria).to.equal(false);
 
   });
 

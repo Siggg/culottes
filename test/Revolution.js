@@ -125,6 +125,7 @@ contract('Revolution', function(accounts) {
     let status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(0);
     expect(status.privilegedScale.toNumber()).to.equal(0);
+    expect(status.opened).to.equal(false);
 
     await revolution.vote(true, citizen, {from: A, value: 1});
     await revolution.vote(true, citizen, {from: B, value: 2});
@@ -133,6 +134,7 @@ contract('Revolution', function(accounts) {
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(6);
     expect(status.privilegedScale.toNumber()).to.equal(0);
+    expect(status.opened).to.equal(true);
 
     await revolution.vote(false, citizen, {from: D, value: 2});
     await revolution.vote(false, citizen, {from: E, value: 2});
@@ -140,6 +142,7 @@ contract('Revolution', function(accounts) {
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(6);
     expect(status.privilegedScale.toNumber()).to.equal(4);
+    expect(status.opened).to.equal(true);
 
     let aBalanceBeforeClosing = await web3.eth.getBalance(A);
     let bBalanceBeforeClosing = await web3.eth.getBalance(B);

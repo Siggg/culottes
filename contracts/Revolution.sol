@@ -73,7 +73,7 @@ contract Revolution {
       emit TrialOpened('TrialOpened', _citizen);
       citizens.push(_citizen);
       trial.citizen = _citizen;
-      trial.opened;
+      trial.opened = true;
     }
 
     JusticeScale storage scale = trial.sansculotteScale;

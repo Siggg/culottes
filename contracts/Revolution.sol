@@ -68,12 +68,12 @@ contract Revolution {
 
   function vote(bool _vote, address payable _citizen) public payable {
     Trial storage trial = trials[_citizen];
+    trial.opened = true;
     if (trial.citizen == address(0x0) ) {
       // this is a new trial, emit an event
       emit TrialOpened('TrialOpened', _citizen);
       citizens.push(_citizen);
       trial.citizen = _citizen;
-      trial.opened = true;
     }
 
     JusticeScale storage scale = trial.sansculotteScale;

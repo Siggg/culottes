@@ -91,7 +91,6 @@ contract Revolution {
       trial.blockNumber = block.number;
       // start closing trial lottery
       if(closingLottery() == true) {
-        trial.opened = false;
         emit TrialClosed('TrialClosed', _citizen);
         closeTrial(_citizen);
       }
@@ -104,6 +103,8 @@ contract Revolution {
 
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
+    // Mark the trial as closed
+    trial.opened = false;
     // Issue a verdict : is this citizen a sans-culotte or a privileged ?
     // By default, citizens are seen as privileged...
     JusticeScale storage winnerScale = trial.privilegedScale;

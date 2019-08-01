@@ -52,11 +52,11 @@ contract('Revolution', function(accounts) {
 
     // There should be an opened trial now
     
-    let status = await revolution.trialStatus(citizen);
-    expect(status.opened).to.equal(true);
-    expect(status.sansculotteScale.toNumber()).to.equal(100);
-    expect(status.privilegedScale.toNumber()).to.equal(300);
-    expect(status.matchesCriteria).to.equal(false);
+    let status2 = await revolution.trialStatus(citizen);
+    expect(status2.opened).to.equal(true);
+    expect(status2.sansculotteScale.toNumber()).to.equal(100);
+    expect(status2.privilegedScale.toNumber()).to.equal(300);
+    expect(status2.matchesCriteria).to.equal(false);
     
   });
 

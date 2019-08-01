@@ -116,6 +116,8 @@ contract('Revolution', function(accounts) {
 
     let citizen = accounts[9];
 
+    // before votes
+
     let revolutionBalanceBeforeVotes = await web3.eth.getBalance(revolution.address);
     console.log('revolutionBalanceBeforeVotes: ', revolutionBalanceBeforeVotes);
 
@@ -126,10 +128,18 @@ contract('Revolution', function(accounts) {
     expect(status.sansculotteScale.toNumber()).to.equal(0);
     expect(status.privilegedScale.toNumber()).to.equal(0);
     expect(status.opened).to.equal(false);
-
+    sansculotteAmount = await revolution.getScaleAmount(true, citizen);
+    expect(sansculotteAmount.toNumber()).to.equal(0);
+    privilegedAmount = await revolution.getScaleAmount(false, citizen);
+    expect(privilegedAmount.toNumber()).to.equal(0);
+    
+    // votes
+    
     await revolution.vote(true, citizen, {from: A, value: 1});
     await revolution.vote(true, citizen, {from: B, value: 2});
     await revolution.vote(true, citizen, {from: C, value: 3});
+
+    // after votes
 
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(6);
@@ -143,6 +153,8 @@ contract('Revolution', function(accounts) {
     expect(status.sansculotteScale.toNumber()).to.equal(6);
     expect(status.privilegedScale.toNumber()).to.equal(4);
     expect(status.opened).to.equal(true);
+    
+    // before closing trial
 
     let aBalanceBeforeClosing = await web3.eth.getBalance(A);
     let bBalanceBeforeClosing = await web3.eth.getBalance(B);
@@ -155,7 +167,11 @@ contract('Revolution', function(accounts) {
     // None of these cakes went to the Bastille before the closing of the trial.
     expect(web3.utils.toBN(bastilleBalanceBeforeClosing).sub(web3.utils.toBN(bastilleBalanceBeforeVotes)).toNumber()).to.equal(0);
 
+    // close trial
+
     await revolution.closeTrial(citizen);
+    
+    // after closing trial
 
     let aBalanceAfterClosing = await web3.eth.getBalance(A);
     let bBalanceAfterClosing = await web3.eth.getBalance(B);
@@ -181,7 +197,11 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(0);
     expect(status.opened).to.equal(false);
     expect(status.matchesCriteria).to.equal(true);
-
+    sansculotteAmount = await revolution.getScaleAmount(true, citizen);
+    expect(sansculotteAmount.toNumber()).to.equal(0);
+    privilegedAmount = await revolution.getScaleAmount(false, citizen);
+    expect(privilegedAmount.toNumber()).to.equal(0);
+    
     console.log('bastilleBalanceAfterClosing: ', bastilleBalanceAfterClosing.toNumber());
     console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
     let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);

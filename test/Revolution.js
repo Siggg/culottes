@@ -18,6 +18,16 @@ contract('Revolution', function(accounts) {
     const revolution = await Revolution.deployed();
 
     let citizen = accounts[9];
+    
+    // There should be no trial yet for this citizen
+    
+    let status = await revolution.trialStatus(citizen);
+    expect(status.opened).to.equal(false);
+    expect(status.sansculotteScale.toNumber()).to.equal(0);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
+
+    // Let's cast a vote
+    
     let receipt = await revolution.vote(true, citizen, {value: 100});
     //expect(receipt.logs.length).to.equal(2);
     expect(receipt.logs[0].event).to.equal('TrialOpened');
@@ -40,6 +50,14 @@ contract('Revolution', function(accounts) {
     let privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(300);
 
+    // There should be an opened trial now
+    
+    let status = await revolution.trialStatus(citizen);
+    expect(status.opened).to.equal(true);
+    expect(status.sansculotteScale.toNumber()).to.equal(100);
+    expect(status.privilegedScale.toNumber()).to.equal(300);
+    expect(status.matchesCriteria).to.equal(false);
+    
   });
 
   it("Vote closing", async function() {

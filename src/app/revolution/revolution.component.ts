@@ -43,14 +43,22 @@ export class RevolutionComponent implements OnInit {
       .catch( (error) => {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
       });
-    this.citizens = await web3_eth_contract.methods.citizens(0).call()
+    let i = 0;
+    let citizen = "";
+    while (citizen != "0x00") {
+      citizen = await web3_eth_contract.methods.citizens(i).call()
       .then( (result) => {
-        this.web3Service.web3Status.next("citizens: " + result.toString());
         return result;
       })
       .catch( (error) => {
-        this.web3Service.web3Status.next("An error occured while reading citizens: " + error);
+        this.web3Service.web3Status.next("An error occured while reading citizen " + i.toString() + " : " + error);
+        return ""
       });
+      if (citizen != "" && citizen != "0x00") {
+      this.citizens.push(citizen);
+      }
+      i += 1;
+    }
   }
 
   async watchAccount() {

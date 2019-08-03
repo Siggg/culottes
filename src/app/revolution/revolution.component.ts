@@ -59,6 +59,7 @@ export class RevolutionComponent implements OnInit {
       }
       i += 1;
     }
+    this.web3Service.web3Status.next("Here a re the citizens known at this bastille : " + this.citizens.toString());
   }
 
   async watchAccount() {

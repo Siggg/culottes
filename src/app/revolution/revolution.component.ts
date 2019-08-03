@@ -44,7 +44,7 @@ export class RevolutionComponent implements OnInit {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
       });
     this.citizens = await web3_eth_contract.methods.citizens().call().then( (result) => {
-    this.web3Service.next("citizens: ", result);
+    this.web3Service.web3Status.next("citizens: ", result);
     return result;
     });
   }

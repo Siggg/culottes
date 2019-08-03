@@ -45,10 +45,10 @@ export class RevolutionComponent implements OnInit {
       });
     let i = 0;
     let citizen = "";
-    await web3_eth_contract.methods.citizens(1).call().then ( (result) => {
+    // await web3_eth_contract.methods.citizens(1).call().then ( (result) => {
       this.web3Service.web3Status.next("Here is how null address is returned from contract : " + result);
     });
-    while (citizen != "0x00") {
+    while (citizen != null) {
       citizen = await web3_eth_contract.methods.citizens(i).call()
       .then( (result) => {
         return result;
@@ -57,7 +57,7 @@ export class RevolutionComponent implements OnInit {
         this.web3Service.web3Status.next("An error occured while reading citizen " + i.toString() + " : " + error);
         return ""
       });
-      if (citizen != "" && citizen != "0x00") {
+      if (citizen != "" && citizen != null) {
       this.citizens.push(citizen);
       }
       i += 1;

@@ -43,7 +43,7 @@ export class RevolutionComponent implements OnInit {
       .catch( (error) => {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
       });
-    this.citizens = await web3_eth_contract.methods.citizens().call()
+    this.citizens = await web3_eth_contract.methods.citizens(0).call()
       .then( (result) => {
         this.web3Service.web3Status.next("citizens: " + result.toString());
         return result;

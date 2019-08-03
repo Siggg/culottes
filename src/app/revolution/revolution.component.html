@@ -5,7 +5,7 @@
   </div>
 
   <div class="title" id="criteriaLabel">
-    This bastille collects donations sent to the address {{ revolutionAddress }} on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong id="criteria">{{ criteria }}</strong>.
+    This bastille collects donations sent to the address {{ revolutionAddress }} on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
   </div>
 
   <div class="ui segment ethAmount">
@@ -45,11 +45,26 @@
     </div>
   
     <div class="tab">
-      <app-closed_trial></app-closed_trial>
+    Are they <strong class="criteria">{{ criteria }}</strong> ?
+      <table>
+        <thead>
+            <th>Address</th>
+            <th>Are they?</th>
+            <th>Vote and bet</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let citizen of citizens">
+                <td data-tooltip="{{ citizen }}">{{ (citizen.length>6)? (citizen | slice:0:6)+'...':(citizen) }}</td>
+                <td>unknown</td>
+                <td><a [routerLink]="['/citizen', citizen]">Add or remove them</a></td>
+            </tr>
+        </tbody>
+      </table>
     </div>
     <div class="tab">
       <app-open_trial></app-open_trial>
     </div>
+    
   </div>
   
   <div class="ui segment ethAmount">

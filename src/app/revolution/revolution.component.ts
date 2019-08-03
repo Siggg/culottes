@@ -45,6 +45,9 @@ export class RevolutionComponent implements OnInit {
       });
     let i = 0;
     let citizen = "";
+    await web3_eth_contract.methods.citizens(1).call().then ( (result) => {
+      this.web3Service.web3Status.next("Here is how null address is returned from contract : " + result);
+    });
     while (citizen != "0x00") {
       citizen = await web3_eth_contract.methods.citizens(i).call()
       .then( (result) => {

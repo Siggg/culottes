@@ -17,6 +17,7 @@ export class RevolutionComponent implements OnInit {
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";
+  citizens: any;
 
   constructor(private web3Service: Web3Service) {}
 
@@ -42,6 +43,10 @@ export class RevolutionComponent implements OnInit {
       .catch( (error) => {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
       });
+    this.citizens = await web3_eth_contract.methods.citizens().call().then( (result) => {
+    this.web3Service.next("citizens: ", result);
+    return result;
+    });
   }
 
   async watchAccount() {

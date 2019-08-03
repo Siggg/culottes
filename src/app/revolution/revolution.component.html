@@ -34,6 +34,25 @@
     </a>
   </div>
   
+  <div class="ui segment">
+  Are they <strong class="criteria">{{ criteria }}</strong> ?
+    <table>
+      <thead>
+        <th>Address</th>
+        <th>Are they?</th>
+        <th>Vote and bet</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let citizen of citizens">
+          <td data-title="{{ citizen }}">{{ (citizen.length>6)? (citizen | slice:0:6)+'...':(citizen) }}</td>
+          <td>unknown</td>
+          <td><a routerLink="/citizen">Add or remove them</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
   <div style="display:none">
     <div class="ui segment ethAmount">
       Distributed so far
@@ -44,23 +63,6 @@
       </div>
     </div>
   
-    <div class="tab">
-    Are they <strong class="criteria">{{ criteria }}</strong> ?
-      <table>
-        <thead>
-            <th>Address</th>
-            <th>Are they?</th>
-            <th>Vote and bet</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let citizen of citizens">
-                <td data-title="{{ citizen }}">{{ (citizen.length>6)? (citizen | slice:0:6)+'...':(citizen) }}</td>
-                <td>unknown</td>
-                <td><a routerLink="/citizen">Add or remove them</a></td>
-            </tr>
-        </tbody>
-      </table>
-    </div>
     <div class="tab">
       <app-open_trial></app-open_trial>
     </div>

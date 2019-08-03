@@ -54,7 +54,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let citizen of citizens">
-                <td data-tooltip="{{ citizen }}">{{ (citizen.length>6)? (citizen | slice:0:6)+'...':(citizen) }}</td>
+                <td data-title="{{ citizen }}">{{ (citizen.length>6)? (citizen | slice:0:6)+'...':(citizen) }}</td>
                 <td>unknown</td>
                 <td><a [routerLink]="['/citizen', citizen]">Add or remove them</a></td>
             </tr>

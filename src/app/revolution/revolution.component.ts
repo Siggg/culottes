@@ -56,10 +56,10 @@ export class RevolutionComponent implements OnInit {
         this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
       });
     let i = 0;
-    let citizen = "";
-    // await web3_eth_contract.methods.citizens(1).call().then ( (result) => { this.web3Service.web3Status.next("Here is how null address is returned from contract : " + result); });
-    while (citizen != null) {
-      citizen = await web3_eth_contract.methods.citizens(i).call()
+    let address = "";
+    let citizen: ICitizen;
+    while (address != null) {
+      address = await web3_eth_contract.methods.citizens(i).call()
       .then( (result) => {
         return result;
       })
@@ -67,26 +67,24 @@ export class RevolutionComponent implements OnInit {
         this.web3Service.web3Status.next("An error occured while reading citizen " + i.toString() + " : " + error);
         return ""
       });
-      if (citizen != "" && citizen != null) {
-        citizen = await web3_eth_contract
+      if (address != "" && address != null) {
+        await web3_eth_contract
           .methods
-          .trialStatus(citizen)
+          .trialStatus(address)
           .call()
           .then( (result) => {
-            return {
-              address: citizen,
+            citizen = {
+              address: address,
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],
               privilegedScale: result[3]
             };
+            this.citizens.push(citizen);
           })
           .catch( (error) => {
             this.web3Service.web3Status.next("An error occured while reading trialStatus " + i.toString() + " : " + error);
           });
-        if (citizen != undefined) {
-          this.citizens.push(citizen);
-        }
       }
       i += 1;
     }

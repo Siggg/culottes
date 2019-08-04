@@ -61,6 +61,9 @@ export class RevolutionComponent implements OnInit {
       });
       if (citizen != "" && citizen != null) {
         this.citizens.push(citizen);
+        let trialStatus = await web3_eth_contract.methods.trialStatus(citizen);
+        this.web3Service.web3Status.next("trial status: " + trialStatus.toString());
+        // returns(bool opened, bool matchesCriteria, uint sansculotteScale, uint privilegedScale)
       }
       i += 1;
     }

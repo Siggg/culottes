@@ -74,7 +74,7 @@ export class RevolutionComponent implements OnInit {
           .call()
           .then( (result) => {
             this.citizens.push({
-              address: citizen;
+              address: citizen,
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Web3Service} from '../util/web3.service';
-import { ActivatedRoute } from '@angular/router';
+import { Web3Service } from '../util/web3.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare let require: any;
 declare let window: any;
@@ -22,13 +22,16 @@ export class CitizenComponent implements OnInit {
 	isOk = false;
 	web3_eth_contract: any;
 
-  constructor(private web3Service: Web3Service, private route: ActivatedRoute,) {
+  constructor(
+    private web3Service: Web3Service,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   async ngOnInit() {
-	this.getAddress();
-	this.watchAccount();
-    this.web3Service.artifactsToContract(contractABI)
+	  this.getAddress();
+	  this.watchAccount();
+      this.web3Service.artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
 		  	this.web3_eth_contract = web3_eth_contract;
 			return web3_eth_contract.methods.criteria().call();

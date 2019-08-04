@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Web3Service } from "../util/web3.service";
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare let require: any;
 const contractABI = require("../../../build/contracts/Revolution.json");
@@ -19,7 +20,10 @@ export class RevolutionComponent implements OnInit {
   web3Status: String = "Status of connection to your blockchain accounts";
   citizens: Array<String> = [];
 
-  constructor(private web3Service: Web3Service) {}
+  constructor(
+    private web3Service: Web3Service,
+    private route: ActivatedRoute,
+    private router: Router) {}
 
   async ngOnInit() {
     console.log("OnInit: " + this.web3Service);

@@ -80,6 +80,7 @@ export class RevolutionComponent implements OnInit {
               sansculotteScale: result[2],
               privilegedScale: result[3]
             };
+            
             this.citizens.push(citizen);
           })
           .catch( (error) => {

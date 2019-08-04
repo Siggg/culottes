@@ -6,14 +6,20 @@ import { ClosedtrialComponent } from "../closed_trial/closed_trial.component";
 
 import { Web3Service } from '../util/web3.service';
 
+import { RouterTestingModule } from '@angular/router/testing';
+
 describe('CulottelistComponent', () => {
   let component: RevolutionComponent;
   let fixture: ComponentFixture<RevolutionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-	declarations: [ RevolutionComponent, OpentrialComponent, ClosedtrialComponent ],
-	providers: [ Web3Service ]
+      imports: [RouterTestingModule],
+	    declarations: [
+	      RevolutionComponent,
+	      OpentrialComponent,
+	      ClosedtrialComponent ],
+	    providers: [ Web3Service ]
     })
     .compileComponents();
   }));

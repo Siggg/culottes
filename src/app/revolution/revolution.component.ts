@@ -80,6 +80,9 @@ export class RevolutionComponent implements OnInit {
               sansculotteScale: result[2],
               privilegedScale: result[3]
             });
+          })
+          .catch( (error) => {
+            this.web3Service.web3Status.next("An error occured while reading trialStatus " + i.toString() + " : " + error);
           });
       }
       i += 1;

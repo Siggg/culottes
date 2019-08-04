@@ -48,6 +48,7 @@ import { CitizenComponent } from "./citizen/citizen.component";
     MatToolbarModule,
     FormsModule,
     HttpClientModule,
+    RouterModule,
     AppRoutingModule,
     UtilModule
   ],

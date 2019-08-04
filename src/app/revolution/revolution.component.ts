@@ -5,6 +5,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 declare let require: any;
 const contractABI = require("../../../build/contracts/Revolution.json");
 
+interface ITrialStatus {
+   openedTrial: boolean;
+   matchesCriteria: boolean;
+   sansculotteScale: number;
+   privilegedScale: number
+}
+
 @Component({
   selector: "app-revolution",
   templateUrl: "./revolution.component.html",
@@ -18,7 +25,7 @@ export class RevolutionComponent implements OnInit {
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";
-  citizens: Array<String> = [];
+  citizens: { [address: string]: ITrialStatus; } = {};
 
   constructor(
     private web3Service: Web3Service,
@@ -60,10 +67,18 @@ export class RevolutionComponent implements OnInit {
         return ""
       });
       if (citizen != "" && citizen != null) {
-        this.citizens.push(citizen);
-        let trialStatus = await web3_eth_contract.methods.trialStatus(citizen);
-        this.web3Service.web3Status.next("trial status: " + trialStatus.toString());
-        // returns(bool opened, bool matchesCriteria, uint sansculotteScale, uint privilegedScale)
+        await web3_eth_contract
+          .methods
+          .trialStatus(citizen)
+          .call()
+          .then( (result) => {
+            this.citizens[citizen] = {
+              opened: result[0],
+              matchesCriteria: result[1],
+              sansculotteScale: result[2],
+              privilegedScale: result[3]
+            };
+          });
       }
       i += 1;
     }

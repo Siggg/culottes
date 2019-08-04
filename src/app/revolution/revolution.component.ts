@@ -7,7 +7,7 @@ const contractABI = require("../../../build/contracts/Revolution.json");
 
 interface ICitizen {
    address: string;
-   openedTrial: boolean;
+   opened: boolean;
    matchesCriteria: boolean;
    sansculotteScale: number;
    privilegedScale: number

@@ -5,7 +5,7 @@
   </div>
 
   <div class="title" id="criteriaLabel">
-    This bastille collects donations sent to the address {{ revolutionAddress }} on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
+    This bastille collects donations sent to the address <span ng-click="showme=true" ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span ng-click="showme=false" ng-show="showme">{{ revolutionAddress }}</span> on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
   </div>
 
   <div class="ui segment ethAmount">

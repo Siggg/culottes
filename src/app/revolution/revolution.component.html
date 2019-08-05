@@ -1,7 +1,7 @@
 <div>
 
-  <div class="title" id="criteriaLabel">
-    This bastille collects donations sent to the address <a href="#" ng-click="showme = !showme"><div ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</div><div ng-show="showme">{{ revolutionAddress }}</div></a> on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
+  <div class="title">
+    This bastille collects donations sent to the address <a href="#" ng-click="showme = !showme"><div ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</div><div ng-show="showme">{{ revolutionAddress }}</div></a> on the Ethereum Rinkeby blockchain.
   </div>
 
   <div class="ui segment ethAmount">
@@ -19,6 +19,10 @@
       <button routerLink="/donate" class="ui icon button">
         <i class="plus circle icon"></i></button
       ></a>
+  </div>
+  
+  <div class="title" id="criteriaLabel">
+    You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
   </div>
   
   <div class="ui segment">

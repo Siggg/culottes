@@ -9,20 +9,20 @@
   </div>
 
   <div class="ui segment ethAmount">
-    <a routerLink="/donate"
-    >Donate to this bastille<br />
-      <button routerLink="/donate" class="ui icon button">
-        <i class="plus circle icon"></i></button
-      ></a>
-  </div>
-  
-  <div class="ui segment ethAmount">
     Current amount in this bastille:<br />
     <div class="left labeled basic label" tabindex="0">
       <a id="balance">
         {{ bastilleBalance }}
       </a> ETH
     </div>
+  </div>
+  
+  <div class="ui segment ethAmount">
+    <a routerLink="/donate"
+    >Donate to this bastille<br />
+      <button routerLink="/donate" class="ui icon button">
+        <i class="plus circle icon"></i></button
+      ></a>
   </div>
   
   <div class="ui segment">
@@ -51,7 +51,7 @@
   
   <div class="ui segment ethAmount">
     <a routerLink="/citizen"
-    >Add or remove {{ criteria }}<br />
+    >Add or remove <strong>{{ criteria }}</strong><br />
       <button class="ui icon button">
         <i class="thumbs up outline icon"></i>
       </button>

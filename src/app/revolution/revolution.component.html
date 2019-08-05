@@ -48,7 +48,7 @@
           <td *ngIf="citizen.opened; then thenBlock else elseBlock"></td>
             <ng-template #thenBlock>trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
             <ng-template #elseBlock>
-              <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
+              <span align="center" *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
               <ng-template #thenBlock2>YES</ng-template>
               <ng-template #elseBlock2>NO</ng-template>
             </ng-template>

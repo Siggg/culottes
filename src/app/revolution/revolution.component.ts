@@ -48,12 +48,12 @@ export class RevolutionComponent implements OnInit {
         if (result === null) {
           this.web3Service.web3Status.next("The balance of this bastille is null !");
         } else {
-          this.web3Service.web3Status.next("bastilleBalance ready.");
+          this.web3Service.web3Status.next("bastilleready.");
           return this.web3Service.weiToEther(result);
         }
       })
       .catch( (error) => {
-        this.web3Service.web3Status.next("An error occured while reading bastilleBalance: " + error);
+        this.web3Service.web3Status.next("An error occured while reading bastille balance: " + error);
       });
     let i = 0;
     let address = "";

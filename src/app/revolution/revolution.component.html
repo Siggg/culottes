@@ -1,9 +1,5 @@
 <div>
 
-  <div class="ui segment">Status:
-    {{ web3Status }}
-  </div>
-
   <div class="title" id="criteriaLabel">
     This bastille collects donations sent to the address <a href="#"><span ng-click="showme=true" ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span ng-click="showme=false" ng-show="showme">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain. You can receive an income from this bastille if and only if you are <strong class="criteria">{{ criteria }}</strong>.
   </div>
@@ -76,6 +72,10 @@
   
   <div class="ui segment ethAmount">
     You can further interact with this Revolution from the Etherscan website either <a href="https://rinkeby.etherscan.io/address/{{ revolutionAddress }}">via its Contract view</a> or <a href="https://rinkeby.etherscan.io/dapp/{{ revolutionAddress }}">via its Dapp view</a>.
+  </div>
+  
+  <div class="ui segment">Status:
+    {{ web3Status }}
   </div>
 
 </div>

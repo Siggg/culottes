@@ -1,7 +1,7 @@
 <div>
 
   <div class="title">
-    This bastille collects donations sent to the address <a href="#" ng-click="showme = !showme"><div ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</div><div ng-show="showme">{{ revolutionAddress }}</div></a> on the Ethereum Rinkeby blockchain.
+    This bastille collects donations sent to the address <a href="#" ng-init="showme=false" ng-click="showme = !showme"><span ng-hide="showme">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span ng-show="showme">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain.
   </div>
 
   <div class="ui segment ethAmount">

@@ -39,14 +39,20 @@
     <table>
       <thead>
         <th>Their address</th>
-        <th>Current status</th>
+        <th>Are they ?</th>
         <th>Your vote and bet</th>
       </thead>
       <tbody>
         <tr *ngFor="let citizen of citizens">
           <td data-title="{{ citizen.address }}">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</td>
-          <td>{{ citizen.matchesCriteria }} ( {{ citizen.sansculotteScale }} x YES / {{ citizen.privilegedScale }} x NO )</td>
-          <td><a [routerLink]="['/citizen', citizen.address]">YES or NO ?</a></td>
+          <td *ngIf="citizen.opened; then thenBlock else elseBlock"></td>
+            <ng-template #thenBlock>trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
+            <ng-template #elseBlock>
+              <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
+              <ng-template #thenBlock2>YES</ng-template>
+              <ng-template #elseBlock2>NO</ng-template>
+            </ng-template>
+            <td><a [routerLink]="['/citizen', citizen.address]">YES or NO ?</a></td>
         </tr>
       </tbody>
     </table>

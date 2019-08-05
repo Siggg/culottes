@@ -68,24 +68,25 @@ export class RevolutionComponent implements OnInit {
         return ""
       });
       if (address != "" && address != null) {
-        await web3_eth_contract
+        citizen = await web3_eth_contract
           .methods
           .trialStatus(address)
           .call()
           .then( (result) => {
-            citizen = {
+            return {
               address: address,
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],
               privilegedScale: result[3]
             };
-            
-            this.citizens.push(citizen);
           })
           .catch( (error) => {
-            this.web3Service.web3Status.next("An error occured while reading trialStatus " + i.toString() + " : " + error);
+            this.web3Service.web3Status.next("An error occured while reading trialStatus of citizen #" + i.toString() + " : " + error);
           });
+        if (citizen != undefined) {
+          this.citizens.push(citizen);
+        }
       }
       i += 1;
     }

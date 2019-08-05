@@ -26,7 +26,7 @@ export class RevolutionComponent implements OnInit {
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";
-  citizens: Array<ICitizen>;
+  citizens: Array<ICitizen> = [];
 
   constructor(
     private web3Service: Web3Service,

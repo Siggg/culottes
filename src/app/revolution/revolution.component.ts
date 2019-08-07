@@ -58,6 +58,7 @@ export class RevolutionComponent implements OnInit {
       .catch( (error) => {
         this.web3Service.web3Status.next("An error occured while reading bastille balance: " + error);
       });
+    this.showPrice();
     let i = 0;
     let address = "";
     let citizen: ICitizen;
@@ -115,7 +116,9 @@ export class RevolutionComponent implements OnInit {
   showPrice() {
     this.web3Service.getPrice()
     .subscribe((price) => {
-      this.bastilleBalanceInFiat = (this.bastilleBalance * price[this.currency]).toString();
+      if (type(this.bastilleBalance) == number) { 
+        this.bastilleBalanceInFiat = (this.bastilleBalance * price[this.currency]).toString();
+      }
     });
   }
   

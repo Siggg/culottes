@@ -23,7 +23,13 @@ export class Web3Service {
   
   public web3Status = new BehaviorSubject<string>("no attempt to access your blockchain accounts yet, please wait or reload the app");
   
-  constructor() {
+  private priceUrl = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=AUD,CAD,CNY,EUR,GBP,JNY,USD&extraParams=culottes';
+
+  public getPrice() {
+    return this.http.get(this.priceUrl,  { observe: 'response' });
+}
+  
+  constructor(private http: HttpClient) {
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
     });

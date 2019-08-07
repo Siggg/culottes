@@ -92,13 +92,29 @@ export class RevolutionComponent implements OnInit {
       i += 1;
     }
     // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
+    
   }
 
   async watchAccount() {
-  
-      this.web3Service.web3Status.subscribe(status => { this.web3Status = status; });
-    this.web3Service.accountsObservable.subscribe(accounts => {
-      this.account = accounts[0];
-    });
+    this
+      .web3Service
+      .web3Status
+      .subscribe(status => {
+        this.web3Status = status;
+      });
+    this
+      .web3Service
+      .accountsObservable
+      .subscribe(accounts => {
+        this.account = accounts[0];
+      });
   }
+  
+  showPrice() {
+    this.web3Service.getPrice()
+    .subscribe((price) => this.price = {
+        EUR: price['EUR'],
+        USD:  price['USD']
+    });
+}
 }

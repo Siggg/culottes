@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
+import { HttpClient } from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 

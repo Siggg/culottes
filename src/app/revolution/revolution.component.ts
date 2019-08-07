@@ -23,6 +23,7 @@ export class RevolutionComponent implements OnInit {
   criteria: String = "<loading criteria>";
   bastilleBalance: String = "?";
   bastilleBalanceInFiat: String = "?";
+  currency: String = "EUR";
   revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;
@@ -114,7 +115,12 @@ export class RevolutionComponent implements OnInit {
   showPrice() {
     this.web3Service.getPrice()
     .subscribe((price) => {
-      this.bastilleBalanceInFiat = this.bastilleBalance * price['EUR'];
+      this.bastilleBalanceInFiat = this.bastilleBalance * price[this.currency];
     });
-}
+  }
+  
+  public onChange(event): void {  // event will give you full breif of action
+    this.currency = event.target.value;
+    this.showPrice();
+  }
 }

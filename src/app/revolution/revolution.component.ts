@@ -113,9 +113,8 @@ export class RevolutionComponent implements OnInit {
   
   showPrice() {
     this.web3Service.getPrice()
-    .subscribe((price) => this.bastilleBalanceInFiat = {
-        EUR: this.bastilleBalance * price['EUR'],
-        USD:  this.bastilleBalance * price['USD']
+    .subscribe((price) => {
+      this.bastilleBalanceInFiat = this.bastilleBalance * price['EUR'];
     });
 }
 }

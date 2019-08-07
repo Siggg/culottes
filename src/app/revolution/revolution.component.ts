@@ -22,6 +22,7 @@ export class RevolutionComponent implements OnInit {
   title: String = "<loading title>";
   criteria: String = "<loading criteria>";
   bastilleBalance: String = "?";
+  bastilleBalanceInFiat: String = "?";
   revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;

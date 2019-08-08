@@ -3,6 +3,8 @@ const Web3 = require('web3');
 
 import {Web3Service} from './web3.service';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import revolution_artifacts from '../../../build/contracts/Revolution.json';
 
 declare let window: any;

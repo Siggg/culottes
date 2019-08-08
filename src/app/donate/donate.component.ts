@@ -22,16 +22,24 @@ export class DonateComponent implements OnInit {
 	isOk = false;
 	web3_eth_contract: any;
 
-	constructor(private web3Service: Web3Service, private route: ActivatedRoute,) {
+	constructor(
+	  private web3Service: Web3Service,
+	  private route: ActivatedRoute,)
+	{
 	}
 
 	async ngOnInit() {
 	  this.address = this.web3Service.revolutionAddress;
 		this.watchAccount();
-		this.web3Service.artifactsToContract(contractABI)
+		this
+	  	.web3Service
+	  	.artifactsToContract(contractABI)
 			.then((web3_eth_contract) => {
 				this.web3_eth_contract = web3_eth_contract;
-				return web3_eth_contract.methods.criteria().call();
+				return web3_eth_contract
+				  .methods
+				  .criteria()
+				  .call();
 			})
 			.then((criteria) => {
 				console.log("criteria: ", criteria);
@@ -47,29 +55,41 @@ export class DonateComponent implements OnInit {
 			var wei = this.web3Service.etherToWei(this.amount.toString());
 			if (this.account == undefined) {
 			  // Maybe metamask has not been enabled yet 
-                          try {
-                            // Request account access if needed
-                            await window.ethereum.enable().then(() =>  {
-                              window.web3.eth.getAccounts((err, accs) => {
-				this.account = accs[0];
-			        console.log("Accounts refreshed: " + this.account);
-                                this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});
-			      });
+        try {
+          // Request account access if needed
+          await window
+            .ethereum
+            .enable()
+            .then(() =>  {
+              window
+                .web3
+                .eth
+                .getAccounts((err, accs) => {
+				          this.account = accs[0];
+			            console.log("Accounts refreshed: " + this.account);
+                  this
+                    .web3Service
+                    .sendTransaction({from: this.account, to: this.address, value: wei});
+			          });
 			    });
-                          } catch (error) {
-                            console.log('Metamask not enabled');
-                          }
-                        } else {
+        } catch (error) {
+          console.log('Metamask not enabled');
+        }
+      } else {
 			  console.log("donated from: " + this.account);
-			  this.web3Service.sendTransaction({from: this.account, to: this.address, value: wei});
+			  this
+			    .web3Service
+			    .sendTransaction({from: this.account, to: this.address, value: wei});
 			}
 		}
 	}
 	
 	async watchAccount() {
-		this.web3Service.accountsObservable.subscribe((accounts) => {
-			this.account = accounts[0];
+		this
+		  .web3Service
+		  .accountsObservable
+		  .subscribe((accounts) => {
+			  this.account = accounts[0];
 		});
 	}
-
 }

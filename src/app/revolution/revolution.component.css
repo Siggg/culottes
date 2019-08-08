@@ -21,3 +21,8 @@
 .tab {
 	margin-top: 15px;
 }
+
+.fiat {
+  min-height: auto !important;
+  height: 0.5em;
+}

@@ -8,13 +8,17 @@ import { Web3Service } from '../util/web3.service';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('CulottelistComponent', () => {
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+describe('RevolutionComponent', () => {
   let component: RevolutionComponent;
   let fixture: ComponentFixture<RevolutionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule ],
 	    declarations: [
 	      RevolutionComponent,
 	      OpentrialComponent,

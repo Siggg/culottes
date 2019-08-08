@@ -11,9 +11,12 @@
         {{ bastilleBalance }}
       </a> ETH
     </div>
+    <div class="ui form">
+    <div class="inline fields">
+    <div class="field">
     <div class="content">
     {{ bastilleBalanceInFiat }}
-     <select (change)="onChange($event)" class="ui inline dropdown">
+     <select (change)="onChange($event)" class="ui dropdown">
       <option>EUR</option>
       <option>USD</option>
       <option>AUD</option>
@@ -22,7 +25,7 @@
       <option>GBP</option>
       <option>JPY</option>
      </select>
-     <div class="ui inline dropdown" (click)="onChange($event)">
+     <div class="ui dropdown" (click)="onChange($event)">
       <div class="text">EUR</div>
       <i class="dropdown icon"></i>
       <div class="menu">
@@ -32,6 +35,9 @@
         <div class="item">CNY</div>
       </div>
      </div>
+    </div>
+    </div>
+    </div>
     </div>
   
   <div class="ui segment ethAmount">

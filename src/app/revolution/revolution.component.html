@@ -11,33 +11,18 @@
      {{ bastilleBalance }}
     </a> ETH
    </div>
-   <div class="ui form">
-    <div class="inline fields">
-     <div class="three wide field">
-      <label>({{ bastilleBalanceInFiat }}</label>
-      <!-- select (change)="onChange($event)" class="ui dropdown">
-       <option>EUR</option>
-       <option>USD</option>
-       <option>AUD</option>
-       <option>CAD</option>
-       <option>CNY</option>
-       <option>GBP</option>
-       <option>JPY</option>
-      </select-->
-      <div class="ui selection dropdown">
-       <input type="hidden" name="currency">
-       <div class="text">EUR</div>
-       <i class="dropdown icon"></i>
-       <div class="menu">
-        <div class="header">Your currency</div>
-        <div class="item">EUR</div>
-        <div class="item">USD</div>
-        <div class="item">CNY</div>
-       </div>
-      </div>)
-     </div>
-    </div>
-   </div>
+  </div>
+   ({{ bastilleBalanceInFiat }}
+   <select (change)="onChange($event)" class="ui dropdown">
+    <option>EUR</option>
+    <option>USD</option>
+    <option>AUD</option>
+    <option>CAD</option>
+    <option>CNY</option>
+    <option>GBP</option>
+    <option>JPY</option>
+   </select>)
+  </div><div>
   
   <div class="ui segment ethAmount">
     <a routerLink="/donate"

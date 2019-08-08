@@ -13,8 +13,8 @@
    </div>
    <div class="ui form">
     <div class="inline fields">
-     <div class="field">
-      ({{ bastilleBalanceInFiat }}
+     <div class="three wide field">
+      <label>({{ bastilleBalanceInFiat }}</label>
       <!-- select (change)="onChange($event)" class="ui dropdown">
        <option>EUR</option>
        <option>USD</option>
@@ -24,12 +24,13 @@
        <option>GBP</option>
        <option>JPY</option>
       </select-->
-      <div class="ui selection dropdown" (click)="onChange($event)">
+      <div class="ui selection dropdown">
+       <input type="hidden" name="currency">
        <div class="text">EUR</div>
        <i class="dropdown icon"></i>
        <div class="menu">
         <div class="header">Your currency</div>
-        <div class="active item">EUR</div>
+        <div class="item">EUR</div>
         <div class="item">USD</div>
         <div class="item">CNY</div>
        </div>

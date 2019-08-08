@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DonateComponent } from './donate.component';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 describe('DonateComponent', () => {
   let component: DonateComponent;
   let fixture: ComponentFixture<DonateComponent>;
@@ -15,7 +17,7 @@ describe('DonateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-	imports: [ FormsModule ],
+	imports: [ FormsModule, HttpClientTestingModule ],
 	declarations: [ DonateComponent ],
 	providers: [ Web3Service,
 		{ provide: ActivatedRoute, useValue: fakeActivatedRoute } ]

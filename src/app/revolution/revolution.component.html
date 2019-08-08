@@ -12,8 +12,7 @@
       </a> ETH
     </div>
     <div class="left labeled basic label" tabindex="0">
-    {{ bastilleBalanceInFiat }}
-  <select (change)="onChange($event)" class="ui inline dropdown">
+  <!--select (change)="onChange($event)" class="ui inline dropdown">
     <option>EUR</option>
     <option>USD</option>
     <option>AUD</option>
@@ -21,9 +20,9 @@
     <option>CNY</option>
     <option>GBP</option>
     <option>JPY</option>
-  </select>
+  </select-->
   <div class="content">
-    {{ bastilleBalanceInFiat }}
+    {{ bastilleBalanceInFiat }}&nbsp;
     <div class="ui inline dropdown" (click)="onChange($event)">
       <div class="text">EUR</div>
       <i class="dropdown icon"></i>

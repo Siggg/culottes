@@ -122,6 +122,11 @@ export class RevolutionComponent implements OnInit {
           .web3Service
           .web3Status
           .next(price.toString());
+      } else {
+        this
+          .web3Service
+          .web3Status
+          .next(this.bastilleBalance);
       }
     });
   }

@@ -40,36 +40,62 @@ export class RevolutionComponent implements OnInit {
     console.log("OnInit: " + this.web3Service);
     console.log(this);
     this.watchAccount();
-    let web3_eth_contract = await this.web3Service.artifactsToContract(
-      contractABI
-    );
-    this.criteria = await web3_eth_contract.methods.criteria().call();
-    this.revolutionAddress = this.web3Service.revolutionAddress;
-    this.bastilleBalance = await web3_eth_contract.methods.bastilleBalance()
+    let web3_eth_contract = await this
+      .web3Service
+      .artifactsToContract(
+        contractABI
+      );
+    this.criteria = await web3_eth_contract
+      .methods
+      .criteria()
+      .call();
+    this.revolutionAddress = this
+      .web3Service
+      .revolutionAddress;
+    this.bastilleBalance = await web3_eth_contract
+      .methods
+      .bastilleBalance()
       .call()
       .then( (result) => {
         if (result === null) {
-          this.web3Service.web3Status.next("The balance of this bastille is null !");
+          this
+            .web3Service
+            .web3Status
+            .next("The balance of this bastille is null !");
         } else {
-          this.web3Service.web3Status.next("bastille ready.");
-          return this.web3Service.weiToEther(result);
+          this
+            .web3Service
+            .web3Status
+            .next("bastille ready.");
+          return this
+            .web3Service
+            .weiToEther(result);
         }
       })
       .catch( (error) => {
-        this.web3Service.web3Status.next("An error occured while reading bastille balance: " + error);
+        this
+          .web3Service
+          .web3Status
+          .next("An error occured while reading bastille balance: " + error);
       });
     this.showPrice();
     let i = 0;
     let address = "";
     let citizen: ICitizen;
     while (address != null) {
-      address = await web3_eth_contract.methods.citizens(i).call()
-      .then( (result) => {
-        return result;
-      })
-      .catch( (error) => {
-        this.web3Service.web3Status.next("An error occured while reading citizen " + i.toString() + " : " + error);
-        return ""
+      address = await web3_eth_contract
+        .methods
+        .citizens(i)
+        .call()
+        .then( (result) => {
+          return result;
+        })
+        .catch( (error) => {
+          this
+            .web3Service
+            .web3Status
+            .next("An error occured while reading citizen " + i.toString() + " : " + error);
+          return ""
       });
       if (address != "" && address != null) {
         citizen = await web3_eth_contract
@@ -86,7 +112,10 @@ export class RevolutionComponent implements OnInit {
             };
           })
           .catch( (error) => {
-            this.web3Service.web3Status.next("An error occured while reading trialStatus of citizen #" + i.toString() + " : " + error);
+            this
+              .web3Service
+              .web3Status
+              .next("An error occured while reading trialStatus of citizen #" + i.toString() + " : " + error);
           });
         if (citizen != undefined) {
           this.citizens.push(citizen);
@@ -129,5 +158,9 @@ export class RevolutionComponent implements OnInit {
   public onChange(event): void {  // event will give you full breif of action
     this.currency = event.target.value;
     this.showPrice();
+    this
+          .web3Service
+          .web3Status
+          .next(event.target.toString());
   }
 }

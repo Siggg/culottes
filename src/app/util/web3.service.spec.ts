@@ -12,7 +12,10 @@ declare let window: any;
 describe('Web3Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [Web3Service]
+      providers: [Web3Service],
+      imports: [
+        HttpClientTestingModule,
+      ],
     });
   });
 

@@ -6,34 +6,32 @@
 
   <div class="ui segment ethAmount">
     Current amount in this bastille:<br />
-    <div class="left labeled basic label" tabindex="0">
+    <div class="left labeled basic label">
       <a id="balance">
         {{ bastilleBalance }}
       </a> ETH
     </div>
-    <div class="left labeled basic label" tabindex="0">
-  <!--select (change)="onChange($event)" class="ui inline dropdown">
-    <option>EUR</option>
-    <option>USD</option>
-    <option>AUD</option>
-    <option>CAD</option>
-    <option>CNY</option>
-    <option>GBP</option>
-    <option>JPY</option>
-  </select-->
-  <div class="content">
-    {{ bastilleBalanceInFiat }}&nbsp;
-    <div class="ui inline dropdown" (click)="onChange($event)">
+    <div class="content">
+    {{ bastilleBalanceInFiat }}
+     <select (change)="onChange($event)" class="ui inline dropdown">
+      <option>EUR</option>
+      <option>USD</option>
+      <option>AUD</option>
+      <option>CAD</option>
+      <option>CNY</option>
+      <option>GBP</option>
+      <option>JPY</option>
+     </select>
+     <div class="ui inline dropdown" (click)="onChange($event)">
       <div class="text">EUR</div>
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">Your currency</div>
-        <div class="active item" data-text="EUR">EUR</div>
-        <div class="item" data-text="USD">USD/div>
-        <div class="item" data-text="CNY">CNY</div>
+        <div class="active item">EUR</div>
+        <div class="item">USD</div>
+        <div class="item">CNY</div>
       </div>
-    </div>
-  </div>
+     </div>
     </div>
   </div>
   

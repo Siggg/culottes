@@ -150,7 +150,7 @@ export class RevolutionComponent implements OnInit {
         this
           .web3Service
           .web3Status
-          .next(price.body[this.currency].toString());
+          .next(price.body[this.currency.toString()].toString());
       }
     });
   }

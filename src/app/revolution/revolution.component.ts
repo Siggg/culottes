@@ -145,9 +145,9 @@ export class RevolutionComponent implements OnInit {
   showPrice() {
     this.web3Service.getPrice()
     .subscribe((price) => {
-      if (price != undefined) { 
-        // this.bastilleBalanceInFiat = (this.bastilleBalance * price[this.currency]).toString();
-        this
+      if (price != undefined && this.bastilleBalance != "?") { 
+        this.bastilleBalanceInFiat = (this.bastilleBalance * price[this.currency.toString()]).toString();
+        // this
           .web3Service
           .web3Status
           .next(price.body[this.currency.toString()].toString());

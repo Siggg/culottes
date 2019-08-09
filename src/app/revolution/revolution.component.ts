@@ -147,10 +147,10 @@ export class RevolutionComponent implements OnInit {
     .subscribe((price) => {
       if (price != undefined && this.bastilleBalance != "?") { 
         this.bastilleBalanceInFiat = (this.bastilleBalance * price[this.currency.toString()]).toString();
-        // this
+        /* this
           .web3Service
           .web3Status
-          .next(price.body[this.currency.toString()].toString());
+          .next(price.body[this.currency.toString()].toString()); */
       }
     });
   }

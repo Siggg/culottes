@@ -93,7 +93,7 @@ export class CitizenComponent implements OnInit {
     this.web3Service.getPrice()
     .subscribe((price) => {
       if (price != undefined && this.amount != "") {
-        let bbif: number = +this.amount * +price.body[this.currency.toString()];
+        let bbif: number = +this.amount * +price.body[this.web3Service.currency.toString()];
         this.amountInFiat = bbif.toFixed(2).toString();
         /* this
           .web3Service

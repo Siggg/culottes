@@ -108,7 +108,7 @@ export class DonateComponent implements OnInit {
   }
   
   public onChange(event): void {  // event will give you full breif of action
-    this.currency = event.target.value;
+    this.web3Service.currency = event.target.value;
     this.showPrice();
     /*this
       .web3Service

@@ -10,18 +10,20 @@
     <a id="balance">
      {{ bastilleBalance }}
     </a> ETH
-   </div>
-  </div>
-   ({{ bastilleBalanceInFiat }}
+   <br />
+   ( {{ bastilleBalanceInFiat }}
    <select (change)="onChange($event)" class="ui fiat dropdown">
-    <option>EUR</option>
-    <option>USD</option>
+    <option value="EUR">€</option>
+    <option value="USD">$</option>
     <option>AUD</option>
     <option>CAD</option>
     <option>CNY</option>
-    <option>GBP</option>
-    <option>JPY</option>
-   </select>)
+    <option value="GBP">£</option>
+    <option value="JPY">¥</option>
+   </select> )
+   </div>
+  </div>
+   
   <div>
   
   <div class="ui segment ethAmount">

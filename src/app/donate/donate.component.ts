@@ -19,6 +19,7 @@ export class DonateComponent implements OnInit {
 	account: any;
 	accounth: any;
 	amount;
+	amountInFiat;
 	isOk = false;
 	web3_eth_contract: any;
 

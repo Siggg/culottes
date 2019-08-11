@@ -92,4 +92,28 @@ export class DonateComponent implements OnInit {
 			  this.account = accounts[0];
 		});
 	}
+	
+ showPrice() {
+    this.web3Service.getPrice()
+    .subscribe((price) => {
+      if (price != undefined && this.amount != "") {
+        let bbif: number = +this.amount * +price.body[this.currency.toString()];
+        this.amountInFiat = bbif.toFixed(2).toString();
+        /* this
+          .web3Service
+          .web3Status
+          .next(price.body[this.currency.toString()].toString()); */
+      }
+    });
+  }
+  
+  public onChange(event): void {  // event will give you full breif of action
+    this.currency = event.target.value;
+    this.showPrice();
+    /*this
+      .web3Service
+      .web3Status
+      .next(event.target.value.toString()); */
+  }
+  
 }

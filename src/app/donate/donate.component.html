@@ -5,7 +5,16 @@
   </div>
   <div class="criteria">
     <div class="ui left icon input">
-      <input [(ngModel)]="amount" type="number" placeholder="20" />
+      <input [(ngModel)]="amount" type="number" placeholder="10" /> ETH <br />( {{ amountInFiat }}
+   <select (change)="onChange($event)" class="ui fiat dropdown">
+    <option value="EUR">€</option>
+    <option value="USD">$</option>
+    <option>AUD</option>
+    <option>CAD</option>
+    <option>CNY</option>
+    <option value="GBP">£</option>
+    <option value="JPY">¥</option>
+   </select> )
     </div>
   </div>
   <div *ngIf="isOk">

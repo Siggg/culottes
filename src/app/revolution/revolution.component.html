@@ -70,11 +70,11 @@
   
   <div class="ui list" *ngFor="let citizen of citizens">
    <div class="item">
-     <div>
-      <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
-     </div>
-     <div class="list">
-      <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>
+    <div>
+     <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
+    </div>
+    <div class="list">
+     <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>
      <ng-template #thenBlock> <i class="balance scale icon"></i> trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO <i class="balance scale icon"></i></ng-template>
      <ng-template #elseBlock>
       <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
@@ -96,8 +96,6 @@
     <i class="balance scale icon"></i>
    </button>
   </a>
-  
- </div>
   
  </div>
   

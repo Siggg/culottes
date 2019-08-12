@@ -52,7 +52,7 @@
     </div>
     <div class="list">
      <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>
-     <ng-template #thenBlock> <i class="balance scale icon"></i> trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO <i class="balance scale icon"></i></ng-template>
+     <ng-template #thenBlock><i class="balance scale icon"></i> trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO <i class="balance scale icon"></i></ng-template>
      <ng-template #elseBlock>
       <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
       <ng-template #thenBlock2><i class="gavel icon"></i>Last verdict: YES <i class="thumbs up icon"></i></ng-template>
@@ -60,7 +60,7 @@
      </ng-template>
      <div class="item">
       <a [routerLink]="['/citizen', citizen.address]">
-       <button class="ui right labeled icon button">Vote YES or NO ? <i class="balance scale icon"></i></button>
+       <button class="ui left labeled icon button"><i class="balance scale icon"></i>Vote YES or NO ?</button>
       </a>
      </div>
     </div>

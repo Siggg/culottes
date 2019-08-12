@@ -45,7 +45,7 @@ export class Web3Service {
     try {
       let priceOfCurrency = this.priceOfCurrencies[this.currency.toString()];
       return (+amount * +priceOfCurrency).toFixed(2);
-    } catch (Exception: ex) {
+    } catch (error) {
       return "?";
     }
   }

@@ -13,8 +13,8 @@
     </span> ETH
    </div>
    <div class="ui right labeled">
-    <div class="ui basic label">= {{ convertToFiat(bastilleBalance) }}</div>
-   <select (change)="onChange($event)" class="ui basic compact dropdown label">
+    <div class="ui label fluid">= {{ convertToFiat(bastilleBalance) }}</div>
+   <select (change)="onChange($event)" class="ui compact dropdown label">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>

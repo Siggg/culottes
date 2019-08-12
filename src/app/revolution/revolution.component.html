@@ -1,18 +1,20 @@
 <div>
 
-  <div class="title">
+ <div class="title">
     This bastille collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain.
-  </div>
+ </div>
 
-  <div class="ui segment ethAmount">
-   Current amount in this bastille:<br />
-   <div class="left labeled basic label">
-    <a id="balance">
-     {{ bastilleBalance }}
-    </a> ETH
-   <br />
-   ( {{ convertToFiat(bastilleBalance) }}
-   <select (change)="onChange($event)" class="ui fiat dropdown">
+ <div class="ui segment">
+  Current amount in this bastille:<br />
+  <div class="ui label">
+   <span id="balance">
+    {{ bastilleBalance }}
+   </span> ETH
+  </div>
+  <br />
+  <div class="ui action input mini">
+   <div class="ui basic label">= {{ convertToFiat(bastilleBalance) }}</div>
+   <select (change)="onChange($event)" class="ui floating dropdown">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>
@@ -20,18 +22,17 @@
     <option [selected]="currency() == 'CNY'">CNY</option>
     <option value="GBP" [selected]="currency() == 'GBP'">£</option>
     <option value="JPY" [selected]="currency() == 'JPY'">¥</option>
-   </select> )
+   </select>
    </div>
   </div>
    
   <div>
   
-  <div class="ui segment ethAmount">
-    <a routerLink="/donate"
-    >Donate to this bastille<br />
-      <button routerLink="/donate" class="ui icon button">
-        <i class="plus circle icon"></i></button
-      ></a>
+  <div class="ui segment">
+   <a class="ui label" routerLink="/donate">
+    Donate to this bastille
+    <i class="heart icon"></i>
+   </a>
   </div>
   
   </div>

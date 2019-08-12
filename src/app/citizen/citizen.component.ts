@@ -23,7 +23,7 @@ export class CitizenComponent implements OnInit {
 	web3_eth_contract: any;
 
   constructor(
-    public web3Service: Web3Service,
+    private web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -91,4 +91,11 @@ export class CitizenComponent implements OnInit {
   public onChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }
+
+  public convertToFiat(amount) {
+    return this
+      .web3Service
+      .convertToFiat(amount);
+  }
+  
 }

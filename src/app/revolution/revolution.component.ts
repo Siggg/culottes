@@ -22,7 +22,6 @@ export class RevolutionComponent implements OnInit {
   title: String = "<loading title>";
   criteria: String = "<loading criteria>";
   bastilleBalance: String = "?";
-  bastilleBalanceInFiat: String = "?";
   revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;
@@ -31,7 +30,7 @@ export class RevolutionComponent implements OnInit {
   fullAddressShown: boolean = false;
 
   constructor(
-    public web3Service: Web3Service,
+    private web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {}
 
@@ -143,4 +142,11 @@ export class RevolutionComponent implements OnInit {
   public onChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }
+  
+  public convertToFiat(amount) {
+    return this
+      .web3Service
+      .convertToFiat(amount);
+  }
+  
 }

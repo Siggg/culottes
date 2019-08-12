@@ -41,6 +41,15 @@ export class Web3Service {
       });
   }
   
+  public convertToFiat(amount) {
+    try {
+      let priceOfCurrency = this.priceOfCurrencies[this.currency.toString()];
+      return (+amount * +priceOfCurrency).toFixed(2);
+    } catch (Exception: ex) {
+      return "?";
+    }
+  }
+  
   constructor(private http: HttpClient) {
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();

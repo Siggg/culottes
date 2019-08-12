@@ -44,9 +44,11 @@
   
   <div class="ui list" *ngFor="let citizen of citizens">
    <div class="item">
-    <i class="linkify icon"></i>
-    <div>Their address:
-     <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
+    <div>
+     <label>Their address</label>
+     <div class="ui label">
+      <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
+     </div>
     </div>
     <div class="list">
      <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>

@@ -4,7 +4,6 @@
 
  <div class="ui segment">
   This bastille collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain.
- </div>
 
  <div class="ui segment form">
   <div class="field">
@@ -33,6 +32,7 @@
     Donate to this bastille
    </a>
   </div>
+ </div>
  </div>
   
  <div class="ui segment" id="criteriaLabel">
@@ -66,6 +66,7 @@
     </div>
    </div>
   </div>
+ </div>
   
   <a routerLink="/citizen">
    <button class="ui right labeled icon button">
@@ -73,8 +74,8 @@
     <i class="balance scale icon"></i>
    </button>
   </a>
-  
  </div>
+ 
   
  <div class="ui segment ethAmount">
   You can further interact with this Revolution from the Etherscan website either <a href="https://rinkeby.etherscan.io/address/{{ revolutionAddress }}">via its Contract view</a> or <a href="https://rinkeby.etherscan.io/dapp/{{ revolutionAddress }}">via its Dapp view</a>.

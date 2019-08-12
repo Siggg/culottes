@@ -5,7 +5,7 @@
   </div>
   <div class="field fluid input">
     <label>Amount of ETH you are staking on this vote</label>
-    <input [(ngModel)]="amount" name="amount" type="text" placeholder="10" /> ETH<br /> ( {{ convertToFiat(amount) }}
+    <input [(ngModel)]="amount" name="amount" type="text" placeholder="0.1" /> ETH<br /> ( {{ convertToFiat(amount) }}
    <select (change)="onChange($event)" class="ui fiat dropdown">
     <option value="EUR">€</option>
     <option value="USD">$</option>

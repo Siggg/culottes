@@ -30,14 +30,14 @@ export class Web3Service {
   
   public priceOfCurrencies = {};
 
-  public async updatePriceOfCurrencies(): void {
-    this.priceOfCurrencies = await this
+  public updatePriceOfCurrencies(): {
+    this
       .http
       .get(
         this.priceOfCurrenciesUrl,
         { observe: 'response' })
-      .then((response) => {
-        return response.body;
+      .subscribe((response) => {
+        this.priceOfCurrencies = response.body;
       });
   }
   

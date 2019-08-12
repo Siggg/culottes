@@ -149,4 +149,8 @@ export class RevolutionComponent implements OnInit {
       .convertToFiat(amount);
   }
   
+  public currency() {
+    return this.web3Service.currency;
+  }
+  
 }

@@ -13,13 +13,13 @@
    <br />
    ( {{ convertToFiat(bastilleBalance) }}
    <select (change)="onChange($event)" class="ui fiat dropdown">
-    <option value="EUR">€</option>
-    <option value="USD">$</option>
-    <option>AUD</option>
-    <option>CAD</option>
-    <option>CNY</option>
-    <option value="GBP">£</option>
-    <option value="JPY">¥</option>
+    <option value="EUR" [selected]="currency() == EUR">€</option>
+    <option value="USD" [selected]="currency() == EUR">$</option>
+    <option [selected]="currency() == EUR">AUD</option>
+    <option [selected]="currency() == EUR">CAD</option>
+    <option [selected]="currency() == EUR">CNY</option>
+    <option value="GBP" [selected]="currency() == EUR">£</option>
+    <option value="JPY" [selected]="currency() == EUR">¥</option>
    </select> )
    </div>
   </div>

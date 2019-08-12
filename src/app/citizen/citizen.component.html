@@ -30,12 +30,14 @@
       <p>Should not be empty. Should only contain a number or a valid Ethereum address.</p>
     </div>
   </div>
-  
-  <div class="label">Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</div>
+
+ <div class="ui">
+  <i class="icon balance scale"></i>
+  <label>Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</label>
   
   <div class="ui buttons">
     <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
-    <div class="or"><i class="icon balance scale"></i></div>
+    <div class="ui or icon"><i class="icon balance scale"></i></div>
     <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO<i class="icon thumbs down"></i></div>
   </div>
   

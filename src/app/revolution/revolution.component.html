@@ -11,7 +11,7 @@
      {{ bastilleBalance }}
     </a> ETH
    <br />
-   ( {{ (+bastilleBalance * +web3Service.priceOfCurrencies[web3Service.currency]).toFixed(2) }}
+   ( {{ (+bastilleBalance * +web3Service.priceOfCurrencies[web3Service.currency.toString()]).toFixed(2) }}
    <select (change)="onChange($event)" class="ui fiat dropdown">
     <option value="EUR">€</option>
     <option value="USD">$</option>

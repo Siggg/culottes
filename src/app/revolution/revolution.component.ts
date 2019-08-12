@@ -31,7 +31,7 @@ export class RevolutionComponent implements OnInit {
   fullAddressShown: boolean = false;
 
   constructor(
-    private web3Service: Web3Service,
+    public web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {}
 

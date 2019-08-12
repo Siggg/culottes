@@ -23,7 +23,7 @@ export class DonateComponent implements OnInit {
 	web3_eth_contract: any;
 
 	constructor(
-	  private web3Service: Web3Service,
+	  public web3Service: Web3Service,
 	  private route: ActivatedRoute,)
 	{
 	}

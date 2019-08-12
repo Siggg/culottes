@@ -5,7 +5,7 @@
   </div>
   <div class="criteria">
     <div class="ui left icon input">
-      <input [(ngModel)]="amount" type="number" placeholder="10" /> ETH <br />( {{ (+amount * +web3Service.priceOfCurrencies[web3Service.currency]).toFixed(2) }}
+      <input [(ngModel)]="amount" type="number" placeholder="10" /> ETH <br />( {{ (+amount * +web3Service.priceOfCurrencies[web3Service.currency.toString()]).toFixed(2) }}
    <select (change)="onChange($event)" class="ui fiat dropdown">
     <option value="EUR">€</option>
     <option value="USD">$</option>

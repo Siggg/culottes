@@ -7,15 +7,15 @@
  <div class="ui segment">
  
   Current amount in this bastille:<br />
-  <div class="ui label">
+  <div class="ui large label">
    <span id="balance">
     {{ bastilleBalance }}
    </span> ETH
   </div>
   <br />
   <div class="ui action input mini">
-   <div class="ui basic label">= {{ convertToFiat(bastilleBalance) }}</div>
-   <select (change)="onChange($event)" class="ui floating dropdown">
+   <div class="ui basic mini label">= {{ convertToFiat(bastilleBalance) }}</div>
+   <select (change)="onChange($event)" class="ui basic mini floating dropdown">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>
@@ -26,12 +26,10 @@
    </select>
   </div>
   
-  <div class="ui segment">
    <a class="ui label" routerLink="/donate">
     Donate to this bastille
     <i class="heart icon"></i>
    </a>
-  </div>
   
  </div>
   
@@ -59,15 +57,20 @@
       <ng-template #thenBlock2>YES <i class="thumbs up icon"></i></ng-template>
       <ng-template #elseBlock2>NO <i class="thumbs down icon"></i></ng-template>
      </ng-template>
-     <td><a [routerLink]="['/citizen', citizen.address]">YES or NO ? <i class="balance scale icon"></i></a></td>
+     <td>
+      <a [routerLink]="['/citizen', citizen.address]">
+       <button class="ui right labeled icon button">YES or NO ? <i class="balance scale icon"></i></button>
+      </a>
+     </td>
     </tr>
    </tbody>
   </table>
  </div>
   
   <div class="ui segment">
-   <a routerLink="/citizen">Add or remove <strong>{{ criteria }}</strong><br />
-    <button class="ui icon button">
+   <a routerLink="/citizen">
+    <button class="ui right labeled icon button">
+     Add or remove <strong>{{ criteria }}</strong>
      <i class="balance scale icon"></i>
     </button>
    </a>

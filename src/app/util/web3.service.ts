@@ -46,11 +46,11 @@ export class Web3Service {
       let priceOfCurrency = this.priceOfCurrencies[this.currency.toString()];
       let result: any = (+amount * +priceOfCurrency).toFixed(2);
       if (isNaN(result)) {
-        result = "?"
+        result = 0;
       }
       return result;
     } catch (error) {
-      return "?";
+      return 0;
     }
   }
   

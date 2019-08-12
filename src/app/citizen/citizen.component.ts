@@ -98,4 +98,8 @@ export class CitizenComponent implements OnInit {
       .convertToFiat(amount);
   }
   
+  public currency() {
+    return this.web3Service.currency;
+  }
+  
 }

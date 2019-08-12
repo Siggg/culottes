@@ -30,7 +30,7 @@ export class Web3Service {
   
   public priceOfCurrencies = {};
 
-  public updatePriceOfCurrencies(): {
+  public updatePriceOfCurrencies(): void {
     this
       .http
       .get(

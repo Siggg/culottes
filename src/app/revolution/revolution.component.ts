@@ -77,7 +77,6 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading bastille balance: " + error);
       });
-    this.showPrice();
     let i = 0;
     let address = "";
     let citizen: ICitizen;

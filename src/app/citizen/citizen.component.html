@@ -12,8 +12,8 @@
    <div class="ui label">ETH</div>
   </div>
   <div class="ui action input mini">
-   <div class="ui basic label">= {{ convertToFiat(amount) }}</div>
-   <select (change)="onChange($event)" class="ui basic mini floating dropdown">
+   <div class="ui basic label fluid">= {{ convertToFiat(amount) }}</div>
+   <select (change)="onChange($event)" class="ui basic mini floating dropdown compact">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>

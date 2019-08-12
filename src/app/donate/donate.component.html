@@ -2,12 +2,15 @@
 
  <div class="criteria">
   Donate to this bastille by sending ETH to this address :<br />
-    {{ address }}
+    {{ address }}<br />
  </div>
  
- <div class="ui right labeled input action">
-  <input [(ngModel)]="amount" type="number" placeholder="1.5" />
+ <div class="ui right labeled input">
+  <input [(ngModel)]="amount" type="number" placeholder="Enter amount" />
   <div class="ui label">ETH</div>
+ <div/>
+ 
+ <div class="ui action input mini">
   <div class="ui basic label">= {{ convertToFiat(amount) }}</div>
   <select (change)="onChange($event)" class="ui floating dropdown">
    <option value="EUR">€</option>

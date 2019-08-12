@@ -11,7 +11,7 @@
    <input [(ngModel)]="amount" type="number" name="amount" placeholder="Enter amount" />
    <div class="ui label">ETH</div>
   </div>
-  <div class="ui labeled">
+  <div class="ui action input">
    <div class="ui label fluid">= {{ convertToFiat(amount) }}</div>
    <select (change)="onChange($event)" class="ui floating dropdown compact">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
@@ -35,7 +35,7 @@
  <div class="ui icon">
   <i class="icon balance scale"></i>
   <label>Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</label>
-  
+  <br />
   <div class="ui buttons">
     <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
     <div class="or"></div>

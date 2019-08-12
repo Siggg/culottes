@@ -13,7 +13,7 @@
    <input [(ngModel)]="amount" type="number" name="amount" placeholder="Enter amount" />
    <div class="ui label">ETH</div>
   </div>
-  <div class="ui action input mini">
+  <div class="ui action input">
    <div class="ui label fluid">= {{ convertToFiat(amount) }}</div>
    <select (change)="onChange($event)" class="ui floating dropdown compact">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>

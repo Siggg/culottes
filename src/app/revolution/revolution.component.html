@@ -6,7 +6,7 @@
 
  <div class="ui segment form">
   <div class="field">
-   <label>Current amount in this bastille<label>
+   <label>Current amount in this bastille</label>
    <div class="ui large label">
     <span id="balance">
      {{ bastilleBalance }}
@@ -23,7 +23,8 @@
     <option value="GBP" [selected]="currency() == 'GBP'">£</option>
     <option value="JPY" [selected]="currency() == 'JPY'">¥</option>
    </select>
-  </div>
+    </div>
+   </div>
   
    <a class="ui label" routerLink="/donate">
     Donate to this bastille

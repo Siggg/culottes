@@ -12,9 +12,9 @@
      {{ bastilleBalance }}
     </span> ETH
    </div>
-   <div class="ui action input">
+   <div class="ui right action">
     <div class="ui basic label">= {{ convertToFiat(bastilleBalance) }}</div>
-   <select (change)="onChange($event)" class="ui basic floating dropdown">
+   <select (change)="onChange($event)" class="ui basic dropdown">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>
@@ -26,7 +26,7 @@
     </div>
    </div>
   
-   <a class="ui label" routerLink="/donate">
+   <a class="ui button" routerLink="/donate">
     Donate to this bastille
     <i class="heart icon"></i>
    </a>

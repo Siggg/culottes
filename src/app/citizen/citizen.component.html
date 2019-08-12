@@ -1,18 +1,18 @@
 <form class="ui form">
 
- <div class="ui field fluid input">
+ <div class="field">
   <label>Address you are voting about</label>
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter address (should start with 0x)" />
  </div>
 
- <div class="ui right labeled field fluid input">
-  <label>Amount of ETH you are staking on this vote</label>
-  <input [(ngModel)]="amount" name="amount" type="number" placeholder="Enter amount" />
-  <div class="ui label">ETH</div>
- </div>
-
- <div class="ui action input mini">
-  <div class="ui basic label">= {{ convertToFiat(amount) }}</div>
+ <div class="field">
+  <label>Amount of ether you are staking on this vote</label>
+  <div class="ui right labeled input">
+   <input [(ngModel)]="amount" type="number" placeholder="Enter amount" />
+   <div class="ui label">ETH</div>
+  </div>
+  <div class="ui action input mini">
+   <div class="ui basic label">= {{ convertToFiat(amount) }}</div>
    <select (change)="onChange($event)" class="ui basic mini floating dropdown">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
@@ -30,8 +30,9 @@
       <p>Should not be empty. Should only contain a number or a valid Ethereum address.</p>
     </div>
   </div>
+ </div>
 
- <div class="ui">
+ <div class="ui icon">
   <i class="icon balance scale"></i>
   <label>Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</label>
   

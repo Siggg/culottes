@@ -1,6 +1,8 @@
 <div>
 
- <div class="title">
+ <h1 class="ui header">For {{ criteria }}</h1>
+
+ <div class="ui segment">
   This bastille collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain.
  </div>
 
@@ -30,7 +32,7 @@
     <i class="heart icon"></i>
     Donate to this bastille
    </a>
-  
+  </div>
  </div>
   
  <div class="ui segment" id="criteriaLabel">

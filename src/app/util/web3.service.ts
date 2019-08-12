@@ -24,18 +24,28 @@ export class Web3Service {
   
   public web3Status = new BehaviorSubject<string>("no attempt to access your blockchain accounts yet, please wait or reload the app");
   
-  private priceUrl = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=AUD,CAD,CNY,EUR,GBP,JPY,USD&extraParams=culottes';
+  private priceOfCurrenciesUrl = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=AUD,CAD,CNY,EUR,GBP,JPY,USD&extraParams=culottes';
   
   public currency: String = "EUR";
+  
+  public priceOfCurrencies = {};
 
-  public getPrice() {
-    return this.http.get(this.priceUrl,  { observe: 'response' });
-}
+  public async updatePriceOfCurrencies(): void {
+    this.priceOfCurrencies = await this
+      .http
+      .get(
+        this.priceOfCurrenciesUrl,
+        { observe: 'response' })
+      .then((response) => {
+        return response.body;
+      });
+  }
   
   constructor(private http: HttpClient) {
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
     });
+    this.updatePriceOfCurrencies();
   }
 
   public bootstrapWeb3() {
@@ -68,11 +78,17 @@ export class Web3Service {
   }
 
   public etherToWei(etherAmount) {
-    return this.web3.utils.toWei(etherAmount.toString());
+    return this
+      .web3
+      .utils
+      .toWei(etherAmount.toString());
   }
 
   public weiToEther(weiAmount) {
-    return this.web3.utils.fromWei(weiAmount.toString());
+    return this
+      .web3
+      .utils
+      .fromWei(weiAmount.toString());
   }
   
   public async sendTransaction(tx) {
@@ -103,11 +119,18 @@ export class Web3Service {
       await delay;
       return await this.artifactsToContract(artifacts);
     }
-    const contractAbstraction = new this.web3.eth.Contract(artifacts.abi, this.revolutionAddress);
-    contractAbstraction.setProvider(this.web3.currentProvider);
+    const contractAbstraction = new this
+      .web3
+      .eth
+      .Contract(artifacts.abi, this.revolutionAddress);
+    contractAbstraction
+      .setProvider(this.web3.currentProvider);
     
     try {
-      contractAbstraction.methods.criteria.call()
+      contractAbstraction
+        .methods
+        .criteria
+        .call()
       .then( (result) => {
         if (result === null) {
           this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain.");
@@ -142,10 +165,13 @@ export class Web3Service {
         return;
       }
 
-      if (!this.accounts || this.accounts.length !== accs.length || this.accounts[0] !== accs[0]) {
+      if (!this.accounts ||
+        this.accounts.length !== accs.length ||
+        this.accounts[0] !== accs[0]) {
         console.log('Observed new accounts');
-
-        this.accountsObservable.next(accs);
+        this
+          .accountsObservable
+          .next(accs);
         this.accounts = accs;
         this.web3Status.next("Blockchain accounts ready.");
       }

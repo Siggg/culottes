@@ -141,26 +141,7 @@ export class RevolutionComponent implements OnInit {
       });
   }
   
-  showPrice() {
-    this.web3Service.getPrice()
-    .subscribe((price) => {
-      if (price != undefined && this.bastilleBalance != "?") {
-        let bbif: number = +this.bastilleBalance * +price.body[this.web3Service.currency.toString()];
-        this.bastilleBalanceInFiat = bbif.toFixed(2).toString();
-        /* this
-          .web3Service
-          .web3Status
-          .next(price.body[this.currency.toString()].toString()); */
-      }
-    });
-  }
-  
   public onChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
-    this.showPrice();
-    /*this
-      .web3Service
-      .web3Status
-      .next(event.target.value.toString()); */
   }
 }

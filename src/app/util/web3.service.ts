@@ -44,7 +44,11 @@ export class Web3Service {
   public convertToFiat(amount) {
     try {
       let priceOfCurrency = this.priceOfCurrencies[this.currency.toString()];
-      return (+amount * +priceOfCurrency).toFixed(2);
+      let result = (+amount * +priceOfCurrency).toFixed(2);
+      if (isNan(result)) {
+        result = "?"
+      }
+      return result;
     } catch (error) {
       return "?";
     }

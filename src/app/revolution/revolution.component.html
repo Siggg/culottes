@@ -44,7 +44,7 @@
   
   <div class="ui list" *ngFor="let citizen of citizens">
    <div class="item">
-    <div>
+    <div class="ui">
      <label>Their address</label>
      <div class="ui label">
       <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
@@ -52,7 +52,7 @@
     </div>
     <div class="list">
      <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>
-     <ng-template #thenBlock><i class="balance scale icon"></i> trial still open: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO <i class="balance scale icon"></i></ng-template>
+     <ng-template #thenBlock><i class="balance scale icon"></i>Trial still open: <div class="ui label">{{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO </div></ng-template>
      <ng-template #elseBlock>
       <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
       <ng-template #thenBlock2><i class="gavel icon"></i>Last verdict: YES <i class="thumbs up icon"></i></ng-template>

@@ -43,23 +43,20 @@
      <div class="field header">
       <label>Their address</label>
       <div class="ui label">
-       <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word;flex: inherit">{{ citizen.address }}</span></a>
+       <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word">{{ citizen.address }}</span></a>
       </div>
      </div>
      <div class="field description">
-      <label>Verdict</label>
-      <div *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
-      <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
+      <label>Our verdict so far</label>
+      <div *ngIf="citizen.opened" class="ui tag label">not yet, {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</div>
+      <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> YES</div>
+      <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> NO</div>
      </div>
+     <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i>Your vote: YES or NO ?</button></a>
     </div>
    </div>
   </div>
 
-     <ng-template #openTrial><div  class="ui tag label">not yet</div> {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
-     <ng-template #closedTrial><span *ngIf="citizen.matchesCriteria; then yesVerdict else noVerdict"></span></ng-template>
-      <ng-template #yesVerdict><div  class="ui green tag label">YES <i class="thumbs up icon"></i></div></ng-template>
-      <ng-template #noVerdict><div  class="ui red tag label">NO <i class="thumbs down icon"></i></div></ng-template>
-  
   <a routerLink="/citizen">
    <button class="ui left labeled icon button">
     <i class="balance scale icon"></i>

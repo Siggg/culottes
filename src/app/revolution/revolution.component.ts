@@ -22,6 +22,8 @@ export class RevolutionComponent implements OnInit {
   title: String = "<loading title>";
   criteria: String = "<loading criteria>";
   bastilleBalance: String = "?";
+  distributionAmount: number = 0;
+  distributionBlockPeriod: number = 0;
   revolutionAddress: String = "0x0000000...";
   culottes: any;
   account: any;
@@ -76,6 +78,19 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading bastille balance: " + error);
       });
+    this.distributionAmount = await web3_eth_contract
+      .methods
+      .distributionAmount()
+      .call()
+      .then( (result) => {
+	return this
+          .web3Service
+	  .weiToEther(result);
+      });
+    this.distributionBlockPeriod = await web3_eth_contract
+      .methods
+      .distributionBlockPeriod
+      .call();
     let i = 0;
     let address = "";
     let citizen: ICitizen;

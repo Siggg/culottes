@@ -83,9 +83,16 @@ export class RevolutionComponent implements OnInit {
       .distributionAmount()
       .call()
       .then( (result) => {
-	return this
-          .web3Service
-	  .weiToEther(result);
+	if (result === null) {
+	  this
+            .web3Service
+	    .web3Status
+	    .next("distributionAmount at this bastille is null!");
+	} else {
+	  return this
+            .web3Service
+	    .weiToEther(result);
+	}
       });
     this.distributionBlockPeriod = await web3_eth_contract
       .methods

@@ -48,7 +48,7 @@
      </div>
      <div class="field description">
       <label>Verdict</label>
-      <div class="ui icon label" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
+      <div class="ui label" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
       <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
      </div>
     </div>

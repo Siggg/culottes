@@ -2,7 +2,7 @@
 
  <h1 class="ui header">For {{ criteria }}</h1>
 
- <div class="ui segment">
+ <div class="ui segment form">
   This bastille collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum Rinkeby blockchain.
 
   <div class="field">
@@ -32,7 +32,7 @@
    </a>
  </div>
   
- <div class="ui segment" id="criteriaLabel">
+ <div class="ui segment form" id="criteriaLabel">
  
   They can receive an income from this bastille if and only if they are <strong class="criteria">{{ criteria }}</strong>. Are they ?
   

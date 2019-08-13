@@ -48,17 +48,17 @@
      </div>
      <div class="field description">
       <label>Verdict</label>
-      <div class="ui label" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
+      <div *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
       <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
      </div>
     </div>
    </div>
   </div>
 
-     <ng-template #openTrial>not yet, {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
+     <ng-template #openTrial><div  class="ui tag label">not yet</div> {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
      <ng-template #closedTrial><span *ngIf="citizen.matchesCriteria; then yesVerdict else noVerdict"></span></ng-template>
-      <ng-template #yesVerdict>YES <i class="thumbs up icon"></i></ng-template>
-      <ng-template #noVerdict>NO <i class="thumbs down icon"></i></ng-template>
+      <ng-template #yesVerdict><div  class="ui green tag label">YES <i class="thumbs up icon"></i></div></ng-template>
+      <ng-template #noVerdict><div  class="ui red tag label">NO <i class="thumbs down icon"></i></div></ng-template>
   
   <a routerLink="/citizen">
    <button class="ui left labeled icon button">

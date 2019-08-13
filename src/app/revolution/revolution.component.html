@@ -26,7 +26,7 @@
     </div>
    </div>
   
-   <a class="ui button" routerLink="/donate">
+   <a class="ui button primary" routerLink="/donate">
     <i class="heart icon"></i>
     Donate to this bastille
    </a>
@@ -49,7 +49,7 @@
      <div class="field description">
       <label>Verdict</label>
       <div class="ui icon label" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
-      <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
+      <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
      </div>
     </div>
    </div>

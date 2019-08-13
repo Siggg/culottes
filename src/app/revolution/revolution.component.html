@@ -41,9 +41,9 @@
  <div class="ui segment">
   Are they <strong class="criteria">{{ criteria }}</strong> ?
   
-  <div class="ui relaxed divided list" *ngFor="let citizen of citizens">
+  <div class="ui divided list" *ngFor="let citizen of citizens">
    <div class="item">
-    <i class="large balance scale middle aligned icon">
+    <i class="large balance scale middle aligned icon"></i>
     <div class="content">
      <div class="ui label header">
       Their address: <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>

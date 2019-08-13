@@ -23,15 +23,15 @@ describe('Web3Service', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should inject a default web3 on a contract', inject([Web3Service], (service: Web3Service) => {
+  /* it('should inject a default web3 on a contract', inject([Web3Service], (service: Web3Service) => {
     service.bootstrapWeb3();
 
     return service.artifactsToContract(revolution_artifacts).then((abstraction) => {
       expect(abstraction.currentProvider.host).toBe('http://localhost:8545');
     });
-  }));
+  })); */
 
-  it('should inject a the window web3 on a contract', inject([Web3Service], (service: Web3Service) => {
+  it('should inject a window web3 on a contract', inject([Web3Service], (service: Web3Service) => {
     window.web3 = {
       currentProvider: new Web3.providers.HttpProvider('http://localhost:1337')
     };

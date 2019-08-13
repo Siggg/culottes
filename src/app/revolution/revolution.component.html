@@ -41,36 +41,31 @@
  <div class="ui segment">
   Are they <strong class="criteria">{{ criteria }}</strong> ?
   
-  <div class="ui list" *ngFor="let citizen of citizens">
+  <div class="ui relaxed divided list" *ngFor="let citizen of citizens">
    <div class="item">
-    <div class="ui">
-     <label>Their address</label>
-     <div class="ui label">
-      <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
+    <i class="large balance scale middle aligned icon">
+    <div class="content">
+     <div class="ui label header">
+      Their address: <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown">{{ citizen.address }}</span></a>
      </div>
-    </div>
-    <div class="list">
-     <div class="item ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></div>
-     <ng-template #thenBlock><i class="balance scale icon"></i>Trial still open: <div class="ui label">{{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO </div></ng-template>
-     <ng-template #elseBlock>
-      <span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span>
-      <ng-template #thenBlock2><i class="gavel icon"></i>Last verdict: YES <i class="thumbs up icon"></i></ng-template>
-      <ng-template #elseBlock2><i class="gavel icon"></i>Last verdict: NO <i class="thumbs down icon"></i></ng-template>
-     </ng-template>
-     <div class="item">
-      <a [routerLink]="['/citizen', citizen.address]">
-       <button class="ui left labeled icon button"><i class="balance scale icon"></i>Vote YES or NO ?</button>
-      </a>
+     <div class="description">
+      <i class="gavel icon"></i>Verdict: 
+      <span class="ui icon" *ngIf="citizen.opened; then thenBlock else elseBlock"></span><br />
+      <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
      </div>
     </div>
    </div>
   </div>
- </div>
+
+     <ng-template #thenBlock>not yet, {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</ng-template>
+     <ng-template #elseBlock><span *ngIf="citizen.matchesCriteria; then thenBlock2 else elseBlock2"></span></ng-template>
+      <ng-template #thenBlock2>YES <i class="thumbs up icon"></i></ng-template>
+      <ng-template #elseBlock2>NO <i class="thumbs down icon"></i></ng-template>
   
   <a routerLink="/citizen">
-   <button class="ui right labeled icon button">
-    Add <strong>{{ criteria }}</strong>
+   <button class="ui left labeled icon button">
     <i class="balance scale icon"></i>
+    Add <strong>{{ criteria }}</strong>
    </button>
   </a>
  </div>

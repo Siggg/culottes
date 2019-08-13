@@ -40,13 +40,15 @@
    <div class="item">
     <i class="large balance scale middle aligned icon"></i>
     <div class="content">
-     <label>Their address</label>
-     <div class="ui label">
-      <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word;flex: inherit">{{ citizen.address }}</span></a>
+     <div class="field header">
+      <label>Their address</label>
+      <div class="ui label">
+       <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word;flex: inherit">{{ citizen.address }}</span></a>
+      </div>
      </div>
-     <div class="description">
+     <div class="field description">
       <label>Verdict</label>
-      <div class="ui icon" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
+      <div class="ui icon label" *ngIf="citizen.opened; then openTrial else closedTrial"></div><br />
       <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button"><i class="envelope icon"></i>Vote YES or NO ?</button></a>
      </div>
     </div>

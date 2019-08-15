@@ -183,8 +183,6 @@ contract Revolution {
         // Remember when this distribution happened.
         lastDistributionBlockNumber = block.number;
         emit Distribution('Distribution', citizen, distributionAmount);
-      } else {
-        emit Distribution('Distribution', citizen, 0);
       }
     }
   }

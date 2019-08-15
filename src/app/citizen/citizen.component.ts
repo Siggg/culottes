@@ -14,6 +14,7 @@ const contractABI = require('../../../build/contracts/Revolution.json');
 export class CitizenComponent implements OnInit {
 
 	address: String = "0x";
+	revolutionAddress: String = "0x0000...";
 	criteria: String = "default criteria from citizen.component.ts"
 	culottes: any;
 	account: any;
@@ -40,6 +41,9 @@ export class CitizenComponent implements OnInit {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
         });
+    this.revolutionAddress = this
+      .web3Service
+      .revolutionAddress;
   }
 
   async cakeVote(vote) {

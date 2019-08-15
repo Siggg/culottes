@@ -1,19 +1,19 @@
 <form class="ui form" name="citizen">
 
  <div class="field">
-  <label>Address you are voting about</label>
+  <label>Their address</label>
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter address (should start with 0x)" />
  </div>
 
  <div class="field">
-  <label>Amount of ether you are staking on this vote</label>
+  <label>How much ether are you staking on this vote ?</label>
   <div class="ui right labeled input">
    <input [(ngModel)]="amount" type="number" name="amount" placeholder="Enter amount" />
    <div class="ui label">ETH</div>
   </div>
   <div class="ui action input">
-   <div class="ui right aligned label fluid">= {{ convertToFiat(amount) }}</div>
-   <select (change)="onChange($event)" class="ui floating dropdown compact">
+   <div class="ui right aligned label fluid" style="text-align:right;">= {{ convertToFiat(amount) }}</div>
+   <select (change)="onChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>
@@ -32,16 +32,19 @@
   </div>
  </div>
 
- <div class="ui icon">
-  <i class="icon balance scale"></i>
-  <label>Please cast your vote and bet: does the address above belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</label>
-  <br />
+ <div class="field">
+  <label>Cast your vote: Does the address above really belong to <strong>{{ criteria }}</strong> ? And is this their unique address for this bastille ?</label>
   <div class="ui buttons">
     <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
     <div class="or"></div>
     <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO<i class="icon thumbs down"></i></div>
   </div>
  </div>
-  
-  <div class="results"></div>
+
+ <div class="ui icon">
+   <i class="icon balance scale"></i>
+   Your vote may randomly close their trial. When their trial closes, the YES stakes and the NO stakes are summed and compared. The verdict is issued accordingly. The loosing voters loose their stakes. The bastille takes a share of the lost stakes as a tax. And the rest of the lost stakes are shared among winning voters proportionately to their winning stakes, which they also get back (minus transaction safety fees). Read <a href="https://siggg.gitlab.io/culottes/rules/#step-5-verdict-and-rewards">step 5 of the rules of the Culottes board game</a> for a better understanding of the behavior of this bastille when issuing its verdict and distributing vote stakes. If you can read source code, you can also audit <a href="https://rinkeby.etherscan.io/address/{{ revolutionAddress }}#code">the smart contract of this revolution and its detailed parameters</a>.
+ </div> 
+ 
+ <div class="results"></div>
 </form>

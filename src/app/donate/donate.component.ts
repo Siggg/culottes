@@ -69,7 +69,7 @@ export class DonateComponent implements OnInit {
 			            console.log("Accounts refreshed: " + this.account);
                   this
                     .web3Service
-                    .sendTransaction({from: this.account, to: this.address, value: wei});
+                    .sendTransaction({from: this.account, to: this.address, value: wei, gas: 60000});
 			          });
 			    });
         } catch (error) {
@@ -79,7 +79,7 @@ export class DonateComponent implements OnInit {
 			  console.log("donated from: " + this.account);
 			  this
 			    .web3Service
-			    .sendTransaction({from: this.account, to: this.address, value: wei});
+			    .sendTransaction({from: this.account, to: this.address, value: wei, gas: 60000});
 			}
 		}
 	}

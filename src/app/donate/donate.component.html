@@ -8,14 +8,14 @@
  </div>
  
  <div class="field">
-  <label>Amount of ether to donate</label>
+  <label>How much ether are you donating?</label>
   <div class="ui right labeled input">
    <input [(ngModel)]="amount" type="number" name="amount" placeholder="Enter amount" />
    <div class="ui label">ETH</div>
   </div>
   <div class="ui action input">
-   <div class="ui right aligned label fluid">= {{ convertToFiat(amount) }}</div>
-   <select (change)="onChange($event)" class="ui floating dropdown compact">
+   <div class="ui right aligned label fluid" style="text-align:right;">= {{ convertToFiat(amount) }}</div>
+   <select (change)="onChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>

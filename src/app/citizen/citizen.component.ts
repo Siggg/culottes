@@ -61,7 +61,7 @@ export class CitizenComponent implements OnInit {
             window.web3.eth.getAccounts((err, accs) => {
               this.account = accs[0];
               console.log("Accounts refreshed: " + this.account);
-              this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount});
+              this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount, gas: 1000000});
             });
           });
         } catch (error) {
@@ -69,7 +69,7 @@ export class CitizenComponent implements OnInit {
         }
       } else {
         console.log("Vote by: " + this.account);
-        this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount});
+        this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount, gas: 1000000});
       }
     }
   }

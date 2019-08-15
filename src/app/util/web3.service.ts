@@ -56,7 +56,7 @@ export class Web3Service {
   }
   
   constructor(private http: HttpClient) {
-    window.addEventListener('load', (event) => {
+    window.addEventListener('load', async () => {
       this.bootstrapWeb3();
     });
     this.updatePriceOfCurrencies();

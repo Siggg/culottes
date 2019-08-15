@@ -178,13 +178,17 @@ contract Revolution {
           bastilleBalance > distributionAmount &&
           (block.number - lastDistributionBlockNumber >= distributionBlockPeriod)) {
         // Then send this sans-culotte its fair share of Bastille cakes.
-        citizen.send(distributionAmount);
-        bastilleBalance -= distributionAmount;
-        // Remember when this distribution happened.
-        lastDistributionBlockNumber = block.number;
-        emit Distribution('Distribution', citizen, distributionAmount);
+        if (citizen.send(distributionAmount)) {
+          bastilleBalance -= distributionAmount;
+          emit Distribution('Distribution', citizen, distributionAmount);
+        } else {
+          // sending failed, maybe citizen is a smart contract with an expensive fallback function ?
+          emit Distribution('Distribution', citizen, 0);
+        }
       }
     }
+    // Remember when this distribution happened.
+    lastDistributionBlockNumber = block.number;
   }
 
   function getScaleAmount(bool _vote, address _citizen) public view returns (uint){

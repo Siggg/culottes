@@ -4,7 +4,7 @@
 
  <div class="ui segment form" id="criteriaLabel">
  
-	 This bastille gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong>. Their income is of {{ distributionAmount }} ETH (~ {{ convertToFiat(distributionAmount) }} {{ currency() }}) distributed every {{ distributionBlockPeriod }} blocks of the Ethereum Rinkeby blockchain (about every {{ distributionBlockPeriod * 15 }} seconds) unless the bastille is empty. 
+	 This bastille gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong>. Their income is of {{ distributionAmount }} ETH (~ {{ convertToFiat(distributionAmount) }} {{ currency() }}) distributed at most every {{ distributionBlockPeriod }} blocks of the Ethereum Rinkeby blockchain (about every {{ distributionBlockPeriod * 15 }} seconds) unless the bastille is empty. Distribution is triggered by new votes.
 
   <div class="ui relaxed celled list" *ngFor="let citizen of citizens">
    <div class="item">
@@ -19,7 +19,7 @@
       <div class="ui label">
        <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word">{{ citizen.address }}</span></a>
       </div>
-      <div *ngIf="citizen.opened" class="ui tag label">None yet: {{ citizen.sansculotteScale }} x YES vs. {{ citizen.privilegedScale }} x NO</div>
+      <div *ngIf="citizen.opened" class="ui tag label">No verdict yet: {{ citizen.sansculotteScale / 10^18 }} ETH x YES vs. {{ citizen.privilegedScale / 10^18 }} ETH x NO</div>
       <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> YES</div>
       <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> NO</div>
      <a [routerLink]="['/citizen', citizen.address]"><button class="ui left labeled icon button secondary"><i class="envelope icon"></i><span *ngIf="citizen.opened">Your vote: YES or NO ?</span><span *ngIf="!citizen.opened">Re-open their trial</span></button></a>

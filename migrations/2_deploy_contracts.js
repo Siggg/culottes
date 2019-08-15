@@ -35,10 +35,10 @@ module.exports = function(deployer) {
   deployer.deploy(
     Revolution,
     'a frequent contributor to open source projects', // criteria
-    3, // distributionBlockPeriod
-    7, // distributionAmount
-    false, // withLottery 
-    false  // withDistribution
+    4, // distributionBlockPeriod in blocks (about 15 secondes per block ?)
+    625000000000000, // distributionAmount in Wei
+    true, // withLottery 
+    true  // withDistribution
   );
 };
 

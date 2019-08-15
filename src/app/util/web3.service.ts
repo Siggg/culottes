@@ -14,7 +14,8 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public ready = false;
-  public revolutionAddress = "0xB0573E469b5a1b811Ea43B6fc414686716c1FEe6"; // @rinkeby with 3 142 true true
+  public revolutionAddress = 0x3029ba9190cF587c399451aD09fBa2344fd72290; // @rinkeby with 4, 0.000625 ETH, true, true
+	// "0xB0573E469b5a1b811Ea43B6fc414686716c1FEe6"; // @rinkeby with 3 142 true true but vote would not re-open trials
 	// "0xba074e774A614a167F88c161125eb515cDe824F0" @rinkeby with 3 1337 false false
 	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false but citizens was private
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance

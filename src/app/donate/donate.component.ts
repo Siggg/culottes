@@ -13,7 +13,7 @@ const contractABI = require('../../../build/contracts/Revolution.json');
 })
 export class DonateComponent implements OnInit {
 
-	address: String = "default address from donate.component.ts";
+	revolutionAddress: String = "default address from donate.component.ts";
 	criteria: String = "default criteria from donate.component.ts"
 	culottes: any;
 	account: any;
@@ -29,7 +29,7 @@ export class DonateComponent implements OnInit {
 	}
 
 	async ngOnInit() {
-	  this.address = this.web3Service.revolutionAddress;
+	  this.revolutionAddress = this.web3Service.revolutionAddress;
 		this.watchAccount();
 		this
 	  	.web3Service
@@ -69,7 +69,7 @@ export class DonateComponent implements OnInit {
 			            console.log("Accounts refreshed: " + this.account);
                   this
                     .web3Service
-                    .sendTransaction({from: this.account, to: this.address, value: wei});
+                    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei});
 			          });
 			    });
         } catch (error) {
@@ -79,7 +79,7 @@ export class DonateComponent implements OnInit {
 			  console.log("donated from: " + this.account);
 			  this
 			    .web3Service
-			    .sendTransaction({from: this.account, to: this.address, value: wei});
+			    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei});
 			}
 		}
 	}

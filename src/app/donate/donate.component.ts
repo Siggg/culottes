@@ -69,11 +69,7 @@ export class DonateComponent implements OnInit {
 			            console.log("Accounts refreshed: " + this.account);
                   this
                     .web3Service
-<<<<<<< HEAD
-                    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei});
-=======
-                    .sendTransaction({from: this.account, to: this.address, value: wei, gas: 60000});
->>>>>>> b30e56ae15bf50ba0558db4e2f9404c58a65c6ce
+                    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
 			          });
 			    });
         } catch (error) {
@@ -83,11 +79,7 @@ export class DonateComponent implements OnInit {
 			  console.log("donated from: " + this.account);
 			  this
 			    .web3Service
-<<<<<<< HEAD
-			    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei});
-=======
-			    .sendTransaction({from: this.account, to: this.address, value: wei, gas: 60000});
->>>>>>> b30e56ae15bf50ba0558db4e2f9404c58a65c6ce
+			    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
 			}
 		}
 	}

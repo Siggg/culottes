@@ -178,7 +178,7 @@ contract Revolution {
           bastilleBalance > distributionAmount &&
           (block.number - lastDistributionBlockNumber >= distributionBlockPeriod)) {
         // Then send this sans-culotte its fair share of Bastille cakes.
-        citizen.transfer(distributionAmount);
+        citizen.send(distributionAmount);
         bastilleBalance -= distributionAmount;
         // Remember when this distribution happened.
         lastDistributionBlockNumber = block.number;

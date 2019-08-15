@@ -17,7 +17,7 @@ export class Web3Service {
   public revolutionAddress = "0xB0573E469b5a1b811Ea43B6fc414686716c1FEe6"; // @rinkeby with 3 142 true true
 	// "0xba074e774A614a167F88c161125eb515cDe824F0" @rinkeby with 3 1337 false false
 	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false but citizens was private
-	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balancea
+	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
 
   public accountsObservable = new Subject<string[]>();

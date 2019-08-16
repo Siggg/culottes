@@ -76,7 +76,7 @@ contract Revolution {
     // only contract owner can lock
     require(msg.sender == owner);
     locked = true;
-  };
+  }
 
   function vote(bool _vote, address payable _citizen) public payable {
     Trial storage trial = trials[_citizen];

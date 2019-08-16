@@ -20,6 +20,10 @@ contract Revolution {
 
   // Will this Revolution automatically consider distributing cakes after each vote ?
   bool public withDistribution;
+  
+  // Is this Revolution irreversibly locked (end of life) ?
+  
+  bool public locked;
 
   // For a given citizen, let's put all positive (or negative) votes
   // received into a positive (or negative) justice scale.
@@ -64,7 +68,15 @@ contract Revolution {
     lastDistributionBlockNumber = block.number;
     withLottery = _withLottery;
     withDistribution = _withDistribution;
+    locked = false;
   }
+
+  function lock() public {
+    // will irreversibly lock this Revolution
+    // only contract owner can lock
+    require(msg.sender == owner);
+    locked = true;
+  };
 
   function vote(bool _vote, address payable _citizen) public payable {
     Trial storage trial = trials[_citizen];

@@ -228,7 +228,7 @@ contract('Revolution', function(accounts) {
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     
     // lock
-    expect(revolution.locked()).to.equal(false);
+    expect(await revolution.locked()).to.equal(false);
     
     revolution.lock();
     

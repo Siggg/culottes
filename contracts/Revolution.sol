@@ -229,6 +229,7 @@ contract Revolution {
   }
 
   function() payable external {
+    if (locked) { throw; }
     bastilleBalance += msg.value;
   }
 }

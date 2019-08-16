@@ -1,5 +1,7 @@
 const Revolution = artifacts.require("./Revolution.sol");
 const expect = require('chai').expect;
+const assertRevert = require('./assertRevert').assertRevert;
+
 
 contract('Revolution', function(accounts) {
 
@@ -224,7 +226,58 @@ contract('Revolution', function(accounts) {
     expect(web3.utils.toBN(citizenBalanceAfterDistribution).sub(web3.utils.toBN(citizenBalanceBeforeDistribution)).toNumber()).to.equal(distributionAmount);
     expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
+    
+    // lock
+    expect(revolution.locked()).to.equal(false);
+    
+    revolution.lock();
+    
+    expect(revolution.locked()).to.equal(true);
 
+    let citizenBalanceAfterLock = await web3.eth.getBalance(citizen);
+
+    // donation should fail
+    
+    let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
+    
+    assertRevert(
+      web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 100}),
+      "Donation sent to locked revolution");
+
+    let bastilleBalanceAfterDonation = await revolution.bastilleBalance();
+    
+    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(0);
+    
+    // votes should succeed when revolution locked and bastille not empty
+    
+    await revolution.vote(true, citizen, {from: A, value: 5});
+    
+    // closing trial should not add any cake to bastille after revolution locked
+    
+    await revolution.closeTrial(citizen);
+    
+    let bastilleBalanceAfterClosingTrial = await revolution.bastilleBalance();
+    
+    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(0);
+    
+    // distribution should happen even if bastille balance is less than distribution amount
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(42);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(42);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(0);
+    
+    // once bastille balance is empty, votes should fail, this revolution is over
+    
+    assertRevert(
+      await revolution.vote(false, citizen, {from: E, value: 1});,
+      "Can't vote during locked revolution when bastille is empty");
+      
   });
 
   it("Fallback", async function() {

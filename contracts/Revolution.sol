@@ -2,6 +2,8 @@ pragma solidity ^0.5.0;
 
 contract Revolution {
 
+  address public owner = msg.sender;
+  
   // Criteria the citizen should match to win votes
   // e.g. : "a sans-culotte"
   string public criteria;

@@ -60,6 +60,7 @@ export class Web3Service {
       this.bootstrapWeb3();
     });
     this.updatePriceOfCurrencies();
+    this.bootstrapWeb3();
   }
 
   public bootstrapWeb3() {

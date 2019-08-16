@@ -275,7 +275,7 @@ contract('Revolution', function(accounts) {
     // once bastille balance is empty, votes should fail, this revolution is over
     
     assertRevert(
-      await revolution.vote(false, citizen, {from: E, value: 1});,
+      await revolution.vote(false, citizen, {from: E, value: 1}),
       "Can't vote during locked revolution when bastille is empty");
       
   });

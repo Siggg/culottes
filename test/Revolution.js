@@ -292,7 +292,7 @@ contract('Revolution', function(accounts) {
     
     blockNumber = await web3.eth.getBlockNumber();
     console.log("Block number +2 = " + blockNumber);
-    let stat = revolution.getTrialStatus(citizen);
+    let stat = revolution.trialStatus(citizen);
     console.log("trial status: " + trialStatus);
     
     await revolution.distribute();

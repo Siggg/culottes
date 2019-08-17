@@ -273,7 +273,7 @@ contract('Revolution', function(accounts) {
     
     let advanceBlock = () => {
   return new Promise((resolve, reject) => {
-    web3.currentProvider.send({
+    web3.eth.send({
       jsonrpc: '2.0',
       method: 'evm_mine',
       id: new Date().getTime()
@@ -284,9 +284,14 @@ contract('Revolution', function(accounts) {
     })
   })
 }
+
+    blockNumber = await web3.eth.getBlockNumber();
+    console.log("Block number = " + blockNumber);
     await advanceBlock();
     await advanceBlock();
     
+    blockNumber = await web3.eth.getBlockNumber();
+    console.log("Block number +2 = " + blockNumber);
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
@@ -294,6 +299,8 @@ contract('Revolution', function(accounts) {
     // i.e. no distribution yet
     
     await advanceBlock();
+    blockNumber = await web3.eth.getBlockNumber();
+    console.log("Block number +3 = " + blockNumber);
     
     await revolution.distribute();
     
@@ -302,6 +309,8 @@ contract('Revolution', function(accounts) {
     await advanceBlock();
     await advanceBlock();
     await advanceBlock();
+    blockNumber = await web3.eth.getBlockNumber();
+    console.log("Block number +6 = " + blockNumber);
     
     await revolution.distribute();
     

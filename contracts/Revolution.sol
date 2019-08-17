@@ -183,7 +183,7 @@ contract Revolution {
   function distribute() public {
     // Did the last distribution happen long enough ago ?
     if  (block.number - lastDistributionBlockNumber < distributionBlockPeriod) {
-      return
+      return;
     }
     // For each citizen trial
     for (uint i = 0; i < citizens.length; i++) {

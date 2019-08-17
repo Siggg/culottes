@@ -267,49 +267,60 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(2);
     expect(status.opened).to.equal(true);
     
-    // distribution should succeed after enough blocks
-    
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    // distribution should succeed (after 3 blocks, not 2)
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
     
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38); // no distribution yet
     
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31); // fine
+    
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(24);
     
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(17);
     
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(10);
     
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(3);
     
-    // even if bastille balance is less than distribution amount
+    // even if bastille balance (3) is less than distribution amount (7)
     
-    await send('evm_increaseTime', [60]);
-    await send('evm_mine');
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
     
     await revolution.distribute();
     

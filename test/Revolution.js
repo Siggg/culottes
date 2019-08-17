@@ -255,7 +255,7 @@ contract('Revolution', function(accounts) {
     
     await revolution.vote(true, citizen, {from: A, value: 5});
     
-    await revolution.vote(false, citizen, {from: B, value: 4});
+    await revolution.vote(false, citizen, {from: B, value: 2});
     expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(await revolution.bastilleBalance())).toNumber()).to.equal(0);
     
     status = await revolution.trialStatus(citizen);

@@ -271,46 +271,48 @@ contract('Revolution', function(accounts) {
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38); // no distribution yet
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3
+    // i.e. no distribution yet
+    
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31); // fine
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(24);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(17);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(10);
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     
@@ -318,9 +320,9 @@ contract('Revolution', function(accounts) {
     
     // even if bastille balance (3) is less than distribution amount (7)
     
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 1 block
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 2 blocks
-    web3.eth.send({ 0, '2.0', 'evm_mine', [] }); // 3 blocks
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
+    web3.eth.send({ 0, '2.0', 'evm_mine', [] });
     
     await revolution.distribute();
     

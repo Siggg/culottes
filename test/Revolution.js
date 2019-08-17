@@ -293,9 +293,9 @@ contract('Revolution', function(accounts) {
     blockNumber = await web3.eth.getBlockNumber();
     console.log("Block number +2 = " + blockNumber);
     status = revolution.trialStatus(citizen);
-    console.log("trial status: " + status[0] + status[1] + status[2] + status[3]);
+    console.log("trial status: " + status.opened + status.matchesCriteria + status.sansculotteScale + status.privilegedScale);
     console.log("lastDistributionBlockNumber: " + revolution.lastDistributionBlockNumber);
-    console.log("distributionBlockPeriod: " + revolution.distributionBlockPeriod);
+    console.log("distributionBlockPeriod: " + revolution.distributionBlockPeriod());
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);

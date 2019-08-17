@@ -181,18 +181,20 @@ contract Revolution {
   }
 
   function distribute() public {
+    // Did the last distribution happen long enough ago ?
+    if  (block.number - lastDistributionBlockNumber < distributionBlockPeriod) {
+      return
+    }
     // For each citizen trial
     for (uint i = 0; i < citizens.length; i++) {
       address payable citizen = citizens[i];
       Trial memory trial = trials[citizen];
       // Is the trial closed ?
-      // Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?
-      // Does the Bastille have more cakes left than the amount to be distributed ?
-      // Did the last distribution happen long enough ago ?
+      // and Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?
+      // and Does the Bastille have more cakes left than the amount to be distributed ?
       if (trial.opened == false &&
           trial.matchesCriteria == true &&
-          bastilleBalance > distributionAmount &&
-          (block.number - lastDistributionBlockNumber >= distributionBlockPeriod)) {
+          bastilleBalance >= distributionAmount) {
         // Then send this sans-culotte its fair share of Bastille cakes.
         if (citizen.send(distributionAmount)) {
           bastilleBalance -= distributionAmount;

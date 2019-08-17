@@ -255,13 +255,20 @@ contract('Revolution', function(accounts) {
     
     await revolution.vote(true, citizen, {from: A, value: 5});
     
+    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(await revolution.bastilleBalance())).toNumber()).to.equal(0);
+    
+    status = await revolution.trialStatus(citizen);
+    expect(status.sansculotteScale.toNumber()).to.equal(5);
+    expect(status.privilegedScale.toNumber()).to.equal(0);
+    expect(status.opened).to.equal(true);
+    
     // closing trial should not add any cake to bastille after revolution locked
     
     await revolution.closeTrial(citizen);
     
     let bastilleBalanceAfterClosingTrial = await revolution.bastilleBalance();
     
-    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(12);
+    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(2);// or 3
     
     // distribution should happen even if bastille balance is less than distribution amount
     

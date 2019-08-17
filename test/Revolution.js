@@ -229,7 +229,7 @@ contract('Revolution', function(accounts) {
     
     // donations succeed before lock
     
-    web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 3})
+    web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 3});
     
     // lock
     

@@ -152,14 +152,16 @@ contract Revolution {
       uint winningCakes = winnerScale.votes[voter];
       // Send them back
       winnerScale.votes[voter]=0;
-      voter.transfer(winningCakes);
+      // FIXME : handle the case of failure to send winningCakes
+      voter.send(winningCakes);
       // How many cakes from the loser scale are to be rewarded to this winner citizen ?
       // Rewards should be a share of the lost cakes that is proportionate to the fraction of
       // winning cakes that were voted by this voting citizen, pretending that the Bastille
       // itself took part in the vote.
       uint rewardCakes = loserScale.amount * winningCakes / ( winnerScale.amount + bastilleVote );
       // Send their fair share of lost cakes as reward.
-      voter.transfer(rewardCakes);
+      // FIXME : handle the failure of sending rewardCakes
+      voter.send(rewardCakes);
       remainingRewardCakes -= rewardCakes;
     }
    

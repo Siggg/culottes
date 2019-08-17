@@ -267,7 +267,10 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(2);
     expect(status.opened).to.equal(true);
     
-    // distribution should succeed
+    // distribution should succeed after enough blocks
+    
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
     
@@ -275,23 +278,38 @@ contract('Revolution', function(accounts) {
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);
     
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
+    
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(24);
+    
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(17);
     
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
+    
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(10);
+    
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
     
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(3);
     
     // even if bastille balance is less than distribution amount
+    
+    await send('evm_increaseTime', [60]);
+    await send('evm_mine');
     
     await revolution.distribute();
     

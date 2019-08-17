@@ -273,7 +273,7 @@ contract('Revolution', function(accounts) {
     
     let advanceBlock = () => {
   return new Promise((resolve, reject) => {
-    web3.eth.send({
+    web3.currentProvider.send({
       jsonrpc: '2.0',
       method: 'evm_mine',
       id: new Date().getTime()
@@ -292,6 +292,9 @@ contract('Revolution', function(accounts) {
     
     blockNumber = await web3.eth.getBlockNumber();
     console.log("Block number +2 = " + blockNumber);
+    let stat = revolution.getTrialStatus(citizen);
+    console.log("trial status: " + trialStatus);
+    
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);

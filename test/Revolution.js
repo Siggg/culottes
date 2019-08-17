@@ -295,10 +295,6 @@ contract('Revolution', function(accounts) {
     
     await advanceBlock();
     
-    // fixme : one more ?
-    
-    await advanceBlock();
-    
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);

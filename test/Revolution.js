@@ -261,7 +261,7 @@ contract('Revolution', function(accounts) {
     
     let bastilleBalanceAfterClosingTrial = await revolution.bastilleBalance();
     
-    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(0);
+    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(12);
     
     // distribution should happen even if bastille balance is less than distribution amount
     

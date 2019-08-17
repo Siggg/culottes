@@ -263,21 +263,13 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(2);
     expect(status.opened).to.equal(true);
     
-    // closing trial should not add any cake to bastille after revolution locked
-    
-    await revolution.closeTrial(citizen);
-    
-    let bastilleBalanceAfterClosingTrial = await revolution.bastilleBalance();
-    
-    expect(web3.utils.toBN(bastilleBalanceAfterClosingTrial).sub(web3.utils.toBN(bastilleBalanceAfterDonation)).toNumber()).to.equal(1);
-    
     // distribution should happen even if bastille balance is less than distribution amount
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(42);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(36);
     
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(42);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(29);
     
     await revolution.distribute();
     

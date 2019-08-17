@@ -227,6 +227,10 @@ contract('Revolution', function(accounts) {
     expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     
+    // donations succeed before lock
+    
+    web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 3})
+    
     // lock
     
     let locked = await revolution.locked();
@@ -239,7 +243,7 @@ contract('Revolution', function(accounts) {
 
     let citizenBalanceAfterLock = await web3.eth.getBalance(citizen);
 
-    // donation should fail
+    // donation should fail after lock
     
     let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
     
@@ -263,13 +267,31 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(2);
     expect(status.opened).to.equal(true);
     
-    // distribution should happen even if bastille balance is less than distribution amount
+    // distribution should succeed
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(36);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
     
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(29);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(24);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(17);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(10);
+    
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(3);
+    
+    // even if bastille balance is less than distribution amount
     
     await revolution.distribute();
     

@@ -308,6 +308,8 @@ contract('Revolution', function(accounts) {
     
     await revolution.distribute();
     
+    console.log("attempted distribution");
+    
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(31);
     
     await advanceBlock();

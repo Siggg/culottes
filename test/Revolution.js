@@ -273,10 +273,24 @@ contract('Revolution', function(accounts) {
     expect(status.opened).to.equal(false);
     expect(status.matchesCriteria).to.equal(true);
     
-    // distribution should succeed (after 3 blocks, not 2)
+    // distribution should succeed but only after 3 blocks
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(39);
     
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(32);
+
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
+    await revolution.distribute();
+     
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(32);
+    
+    // i.e. no distribution yet
+
     let advanceBlock = () => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.send({
@@ -291,42 +305,21 @@ contract('Revolution', function(accounts) {
   })
 }
 
-    blockNumber = await web3.eth.getBlockNumber();
-    console.log("Block number = " + blockNumber);
     await advanceBlock();
-    
+    await advanceBlock();
+    await advanceBlock();
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(39);
-    
-    // i.e. no distribution yet
-    
-    await advanceBlock();
-    await advanceBlock();
-    blockNumber = await web3.eth.getBlockNumber();
-    console.log("Block number +3 = " + blockNumber);
-    console.log("distributionBlockPeriod: " + await revolution.distributionBlockPeriod());
-    
-    await revolution.distribute();
-    
-    console.log("attempted distribution");
-    
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(32);
-    
-    await advanceBlock();
-    await advanceBlock();
-    await advanceBlock();
-    blockNumber = await web3.eth.getBlockNumber();
-    console.log("Block number +6 = " + blockNumber);
-    
-    await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(25);
     
     await advanceBlock();
     await advanceBlock();
     await advanceBlock();
-    
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(18);
@@ -334,7 +327,8 @@ contract('Revolution', function(accounts) {
     await advanceBlock();
     await advanceBlock();
     await advanceBlock();
-    
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(11);
@@ -342,7 +336,8 @@ contract('Revolution', function(accounts) {
     await advanceBlock();
     await advanceBlock();
     await advanceBlock();
-    
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(4);
@@ -352,7 +347,8 @@ contract('Revolution', function(accounts) {
     await advanceBlock();
     await advanceBlock();
     await advanceBlock();
-    
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
     await revolution.distribute();
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(0);

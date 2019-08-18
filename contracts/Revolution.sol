@@ -193,15 +193,24 @@ contract Revolution {
       // and Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?
       // and Does the Bastille have more cakes left than the amount to be distributed ?
       if (trial.opened == false &&
-          trial.matchesCriteria == true &&
-          bastilleBalance >= distributionAmount) {
-        // Then send this sans-culotte its fair share of Bastille cakes.
-        if (citizen.send(distributionAmount)) {
-          bastilleBalance -= distributionAmount;
-          emit Distribution('Distribution', citizen, distributionAmount);
+          trial.matchesCriteria == true ) {
+        let distributed = 0;
+        if (bastilleBalance >= distributionAmount) {
+          distributed = distributionAmount;
         } else {
-          // sending failed, maybe citizen is a smart contract with an expensive fallback function ?
-          emit Distribution('Distribution', citizen, 0);
+          if (locked == true) {
+            distributed = bastilleBalance;
+          }
+        }
+        // Then send this sans-culotte its fair share of Bastille cakes.
+        if (distributed > 0) {
+          if (citizen.send(distributed)) {
+            bastilleBalance -= distributed;
+            emit Distribution('Distribution', citizen, distributed);
+          } else {
+            // sending failed, maybe citizen is a smart contract with an expensive fallback function ?
+            emit Distribution('Distribution', citizen, -1);
+          }
         }
       }
     }

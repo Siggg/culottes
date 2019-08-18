@@ -342,7 +342,7 @@ contract('Revolution', function(accounts) {
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(4);
     
-    // even if bastille balance (3) is less than distribution amount (7)
+    // even if bastille balance (4) is less than distribution amount (7)
     
     await advanceBlock();
     await advanceBlock();

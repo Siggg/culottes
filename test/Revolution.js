@@ -267,6 +267,8 @@ contract('Revolution', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(2);
     expect(status.opened).to.equal(true);
     
+    revolution.closeTrial(citizen);
+    
     // distribution should succeed (after 3 blocks, not 2)
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(38);
@@ -301,7 +303,7 @@ contract('Revolution', function(accounts) {
     console.log("Block number +3 = " + blockNumber);
     console.log("distributionBlockPeriod: " + await revolution.distributionBlockPeriod());
     status = await revolution.trialStatus(citizen);
-    console.log("trial status: " + status.opened + status.matchesCriteria + status.sansculotteScale + status.privilegedScale);
+    console.log("trial status: opened = " + status.opened + " / matchesCriteria = " + status.matchesCriteria + " / sansculotteScale = " + status.sansculotteScale + " / privilegedScale = " + status.privilegedScale);
     
     await revolution.distribute();
     

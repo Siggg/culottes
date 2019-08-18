@@ -294,7 +294,6 @@ contract('Revolution', function(accounts) {
     blockNumber = await web3.eth.getBlockNumber();
     console.log("Block number = " + blockNumber);
     await advanceBlock();
-    await advanceBlock();
     
     await revolution.distribute();
     
@@ -302,6 +301,7 @@ contract('Revolution', function(accounts) {
     
     // i.e. no distribution yet
     
+    await advanceBlock();
     await advanceBlock();
     blockNumber = await web3.eth.getBlockNumber();
     console.log("Block number +3 = " + blockNumber);

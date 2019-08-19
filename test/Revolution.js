@@ -15,6 +15,17 @@ contract('Revolution', function(accounts) {
 
   });
 
+  it("Fallback", async function() {
+    const revolution = await Revolution.deployed();
+
+    let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
+    console.log('bastilleBalanceBeforeDonation: ', bastilleBalanceBeforeDonation.toNumber());
+    await web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 100});
+    let bastilleBalanceAfterDonation = await revolution.bastilleBalance();
+    console.log('bastilleBalanceAfterDonation: ', bastilleBalanceAfterDonation.toNumber());
+    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(100);
+
+  });
 
   it("Vote", async function() {
     const revolution = await Revolution.deployed();
@@ -363,18 +374,6 @@ contract('Revolution', function(accounts) {
     console.log("bastille balance: " + await revolution.bastilleBalance());
     console.log("revolution balance: " + await web3.eth.getBalance(revolution.address));
       
-  });
-
-  it("Fallback", async function() {
-    const revolution = await Revolution.deployed();
-
-    let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
-    console.log('bastilleBalanceBeforeDonation: ', bastilleBalanceBeforeDonation.toNumber());
-    await web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 100});
-    let bastilleBalanceAfterDonation = await revolution.bastilleBalance();
-    console.log('bastilleBalanceAfterDonation: ', bastilleBalanceAfterDonation.toNumber());
-    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(100);
-
   });
 
 });

@@ -194,7 +194,7 @@ contract Revolution {
       // and Does the Bastille have more cakes left than the amount to be distributed ?
       if (trial.opened == false &&
           trial.matchesCriteria == true ) {
-        let distributed = 0;
+        uint distributed = 0;
         if (bastilleBalance >= distributionAmount) {
           distributed = distributionAmount;
         } else {

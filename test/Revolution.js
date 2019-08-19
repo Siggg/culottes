@@ -361,7 +361,7 @@ contract('Revolution', function(accounts) {
       "Can't vote during locked revolution when bastille is empty");
     console.log("vote reverted");
     console.log("bastille balance: " + await revolution.bastilleBalance());
-    console.log("revolution balance: " + await revolution.balance());
+    console.log("revolution balance: " + await web3.eth.getBalance(revolution.address));
       
   });
 

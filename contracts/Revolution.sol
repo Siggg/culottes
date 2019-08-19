@@ -209,7 +209,7 @@ contract Revolution {
             emit Distribution('Distribution', citizen, distributed);
           } else {
             // sending failed, maybe citizen is a smart contract with an expensive fallback function ?
-            emit Distribution('Distribution', citizen, -1);
+            emit Distribution('Distribution', citizen, 0);
           }
         }
       }

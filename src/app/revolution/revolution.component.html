@@ -80,19 +80,8 @@
     <i class="plug icon"></i>
     Connect to the blockchain
   </div>
-  <div class="content">
-    {{ web3Status }}
+  <div class="content" [innerHTML]="'{{ web3Status }}'">
   </div>
-  <!--div class="actions">
-    <div class="ui red basic cancel inverted button">
-      <i class="sync icon"></i>
-      No
-    </div>
-    <div class="ui green ok inverted button">
-      <i class="checkmark icon"></i>
-      Yes
-    </div>
-  </div-->
-</div>
+ </div>
 
 </div>

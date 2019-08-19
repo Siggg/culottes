@@ -357,7 +357,7 @@ contract('Revolution', function(accounts) {
     
     console.log("vote on empty and locked revolution");
     assertRevert(
-      await revolution.vote(false, citizen, {from: E, value: 1}),
+      revolution.vote(false, citizen, {from: E, value: 1}),
       "Can't vote during locked revolution when bastille is empty");
     console.log("vote reverted");
     console.log("bastille balance: " + await revolution.bastilleBalance());

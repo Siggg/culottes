@@ -81,6 +81,7 @@ contract Revolution {
   }
 
   function vote(bool _vote, address payable _citizen) public payable {
+    require(locked == false || bastilleBalance > 0);
     Trial storage trial = trials[_citizen];
     trial.opened = true;
     if (trial.citizen == address(0x0) ) {

@@ -125,6 +125,7 @@ export class Web3Service {
     // Non-dapp browsers...
     else {
         this.web3Status.next('Could not detect a blockchain-enabled browser (web3 browser) connected to the Rinkeby Ethereum network. On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to Rinkeby. Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
+        $('.ui.basic.modal').modal('show');
     }
   }
 

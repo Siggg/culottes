@@ -20,10 +20,10 @@ contract('Revolution', function(accounts) {
 
     let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
     console.log('bastilleBalanceBeforeDonation: ', bastilleBalanceBeforeDonation.toNumber());
-    await web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 100});
+    await web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 1});
     let bastilleBalanceAfterDonation = await revolution.bastilleBalance();
     console.log('bastilleBalanceAfterDonation: ', bastilleBalanceAfterDonation.toNumber());
-    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(100);
+    expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(1);
 
   });
 
@@ -78,7 +78,7 @@ contract('Revolution', function(accounts) {
     let citizen = accounts[9];
 
     let balance = await web3.eth.getBalance(revolution.address);
-    expect(balance).to.equal('400');
+    expect(balance).to.equal('401');
     let status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(100);
     expect(status.privilegedScale.toNumber()).to.equal(300);
@@ -95,12 +95,12 @@ contract('Revolution', function(accounts) {
     // In other words, they get 60 lost cakes as rewards.
     // And the Bastille will get 200/500 of the 100 lost cakes.
     // And that makes 40 lost cakes put into the Bastille balance.
-    // There should remain 40 cakes in the contract.
+    // There should remain 41 cakes in the contract. 1 was already there before.
     balance = await web3.eth.getBalance(revolution.address);
-    expect(balance).to.equal('40');
-    // And these 40 cakes should be in the Bastille.
+    expect(balance).to.equal('41');
+    // And these 41 cakes should be in the Bastille.
     let bastilleBalance = await revolution.bastilleBalance();
-    expect(bastilleBalance.toNumber()).to.equal(40);
+    expect(bastilleBalance.toNumber()).to.equal(41);
     // There should be no cake left in the trial scales.
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(0);

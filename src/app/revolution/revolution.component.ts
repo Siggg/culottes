@@ -153,8 +153,10 @@ export class RevolutionComponent implements OnInit {
       .web3Status
       .subscribe(status => {
         this.web3Status = status;
-        if (this.web3Service.error) {
+        if (this.web3Service.statusError) {
           this.modalActivity = "active";
+        } else {
+          this.modalActivity = "";
         }
       });
     this
@@ -162,6 +164,11 @@ export class RevolutionComponent implements OnInit {
       .accountsObservable
       .subscribe(accounts => {
         this.account = accounts[0];
+        if (this.web3Service.statusError) {
+          this.modalActivity = "active";
+        } else {
+          this.modalActivity = "";
+        }
       });
   }
   

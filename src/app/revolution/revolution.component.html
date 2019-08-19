@@ -71,8 +71,7 @@
   You can further interact with this Revolution from the Etherscan website either <a href="https://rinkeby.etherscan.io/address/{{ revolutionAddress }}">via its Contract view</a> or <a href="https://rinkeby.etherscan.io/dapp/{{ revolutionAddress }}">via its Dapp view</a>.
  </div>
   
- <div class="ui segment">Status:
-  {{ web3Status }}
+ <div class="ui segment" [innerHTML]="Status: web3Status">
  </div>
 
 </div>

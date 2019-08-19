@@ -30,6 +30,7 @@ export class RevolutionComponent implements OnInit {
   web3Status: String = "Status of connection to your blockchain accounts";
   citizens: Array<ICitizen> = [];
   fullAddressShown: boolean = false;
+  modalActivity: String = "";
 
   constructor(
     private web3Service: Web3Service,
@@ -152,6 +153,9 @@ export class RevolutionComponent implements OnInit {
       .web3Status
       .subscribe(status => {
         this.web3Status = status;
+        if (this.web3Service.error) {
+          this.modalActivity = "active";
+        }
       });
     this
       .web3Service

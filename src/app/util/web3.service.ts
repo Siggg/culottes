@@ -21,7 +21,7 @@ export class Web3Service {
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
 	public revolutionBlockchain = "Rinkeby";
 	// Connected to a web3 API ?
-	public statusBlockchain = false;
+	public statusWeb3 = false;
 	// Connected to the proper blockchain ?
 	public statusNetwork = false;
 	// With an account ?
@@ -80,7 +80,7 @@ export class Web3Service {
         window.web3 = new Web3(ethereum);
         this.web3 = window.web3;
         this.web3Status.next("connecting to the blockchain");
-        this.statusBlockchain = true;
+        this.statusWeb3 = true;
     }
     // Legacy dapp browsers...
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -88,7 +88,7 @@ export class Web3Service {
       // Use Mist/MetaMask's provider
 	    this.web3 = new Web3(window.web3.currentProvider);
 	    this.web3Status.next("connecting to the blockchain via Metamask or Mist");
-	    this.statusBlockchain = true;
+	    this.statusWeb3 = true;
     }
     else {
       console.log('No web3? You should consider trying MetaMask!');
@@ -185,7 +185,7 @@ export class Web3Service {
     // Non-dapp browsers...
     else {
       this.web3Status.next('Could not detect a blockchain-enabled browser (so called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain. On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + ' . Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
-      this.statusBlockchain = false;
+      this.statusWeb3 = false;
       this.statusError = true;
     }
   }

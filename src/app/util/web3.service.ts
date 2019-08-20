@@ -257,7 +257,7 @@ export class Web3Service {
           .accountsObservable
           .next(accs);
         this.accounts = accs;
-        this.web3Status.next("Blockchain accounts ready.");
+        // this.web3Status.next("Blockchain accounts ready.");
         this.statusAccount = true;
       }
 

@@ -68,7 +68,8 @@ export class RevolutionComponent implements OnInit {
           this
             .web3Service
             .web3Status
-            .next("bastille ready.");
+            .next("Revolution ready.");
+          this.statusError = false;
           return this
             .web3Service
             .weiToEther(result);

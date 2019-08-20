@@ -210,7 +210,7 @@ export class Web3Service {
         .call()
       .then( (result) => {
         if (result === null) {
-          this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum ' + this.revolutionBlockchain + '  blockchain.");
+          this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should switch your blockchain browser or node to the Ethereum " + this.revolutionBlockchain + " blockchain.");
           this.statusError = true;
         } else {
           this.statusNetwork = true;

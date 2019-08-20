@@ -196,4 +196,8 @@ export class RevolutionComponent implements OnInit {
     return this.web3Service.currency;
   }
   
+  public dappStatus() {
+    return this.web3Service.dappStatus();
+  }
+  
 }

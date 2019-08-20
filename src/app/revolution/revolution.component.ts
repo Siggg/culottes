@@ -25,6 +25,7 @@ export class RevolutionComponent implements OnInit {
   distributionAmount: number = 0;
   distributionBlockPeriod: number = 0;
   revolutionAddress: String = "0x0000000...";
+  revolutionBlockchain: String = "";
   culottes: any;
   account: any;
   web3Status: String = "Status of connection to your blockchain accounts";

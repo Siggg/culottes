@@ -15,6 +15,7 @@ export class CitizenComponent implements OnInit {
 
 	address: String = "0x";
 	revolutionAddress: String = "0x0000...";
+	revolutionBlockchain: String = "";
 	criteria: String = "default criteria from citizen.component.ts"
 	culottes: any;
 	account: any;

@@ -20,6 +20,7 @@ export class Web3Service {
 	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false but citizens was private
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
+	public revolutionBlockchain = "Rinkeby";
 	public statusError = false;
 	public statusBlockchain = false;
 	public statusNetwork = false;
@@ -92,7 +93,7 @@ export class Web3Service {
       Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-      this.web3Status.next('Could not detect a blockchain-enabled browser (web3 browser) connected to the Rinkeby Ethereum network.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to Rinkeby. Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
+      this.web3Status.next('Could not detect a blockchain-enabled browser (do called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + ' . Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
       this.statusError = true;
     }
     setInterval(() => this.refreshAccounts(), 100);
@@ -134,7 +135,7 @@ export class Web3Service {
     }
     // Non-dapp browsers...
     else {
-      this.web3Status.next('Could not detect a blockchain-enabled browser (web3 browser) connected to the Rinkeby Ethereum network. On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to Rinkeby. Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
+      this.web3Status.next('Could not detect a blockchain-enabled browser (so called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain. On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + ' . Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
       this.statusBlockchain = false;
       this.statusError = true;
     }
@@ -160,19 +161,19 @@ export class Web3Service {
         .call()
       .then( (result) => {
         if (result === null) {
-          this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain.");
+          this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum ' + this.revolutionBlockchain + '  blockchain.");
           this.statusError = true;
         } else {
           this.statusNetwork = true;
-          this.web3Status.next("Bastille ready.");
+          this.web3Status.next("Revolution ready.");
         }
       })
       .catch( (error) => {
-        this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain. The error message was: " + error.toString());
+        this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum ' + this.revolutionBlockchain + ' blockchain. The error message was: " + error.toString());
         this.statusError = true;
       });
     } catch (error) {
-      this.web3Status.next("This bastille can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum Rinkeby blockchain. The error message was: " + error.toString());
+      this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum ' + this.revolutionBlockchain + '  blockchain. The error message was: " + error.toString());
       this.statusError = true;
     }
     

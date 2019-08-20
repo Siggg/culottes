@@ -85,10 +85,11 @@ export class RevolutionComponent implements OnInit {
       .call()
       .then( (result) => {
 	if (result === null) {
-	  this
+	  /*this
             .web3Service
 	    .web3Status
-	    .next("distributionAmount at this bastille is null!");
+	    .next("distributionAmount at this bastille is null!");*/
+	  this.webService.statusError = true;
 	} else {
 	  return this
             .web3Service

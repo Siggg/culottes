@@ -263,4 +263,14 @@ export class Web3Service {
 
     });
   }
+  
+  public dappStatus() {
+    return {
+      statusWeb3: this.statusWeb3,
+	    statusNetwork: this.statusNetwork,
+	    statusAccount: this.statusAccount,
+	    statusAuthorized: this.statusAuthorized,
+	    statusError: this.statusError
+    };
+  }
 }

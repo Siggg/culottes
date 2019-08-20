@@ -165,6 +165,7 @@ export class Web3Service {
           this.statusError = true;
         } else {
           this.statusNetwork = true;
+          this.statusError = false;
           this.web3Status.next("Revolution ready.");
         }
       })

@@ -54,6 +54,9 @@ export class RevolutionComponent implements OnInit {
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
+    this.revolutionBlockchain = this
+      .web3Service
+      .revolutionBlockchain;
     this.bastilleBalance = await web3_eth_contract
       .methods
       .bastilleBalance()

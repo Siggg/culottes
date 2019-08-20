@@ -85,4 +85,11 @@
   </div>
   <div class="content" [innerHTML]="web3Status">
   </div>
+  <ul>
+    <li>{{ statusBlockchain }} Connected to a web3 API ?</li>
+    <li>{{ statusNetwork }} Connected to the proper blockchain ?</li>
+	  <li>{{ statusAccount }} With a blockchain account ?</li>
+	  <li>{{ statusAuthorized }} Blockchain interactions authorized by user ?</li>
+	  <li>{{ statusError }} Dapp communication seems to be OK ?</li>
+	</ul>
 </div>

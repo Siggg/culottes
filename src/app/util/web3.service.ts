@@ -20,11 +20,16 @@ export class Web3Service {
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
 	public revolutionBlockchain = "Rinkeby";
-	public statusError = true;
+	// Connected to a web3 API ?
 	public statusBlockchain = false;
+	// Connected to the proper blockchain ?
 	public statusNetwork = false;
+	// With an account ?
 	public statusAccount = false;
+	// Blockchain interactions authorized by user ?
 	public statusAuthorized = false;
+	// Dapp communication seems to be OK ?
+  public statusError = true;
 	
   public accountsObservable = new Subject<string[]>();
   

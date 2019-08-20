@@ -89,7 +89,7 @@ export class RevolutionComponent implements OnInit {
             .web3Service
 	    .web3Status
 	    .next("distributionAmount at this bastille is null!");*/
-	  this.webService.statusError = true;
+	  this.web3Service.statusError = true;
 	} else {
 	  return this
             .web3Service

@@ -89,12 +89,57 @@ export class Web3Service {
       console.log('No web3? You should consider trying MetaMask!');
       
       // Hack to provide backwards compatibility for Truffle, which uses web3js 0.20.x
-      Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
+      Web3
+        .providers
+        .HttpProvider
+        .prototype
+        .sendAsync = Web3
+          .providers
+          .HttpProvider
+          .prototype
+          .send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
       this.web3Status.next('Could not detect a blockchain-enabled browser (do called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + ' . Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
       this.statusError = true;
     }
+    this
+      .web3
+      .eth
+      .net
+      .getId((networkId) => {
+        let networkName = "";
+        switch (networkId) {
+          case "1":
+          networkName = "Main";
+          break;
+        case "2":
+          networkName = "Morden";
+          break;
+        case "3":
+          networkName = "Ropsten";
+          break;
+        case "4":
+          networkName = "Rinkeby";
+          break;
+        case "42":
+          networkName = "Kovan";
+          break;
+        default:
+          networkName = "Unknown";
+        }
+        if (this
+          .revolutionBlockchain
+          .toLowerCase()
+          != networkName
+            .toLowerCase()) {
+          this.statusNetwork = false;
+          this.statusError = true;
+          this.web3Status.next("Your web3 browser is not connected to the proper Ethereum blockchain. It's connected to the " + networkName + " blockchain whereas the Culottes revolution you are trying to reach is on the " + this.revolutionBlockchain + " blockchain. Please adjust its settings then reload this page.");
+        } else {
+          this.statusNetwork = true;
+        }
+      });
     setInterval(() => this.refreshAccounts(), 100);
     
   }

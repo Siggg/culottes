@@ -85,11 +85,54 @@
   </div>
   <div class="content" [innerHTML]="web3Status">
   </div>
-  <ul>
-    <li>{{ dappStatus()['statusWeb3'] }} Connected to a web3 API ?</li>
-    <li>{{ dappStatus()['statusNetwork'] }} Connected to the proper blockchain ?</li>
-	  <li>{{ dappStatus()['statusAccount'] }} With a blockchain account ?</li>
-	  <li>{{ dappStatus()['statusAuthorized'] }} Blockchain interactions authorized by user ?</li>
-	  <li>{{ dappStatus()['statusError'] }} Dapp communication seems to be OK ?</li>
-	</ul>
+  <div class="ui list">
+   <div class="item" *ngIf="dappStatus()['statusWeb3']">
+    <i class="check icon"></i>
+    <div class="content">
+      you are using a dapp browser
+    </div>
+   </div>
+   <div class="item" *ngIf="!dappStatus()['statusWeb3']">
+    <i class="x icon"></i>
+    <div class="content">
+      you should be using a dapp browser
+    </div>
+   </div>
+   <div class="item" *ngIf="dappStatus()['statusAccount']">
+    <i class="check icon"></i>
+    <div class="content">
+      you have created a wallet within this dapp browser
+    </div>
+   </div>
+   <div class="item" *ngIf="!dappStatus()['statusAccount']">
+    <i class="x icon"></i>
+    <div class="content">
+      you should have created a wallet within this dapp browser
+    </div>
+   </div>
+   <div class="item" *ngIf="dappStatus()['statusNetwork']">
+    <i class="check icon"></i>
+    <div class="content">
+      your dapp browser is connected to the {{ revolutionBlockchain }} Ethereum blockchain network
+    </div>
+   </div>
+   <div class="item" *ngIf="!dappStatus()['statusNetwork']">
+    <i class="x icon"></i>
+    <div class="content">
+      your dapp browser should be connected to the {{ revolutionBlockchain }} Ethereum blockchain network
+    </div>
+   </div>
+   <div class="item" *ngIf="dappStatus()['statusAuthorized']">
+    <i class="check icon"></i>
+    <div class="content">
+      your dapp browser authorized interactions with the blockchain
+    </div>
+   </div>
+   <div class="item" *ngIf="!dappStatus()['statusAuthorized']">
+    <i class="x icon"></i>
+    <div class="content">
+      your dapp browser did not authorize interactions with the blockchain
+    </div>
+   </div>
+ </div>
 </div>

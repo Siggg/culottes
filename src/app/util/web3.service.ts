@@ -130,11 +130,15 @@ export class Web3Service {
       .net
       .getId((id) => {
         let networkName = networks[id];
+        if (networkName != undefined) {
+          networkName = networkName.toLowerCase();
+        } else {
+          networkName = "unknown";
+        }
         if (this
           .revolutionBlockchain
           .toLowerCase()
-          != networkName
-            .toLowerCase()) {
+          != networkName) {
           this.statusNetwork = false;
           this.statusError = true;
           this.web3Status.next("Your web3 browser is not connected to the proper Ethereum blockchain. It's connected to the " + networkName + " blockchain whereas the Culottes revolution you are trying to reach is on the " + this.revolutionBlockchain + " blockchain. Please adjust its settings then reload this page.");

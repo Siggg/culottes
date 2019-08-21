@@ -73,9 +73,13 @@
   
  <div class="ui segment">Status:
   <div [innerHTML]="web3Status"></div>
-  Address of this revolution: {{ revolutionAddress}} on the {{ revolutionBlockchain }} blockchain.
+  <div class="field">
+   <label>Address of this revolution</label>
+   <select (change)="onAddressChange($event)" class="ui compact dropdown label">
+    <option value="{{ revolutionAddress}}" [selected]="{{ revolutionAddress}} == {{ revolutionAddress}}">{{ revolutionAddress}} on the {{ revolutionBlockchain }} blockchain</option>
+   </select>
+  </div>
  </div>
-
 </div>
 
 <div class="ui {{ modalActivity }} fullscreen modal">

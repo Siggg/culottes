@@ -76,7 +76,7 @@
   <div class="field">
    <label>Address of this revolution</label>
    <select (change)="onAddressChange($event)" class="ui compact dropdown label">
-    <option value="{{ revolutionAddress }}" [selected]="{{ revolutionAddress }} == {{ revolutionAddress }}">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</option>
+    <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</option>
    </select>
   </div>
  </div>

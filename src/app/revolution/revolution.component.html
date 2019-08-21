@@ -68,7 +68,7 @@
  </div>
 
  <div class="ui segment ethAmount">
-  You can further interact with this Revolution from the Etherscan website either <a href="https://{{ revolutionBlockchain }}.etherscan.io/address/{{ revolutionAddress }}">via its Contract view</a> or <a href="https://{{ revolutionBlockchain }}.etherscan.io/dapp/{{ revolutionAddress }}">via its Dapp view</a>.
+  You can further interact with this Revolution from the Etherscan website either <a href="https://{{ revolutionBlockchain in ['Main', 'Unknown'] ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">via its Contract view</a> or <a href="https://{{ revolutionBlockchain in ['Main', 'Unknown'] ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/dapp/{{ revolutionAddress }}">via its Dapp view</a>.
  </div>
   
  <div class="ui segment">Status:

@@ -67,6 +67,9 @@ export class RevolutionComponent implements OnInit {
             .web3Service
             .web3Status
             .next("The balance of this bastille is null !");
+          this
+            .web3Service
+            .checkNetwork();
         } else {
           this
             .web3Service

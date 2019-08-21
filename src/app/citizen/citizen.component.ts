@@ -45,6 +45,9 @@ export class CitizenComponent implements OnInit {
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
+    this.revolutionBlockchain = this
+      .web3Service
+      .revolutionBlockchain;
   }
 
   async cakeVote(vote) {

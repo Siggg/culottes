@@ -6,8 +6,15 @@ import {BehaviorSubject} from 'rxjs';
 
 declare let require: any;
 const Web3 = require('web3');
-
 declare let window: any;
+
+const networks = {
+ "1": "Main",
+ "2": "Morden",
+ "3": "Ropsten",
+ "4": "Rinkeby",
+ "42": "Kovan"
+};
 
 @Injectable()
 export class Web3Service {
@@ -111,31 +118,18 @@ export class Web3Service {
       this.web3Status.next('Could not detect a blockchain-enabled browser (also called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.cipherbrowser.com/">Cipher</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + '. You might ignore this message if your machine is running a blockchain node on port 8545.');
       this.statusError = true;
     }
+    this.checkNetwork();
+    setInterval(() => this.refreshAccounts(), 100);
+    
+  }
+  
+  public checkNetwork() {
     this
       .web3
       .eth
       .net
-      .getId((networkId) => {
-        let networkName = "";
-        switch (networkId) {
-          case "1":
-          networkName = "Main";
-          break;
-        case "2":
-          networkName = "Morden";
-          break;
-        case "3":
-          networkName = "Ropsten";
-          break;
-        case "4":
-          networkName = "Rinkeby";
-          break;
-        case "42":
-          networkName = "Kovan";
-          break;
-        default:
-          networkName = "Unknown";
-        }
+      .getId((id) => {
+        let networkName = networks[id];
         if (this
           .revolutionBlockchain
           .toLowerCase()
@@ -148,8 +142,6 @@ export class Web3Service {
           this.statusNetwork = true;
         }
       });
-    setInterval(() => this.refreshAccounts(), 100);
-    
   }
 
   public etherToWei(etherAmount) {

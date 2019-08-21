@@ -49,7 +49,7 @@
    </div>
    <div class="ui action input">
     <div class="ui right aligned label" style="text-align:right;">= {{ convertToFiat(bastilleBalance) }}</div>
-   <select (change)="onChange($event)" class="ui compact dropdown label" style="max-width:6em;">
+   <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
     <option [selected]="currency() == 'AUD'">AUD</option>
@@ -75,8 +75,12 @@
   <div [innerHTML]="web3Status"></div>
   <div class="field">
    <label>Address of this revolution</label>
-   <select (change)="onAddressChange($event)" class="ui compact dropdown label">
-    <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</option>
+   <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
+  </div>
+  <div class="field">
+   <label>Join another revolution</label>
+   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
+    <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">For a frequent contributor to open source projects</option>
    </select>
   </div>
  </div>

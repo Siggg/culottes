@@ -95,7 +95,7 @@ export class DonateComponent implements OnInit {
 		});
 	}
   
-  public onChange(event): void {  // event will give you full breif of action
+  public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }
 

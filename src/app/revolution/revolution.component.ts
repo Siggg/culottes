@@ -182,7 +182,7 @@ export class RevolutionComponent implements OnInit {
       });
   }
   
-  public onChange(event): void {  // event will give you full breif of action
+  public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }
   
@@ -198,6 +198,11 @@ export class RevolutionComponent implements OnInit {
   
   public dappStatus() {
     return this.web3Service.dappStatus();
+  }
+  
+    public onRevolutionChange(event): void {  // event will give you full brief of action
+    this.web3Service.revolutionAddress = event.target.value;
+    this.web3Service.revolutionBlockchain = this.web3Service.revolutions[event.target.value];
   }
   
 }

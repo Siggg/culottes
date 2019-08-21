@@ -91,8 +91,6 @@
     <i class="plug icon"></i>
     Connect to the blockchain
   </div>
-  <div class="content" [innerHTML]="web3Status">
-  </div>
   <div class="ui list">
    <div class="item" *ngIf="dappStatus()['statusWeb3']">
     <i class="check icon"></i>
@@ -143,4 +141,6 @@
     </div>
    </div>
  </div>
+ Technical status:  <div class="content" [innerHTML]="web3Status">
+  </div>
 </div>

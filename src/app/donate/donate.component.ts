@@ -31,6 +31,7 @@ export class DonateComponent implements OnInit {
 
 	async ngOnInit() {
 	  this.revolutionAddress = this.web3Service.revolutionAddress;
+	  this.revolutionBlockchain = this.web3Service.revolutionBlockchain;
 		this.watchAccount();
 		this
 	  	.web3Service

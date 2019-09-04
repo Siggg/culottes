@@ -1,6 +1,6 @@
-Your preferred cause probably deserves its own culottes.
+Your preferred cause probably deserves its own revolution.
 
-# How to create your own culottes
+# How to create your own revolution
 
 1. Use a linux computer
 2. Open a terminal
@@ -21,17 +21,28 @@ Your preferred cause probably deserves its own culottes.
   * Open truffle.js in a text editor
   * Paste the value of the infura key where appropriate
 
-6. Setup your culottes smart contract
+6. Setup your revolution smart contract
 
   * Open contracts/Revolution.sol in a text editor
   * Set the criteria to match for your cause (e.g. is this the address of "a frequent contributor to open source projects" ?)
-  * Set the probability that a new vote will close its election (e.g. res > 6 means there is a 60% probability a new vote won't close their election)
-  * Set the minimum number of blockchain blocks that any election will last
+  * Set the probability that a new vote will close its election (e.g. res > 6 means there is a 60% probability that the first vote in any block WILL NOT close their election, i.e. the first vote in a block will close its trial in 40% of cases)
+  * Set the minimum number of blockchain blocks that any trial will last
   * truffle compile
   * truffle build
   * truffle migrate -f 2 --network rinkebyInfura --reset --compile-all
+  * take not of the address your revolution smart contract was published to
+  * paste it as the value of the revolutionAddress variable in src/app/utils/web3service.ts (err... Wong file name, let me Check later)
+  * send it to sig arobase akasig dot org so that I may add it to the main dapp
 
-7. Setup your Twitter bot
+7. Publish your version of the dapp
+
+  * Setup your Travis-ci.org account
+  * setup your github pages preferences
+  * commit and push to your github account
+  * travis should run your continuous integration scripts and deploy your version of the dapp to your github pages site.
+  
+  
+8. Setup your Twitter bot
 
   * Login to a Twitter account
   * Register for a Twitter developer account
@@ -39,7 +50,7 @@ Your preferred cause probably deserves its own culottes.
   * Copy its API key
   * Paste it in the twitter .py script from the culottes project
   * Set cron jobs to run this script several times per minutes (e.g. sleep 15 && python update.py)
+ 
+9. Promote your revolution
 
-8. Publish your dapp pages
-9. Promote your culottes dapp
 

@@ -1,6 +1,13 @@
 Your preferred cause probably deserves its own revolution.
 
-# How to create your own revolution
+# How to create your own revolution, the lazy way (recommended)
+
+1. Open contracts/Revolution.sol
+2. Update the parameters inside (criteria, amount to be distributed, period of distribution, ...)
+3. Send me your setting by email to sig arobase akasig dot org
+4. I may deploy your revolution smart contract and add it to main dapp
+
+# How to create your own revolution, the badass way
 
 1. Use a linux computer
 2. Open a terminal
@@ -31,7 +38,7 @@ Your preferred cause probably deserves its own revolution.
   * truffle build
   * truffle migrate -f 2 --network rinkebyInfura --reset --compile-all
   * take not of the address your revolution smart contract was published to
-  * paste it as the value of the revolutionAddress variable in src/app/utils/web3service.ts (err... Wong file name, let me Check later)
+  * paste it into a new entry of the revolutions object in src/app/utils/web3.service.ts
   * send it to sig arobase akasig dot org so that I may add it to the main dapp
 
 7. Publish your version of the dapp

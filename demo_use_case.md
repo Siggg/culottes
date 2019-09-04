@@ -1,3 +1,9 @@
+# Demo dapp
+
+https://siggg.github.io/culottes
+
+(Use a web3 browser such as Firefox with Metamask add-on or Coinbase Wallet)
+
 # Demo use case
 
 ## Intro
@@ -34,9 +40,9 @@ Axel comes in : " Hey guys, are you serious ??? Mohamed sure contributes to open
 
 Axel connects with Metamask and votes no.
 
-## Mohamed earns his first income from the culotte
+## Mohamed earns his first income from the revolution
 
-Or not.
+Or not. Depending on how much Jean and Axel staked on their votes.
 
 ## Candidates compare their contributions
 
@@ -50,17 +56,15 @@ The revolution page displays the list of citizen trials and their status : verdi
 
 A revolution for:
 
-* winners of oceans cleaning bounties who keep cleaning beaches
+## meriting contributors 
 
-* 10 eur per day to a person who usually gives more that this on a daily basis to homeless people 
+* 10 eur / week to winners of oceans cleaning bounties who keep cleaning beaches
 
-* great artists
+* 50 eur / week to a person who usually gives more that this to homeless people in the need
 
-## merit
+* 30 eur / day for a person who really deserves it
 
-* 30 eur / day for a person who deserves it
-
-* 300 eur / day for a contributor to copulent software, content or data to who needs this money to  contribute full time and deserves being able to do so
+* 300 eur / day for a contributor to copyleft software, content or data who needs this money to  contribute full time and deserves being able to do so
 
 * 150 eur / day for an educator who spends this money effectively and efficiently to protect a group of children from the risk of moral or civic difficulty when they grow up
 

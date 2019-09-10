@@ -72,11 +72,13 @@ A revolution for:
 
 * 10 eur / day for the child under the age of twenty-five years of a firefighter, first responder, policeman, customs officer or soldier who died while carrying out their duties
 
-* 300 eur / day for a person who efficiently spends more than this to fight climate change
+* 1 ETH / day for a person who efficiently spends more than this to fight climate change
 
-* 100 eur / week for a person who will donate back to this bastille at least 100,1% of the amount of ETH they get from it before 9 days from each moment they get it
+* 0.3 ETH / week for a person who will donate back to this bastille at least 100,1% of the amount of ETH they get from it before 9 days from each moment they get it
 
 * 0.025 ETH / day for a contributor to the Ethereum ecosystem who deserves their daily cup of thanks
+
+* 0.3 ETH / month for a person who donated 3 times 0.001 ETH to this revolution and, by doing so, promises (1) during 6 months to donate 0.6 ETH per month to this revolution if the total income of their household that month is higher than the median household income in the country where they live in and (2) if they fail to do so before the end of the following month, to accept that any of their property, for a total value of up to twice the cumulated sum of unpaid amounts, is permanently taken from them, if necessary by resorting to a minimum and proportionate force or cunning, by anyone who donates this sum to this revolution and publicly attributes this donation to their failure.
 
 ## Necessity 
 

@@ -58,19 +58,19 @@ A revolution for:
 
 ## meriting contributors 
 
-* 10 eur / week to winners of oceans cleaning bounties who keep cleaning beaches
+* 0.05 ETH / week to winners of oceans cleaning bounties who keep cleaning beaches
 
-* 50 eur / week to a person who usually gives more that this to homeless people in the need
+* 0.3 ETH / week to a person who usually gives more that this to homeless people in the need
 
-* 30 eur / day for a person who really deserves it
+* 0.2 ETH / day for a person who really deserves it
 
-* 300 eur / day for a contributor to copyleft software, content or data who needs this money to  contribute full time and deserves being able to do so
+* 2 ETH / day for a contributor to copyleft software, content or data who needs this money to  contribute full time and deserves being able to do so
 
 * 150 eur / day for an educator who spends this money effectively and efficiently to protect a group of children from the risk of moral or civic difficulty when they grow up
 
-* 10 eur / day for a deserving firefighter, first responder, policeman, customs officer or soldier seriously wounded while carrying out their duties
+* 0.05 ETH / day for a deserving firefighter, first responder, policeman, customs officer or soldier seriously wounded while carrying out their duties
 
-* 10 eur / day for the child under the age of twenty-five years of a firefighter, first responder, policeman, customs officer or soldier who died while carrying out their duties
+* 0.05 ETH / day for the child under the age of twenty-five years of a firefighter, first responder, policeman, customs officer or soldier who died while carrying out their duties
 
 * 1 ETH / day for a person who efficiently spends more than this to fight climate change
 
@@ -82,11 +82,11 @@ A revolution for:
 
 ## Necessity 
 
-* 10 eur / day for a person unable to work in normal conditions of profitability because of a physical or mental disability that occurred during the youth or the period generally considered as that of active life
+* 0.05 ETH / day for a person unable to work in normal conditions of profitability because of a physical or mental disability that occurred during the youth or the period generally considered as that of active life
 
-* 10 eur / day for a person under the age of eighteen who is unable to acquire education or vocational training of a standard level due to a physical or mental disability
+* 0.05 ETH / day for a person under the age of eighteen who is unable to acquire education or vocational training of a standard level due to a physical or mental disability
 
-* 5 eur / day for a person who emigrated less than 3 years ago because or war in their country, who lives in a neighboring country and who can freely use this money
+* 0.02 ETH / day for a person who emigrated less than 3 years ago because or war in their country, who lives in a neighboring country and who can freely use this money
 
 * 1 eur / day for a person without any bank account
 

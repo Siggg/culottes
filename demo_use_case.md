@@ -56,7 +56,7 @@ The revolution page displays the list of citizen trials and their status : verdi
 
 A revolution for:
 
-## meriting contributors 
+## deserving contributors 
 
 * 0.05 ETH / week to winners of oceans cleaning bounties who keep cleaning beaches
 
@@ -66,7 +66,7 @@ A revolution for:
 
 * 2 ETH / day for a contributor to copyleft software, content or data who needs this money to  contribute full time and deserves being able to do so
 
-* 150 eur / day for an educator who spends this money effectively and efficiently to protect a group of children from the risk of moral or civic difficulty when they grow up
+* 1 ETH / day for an educator who spends this money effectively and efficiently to protect a group of children from the risk of moral or civic difficulty when they grow up
 
 * 0.05 ETH / day for a deserving firefighter, first responder, policeman, customs officer or soldier seriously wounded while carrying out their duties
 
@@ -88,14 +88,14 @@ A revolution for:
 
 * 0.02 ETH / day for a person who emigrated less than 3 years ago because or war in their country, who lives in a neighboring country and who can freely use this money
 
-* 1 eur / day for a person without any bank account
+* 0.01 ETH / day for a person without any bank account
 
-* 1 eur / day for a person who needs it to live with dignity
+* 0.01 ETH / day for a person who needs it to live with dignity
 
-* 1 eur / day for a person living in one of the ten least developed countries (ranked adjusting for inequalities if possible)
+* 0.01 ETH / day for a person living in one of the ten least developed countries (ranked adjusting for inequalities if possible)
 
-* 1 eur / day for a person living in one of these countries: Mali, Burkina Faso, Niger, Tchad, South Sudan, Érythrée, Djibouti, or Somalia, Cap Verde
+* 0.01 ETH / day for a person living in one of these countries: Mali, Burkina Faso, Niger, Tchad, South Sudan, Érythrée, Djibouti, or Somalia, Cap Verde
 
-* 4000 eur / year for a person under 25 who needs this money to succeed in their initial vocational training and will spend it effectively for that
+* 20 ETH / year for a person under 25 who needs this money to succeed in their initial vocational training and will spend it effectively for that
 
-* 3 eur / day for the deserving human of a cat or dog who needs this money to live with them with dignity
+* 0.01 ETH / day for the deserving human of a cat or dog who needs this money to live with them with dignity

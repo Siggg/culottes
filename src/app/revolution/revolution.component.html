@@ -78,10 +78,10 @@
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
   <div class="field">
-   <label>Join another revolution</label>
-   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
+   <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause, join another revolution</a></label>
+   <!--select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
     <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">For a frequent contributor to open source projects</option>
-   </select>
+   </select-->
   </div>
  </div>
 </div>
@@ -101,19 +101,19 @@
    <div class="item" *ngIf="!dappStatus()['statusWeb3']">
     <i class="x icon"></i>
     <div class="content">
-      you should be using a dapp browser
+      you must use a dapp browser
     </div>
    </div>
    <div class="item" *ngIf="dappStatus()['statusAccount']">
     <i class="check icon"></i>
     <div class="content">
-      you have created a wallet within this dapp browser
+      you are connected to a wallet within this dapp browser
     </div>
    </div>
    <div class="item" *ngIf="!dappStatus()['statusAccount']">
     <i class="x icon"></i>
     <div class="content">
-      you should have created a wallet within this dapp browser
+      you must create a wallet within this dapp browser and must connect to it
     </div>
    </div>
    <div class="item" *ngIf="dappStatus()['statusNetwork']">
@@ -125,7 +125,7 @@
    <div class="item" *ngIf="!dappStatus()['statusNetwork']">
     <i class="x icon"></i>
     <div class="content">
-      your dapp browser should be connected to the {{ revolutionBlockchain }} Ethereum blockchain network
+      your dapp browser must be connected to the {{ revolutionBlockchain }} Ethereum blockchain network
     </div>
    </div>
    <div class="item" *ngIf="dappStatus()['statusAuthorized']">
@@ -137,7 +137,7 @@
    <div class="item" *ngIf="!dappStatus()['statusAuthorized']">
     <i class="x icon"></i>
     <div class="content">
-      your dapp browser did not authorize interactions with the blockchain
+      your dapp browser must authorize interactions with the blockchain
     </div>
    </div>
  </div>

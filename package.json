@@ -10,7 +10,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "node patch.js",
-    "deploy": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs && npx ngh --dir=docs"
+    "deploy": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs && npx ngh --dir=docs",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -58,7 +60,8 @@
     "web3": "1.0.0-beta.55",
     "webpack": "^4.39.2",
     "webpack-dev-server": "^3.8.0",
-    "zone.js": "0.10.1"
+    "zone.js": "0.10.1",
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "@angular-devkit/core": "8.2.1",
@@ -68,5 +71,6 @@
     "prettier": "1.18.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "snyk": true
 }

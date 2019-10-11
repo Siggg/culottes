@@ -34,9 +34,9 @@ module.exports = function(deployer) {
 
   deployer.deploy(
     Revolution,
-    'a frequent contributor to open source projects', // criteria
-    3, // distributionBlockPeriod in blocks (about 15 secondes per block ?)
-    7, // distributionAmount in Wei
+    'a frequent contributor to open source or copyleft-based projects who currently deserves a daily cup of thanks for their contributions', // criteria
+    6200, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
+    25000000000000000, // distributionAmount in Wei, 0.025 ETH
     false, // withLottery 
     false  // withDistribution
   );

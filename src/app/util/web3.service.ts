@@ -22,23 +22,24 @@ export class Web3Service {
   private accounts: string[];
   public revolutions = {
    "0x3a1C54c0414D1E162837Eda4C69c6d587A83b3d3": ["Rinkeby", "a frequent contributor to open source or copyleft-based projects who currently deserves a daily cup of thanks for their contributions"] // @rinkeby with 6200, 0.025 ETH, true, true
+  };
 	// "0x3029ba9190cF587c399451aD09fBa2344fd72290" // @rinkeby with 4, 0.000625 ETH, true, true
 	// "0xB0573E469b5a1b811Ea43B6fc414686716c1FEe6" // @rinkeby with 3 142 true true but vote would not re-open trials
 	// "0xba074e774A614a167F88c161125eb515cDe824F0" @rinkeby with 3 1337 false false
 	// "0x9FB6C2d5556C31fCb6c35e88e99b0db3761ec053" @rinkeby with 3 7 false false but citizens was private
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
-	public revolutionAddress: string = Object.keys(this.revolutions)[0];
-	public revolutionBlockchain: string = this.revolutions[this.revolutionAddress][0];
-	// Connected to a web3 API ?
-	public statusWeb3 = false;
-	// Connected to the proper blockchain ?
-	public statusNetwork = false;
-	// With an account ?
-	public statusAccount = false;
-	// Blockchain interactions authorized by user ?
-	public statusAuthorized = false;
-	// Dapp communication seems to be OK ?
+  public revolutionAddress: string = Object.keys(this.revolutions)[0];
+  public revolutionBlockchain: string = this.revolutions[this.revolutionAddress][0];
+  // Connected to a web3 API ?
+  public statusWeb3 = false;
+  // Connected to the proper blockchain ?
+  public statusNetwork = false;
+  // With an account ?
+  public statusAccount = false;
+  // Blockchain interactions authorized by user ?
+  public statusAuthorized = false;
+  // Dapp communication seems to be OK ?
   public statusError = true;
 	
   public accountsObservable = new Subject<string[]>();
@@ -242,7 +243,7 @@ export class Web3Service {
 
       // Get the initial account balance so it can be displayed.
       if (accs.length === 0) {
-        // console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
+        console.warn('Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.');
         this.web3Status.next("Connected to your blockchain browser or node but it could not find your accounts on the blockchain.");
         this.statusError = true;
         return;

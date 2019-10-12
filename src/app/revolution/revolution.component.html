@@ -104,18 +104,6 @@
       you must use a dapp browser
     </div>
    </div>
-   <div class="item" *ngIf="dappStatus()['statusAccount']">
-    <i class="check icon"></i>
-    <div class="content">
-      you are connected to a wallet within this dapp browser
-    </div>
-   </div>
-   <div class="item" *ngIf="!dappStatus()['statusAccount']">
-    <i class="x icon"></i>
-    <div class="content">
-      you must create a wallet within this dapp browser and must connect to it
-    </div>
-   </div>
    <div class="item" *ngIf="dappStatus()['statusNetwork']">
     <i class="check icon"></i>
     <div class="content">
@@ -126,6 +114,18 @@
     <i class="x icon"></i>
     <div class="content">
       your dapp browser must be connected to the {{ revolutionBlockchain }} Ethereum blockchain network
+    </div>
+   </div>
+   <div class="item" *ngIf="dappStatus()['statusAccount']">
+    <i class="check icon"></i>
+    <div class="content">
+      you are connected to a wallet within this dapp browser
+    </div>
+   </div>
+   <div class="item" *ngIf="!dappStatus()['statusAccount']">
+    <i class="x icon"></i>
+    <div class="content">
+      you must connect to a wallet within your dapp browser, (create a wallet if needed)
     </div>
    </div>
    <div class="item" *ngIf="dappStatus()['statusAuthorized']">

@@ -41,7 +41,6 @@ contract Revolution {
     JusticeScale sansculotteScale;
     JusticeScale privilegedScale;
     uint lastClosingAttemptBlock;
-    uint lastVoteBlock;
     bool opened;
     bool matchesCriteria;
   }
@@ -91,7 +90,6 @@ contract Revolution {
       citizens.push(_citizen);
       trial.citizen = _citizen;
     }
-    trial.lastVoteBlock = block.number;
 
     JusticeScale storage scale = trial.sansculotteScale;
     if (_vote == false) {
@@ -104,8 +102,7 @@ contract Revolution {
     emit VoteReceived('VoteReceived', msg.sender, _citizen, _vote, msg.value);
 
     if(withLottery == true
-      && block.number > trial.lastVoteBlock + distributionBlockPeriod
-      && block.number > trial.lastClosingAttemptBlock) {
+      && block.number > trial.lastClosingAttemptBlock + distributionBlockPeriod/3) {
       // update trial block number
       trial.lastClosingAttemptBlock = block.number;
       // start closing trial lottery
@@ -235,7 +232,7 @@ contract Revolution {
     // returns true with a 30% probability ; false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint res = randomHash % 10;
-    if(res > 6) {
+    if(res < 4) {
       return true;
     }
     return false;

@@ -21,9 +21,6 @@ module.exports = function(deployer) {
    * // Amount of WEI to be distributed to each citizen matching criteria
    * uint distributionAmount;
    *
-   * // Number of the block at last distribution
-   * uint lastDistributionBlockNumber;
-   *
    * // Will this Revolution randomly close its trials ?
    * bool withLottery;
    *

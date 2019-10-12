@@ -51,9 +51,9 @@ A revolution for:
 
 # How to create your own revolution, the lazy way (recommended)
 
-1. Open contracts/Revolution.sol
-2. Update the parameters inside (criteria, amount to be distributed, period of distribution, ...)
-3. Send me your setting by email to sig arobase akasig dot org
+1. Open migrations/2_deploy_contracts.js
+2. Update the parameters inside (criteria, amount to be distributed, period of distribution, ...), see contracts/Revolution.sol if needed
+3. Send me your settings by email to sig arobase akasig dot org
 4. I may deploy your revolution smart contract and add it to main dapp
 
 # How to spark your own revolution, the badass way
@@ -79,10 +79,12 @@ A revolution for:
 
 6. Setup your revolution smart contract
 
-  * Open contracts/Revolution.sol in a text editor
-  * Set the criteria to match for your cause (e.g. is this the address of "a frequent contributor to open source projects" ?)
-  * Set the probability that a new vote will close its election (e.g. res > 6 means there is a 60% probability that the first vote in any block WILL NOT close their election, i.e. the first vote in a block will close its trial in 40% of cases)
-  * Set the minimum number of blockchain blocks that any trial will last
+  * Open migrations/2_deploy_contracts.js in a text editor
+  * Set the *criteria* to match for your cause (e.g. is this the address of "a frequent contributor to open source projects" ?)
+  * Set the *distributionBlockPeriod* minimum number of blocks before next cake distribution from the Revolution
+  * Set the *distributionAmount* amount of WEI to be distributed to each citizen matching criteria
+  * Set *withLottery* to true so that trials get closed (at random times)
+  * Set *withDistribution* to true so that cakes (ETH) are distributed from the Bastille to sans-culottes
   * truffle compile
   * truffle build
   * truffle migrate -f 2 --network rinkebyInfura --reset --compile-all

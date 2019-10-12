@@ -21,7 +21,7 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public revolutions = {
-    "0xadF8DdE7d8A73c039cf82433a9C193bBF5162d19": ["Rinkeby", "a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions"] // @rinkeby with 6200, 0.025 ETH, true, true
+    "0x73d69485462862b1d4F0674611D5d6A43DD424e4": ["Rinkeby", "a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions"] // @rinkeby with 6200, 0.025 ETH, true, true
   };
 	// "0x3a1C54c0414D1E162837Eda4C69c6d587A83b3d3" @rinkeby with 6200, 0.025 ETH, true, true but trials could close at any new block
 	// "0x3029ba9190cF587c399451aD09fBa2344fd72290" @rinkeby with 4, 0.000625 ETH, true, true

@@ -35,10 +35,10 @@ module.exports = function(deployer) {
   deployer.deploy(
     Revolution,
     'a frequent contributor to open source or copyleft-based projects who currently deserves a daily cup of thanks for their contributions', // criteria
-    6200, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
-    web3.utils.toBN(web3.utils.toWei('0.025', 'ether')), // distributionAmount
-    false, // withLottery 
-    false  // withDistribution
+    3, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
+    7, // distributionAmount, for instance web3.utils.toBN(web3.utils.toWei('0.025', 'ether'))
+    false, // withLottery, set to true unless you want to run automated tests 
+    false  // withDistribution, set to true unless you want to run automated tests
   );
 };
 

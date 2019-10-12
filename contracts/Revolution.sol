@@ -40,7 +40,7 @@ contract Revolution {
     address payable citizen;
     JusticeScale sansculotteScale;
     JusticeScale privilegedScale;
-    uint blockNumber;
+    uint blockNumber; // last attempt to close the trial
     bool opened;
     bool matchesCriteria;
   }
@@ -101,7 +101,7 @@ contract Revolution {
 
     emit VoteReceived('VoteReceived', msg.sender, _citizen, _vote, msg.value);
 
-    if(withLottery == true && block.number > trial.blockNumber) {
+    if(withLottery == true && block.number > trial.blockNumber + distributionBlockPeriod) {
       // update trial block number
       trial.blockNumber = block.number;
       // start closing trial lottery

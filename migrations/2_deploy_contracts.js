@@ -36,7 +36,7 @@ module.exports = function(deployer) {
     Revolution,
     'a frequent contributor to open source or copyleft-based projects who currently deserves a daily cup of thanks for their contributions', // criteria
     6200, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
-    0.025 ether, // distributionAmount (in Wei)
+    0.025 * 1 ether, // distributionAmount (in Wei)
     false, // withLottery 
     false  // withDistribution
   );

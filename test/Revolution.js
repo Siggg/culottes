@@ -11,7 +11,7 @@ contract('Revolution', function(accounts) {
     let balance = await web3.eth.getBalance(revolution.address);
 
     const criteria = await revolution.criteria();
-    expect(criteria).to.equal('a frequent contributor to open source projects');
+    expect(criteria).to.equal('a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions');
 
   });
 

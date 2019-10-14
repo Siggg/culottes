@@ -21,9 +21,6 @@ module.exports = function(deployer) {
    * // Amount of WEI to be distributed to each citizen matching criteria
    * uint distributionAmount;
    *
-   * // Number of the block at last distribution
-   * uint lastDistributionBlockNumber;
-   *
    * // Will this Revolution randomly close its trials ?
    * bool withLottery;
    *
@@ -34,11 +31,11 @@ module.exports = function(deployer) {
 
   deployer.deploy(
     Revolution,
-    'a frequent contributor to open source or copyleft-based projects who currently deserves a daily cup of thanks for their contributions', // criteria
-    6200, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
-    25000000000000000, // distributionAmount in Wei, 0.025 ETH
-    false, // withLottery 
-    false  // withDistribution
+    'a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions', // criteria
+    3, // 6200, // distributionBlockPeriod in blocks (about 13 to 15 seconds per block so one day is approximately 6200 blocks)
+    7, // web3.utils.toBN(web3.utils.toWei('0.025', 'ether')), // distributionAmount, for instance web3.utils.toBN(web3.utils.toWei('0.025', 'ether'))
+    false, // true, // withLottery, set to true unless you want to run automated tests 
+    false // true  // withDistribution, set to true unless you want to run automated tests
   );
 };
 

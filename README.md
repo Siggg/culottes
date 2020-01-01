@@ -53,7 +53,7 @@ Will build and test your code :
   export CHROME_BIN=/usr/bin/chromium-browser
   ci/build.sh
 
-If ever you run into an error where it's being complained that your version of Chrome (chromium-browser --version) is ahead of the version supported by the chromedriver used for running tests, then you may have to upgrade chromedriver accordingly.
+If ever you run into an error where it's being complained that your version of Chrome (chromium-browser --version) is ahead of the version supported by the chromedriver used for running tests, then you may have to upgrade protractor to a later version.
 
 Will run a local version of your dapp so that you can live test your changes :
 
@@ -84,5 +84,5 @@ Will update your node then angular dependencies and audit them for issues then p
   npm install-test
   ng update
   ng update --all
-  ng audit
-  ng audit fix
+  npm audit
+  npm audit fix

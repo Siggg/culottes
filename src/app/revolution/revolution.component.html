@@ -1,10 +1,10 @@
 <div>
 
- <h1 class="ui header">A revolution for {{ criteria }}</h1>
+ <h1 class="ui header">Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</h1>
 
  <div class="ui segment form" id="criteriaLabel">
  
-	 This revolution gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong>. Their income is, at most, of {{ distributionAmount }} ETH distributed to each address every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about <strong>{{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionBlockPeriod * 15 }} seconds </strong>) unless the bastille of this revolution is empty. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees.
+	 This revolution gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong>. Their income is, at most, of {{ distributionAmount }} ETH distributed to each address every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about <strong>{{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}</strong>) unless the bastille of this revolution is empty. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees.
 
   <div class="ui relaxed celled list">
    <div class="item">

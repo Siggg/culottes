@@ -39,3 +39,46 @@ Culottes were fashionable silk knee-breeches (fancy trousers) typical of the Fre
 # Demo use case
 
 See [the description of our demo use case](demo_use_case.md).
+
+# If you want to contribute
+
+Here are some useful command lines for contributing code once you have cloned this repo. This is more or less my workflow.
+
+Will build and test your code :
+
+  export CHROME_BIN=/usr/bin/chromium-browser
+  ci/build.sh
+
+If ever you run into an error where it's being complained that your version of Chrome (chromium-browser --version) is ahead of the version supported by the chromedriver used for running tests, then you may have to upgrade chromedriver accordingly.
+
+Will run a local version of your dapp so that you can live test your changes :
+
+  ng serve
+
+Will tell you about the differences between your local files and files on the remote git repo :
+
+  git diff HEAD
+
+Will show you which files are to be pushed to the git repo :
+
+  git status
+
+Will add those modified files to the git working copy :
+
+  git add <filename>
+
+Will commit and push these to the git repo :
+
+  git commit -m "<some commit message>" && git push
+
+Will deploy your smart contract :
+
+  truffle compile && truffle build && truffle migrate -f 2 --network rinkebyInfura --reset --compile-all
+
+Will update your node then angular dependencies and audit them for issues then possibly fix these issues :
+
+  npm -i
+  ng update
+  ng update --all
+  ng audit
+  ng audit fix

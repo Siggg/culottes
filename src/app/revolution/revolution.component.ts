@@ -24,6 +24,8 @@ export class RevolutionComponent implements OnInit {
   bastilleBalance: String = "?";
   distributionAmount: number = 0;
   distributionBlockPeriod: number = 0;
+  distributionPeriod: number = 0;
+  distributionPeriodUnit: String = "seconds";
   revolutionAddress: String = "0x0000000...";
   revolutionBlockchain: String = "";
   culottes: any;
@@ -112,6 +114,30 @@ export class RevolutionComponent implements OnInit {
       .methods
       .distributionBlockPeriod
       .call();
+    // Convert distribution period from number of blocks to time units
+    this.distributionPeriod = this.distributionPeriod * 15; // about 15 seconds per block
+    if (this.distributionPeriod < 60) {
+      this.distributionPeriodUnit = "seconds";
+    } else if (this.distributionPeriod < 3600) {
+      this.distributionPeriodUnit = "minutes";
+      this.distributionPeriod = this.distributionPeriod / 60;
+    } else if (this.distributionPeriod < 3600 * 24) {
+      this.distributionPeriodUnit = "hours";
+      this.distributionPeriod = this.distributionPeriod / 3600;
+    } else if (this.distributionPeriod < 3600 * 24 * 7) {
+      this.distributionPeriodUnit = "days";
+      this.distributionPeriod = this.distributionPeriod / 3600 / 24;
+    } else if (this.distributionPeriod < 3600 * 24 * 30) {
+      this.distributionPeriodUnit = "weeks";
+      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 7;
+    } else if (this.distributionPeriod < 3600 * 24 * 365) {
+      this.distributionPeriodUnit = "months";
+      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 30.5;
+    } else {
+      this.distributionPeriodUnit = "years";
+      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 365.25;
+    }
+    // this.distributionPeriod = this.distributionPeriod.toFixed(1);
     let i = 0;
     let address = "";
     let citizen: ICitizen;

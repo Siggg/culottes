@@ -44,6 +44,10 @@ See [the description of our demo use case](demo_use_case.md).
 
 Here are some useful command lines for contributing code once you have cloned this repo. This is more or less my workflow.
 
+Will incorporate latest changes from the remote repo into the current branch of your local repo :
+
+  git pull
+
 Will build and test your code :
 
   export CHROME_BIN=/usr/bin/chromium-browser
@@ -77,7 +81,7 @@ Will deploy your smart contract :
 
 Will update your node then angular dependencies and audit them for issues then possibly fix these issues :
 
-  npm -i
+  npm install-test
   ng update
   ng update --all
   ng audit

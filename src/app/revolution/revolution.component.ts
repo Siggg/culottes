@@ -115,24 +115,25 @@ export class RevolutionComponent implements OnInit {
       .distributionBlockPeriod
       .call()
       .then( (blocks) => {
+	this.distributionBlockPeriod = blocks;
         // Convert distribution period from number of blocks to time units
         var seconds = blocks * 15; // about 15 seconds per block
-        if (this.distributionPeriod < 60) {
+        if (seconds < 60) {
           this.distributionPeriodUnit = "seconds";
 	  this.distributionPeriod = seconds;
-        } else if (this.distributionPeriod < 3600) {
+        } else if (seconds < 3600) {
           this.distributionPeriodUnit = "minutes";
           this.distributionPeriod = seconds / 60;
-        } else if (this.distributionPeriod < 3600 * 24) {
+        } else if (seconds < 3600 * 24) {
           this.distributionPeriodUnit = "hours";
           this.distributionPeriod = seconds / 3600;
-        } else if (this.distributionPeriod < 3600 * 24 * 7) {
+        } else if (seconds < 3600 * 24 * 7) {
           this.distributionPeriodUnit = "days";
           this.distributionPeriod = seconds / 3600 / 24;
-        } else if (this.distributionPeriod < 3600 * 24 * 30) {
+        } else if (seconds < 3600 * 24 * 30) {
           this.distributionPeriodUnit = "weeks";
           this.distributionPeriod = seconds / 3600 / 24 / 7;
-        } else if (this.distributionPeriod < 3600 * 24 * 365) {
+        } else if (seconds < 3600 * 24 * 365) {
           this.distributionPeriodUnit = "months";
           this.distributionPeriod = seconds / 3600 / 24 / 30.5;
         } else {

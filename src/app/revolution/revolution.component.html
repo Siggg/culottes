@@ -4,7 +4,7 @@
 
  <div class="ui segment form" id="criteriaLabel">
  
-	 This revolution gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong>. Their income is, at most, of {{ distributionAmount }} ETH distributed to each address every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about <strong>{{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}</strong>) unless the bastille of this revolution is empty. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees.
+	 This revolution gives them an income if and only if they are <strong class="criteria">{{ criteria }}</strong> according to the verdict of their trial (see below). Their income is, at most, of {{ distributionAmount }} ETH distributed to each address every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille of this revolution is empty. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the verdict is aligned with their votes and loose their bet otherwise.
 
   <div class="ui relaxed celled list">
    <div class="item">
@@ -77,7 +77,7 @@
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
   <div class="field">
-   <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause, join another revolution</a></label>
+   <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause or join another revolution</a></label>
    <!--select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
     <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">For a frequent contributor to open source projects</option>
    </select-->

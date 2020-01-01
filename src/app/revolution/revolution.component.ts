@@ -25,7 +25,7 @@ export class RevolutionComponent implements OnInit {
   distributionAmount: number = 0;
   distributionBlockPeriod: number = 0;
   distributionPeriod: number = 0;
-  distributionPeriodUnit: String = "seconds";
+  distributionPeriodUnit: String = "?";
   revolutionAddress: String = "0x0000000...";
   revolutionBlockchain: String = "";
   culottes: any;
@@ -113,31 +113,33 @@ export class RevolutionComponent implements OnInit {
     this.distributionBlockPeriod = await web3_eth_contract
       .methods
       .distributionBlockPeriod
-      .call();
-    // Convert distribution period from number of blocks to time units
-    this.distributionPeriod = this.distributionPeriod * 15; // about 15 seconds per block
-    if (this.distributionPeriod < 60) {
-      this.distributionPeriodUnit = "seconds";
-    } else if (this.distributionPeriod < 3600) {
-      this.distributionPeriodUnit = "minutes";
-      this.distributionPeriod = this.distributionPeriod / 60;
-    } else if (this.distributionPeriod < 3600 * 24) {
-      this.distributionPeriodUnit = "hours";
-      this.distributionPeriod = this.distributionPeriod / 3600;
-    } else if (this.distributionPeriod < 3600 * 24 * 7) {
-      this.distributionPeriodUnit = "days";
-      this.distributionPeriod = this.distributionPeriod / 3600 / 24;
-    } else if (this.distributionPeriod < 3600 * 24 * 30) {
-      this.distributionPeriodUnit = "weeks";
-      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 7;
-    } else if (this.distributionPeriod < 3600 * 24 * 365) {
-      this.distributionPeriodUnit = "months";
-      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 30.5;
-    } else {
-      this.distributionPeriodUnit = "years";
-      this.distributionPeriod = this.distributionPeriod / 3600 / 24 / 365.25;
-    }
-    // this.distributionPeriod = this.distributionPeriod.toFixed(1);
+      .call()
+      .then( (blocks) => {
+        // Convert distribution period from number of blocks to time units
+        var seconds = blocks * 15; // about 15 seconds per block
+        if (this.distributionPeriod < 60) {
+          this.distributionPeriodUnit = "seconds";
+	  this.distributionPeriod = seconds;
+        } else if (this.distributionPeriod < 3600) {
+          this.distributionPeriodUnit = "minutes";
+          this.distributionPeriod = seconds / 60;
+        } else if (this.distributionPeriod < 3600 * 24) {
+          this.distributionPeriodUnit = "hours";
+          this.distributionPeriod = seconds / 3600;
+        } else if (this.distributionPeriod < 3600 * 24 * 7) {
+          this.distributionPeriodUnit = "days";
+          this.distributionPeriod = seconds / 3600 / 24;
+        } else if (this.distributionPeriod < 3600 * 24 * 30) {
+          this.distributionPeriodUnit = "weeks";
+          this.distributionPeriod = seconds / 3600 / 24 / 7;
+        } else if (this.distributionPeriod < 3600 * 24 * 365) {
+          this.distributionPeriodUnit = "months";
+          this.distributionPeriod = seconds / 3600 / 24 / 30.5;
+        } else {
+          this.distributionPeriodUnit = "years";
+          this.distributionPeriod = seconds / 3600 / 24 / 365.25;
+        }
+    });
     let i = 0;
     let address = "";
     let citizen: ICitizen;

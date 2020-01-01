@@ -67,7 +67,6 @@ module.exports = {
     mainnetInfura: {
       provider: () => new PrivateKeyProvider(privateKeyOfContractOwner, "https://mainnet.infura.io/v3/" + infuraAPIKey),
       network_id: "1",
-      production: true
     },
 
     // Another network with more advanced options...

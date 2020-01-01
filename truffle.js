@@ -64,6 +64,11 @@ module.exports = {
       network_id: "4",
     },
 
+    mainnetInfura: {
+      provider: () => new PrivateKeyProvider(privateKeyOfContractOwner, "https://mainnet.infura.io/v3/" + infuraAPIKey),
+      network_id: "1",
+    },
+
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port

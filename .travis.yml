@@ -20,7 +20,10 @@ cache:
 before_install:
   - rm -rf node_modules/websocket/.git
   - rm -rf node_modules/web3/node_modules/websocket/.git
-  - npm prune
+
+    #  - npm prune
+    #  I remove the line above because of the "error invalid bin entry for package" error message
+    #  caused by this npm 6.13.4 bug https://github.com/npm/cli/issues/613
 
 install: ./ci/install-deps.sh
 

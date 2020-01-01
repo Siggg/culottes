@@ -115,7 +115,6 @@ export class RevolutionComponent implements OnInit {
       .distributionBlockPeriod
       .call()
       .then( (blocks) => {
-	this.distributionBlockPeriod = blocks;
         // Convert distribution period from number of blocks to time units
         var seconds = blocks * 15; // about 15 seconds per block
         if (seconds < 60) {
@@ -140,6 +139,7 @@ export class RevolutionComponent implements OnInit {
           this.distributionPeriodUnit = "years";
           this.distributionPeriod = seconds / 3600 / 24 / 365.25;
         }
+	return blocks;
     });
     let i = 0;
     let address = "";

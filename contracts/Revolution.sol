@@ -1,5 +1,11 @@
 pragma solidity ^0.5.0;
 
+/* This is the Revolution smart contract from the culottes project.
+Its copyrights starting from 2019 belong to its authors including Jean Millerat (siggg at akasig dot org).
+It is distributed under the GNU Affero General Public License version 3 or later (AGPL v.3 or later). You can find a copy of this license with the full source code of this project at
+https://github.com/culottes
+*/
+
 contract Revolution {
 
   address public owner = msg.sender;
@@ -101,16 +107,7 @@ contract Revolution {
 
     emit VoteReceived('VoteReceived', msg.sender, _citizen, _vote, msg.value);
 
-    if(withLottery == true
-      && block.number > trial.lastClosingAttemptBlock + distributionBlockPeriod/3) {
-      // update trial block number
-      trial.lastClosingAttemptBlock = block.number;
-      // start closing trial lottery
-      if(closingLottery() == true) {
-        emit TrialClosed('TrialClosed', _citizen);
-        closeTrial(_citizen);
-      }
-    }
+    closeTrial(_citizen);
 
     if(withDistribution == true) {
       distribute();
@@ -119,6 +116,22 @@ contract Revolution {
 
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
+    if(block.number < trial.lastClosingAttemptBlock + distributionBlockPeriod/3) {
+      // too early, retry later
+      return;
+    }
+    // it's time for a new closing attempt
+    // update attempt block number
+    trial.lastClosingAttemptBlock = block.number;
+    // check the closing  lottery if required
+    if(withLottery == true && closingLottery() == false) {
+      // no luck this time, won't close yet, retry later
+      return;
+    }
+  
+    // let's close the trial now
+    emit TrialClosed('TrialClosed', _citizen);
+
     // Mark the trial as closed
     trial.opened = false;
     // Issue a verdict : is this citizen a sans-culotte or a privileged ?

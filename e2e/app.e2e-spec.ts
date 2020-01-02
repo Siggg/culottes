@@ -9,7 +9,7 @@ describe('angular-truffle-box App', () => {
 
   it('should display the criteria label', () => {
     page.navigateTo();
-    expect(page.getCriteriaLabel()).toContain('This revolution gives them an income if and only if they are');
+    expect(page.getCriteriaLabel()).toContain('They get an income if and only if they are');
   });
 
   it('should display the criteria question', () => {

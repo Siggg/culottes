@@ -21,6 +21,8 @@ interface ICitizen {
 export class RevolutionComponent implements OnInit {
   title: String = "<loading title>";
   criteria: String = "<loading criteria>";
+  hashtag: String = "<loading hashtag>";
+  hashtagWithoutSymbol: String = "<loading hashtag>";
   bastilleBalance: String = "?";
   distributionAmount: number = 0;
   distributionBlockPeriod: number = 0;
@@ -60,6 +62,16 @@ export class RevolutionComponent implements OnInit {
       .methods
       .criteria()
       .call();
+    this.hashtag = await web3_eth_contract
+      .methods
+      .hashtag()
+      .call( (hashtag) => {
+        if (hashtag[0] != '#') {
+          hashtag = '#' + hashtag;
+        }
+        this.hashtagWithoutSymbol = hashtag.substring(1);
+        return hashtag
+      };
     this.lockModalActivity = await web3_eth_contract
       .methods
       .locked()

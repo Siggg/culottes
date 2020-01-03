@@ -32,6 +32,7 @@ module.exports = function(deployer) {
   deployer.deploy(
     Revolution,
     'a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions', // criteria
+    '#FrequentContributorRevolution', // hashtag to be used to discuss this contract
     3, // 5760, // distributionBlockPeriod in blocks (about 15 seconds per block so one day is approximately 5760 blocks)
     7, // web3.utils.toBN(web3.utils.toWei('0.025', 'ether')), // distributionAmount, for instance web3.utils.toBN(web3.utils.toWei('0.025', 'ether'))
     true // false, // testingMode, set to false unless you want to run automated tests 

@@ -197,13 +197,17 @@ contract Revolution {
       return true;
     }
     // returns true with a 30% probability
-    // weighted by the time spent during that this distribution period since tge last closing attempt
+    // weighted by the time spent during that this distribution period since the last closing attempt
     // returns false otherwise
     Trial storage trial = trials[_citizen];
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
-    uint randomInt = randomHash % 1000000;
-    randomInt *= (block.number - trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
-    if(randomInt < 300000) {
+    uint million = 1000000;
+    uint randomInt = randomHash % million;
+    uint blocksSince = block.number - trial.lastClosingAttemptBlock;
+    if (blocksSince < distributionBlockPeriod) {
+      randomInt *= blocksSince / distributionBlockPeriod;
+    }
+    if(randomInt < million * 30 / 100) {
       return true;
     }
     return false;

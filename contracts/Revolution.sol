@@ -117,7 +117,7 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
     // check the closing  lottery
-    var shouldClose = closingLottery(_citizen);
+    bool shouldClose = closingLottery(_citizen);
     // update attempt block number
     trial.lastClosingAttemptBlock = block.number;
     if(shouldClose == false) {

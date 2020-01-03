@@ -33,7 +33,7 @@ export class RevolutionComponent implements OnInit {
   web3Status: String = "Status of connection to your blockchain accounts";
   citizens: Array<ICitizen> = [];
   fullAddressShown: boolean = false;
-  modalActivity: String = "";
+  web3ModalActivity: String = "";
 
   constructor(
     private web3Service: Web3Service,
@@ -196,9 +196,9 @@ export class RevolutionComponent implements OnInit {
       .subscribe(status => {
         this.web3Status = status;
         if (this.web3Service.statusError) {
-          this.modalActivity = "active";
+          this.web3ModalActivity = "active";
         } else {
-          this.modalActivity = "";
+          this.web3ModalActivity = "";
         }
       });
     this
@@ -207,9 +207,9 @@ export class RevolutionComponent implements OnInit {
       .subscribe(accounts => {
         this.account = accounts[0];
         if (this.web3Service.statusError) {
-          this.modalActivity = "active";
+          this.web3ModalActivity = "active";
         } else {
-          this.modalActivity = "";
+          this.web3ModalActivity = "";
         }
       });
   }

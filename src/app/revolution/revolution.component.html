@@ -86,7 +86,8 @@
  <div [innerHTML]="web3Status"></div>
 </div>
 
-<div class="ui {{ lockModalActivity }} modal">
+<div class="ui {{ lockModalActivity }} modal closable">
+  <i class="close icon"></i>
   <div class="ui icon header">
     <i class="lock icon"></i>
     Locked
@@ -96,7 +97,7 @@
     This "locked" mode is meant to limit the risks that the contract is used or exploited in a malicious way. It's probably been locked because it is being exploited in such a way and a new version of the contract is on its way for deployment. Locking is the only function of the contract under the central control of its owner. Please come back as soon as an unlocked version of this contract is deployed. For more information, contact sig at akasig dot org (see "About" link at the top right of this page).
   </div>
   <div class="actions">
-    <div class="ui approve button">Hide this</div>
+    <div class="ui button">Hide this</div>
   </div>
 </div>
 

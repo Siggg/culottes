@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 /* This is the Revolution smart contract from the culottes project.
 Its copyrights (2019) belong to its authors including Jean Millerat (siggg at akasig dot org).
 It is distributed under the GNU Affero General Public License version 3 or later (AGPL v.3 or later). You can find a copy of this license with the full source code of this project at
-https://github.com/culottes
+https://github.com/siggg/culottes
 */
 
 contract Revolution {
@@ -42,7 +42,7 @@ contract Revolution {
     uint amount;
   }
 
-  // This the revolutionary trial for a given citizen
+  // This is the revolutionary trial for a given citizen
   struct Trial {
     address payable citizen;
     JusticeScale sansculotteScale;
@@ -96,6 +96,7 @@ contract Revolution {
       emit TrialOpened('TrialOpened', _citizen);
       citizens.push(_citizen);
       trial.citizen = _citizen;
+      trial.lastClosingAttemptBlock = block.number;
     }
 
     JusticeScale storage scale = trial.sansculotteScale;

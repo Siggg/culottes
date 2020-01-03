@@ -13,6 +13,10 @@ contract Revolution {
   // Criteria the citizen should match to win votes
   // e.g. : "a sans-culotte"
   string public criteria;
+  
+  // Hashtag to be used for discussing this contract
+  // e.g. : "#SansCulottesRevolution"
+  string public hashtag;
 
   // Minimum number of blocks before next cake distribution from the Revolution
   uint public distributionBlockPeriod;
@@ -66,8 +70,9 @@ contract Revolution {
   event Distribution(string indexed _eventName, address indexed _citizen, uint _distributionAmount);
 
 
-  constructor(string memory _criteria, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public{
+  constructor(string memory _criteria, string memory _hashtag, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public{
     criteria = _criteria;
+    hashtag = _hashtag;
     distributionBlockPeriod = _distributionBlockPeriod;
     distributionAmount = _distributionAmount;
     lastDistributionBlockNumber = block.number;

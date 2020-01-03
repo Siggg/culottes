@@ -13,8 +13,9 @@ contract('Revolution', function(accounts) {
     const criteria = await revolution.criteria();
     expect(criteria).to.equal('a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions');
     
-    const hashtag = await revolution.hashtag();
-    expect(hashtag).to.equal('#FrequentContributorRevolution');
+    // const hashtag = await revolution.hashtag();
+    // expect(hashtag).to.equal('#FrequentContributorRevolution');
+    console.log('finished Init tests');
 
   });
 

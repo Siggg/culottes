@@ -71,7 +71,7 @@ export class RevolutionComponent implements OnInit {
         }
         this.hashtagWithoutSymbol = hashtag.substring(1);
         return hashtag
-      };
+      });
     this.lockModalActivity = await web3_eth_contract
       .methods
       .locked()

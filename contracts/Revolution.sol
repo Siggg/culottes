@@ -205,7 +205,7 @@ contract Revolution {
     uint randomInt = randomHash % million;
     uint blocksSince = block.number - trial.lastClosingAttemptBlock;
     if (blocksSince < distributionBlockPeriod) {
-      randomInt *= blocksSince / distributionBlockPeriod;
+      // faulty line ? => randomInt *= blocksSince / distributionBlockPeriod;
     }
     if(randomInt < million * 30 / 100) {
       return true;

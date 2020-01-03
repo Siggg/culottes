@@ -115,10 +115,11 @@ contract Revolution {
   }
 
   function closeTrial(address payable _citizen) public {
-    Trial storage trial = trials[_citizen];
+    
     // check the closing  lottery
     bool shouldClose = closingLottery(_citizen);
     // update attempt block number
+    Trial storage trial = trials[_citizen];
     trial.lastClosingAttemptBlock = block.number;
     if(shouldClose == false) {
       // no luck this time, won't close yet, retry later
@@ -205,7 +206,7 @@ contract Revolution {
     uint randomInt = randomHash % million;
     uint blocksSince = block.number - trial.lastClosingAttemptBlock;
     if (blocksSince < distributionBlockPeriod) {
-      // faulty line ? => randomInt *= blocksSince / distributionBlockPeriod;
+      randomInt *= blocksSince / distributionBlockPeriod;
     }
     if(randomInt < million * 30 / 100) {
       return true;

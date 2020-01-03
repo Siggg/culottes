@@ -111,15 +111,8 @@ contract Revolution {
 
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
-    if(block.number < trial.lastClosingAttemptBlock + distributionBlockPeriod/3) {
-      // too early, retry later
-      return;
-    }
-    // it's time for a new closing attempt
-    // update attempt block number
-    trial.lastClosingAttemptBlock = block.number;
-    // check the closing  lottery if required
-    if(closingLottery() == false) {
+    // check the closing  lottery
+    if(closingLottery(trial) == false) {
       // no luck this time, won't close yet, retry later
       return;
     }
@@ -241,10 +234,13 @@ contract Revolution {
       // always close when testing
       return true;
     }
-    // returns true with a 30% probability ; false otherwise
+    // returns true with a 30% probability weighted by the time spent during that this distribution period since tge last closing attempt; false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
-    uint res = randomHash % 10;
-    if(res < 4) {
+    uint randomInt = randomHash % 1000000;
+    randomInt *= (block.number - trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
+    // update attempt block number
+    trial.lastClosingAttemptBlock = block.number;
+    if(randomInt < 300000) {
       return true;
     }
     return false;

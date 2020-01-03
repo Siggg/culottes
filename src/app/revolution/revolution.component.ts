@@ -34,6 +34,7 @@ export class RevolutionComponent implements OnInit {
   citizens: Array<ICitizen> = [];
   fullAddressShown: boolean = false;
   web3ModalActivity: String = "";
+  lockModalActivity: String = "";
 
   constructor(
     private web3Service: Web3Service,
@@ -59,6 +60,16 @@ export class RevolutionComponent implements OnInit {
       .methods
       .criteria()
       .call();
+    this.lockModalActivity = await web3_eth_contract
+      .methods
+      .locked()
+      .call( (locked) => {
+        if (locked == true) {
+          return "active";
+        } else  {
+          return "";
+        }
+      });
     this.bastilleBalance = await web3_eth_contract
       .methods
       .bastilleBalance()
@@ -232,7 +243,7 @@ export class RevolutionComponent implements OnInit {
     return this.web3Service.dappStatus();
   }
   
-    public onRevolutionChange(event): void {  // event will give you full brief of action
+  public onRevolutionChange(event): void {  // event will give you full brief of action
     this.web3Service.revolutionAddress = event.target.value;
     this.web3Service.revolutionBlockchain = this.web3Service.revolutions[event.target.value];
   }

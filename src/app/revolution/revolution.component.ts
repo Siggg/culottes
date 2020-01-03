@@ -67,10 +67,15 @@ export class RevolutionComponent implements OnInit {
       .hashtag()
       .call()
       .then( (hashtag) => {
-        /* if (hashtag[0] != '#') {
-          hashtag = '#' + hashtag;
-        } */
-        this.hashtagWithoutSymbol = hashtag; // .substring(1);
+        if (hashtag == null || hashtag.length == 0) {
+          hashtag = "#CulottesRevolution";
+          this.hashtagWithoutSymbol = "CulottesRevolution";
+        } else if (hashtag[0] != '#') {
+            this.hashtagWithoutSymbol = hashtag;
+            hashtag = '#' + hashtag;
+        } else {
+            this.hashtagWithoutSymbol = hashtag.substring(1);
+        }
         return hashtag;
     });
     this.lockModalActivity = await web3_eth_contract

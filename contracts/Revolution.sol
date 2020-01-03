@@ -183,7 +183,7 @@ contract Revolution {
 
   }
 
-  function closingLottery(address payable _citizen) private view returns (bool) {
+  function closingLottery(address payable _citizen) private returns (bool) {
     if (testingMode == true) {
       // always close when testing
       return true;

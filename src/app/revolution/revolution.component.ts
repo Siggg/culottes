@@ -62,17 +62,17 @@ export class RevolutionComponent implements OnInit {
       .methods
       .criteria()
       .call();
-    this.hashtag = await web3_eth_contract
+    /* FIXME : this.hashtag = await web3_eth_contract
       .methods
       .hashtag()
       .call( (hashtag) => {
-        /* FIXME if (hashtag[0] != '#') {
+        if (hashtag[0] != '#') {
           hashtag = '#' + hashtag;
-        } */
-        this.hashtagWithoutSymbol = "FrequentContributorRevolution"; // hashtag.substring(1);
+        }
+        this.hashtagWithoutSymbol = hashtag.substring(1);
         return hashtag
-      });
-    this.lockModalActivity = await web3_eth_contract
+      }); */
+    /* FIXME : this.lockModalActivity = await web3_eth_contract
       .methods
       .locked()
       .call( (locked) => {
@@ -81,7 +81,7 @@ export class RevolutionComponent implements OnInit {
         } else  {
           return "";
         }
-      });
+      });*/
     this.bastilleBalance = await web3_eth_contract
       .methods
       .bastilleBalance()

@@ -229,7 +229,7 @@ contract Revolution {
       return trial.privilegedScale.amount;
   }
 
-  function closingLottery() private view returns (bool) {
+  function closingLottery(Trial _trial) private view returns (bool) {
     if (testingMode == true) {
       // always close when testing
       return true;
@@ -237,9 +237,9 @@ contract Revolution {
     // returns true with a 30% probability weighted by the time spent during that this distribution period since tge last closing attempt; false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint randomInt = randomHash % 1000000;
-    randomInt *= (block.number - trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
+    randomInt *= (block.number - _trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
     // update attempt block number
-    trial.lastClosingAttemptBlock = block.number;
+    _trial.lastClosingAttemptBlock = block.number;
     if(randomInt < 300000) {
       return true;
     }

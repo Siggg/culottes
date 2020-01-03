@@ -52,7 +52,7 @@ A revolution for:
 # How to create your own revolution, the lazy way (recommended)
 
 1. Open migrations/2_deploy_contracts.js
-2. Update the parameters inside (criteria, amount to be distributed, period of distribution, ...), see contracts/Revolution.sol if needed
+2. Update the parameters inside (criteria, hashtag, amount to be distributed, period of distribution, ...), see contracts/Revolution.sol if needed
 3. Send me your settings by email to sig arobase akasig dot org
 4. I may deploy your revolution smart contract and add it to main dapp
 

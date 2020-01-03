@@ -117,7 +117,10 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
     // check the closing  lottery
-    if(closingLottery(_citizen) == false) {
+    var shouldClose = closingLottery(_citizen);
+    // update attempt block number
+    trial.lastClosingAttemptBlock = block.number;
+    if(shouldClose == false) {
       // no luck this time, won't close yet, retry later
       return;
     }
@@ -188,7 +191,7 @@ contract Revolution {
 
   }
 
-  function closingLottery(address payable _citizen) private returns (bool) {
+  function closingLottery(address payable _citizen) private view returns (bool) {
     if (testingMode == true) {
       // always close when testing
       return true;
@@ -200,8 +203,6 @@ contract Revolution {
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint randomInt = randomHash % 1000000;
     randomInt *= (block.number - trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
-    // update attempt block number
-    trial.lastClosingAttemptBlock = block.number;
     if(randomInt < 300000) {
       return true;
     }

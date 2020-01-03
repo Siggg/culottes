@@ -112,7 +112,7 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     Trial storage trial = trials[_citizen];
     // check the closing  lottery
-    if(closingLottery(trial) == false) {
+    if(closingLottery(_citizen) == false) {
       // no luck this time, won't close yet, retry later
       return;
     }
@@ -183,6 +183,26 @@ contract Revolution {
 
   }
 
+  function closingLottery(address payable _citizen) private view returns (bool) {
+    if (testingMode == true) {
+      // always close when testing
+      return true;
+    }
+    // returns true with a 30% probability
+    // weighted by the time spent during that this distribution period since tge last closing attempt
+    // returns false otherwise
+    Trial storage trial = trials[_citizen];
+    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
+    uint randomInt = randomHash % 1000000;
+    randomInt *= (block.number - trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
+    // update attempt block number
+    trial.lastClosingAttemptBlock = block.number;
+    if(randomInt < 300000) {
+      return true;
+    }
+    return false;
+  }
+  
   function distribute() public {
     // Did the last distribution happen long enough ago ?
     if  (block.number - lastDistributionBlockNumber < distributionBlockPeriod) {
@@ -227,23 +247,6 @@ contract Revolution {
       return trial.sansculotteScale.amount;
     else
       return trial.privilegedScale.amount;
-  }
-
-  function closingLottery(Trial _trial) private view returns (bool) {
-    if (testingMode == true) {
-      // always close when testing
-      return true;
-    }
-    // returns true with a 30% probability weighted by the time spent during that this distribution period since tge last closing attempt; false otherwise
-    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
-    uint randomInt = randomHash % 1000000;
-    randomInt *= (block.number - _trial.lastClosingAttemptBlock)/ distributionBlockPeriod;
-    // update attempt block number
-    _trial.lastClosingAttemptBlock = block.number;
-    if(randomInt < 300000) {
-      return true;
-    }
-    return false;
   }
 
   function trialStatus(address _citizen) public view returns(bool opened, bool matchesCriteria, uint sansculotteScale, uint privilegedScale) {

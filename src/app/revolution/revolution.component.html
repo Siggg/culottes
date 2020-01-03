@@ -86,6 +86,17 @@
  <div [innerHTML]="web3Status"></div>
 </div>
 
+<div class="ui {{ lockModalActivity }} modal">
+  <div class="ui icon header">
+    <i class="lock icon"></i>
+    Locked
+  </div>
+  <div class="ui content">
+    This contract has been locked by its owner. You can still vote for and against addresses until there is any ETH left in the bastille. But you can't donate any more ETH to the bastille. And votes are closed once the bastille is empty.
+    This "locked" mode is meant to limit the risks that the contract is used or exploited in a malicious way. It is the only function of the contract under the only control of its owner.
+  </div>
+</div>
+
 <div class="ui fullscreen longer {{ web3ModalActivity }} modal">
   <div class="ui icon header">
     <i class="plug icon"></i>

@@ -83,8 +83,7 @@ A revolution for:
   * Set the *criteria* to match for your cause (e.g. is this the address of "a frequent contributor to open source projects" ?)
   * Set the *distributionBlockPeriod* minimum number of blocks before next cake distribution from the Revolution
   * Set the *distributionAmount* amount of WEI to be distributed to each citizen matching criteria
-  * Set *withLottery* to true so that trials get closed (at random times)
-  * Set *withDistribution* to true so that cakes (ETH) are distributed from the Bastille to sans-culottes
+  * Set *testingMode* to false for any real use
   * truffle compile
   * truffle build
   * truffle migrate -f 2 --network rinkebyInfura --reset --compile-all

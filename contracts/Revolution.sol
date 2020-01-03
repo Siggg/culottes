@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 /* This is the Revolution smart contract from the culottes project.
-Its copyrights starting from 2019 belong to its authors including Jean Millerat (siggg at akasig dot org).
+Its copyrights (2019) belong to its authors including Jean Millerat (siggg at akasig dot org).
 It is distributed under the GNU Affero General Public License version 3 or later (AGPL v.3 or later). You can find a copy of this license with the full source code of this project at
 https://github.com/culottes
 */
@@ -23,11 +23,8 @@ contract Revolution {
   // Number of the block at last distribution
   uint lastDistributionBlockNumber;
 
-  // Will this Revolution randomly close its trials ?
-  bool public withLottery;
-
-  // Will this Revolution automatically consider distributing cakes after each vote ?
-  bool public withDistribution;
+  // Are we running in testing mode ?
+  bool public testingMode;
   
   // Is this Revolution irreversibly locked (end of life) ?
   
@@ -69,13 +66,12 @@ contract Revolution {
   event Distribution(string indexed _eventName, address indexed _citizen, uint _distributionAmount);
 
 
-  constructor(string memory _criteria, uint _distributionBlockPeriod, uint _distributionAmount, bool _withLottery, bool _withDistribution) public{
+  constructor(string memory _criteria, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public{
     criteria = _criteria;
     distributionBlockPeriod = _distributionBlockPeriod;
     distributionAmount = _distributionAmount;
     lastDistributionBlockNumber = block.number;
-    withLottery = _withLottery;
-    withDistribution = _withDistribution;
+    testingMode = _testingMode;
     locked = false;
   }
 
@@ -107,9 +103,8 @@ contract Revolution {
 
     emit VoteReceived('VoteReceived', msg.sender, _citizen, _vote, msg.value);
 
-    closeTrial(_citizen);
-
-    if(withDistribution == true) {
+    if(testingMode == false) {
+      closeTrial(_citizen);
       distribute();
     }
   }
@@ -124,7 +119,7 @@ contract Revolution {
     // update attempt block number
     trial.lastClosingAttemptBlock = block.number;
     // check the closing  lottery if required
-    if(withLottery == true && closingLottery() == false) {
+    if(closingLottery() == false) {
       // no luck this time, won't close yet, retry later
       return;
     }
@@ -242,6 +237,10 @@ contract Revolution {
   }
 
   function closingLottery() private view returns (bool) {
+    if (testingMode == true) {
+      // always close when testing
+      return true;
+    }
     // returns true with a 30% probability ; false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint res = randomHash % 10;

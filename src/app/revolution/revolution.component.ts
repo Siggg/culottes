@@ -62,10 +62,10 @@ export class RevolutionComponent implements OnInit {
       .methods
       .criteria()
       .call();
-    /* FIXME : this.hashtag = await web3_eth_contract
+    this.hashtag = await web3_eth_contract
       .methods
       .hashtag()
-      .call( (hashtag) => {
+      .call(); /* (hashtag) => {
         if (hashtag[0] != '#') {
           hashtag = '#' + hashtag;
         }

@@ -15,9 +15,9 @@ export class AppPage {
     return element(by.id('criteria')).getText();
   }
   
-  /*getHashtag() {
+  getHashtag() {
     return element(by.id('hashtag')).getText();
-  }*/
+  }
 
   getButton() {
     return element(by.id('send'));

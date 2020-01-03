@@ -4,13 +4,13 @@
 
  <div class="ui segment form" id="criteriaLabel">
  
-	 They get an income if and only if they are <strong class="criteria" id ="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial (see the list of trials below). Their income is, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille of this revolution is empty and needs further donations. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise.
+	 They get an income if and only if they are <strong class="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial (see the list of trials below). Their income is, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille of this revolution is empty and needs further donations. First addresses get their income first. Last addresses may not get any income during this distribution round if the bastille of this revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise.
 
   <div class="ui relaxed celled list">
    <div class="item">
     <div class="content">
      <div class="header"><label>Are they really {{criteria}} ?</label></div>
-     <div class="description"><label>You can debate it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on Twitter <span id="hashtag">{{ hashtag }}</span></a> or via <a href="https://www.reddit.com/r/ethereum/comments/eiv1v7/receive_up_to_01_eth_per_day_by_testing_this_dapp/">this reddit post</a>.</label></div>
+     <div class="description"><label>You can debate it <a href="https://twitter.com/hashtag/FIXME"> <!-- hashtagWithoutSymbol --> on Twitter <!--span id="hashtag">{{ hashtag }}</span--></a> or via <a href="https://www.reddit.com/r/ethereum/comments/eiv1v7/receive_up_to_01_eth_per_day_by_testing_this_dapp/">this reddit post</a>.</label></div>
     </div>
    </div>
   </div>
@@ -86,7 +86,7 @@
  <div [innerHTML]="web3Status"></div>
 </div>
 
-<div class="ui {{ lockModalActivity }} modal">
+<!--div class="ui {{ lockModalActivity }} modal">
   <div class="ui icon header">
     <i class="lock icon"></i>
     Locked
@@ -95,7 +95,7 @@
     This contract has been locked by its owner. You can still vote for and against addresses until there is any ETH left in the bastille. But you can't donate any more ETH to the bastille. And votes are closed once the bastille is empty.
     This "locked" mode is meant to limit the risks that the contract is used or exploited in a malicious way. It is the only function of the contract under the only control of its owner.
   </div>
-</div>
+</div-->
 
 <div class="ui fullscreen longer {{ web3ModalActivity }} modal">
   <div class="ui icon header">

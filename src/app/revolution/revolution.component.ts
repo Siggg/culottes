@@ -65,23 +65,25 @@ export class RevolutionComponent implements OnInit {
     this.hashtag = await web3_eth_contract
       .methods
       .hashtag()
-      .call(); /* (hashtag) => {
-        if (hashtag[0] != '#') {
+      .call()
+      .then( (hashtag) => {
+        /* if (hashtag[0] != '#') {
           hashtag = '#' + hashtag;
-        }
-        this.hashtagWithoutSymbol = hashtag.substring(1);
-        return hashtag
-      }); */
-    /* FIXME : this.lockModalActivity = await web3_eth_contract
+        } */
+        this.hashtagWithoutSymbol = hashtag; // .substring(1);
+        return hashtag;
+    });
+    this.lockModalActivity = await web3_eth_contract
       .methods
       .locked()
-      .call( (locked) => {
+      .call()
+      .then( (locked) => {
         if (locked == true) {
           return "active";
         } else  {
           return "";
         }
-      });*/
+      });
     this.bastilleBalance = await web3_eth_contract
       .methods
       .bastilleBalance()

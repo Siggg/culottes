@@ -80,14 +80,19 @@ contract Revolution {
     locked = false;
   }
 
+
   function lock() public {
     // will irreversibly lock this Revolution
+
     // only contract owner can lock
     require(msg.sender == owner);
     locked = true;
+
   }
 
+
   function vote(bool _vote, address payable _citizen) public payable {
+
     require(locked == false || bastilleBalance > 0);
     Trial storage trial = trials[_citizen];
     trial.opened = true;
@@ -99,10 +104,12 @@ contract Revolution {
       trial.lastClosingAttemptBlock = block.number;
     }
 
+    // select the target scale
     JusticeScale storage scale = trial.sansculotteScale;
     if (_vote == false) {
       scale = trial.privilegedScale;
     }
+    // record the vote
     scale.voters.push(msg.sender);
     scale.votes[msg.sender] += msg.value;
     scale.amount+= msg.value;
@@ -113,7 +120,9 @@ contract Revolution {
       closeTrial(_citizen);
       distribute();
     }
+
   }
+
 
   function closeTrial(address payable _citizen) public {
     
@@ -193,7 +202,9 @@ contract Revolution {
 
   }
 
+
   function closingLottery(address payable _citizen) private view returns (bool) {
+
     if (testingMode == true) {
       // always close when testing
       return true;
@@ -203,7 +214,7 @@ contract Revolution {
     // returns false otherwise
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     uint million = 1000000;
-    // random inteeger between 0 and 999999
+    // random integer between 0 and 999999
     uint randomInt = randomHash % million;
     Trial storage trial = trials[_citizen];
     uint blocksSince = block.number - trial.lastClosingAttemptBlock;
@@ -214,9 +225,12 @@ contract Revolution {
       return true;
     }
     return false;
+
   }
-  
+
+
   function distribute() public {
+
     // Did the last distribution happen long enough ago ?
     if  (block.number - lastDistributionBlockNumber < distributionBlockPeriod) {
       return;
@@ -252,23 +266,35 @@ contract Revolution {
     }
     // Remember when this distribution happened.
     lastDistributionBlockNumber = block.number;
+
   }
 
+
   function getScaleAmount(bool _vote, address _citizen) public view returns (uint){
+
     Trial storage trial = trials[_citizen]; 
     if (_vote == true)
       return trial.sansculotteScale.amount;
     else
       return trial.privilegedScale.amount;
+
   }
+
 
   function trialStatus(address _citizen) public view returns(bool opened, bool matchesCriteria, uint sansculotteScale, uint privilegedScale) {
+  
     Trial memory trial = trials[_citizen];
     return (trial.opened, trial.matchesCriteria, trial.sansculotteScale.amount, trial.privilegedScale.amount);
+
   }
 
+
   function() payable external {
+
     require(locked == false);
     bastilleBalance += msg.value;
+
   }
+
+
 }

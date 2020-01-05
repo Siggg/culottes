@@ -16,13 +16,14 @@ export class CitizenComponent implements OnInit {
 	address: String = "0x";
 	revolutionAddress: String = "0x0000...";
 	revolutionBlockchain: String = "";
-	criteria: String = "default criteria from citizen.component.ts"
+	criteria: String = "default criteria from citizen.component.ts";
 	culottes: any;
 	account: any;
 	accounth: any;
 	amount;
 	isOk = false;
 	web3_eth_contract: any;
+	hashtagWithoutSymbol: String = "CulottesRevolution";
 
   constructor(
     private web3Service: Web3Service,
@@ -31,17 +32,29 @@ export class CitizenComponent implements OnInit {
   }
 
   async ngOnInit() {
-	  this.getAddress();
-	  this.watchAccount();
-      this.web3Service.artifactsToContract(contractABI)
+    this.getAddress();
+    this.watchAccount();
+    this.web3Service.artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
-		  	this.web3_eth_contract = web3_eth_contract;
-			return web3_eth_contract.methods.criteria().call();
+  	this.web3_eth_contract = web3_eth_contract;
+	return web3_eth_contract.methods.criteria().call();
         })
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
         });
+    this.web3Service.artifactsToContract(contractABI)
+      .then((web3_eth_contract) => {
+        this.web3_eth_contract = web3_eth_contract;
+        return web3_eth_contract.methods.hashtag().call();
+        })
+      .then((hashtag) => {
+	if (hashtag != null && hashtag.length>0) {
+          this.hashtagWithoutSymbol = hashtag.substring(1);
+	} else {
+	  this.hashtagWithoutSymbol = "CulottesRevolution";
+	}
+      });
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;

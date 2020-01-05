@@ -21,8 +21,9 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public revolutions = {
-    "0xf3122a43EE86214e04B255bA78c980C43d0073E2": ["Mainnet", "a person who has been one of the top 3 most deserving contributors to this dapp over the last 7 days"] // @mainnet with #Top3Contributors, 5760, 0.1 ETH, true
+    "0xb3aC6256C0DCAAF45b1E7c60993Ed5EDee10e1fa": ["Mainnet", "a person who has been one of the top 3 most deserving contributors to this dapp over the last 7 days"] // @mainnet with #Top3Contributors, 5760, 0.1 ETH, true
   };
+	// "0xf3122a43EE86214e04B255bA78c980C43d0073E2" @mainnet with #Top3Contributors, 5760, 0.1 ETH, true but lottery was wrong
 	// "0x6DcdCE5853cfbCBE4E3eB15c9AB2277983387CD9" @mainnet with 5760, 0.1 ETH, true, true but trials could be closed anytime by anyone
         // "0x087FA96fCF4bb4BF0A52F367b5Bae915F467371f" @rinkeby with 5760, 0.1 ETH, true, true
         // "0x73d69485462862b1d4F0674611D5d6A43DD424e4" @rinkeby with 6200, 0.025 ETH, true, true

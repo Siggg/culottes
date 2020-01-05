@@ -211,17 +211,22 @@ contract Revolution {
     }
     // returns true with a 30% probability
     // weighted by the time spent during that this distribution period since the last closing attempt
+    // so that there is a 30% probability the trial will close over a full distribution period no
+    // matter how often the closing lottery is triggered.
     // returns false otherwise
-    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
-    uint million = 1000000;
-    // random integer between 0 and 999999
-    uint randomInt = randomHash % million;
+    uint probabilityPercent = 30;
+    uint million = 1000000
+    uint threshold = million * probabilityPercent / 100;
     Trial storage trial = trials[_citizen];
     uint blocksSince = block.number - trial.lastClosingAttemptBlock;
     if (blocksSince < distributionBlockPeriod) {
-      randomInt *= blocksSince / distributionBlockPeriod;
+      threshold *= blocksSince / distributionBlockPeriod;
+      // threshold is now between 0 and 30% of 1 million
     }
-    if(randomInt < million * 30 / 100) {
+    // random integer between 0 and 1 million
+    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
+    uint randomInt = randomHash % million;
+    if(randomInt < threshold) {
       return true;
     }
     return false;

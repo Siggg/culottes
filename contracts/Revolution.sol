@@ -95,7 +95,10 @@ contract Revolution {
 
     require(locked == false || bastilleBalance > 0);
     Trial storage trial = trials[_citizen];
-    trial.opened = true;
+    // open the trial if the vote is not the same as the verdict
+    if (_vote != trial.matchesCriteria) {
+      trial.opened = true;
+    }
     if (trial.citizen == address(0x0) ) {
       // this is a new trial, emit an event
       emit TrialOpened('TrialOpened', _citizen);
@@ -215,7 +218,7 @@ contract Revolution {
     // matter how often the closing lottery is triggered.
     // returns false otherwise
     uint probabilityPercent = 30;
-    uint million = 1000000
+    uint million = 1000000;
     uint threshold = million * probabilityPercent / 100;
     Trial storage trial = trials[_citizen];
     uint blocksSince = block.number - trial.lastClosingAttemptBlock;

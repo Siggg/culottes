@@ -212,8 +212,8 @@ contract Revolution {
       // always close when testing
       return true;
     }
-    // returns true with a 30% probability
-    // weighted by the time spent during that this distribution period since the last closing attempt
+    // returns true with a 30% probability per distribution period.
+    // We will weight by the time spent during that this distribution period since the last closing attempt
     // so that there is a 30% probability the trial will close over a full distribution period no
     // matter how often the closing lottery is triggered.
     // returns false otherwise

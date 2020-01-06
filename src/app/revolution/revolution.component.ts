@@ -46,6 +46,7 @@ export class RevolutionComponent implements OnInit {
   async ngOnInit() {
     console.log("OnInit: " + this.web3Service);
     console.log(this);
+    this.getRevolutionAddress();
     this.watchAccount();
     let web3_eth_contract = await this
       .web3Service

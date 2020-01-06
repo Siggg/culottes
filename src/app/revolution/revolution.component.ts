@@ -169,7 +169,7 @@ export class RevolutionComponent implements OnInit {
           this.distributionPeriodUnit = "years";
           this.distributionPeriod = seconds / 3600 / 24 / 365.25;
         }
-	return blocks;
+      return blocks;
     });
     let i = 0;
     let address = "";
@@ -265,6 +265,15 @@ export class RevolutionComponent implements OnInit {
   public onRevolutionChange(event): void {  // event will give you full brief of action
     this.web3Service.revolutionAddress = event.target.value;
     this.web3Service.revolutionBlockchain = this.web3Service.revolutions[event.target.value];
+  }
+  
+  getRevolutionAddress(): void { 
+    var ra = "";
+    ra = this.route.snapshot.paramMap.get('revolutionAddress');
+    if (ra != "" && ra != null) {
+      this.revolutionAddress = ra;
+      this.web3Service.revolutionAddress = ra;
+    }
   }
   
 }

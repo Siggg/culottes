@@ -46,7 +46,7 @@ export class RevolutionComponent implements OnInit {
   async ngOnInit() {
     console.log("OnInit: " + this.web3Service);
     console.log(this);
-    this.getRevolutionAddress();
+    this.getAddress();
     this.watchAccount();
     let web3_eth_contract = await this
       .web3Service
@@ -268,9 +268,9 @@ export class RevolutionComponent implements OnInit {
     this.web3Service.revolutionBlockchain = this.web3Service.revolutions[event.target.value];
   }
   
-  getRevolutionAddress(): void { 
+  getAddress(): void { 
     var ra = "";
-    ra = this.route.snapshot.paramMap.get('revolutionAddress');
+    ra = this.route.snapshot.paramMap.get('address');
     if (ra != "" && ra != null) {
       this.revolutionAddress = ra;
       this.web3Service.revolutionAddress = ra;

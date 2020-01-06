@@ -8,6 +8,7 @@ import { CitizenComponent } from "./citizen/citizen.component";
 const routes: Routes = [
   { path: "", component: RevolutionComponent },
   { path: "revolution", component: RevolutionComponent },
+  { path: "revolution/:address", component: RevolutionComponent },
   { path: "about", component: AboutComponent },
   { path: "citizen", component: CitizenComponent },
   { path: "citizen/:address", component: CitizenComponent },

@@ -36,6 +36,11 @@ module.exports = function(deployer) {
     3, // distributionBlockPeriod in blocks (about 15 seconds per block so one day is approximately 5760 blocks)
     7, // distributionAmount for instance web3.utils.toBN(web3.utils.toWei('0.025', 'ether'))
     true // testingMode, set to false unless you want to run automated tests*/
+/*    'a real, living and unique human being', // criteria to match
+    '#UniversalBasicIncome', // hashtag
+    175680, // distributionBlockPeriod
+    web3.utils.toBN(web3.utils.toWei('0.5', 'ether')),
+    false
 /*    'a person who has been one of the top 3 most deserving testers and contributors to this projects over the last 7 days', // criteria to match
     '#Top3Contributors', // hashtag to be used to discuss this contract
     5760, // distributionBlockPeriod in blocks (about 15 seconds per block so one day is approximately 5760 blocks)

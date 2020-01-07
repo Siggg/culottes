@@ -45,8 +45,8 @@ export class RevolutionComponent implements OnInit {
     private router: Router) {}
 
   async ngOnInit() {
-    console.log("OnInit: " + this.web3Service);
-    console.log(this);
+    // console.log("OnInit: " + this.web3Service);
+    // console.log(this);
     this.getAddress();
     this.otherRevolutions = this.web3Service.revolutions;
     this.watchAccount();
@@ -267,7 +267,7 @@ export class RevolutionComponent implements OnInit {
   
   public onRevolutionChange(event): void {  // event will give you full brief of action
     this.web3Service.revolutionAddress = event.target.value;
-    this.router.navigateByUrl('revolution/:address/' + event.target.value);
+    this.router.navigateByUrl('/revolution/' + event.target.value);
   }
   
   getAddress(): void { 

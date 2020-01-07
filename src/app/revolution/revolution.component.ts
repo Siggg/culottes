@@ -37,6 +37,7 @@ export class RevolutionComponent implements OnInit {
   fullAddressShown: boolean = false;
   web3ModalActivity: String = "";
   lockModalActivity: String = "";
+  otherRevolutions = {};
 
   constructor(
     private web3Service: Web3Service,
@@ -47,6 +48,7 @@ export class RevolutionComponent implements OnInit {
     console.log("OnInit: " + this.web3Service);
     console.log(this);
     this.getAddress();
+    this.otherRevolutions = this.web3Service.revolutions;
     this.watchAccount();
     let web3_eth_contract = await this
       .web3Service

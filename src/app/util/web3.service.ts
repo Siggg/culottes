@@ -21,9 +21,10 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public revolutions = {
-    "0xb3aC6256C0DCAAF45b1E7c60993Ed5EDee10e1fa": ["Mainnet", "a person who has been one of the top 3 most deserving contributors to this dapp over the last 7 days"] // @mainnet with #Top3Contributors, 5760, 0.1 ETH, true
+    "0xb3aC6256C0DCAAF45b1E7c60993Ed5EDee10e1fa": "#Top3Contributors", // @mainnet with #Top3Contributors, 5760, 0.1 ETH, false
+    "0xEcBA11d40bF907DE0E7e937e83898E8Af5cfC9cb": "#UniversalBasicIncome" // @mainnet with #UniversalBasicIncome, 175680, 0.5 ETH, false
   };
-  // "0xbF30326B8D8979026e6432B4B2bC54B3F8993C7d" @mainnet with #UniversalBasicIncome, 175680, 0.5 ETH, true
+	// "0xbF30326B8D8979026e6432B4B2bC54B3F8993C7d" @mainnet with #UniversalBasicIncome, 175680, 0.5 ETH, true
 	// "0xf3122a43EE86214e04B255bA78c980C43d0073E2" @mainnet with #Top3Contributors, 5760, 0.1 ETH, true but lottery was wrong
 	// "0x6DcdCE5853cfbCBE4E3eB15c9AB2277983387CD9" @mainnet with 5760, 0.1 ETH, true, true but trials could be closed anytime by anyone
         // "0x087FA96fCF4bb4BF0A52F367b5Bae915F467371f" @rinkeby with 5760, 0.1 ETH, true, true
@@ -36,7 +37,7 @@ export class Web3Service {
 	// "0xf26110452429f39eD677F111E65bf0c1825705A4" @rinkeby with 3 7 false false but bastilleBalance was called balance
 	// see contracts/Revolution.sol or migrations/2_... for the meaning of parameters
   public revolutionAddress: string = Object.keys(this.revolutions)[0];
-  public revolutionBlockchain: string = this.revolutions[this.revolutionAddress][0];
+  public revolutionBlockchain: string = 'Mainnet';
   // Connected to a web3 API ?
   public statusWeb3 = false;
   // Connected to the proper blockchain ?

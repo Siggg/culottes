@@ -266,9 +266,10 @@ export class RevolutionComponent implements OnInit {
   }
   
   public onRevolutionChange(event): void {  // event will give you full brief of action
-    console.log("event: ", event);
+    // console.log("event: ", event);
     this.web3Service.revolutionAddress = event.target.value;
-    console.log("web3Service: ", this.web3Service);
+    // console.log("web3Service: ", this.web3Service);
+    this.router.navigate([], { queryParams: { address: event.target.value } });
   }
   
   getAddress(): void { 

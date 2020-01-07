@@ -96,7 +96,7 @@
   <div class="field">
    <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause or join another revolution</a></label>
    <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
-    <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == '#Top3Contributors'">{{ revolution.value }}</option>
+	   <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == " + {{ hashtag }}>{{ revolution.value }}</option>
    </select>
   </div>
  </div>

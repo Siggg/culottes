@@ -267,7 +267,7 @@ export class RevolutionComponent implements OnInit {
   
   public onRevolutionChange(event): void {  // event will give you full brief of action
     this.web3Service.revolutionAddress = event.target.value;
-    this.router.navigateByUrl('/address/' + event.target.value);
+    this.router.navigateByUrl('revolution/:address/' + event.target.value);
   }
   
   getAddress(): void { 

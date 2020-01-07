@@ -95,9 +95,9 @@
   </div>
   <div class="field">
    <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause or join another revolution</a></label>
-   <!--select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
-    <option value="{{ revolutionAddress }}" [selected]="revolutionAddress != 'test'">For a frequent contributor to open source projects</option>
-   </select-->
+   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
+    <option *ngFor="let revolution of revolutions" value="{{ revolution.key }}" [selected]="revolution.hashtag == '#Top3Contributors'">For a frequent contributor to open source projects</option>
+   </select>
   </div>
  </div>
  <div [innerHTML]="web3Status"></div>

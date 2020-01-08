@@ -1,26 +1,42 @@
+const RevolutionFactory = artifacts.require("./RevolutionFactory.sol");
 const Revolution = artifacts.require("./Revolution.sol");
 const expect = require('chai').expect;
 const assertRevert = require('./assertRevert').assertRevert;
 
+const desiredHashtag = "#ADesiredHashtag";
+const desiredCriteria = "a desired criteria";
+const desiredDistributionBlockPeriod = 3;
+const desiredDistributionAmount = 7;
 
-contract('Revolution', function(accounts) {
+contract('RevolutionFactory', function(accounts) {
 
   it("Init", async function() {
-    const revolution = await Revolution.deployed();
-    expect(revolution).to.not.equal(0x0);
+    const revolutionFactory = await RevolutionFactory.deployed();
+    expect(revolutionFactory.address).to.not.equal(0x0);
+    await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
+    let firstHashtag = await revolutionFactory.hashtags(0);
+    expect(firstHashtag).to.equal(desiredHashtag);
+    const revolutionAddress = await revolutionFactory.getRevolution(desiredHashtag);
+    expect(revolutionAddress).to.not.equal(0x0);
+    const revolution = await Revolution.at(revolutionAddress);
+    expect(revolution.address).to.equal(revolutionAddress);
     let balance = await web3.eth.getBalance(revolution.address);
 
     const criteria = await revolution.criteria();
-    expect(criteria).to.equal('a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions');
+    expect(criteria).to.equal(desiredCriteria);
     
-    // const hashtag = await revolution.hashtag();
-    // expect(hashtag).to.equal('#FrequentContributorRevolution');
+    const hashtag = await revolution.hashtag();
+    expect(hashtag).to.equal(desiredHashtag);
+    
     console.log('finished Init tests');
 
   });
 
   it("Fallback", async function() {
-    const revolution = await Revolution.deployed();
+    const revolutionFactory = await RevolutionFactory.deployed();
+    await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
+    const revolutionAddress = await revolutionFactory.getRevolution(desiredHashtag);
+    const revolution = await Revolution.at(revolutionAddress);
 
     let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
     console.log('bastilleBalanceBeforeDonation: ', bastilleBalanceBeforeDonation.toNumber());
@@ -32,7 +48,10 @@ contract('Revolution', function(accounts) {
   });
 
   it("Vote", async function() {
-    const revolution = await Revolution.deployed();
+    const revolutionFactory = await RevolutionFactory.deployed();
+    await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
+    const revolutionAddress = await revolutionFactory.getRevolution(desiredHashtag);
+    const revolution = await Revolution.at(revolutionAddress);
 
     let citizen = accounts[9];
     
@@ -78,7 +97,11 @@ contract('Revolution', function(accounts) {
   });
 
   it("Vote closing", async function() {
-    const revolution = await Revolution.deployed();
+    const revolutionFactory = await RevolutionFactory.deployed();
+    await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
+    const revolutionAddress = await revolutionFactory.getRevolution(desiredHashtag);
+    const revolution = await Revolution.at(revolutionAddress);
+
     let citizen = accounts[9];
 
     let balance = await web3.eth.getBalance(revolution.address);
@@ -124,7 +147,11 @@ contract('Revolution', function(accounts) {
     let blockNumber = await web3.eth.getBlockNumber();
     console.log('start blockNumber: ' + blockNumber);
 
-    const revolution = await Revolution.deployed();
+    const revolutionFactory = await RevolutionFactory.deployed();
+    await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
+    const revolutionAddress = await revolutionFactory.getRevolution(desiredHashtag);
+    const revolution = await Revolution.at(revolutionAddress);
+
     let A = accounts[1];
     let B = accounts[2];
     let C = accounts[3];

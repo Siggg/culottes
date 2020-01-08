@@ -6,9 +6,43 @@ It is distributed under the GNU Affero General Public License version 3 or later
 https://github.com/siggg/culottes
 */
 
-contract Revolution {
+contract RevolutionFactory {
 
   address public owner = msg.sender;
+
+  string [] public hashtags;
+
+  mapping(string => Revolution) revolutions;
+
+
+  function createRevolution(string memory _criteria, string memory _hashtag, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public {
+    // check that we don't already have a revolution with this hashtag
+    if (address(revolutions[_hashtag]) == address(0)) {
+      revolutions[_hashtag] = new Revolution(msg.sender, _criteria, _hashtag, _distributionBlockPeriod, _distributionAmount, _testingMode);
+      hashtags.push(_hashtag);
+    }
+  }
+
+
+  function getRevolution(string memory _hashtag) public view returns (Revolution) {
+    return revolutions[_hashtag];
+  }
+
+
+  function lockRevolution(string memory _hashtag) public {
+    // will irreversibly lock a Revolution given by its hashtag
+
+    // only factory contract owner can make it lock a revolution
+    require(msg.sender == owner);
+    revolutions[_hashtag].lock();
+  }
+}
+
+
+contract Revolution {
+
+  address public owner;
+  address public factory;
   
   // Criteria the citizen should match to win votes
   // e.g. : "a sans-culotte"
@@ -25,7 +59,7 @@ contract Revolution {
   uint public distributionAmount;
 
   // Number of the block at last distribution
-  uint lastDistributionBlockNumber;
+  uint public lastDistributionBlockNumber;
 
   // Are we running in testing mode ?
   bool public testingMode;
@@ -60,6 +94,8 @@ contract Revolution {
   // This is the amount of cakes in the Bastille
   uint public bastilleBalance;
 
+  // Creation of the revolution
+  event RevolutionCreated(string indexed _hashtag);
   // Start of new trial for a given citizen
   event TrialOpened(string indexed _eventName, address indexed _citizen);
   // End of trial for a given citizen
@@ -70,7 +106,9 @@ contract Revolution {
   event Distribution(string indexed _eventName, address indexed _citizen, uint _distributionAmount);
 
 
-  constructor(string memory _criteria, string memory _hashtag, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public{
+  constructor(address _owner, string memory _criteria, string memory _hashtag, uint _distributionBlockPeriod, uint _distributionAmount, bool _testingMode) public {
+    factory = msg.sender;
+    owner = _owner;
     criteria = _criteria;
     hashtag = _hashtag;
     distributionBlockPeriod = _distributionBlockPeriod;
@@ -78,14 +116,15 @@ contract Revolution {
     lastDistributionBlockNumber = block.number;
     testingMode = _testingMode;
     locked = false;
+    emit RevolutionCreated(hashtag);
   }
 
 
   function lock() public {
     // will irreversibly lock this Revolution
 
-    // only contract owner can lock
-    require(msg.sender == owner);
+    // only contract owner or factory can lock
+    require(msg.sender == owner || msg.sender == factory);
     locked = true;
 
   }
@@ -304,5 +343,6 @@ contract Revolution {
 
   }
 
-
 }
+
+

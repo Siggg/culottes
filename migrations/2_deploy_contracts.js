@@ -1,4 +1,4 @@
-var Revolution = artifacts.require("./Revolution.sol");
+var RevolutionFactory = artifacts.require("./RevolutionFactory.sol");
 
 module.exports = function(deployer) {
 
@@ -30,6 +30,8 @@ module.exports = function(deployer) {
    */
 
   deployer.deploy(
+    RevolutionFactory
+/*
     Revolution,
     'a frequent contributor to open source or copyleft-based projects who deserves a daily cup of thanks for their contributions', // criteria to match
     '#CulottesRevolution', // hashag to be used to discuss this contract

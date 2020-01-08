@@ -274,8 +274,7 @@ export class RevolutionComponent implements OnInit {
       }, err => {
 	console.log("redirect failed: ", err);
       });
-    this.ngOnInit();
-    console.log("ngOnInit done");
+    this.window.location.reload();
   }
   
   getAddress(): void { 

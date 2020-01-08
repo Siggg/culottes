@@ -269,6 +269,7 @@ export class RevolutionComponent implements OnInit {
     console.log("redirect to: /revolution/" + event.target.value);
     this.web3Service.revolutionAddress = event.target.value;
     this.router.navigateByUrl('/revolution/' + event.target.value);
+    this.ngOnInit();
   }
   
   getAddress(): void { 

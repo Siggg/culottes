@@ -1,10 +1,10 @@
 <div>
   <h1 class="ui header">{{ hashtag }}</h1>
-  <h3 class="ui header">Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</h3>
+  <p><strong>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</strong></p>
 
  <div class="ui segment" id="discuss">
   <h3 class="ui header">1. Who does or does not match this criteria?</h3>
-  <div class="content">Discover and discuss it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on Twitter <span id="hashtag">{{ hashtag }}</span></a>.</div>
+  <div class="content">Discover and discuss it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline.</div>
  </div>
  
  <div class="ui segment" id="add">

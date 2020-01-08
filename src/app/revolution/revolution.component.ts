@@ -272,7 +272,7 @@ export class RevolutionComponent implements OnInit {
         console.log("redirect succeeded: ", nav);
         // this.web3Service.revolutionAddress = event.target.value;
         // this.revolutionAddress = event.target.value;
-        ngOnInit();
+        this.ngOnInit();
       }, err => {
 	console.log("redirect failed: ", err);
       });

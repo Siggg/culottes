@@ -268,6 +268,7 @@ export class RevolutionComponent implements OnInit {
   public onRevolutionChange(event): void {  // event will give you full brief of action
     console.log("redirect to: /revolution/" + event.target.value);
     this.web3Service.revolutionAddress = event.target.value;
+    this.revolutionAddress = event.target.value;
     this.router.navigateByUrl('/revolution/' + event.target.value)
       .then( nav => {
         console.log("redirect succeeded: ", nav);

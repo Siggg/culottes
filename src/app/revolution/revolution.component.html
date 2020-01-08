@@ -1,14 +1,14 @@
 <div>
-
-  <h1 class="ui header">Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</h1>
+  <h1 class="ui header">{{ hashtag }}</h1>
+  <p><strong>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</strong></p>
 
  <div class="ui segment" id="discuss">
-  <h2 class="ui header">1. Who does or does not match this criteria?</h2>
-  <div class="content">Discuss it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on Twitter <span id="hashtag">{{ hashtag }}</span></a>.</div>
+  <h3 class="ui header">1. Who does or does not match this criteria?</h3>
+  <div class="content">Discover and discuss it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline.</div>
  </div>
  
  <div class="ui segment" id="add">
-  <h2 class="ui header">2. What's their unique Ethereum address to be put on trial?</h2>
+  <h3 class="ui header">2. What's their unique Ethereum address to be put on trial?</h3>
   <div class="content"><a routerLink="/citizen">
    <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
     <i class="envelope scale icon"></i>
@@ -18,7 +18,7 @@
  </div>
 
  <div class="ui segment" id="vote">
-  <h2 class="ui header">3. Vote and bet on their trial, see consensual verdicts</h2>
+  <h3 class="ui header">3. Vote and bet on their trial, see consensual verdicts</h3>
   <div class="ui relaxed celled list">
    <div class="item">
     <div class="content">
@@ -43,7 +43,7 @@
  </div>
 
  <div class="ui segment" id="trust">
-  <h2 class="ui header">4. How much can you trust this app?</h2>
+  <h3 class="ui header">4. How much can you trust this app?</h3>
   <div class="ui segment form" id="criteriaLabel">
  
   <p> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille reserve of this app is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the bastille is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
@@ -58,7 +58,7 @@
  </div>
 
  <div class="ui segment form">
-  <h2 class="ui header">5. Donate Eth to be distributed</h2>
+  <h3 class="ui header">5. Donate Eth to be distributed</h3>
   The bastille of this revolution collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum {{ revolutionBlockchain }} blockchain. 100% of these donations are directly re-distributed as income, minus transaction safety fees (also known as network mining fees).
 
   <div class="field">

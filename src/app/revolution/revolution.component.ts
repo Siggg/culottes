@@ -275,7 +275,7 @@ export class RevolutionComponent implements OnInit {
       }, err => {
 	console.log("redirect failed: ", err);
       });
-    window.location.reload();
+    // window.location.reload();
   }
   
   getAddress(): void { 

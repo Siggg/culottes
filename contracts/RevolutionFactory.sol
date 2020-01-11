@@ -169,7 +169,7 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     
     // check the closing  lottery
-    bool shouldClose = verdictLottery(_citizen);
+    bool shouldClose = trialLottery(_citizen);
     if(shouldClose == false) {
       // no luck this time, won't close yet, retry later
       return;
@@ -250,16 +250,16 @@ contract Revolution {
     return randomHash % _max;
   }
 
-  function verdictLottery(address payable _citizen) private returns (bool) {
+  function trialLottery(address payable _citizen) private returns (bool) {
 
     if (testingMode == true) {
       // always return true when testing
       return true;
     }
     // returns true with a 50% probability per distribution period.
-    // We will weight by the time spent during that this distribution period since the last closing attempt
+    // We will weight by the time spent during that this distribution period since the last lottery call
     // so that there is a 50% probability the trial will close over a full distribution period no
-    // matter how often the closing lottery is triggered.
+    // matter how often the trial lottery is called.
     // returns false otherwise
     uint probabilityPercent = 50;
     uint million = 1000000;

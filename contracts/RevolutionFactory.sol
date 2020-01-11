@@ -99,7 +99,7 @@ contract Revolution {
   // Start of new trial for a given citizen
   event TrialOpened(string indexed _eventName, address indexed _citizen);
   // End of trial for a given citizen
-  event TrialClosed(string indexed _eventName, address indexed _citizen);
+  event TrialClosed(string indexed _eventName, address indexed _citizen, bool _matchesCriteria);
   // New cake-vote received for a given citizen
   event VoteReceived(string indexed _eventName, address _from, address indexed _citizen, bool _vote, uint indexed _amount);
   // 
@@ -180,9 +180,6 @@ contract Revolution {
     }
   
     // let's close the trial now
-    emit TrialClosed('TrialClosed', _citizen);
-
-    // Mark the trial as closed
     Trial storage trial = trials[_citizen];
     trial.opened = false;
     // Issue a verdict : is this citizen a sans-culotte or a privileged ?
@@ -196,6 +193,7 @@ contract Revolution {
       loserScale = trial.privilegedScale;
       trial.matchesCriteria = true;
     }
+    emit TrialClosed('TrialClosed', _citizen, trial.matchesCriteria);
 
     // Compute Bastille virtual vote
     uint bastilleVote = winnerScale.amount - loserScale.amount;
@@ -248,7 +246,7 @@ contract Revolution {
 
 
   function pseudoRandomNumber(uint _max) private view returns (uint) {
-    // returns pseudo random integer number between 0 and _max
+    // returns pseudo random integer number between 0 and _max - 1
     // random integer between 0 and 1 million
     uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
     return randomHash % _max;
@@ -290,9 +288,14 @@ contract Revolution {
     if  (block.number - lastDistributionBlockNumber < distributionBlockPeriod) {
       return;
     }
-    // For each citizen trial
+    // For each citizen trial, starting at random first citizen in the list
+    uint firstCitizen = pseudoRandomNumber(citizens.length);
     for (uint i = 0; i < citizens.length; i++) {
-      address payable citizen = citizens[i];
+      uint citizenIndex = firstCitizen + i;
+      if (citizenIndex >= citizens.length) {
+        citizenIndex = citizenIndex - citizens.length;
+      }
+      address payable citizen = citizens[citizenIndex];
       Trial memory trial = trials[citizen];
       // Is the trial closed ?
       // and Was the verdict "sans-culotte" (citizen does match criteria according to winners) ?

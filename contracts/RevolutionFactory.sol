@@ -81,7 +81,7 @@ contract Revolution {
     address payable citizen;
     JusticeScale sansculotteScale;
     JusticeScale privilegedScale;
-    uint lastClosingAttemptBlock;
+    uint lastLotteryBlock;
     bool opened;
     bool matchesCriteria;
   }
@@ -143,7 +143,7 @@ contract Revolution {
       emit TrialOpened('TrialOpened', _citizen);
       citizens.push(_citizen);
       trial.citizen = _citizen;
-      trial.lastClosingAttemptBlock = block.number;
+      trial.lastLotteryBlock = block.number;
     }
 
     // select the target scale
@@ -169,10 +169,7 @@ contract Revolution {
   function closeTrial(address payable _citizen) public {
     
     // check the closing  lottery
-    bool shouldClose = closingLottery(_citizen);
-    // update attempt block number
-    Trial storage trial = trials[_citizen];
-    trial.lastClosingAttemptBlock = block.number;
+    bool shouldClose = verdictLottery(_citizen);
     if(shouldClose == false) {
       // no luck this time, won't close yet, retry later
       return;
@@ -182,6 +179,7 @@ contract Revolution {
     emit TrialClosed('TrialClosed', _citizen);
 
     // Mark the trial as closed
+    Trial storage trial = trials[_citizen];
     trial.opened = false;
     // Issue a verdict : is this citizen a sans-culotte or a privileged ?
     // By default, citizens are seen as privileged...
@@ -245,30 +243,36 @@ contract Revolution {
   }
 
 
-  function closingLottery(address payable _citizen) private view returns (bool) {
+  function pseudoRandomNumber(uint _max) private view returns (uint) {
+    // returns pseudo random integer number between 0 and _max
+    // random integer between 0 and 1 million
+    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
+    return randomHash % _max;
+  }
+
+  function verdictLottery(address payable _citizen) private returns (bool) {
 
     if (testingMode == true) {
-      // always close when testing
+      // always return true when testing
       return true;
     }
-    // returns true with a 30% probability per distribution period.
+    // returns true with a 50% probability per distribution period.
     // We will weight by the time spent during that this distribution period since the last closing attempt
-    // so that there is a 30% probability the trial will close over a full distribution period no
+    // so that there is a 50% probability the trial will close over a full distribution period no
     // matter how often the closing lottery is triggered.
     // returns false otherwise
     uint probabilityPercent = 50;
     uint million = 1000000;
     uint threshold = million * probabilityPercent / 100;
     Trial storage trial = trials[_citizen];
-    uint blocksSince = block.number - trial.lastClosingAttemptBlock;
+    uint blocksSince = block.number - trial.lastLotteryBlock;
     if (blocksSince < distributionBlockPeriod) {
       threshold *= blocksSince / distributionBlockPeriod;
       // threshold is now between 0 and probabilityPercent% of 1 million
     }
-    // random integer between 0 and 1 million
-    uint randomHash = uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp)));
-    uint randomInt = randomHash % million;
-    if(randomInt < threshold) {
+    // remember current block
+    trial.lastLotteryBlock = block.number;
+    if(pseudoRandomNumber(million) < threshold) {
       return true;
     }
     return false;

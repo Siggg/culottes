@@ -132,7 +132,11 @@ contract Revolution {
 
   function vote(bool _vote, address payable _citizen) public payable {
 
+    // can't vote on a locked revolution with an empty bastille
     require(locked == false || bastilleBalance > 0);
+    // can't vote with less than distributionAmount / 2
+    require(msg.value >= distributionAmount / 2);
+
     Trial storage trial = trials[_citizen];
     // open the trial if the vote is not the same as the verdict
     if (_vote != trial.matchesCriteria) {

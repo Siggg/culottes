@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from '../util/web3.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -21,14 +21,21 @@ export class CitizenComponent implements OnInit {
 	account: any;
 	accounth: any;
 	amount;
-	isOk = false;
+	showErrorMessageForAddress: boolean = false;
+	showErrorMessageForAmount: boolean = false;
+	confirmationProgress: number = 0;
+        confirmationPercent: number = 0;
+	transactionPending: boolean = false;
+	transactionConfirmed = false;
 	web3_eth_contract: any;
 	hashtagWithoutSymbol: String = "CulottesRevolution";
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     private web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {
+
   }
 
   async ngOnInit() {
@@ -63,11 +70,48 @@ export class CitizenComponent implements OnInit {
       .revolutionBlockchain;
   }
 
+  sendVote(vote, weiAmount) {
+    let component = this;
+    this.web3_eth_contract
+      .methods
+      .vote(vote, this.address)
+      .send({from: this.account, value: weiAmount, gas: 1000000})
+      .on('transactionHash', function(hash) {
+        component.transactionPending = true;
+        component.confirmationProgress = 0;
+	component.confirmationPercent = 0;
+        console.log('transactionHash received');
+	// component.cdRef.detectChanges();
+      })
+      .on('confirmation', function(confirmationNumber, receipt) {
+        component.transactionPending = true;
+        component.confirmationProgress += 1; //confirmationNumber; // up to 24
+	component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+        console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
+        // component.cdRef.detectChanges();
+      })
+      .on('receipt', function(receipt){
+        // receipt example
+        console.log('receipt received: ', receipt);
+	component.transactionPending = false;
+	component.transactionConfirmed = true;
+        // component.cdRef.detectChanges();
+      })
+      .on('error', console.error); // If there's an out of gas error the second parameter is the receipt.
+  }
+
   async cakeVote(vote) {
-    if (!this.amount)
-      this.isOk=true;
-    else {
-      this.isOk=false;
+    let addressIsValid = true;
+    let component = this;
+    try {
+      this.address = window.web3.utils.toChecksumAddress(this.address)
+    } catch(e) { 
+      addressIsValid = false;
+      console.error('invalid ethereum address', e.message);
+    }
+    if (this.amount && addressIsValid == true) {
+      this.showErrorMessageForAmount=false;
+      this.showErrorMessageForAddress = false;
       const weiAmount = this.web3Service.etherToWei(this.amount.toString());
       console.log("Stake (in wei): " + weiAmount.toString());
       if (this.account == undefined) {
@@ -77,8 +121,8 @@ export class CitizenComponent implements OnInit {
           await window.ethereum.enable().then(() =>  {
             window.web3.eth.getAccounts((err, accs) => {
               this.account = accs[0];
-              console.log("Accounts refreshed: " + this.account);
-              this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount, gas: 1000000});
+              console.log("Accounts refreshed, vote by: " + this.account);
+	      this.sendVote(vote, weiAmount);
             });
           });
         } catch (error) {
@@ -86,7 +130,18 @@ export class CitizenComponent implements OnInit {
         }
       } else {
         console.log("Vote by: " + this.account);
-        this.web3_eth_contract.methods.vote(vote, this.address).send({from: this.account, value: weiAmount, gas: 1000000});
+	this.sendVote(vote, weiAmount);
+      }
+    } else {
+      if (!this.amount) {
+        this.showErrorMessageForAmount = true;
+      } else {
+	this.showErrorMessageForAmount = false;
+      }
+      if (!this.address || addressIsValid == false) {
+        this.showErrorMessageForAddress = true;
+      } else {
+	this.showErrorMessageForAddress = false;
       }
     }
   }
@@ -100,7 +155,7 @@ export class CitizenComponent implements OnInit {
   }
 
   getAddress(): void {
-	this.address = this.route.snapshot.paramMap.get('address');
+    this.address = this.route.snapshot.paramMap.get('address');
   }
 
   async watchAccount() {

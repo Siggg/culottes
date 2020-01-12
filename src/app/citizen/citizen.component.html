@@ -7,6 +7,11 @@
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Cipher." />
  </div>
 
+  <div *ngIf="showErrorMessageForAddress" class="ui negative message">
+   <div class="header">Forbidden address</div>
+      <p>This field should contain a valid Ethereum address (starting with 0x). You may copy it from your Ethereum browser or wallet such as Metamask on PC or Cipher or mobile.</p>
+ </div>
+
  <div class="field">
   <label>How much ether are you staking on this vote ?</label>
   <div class="ui right labeled input">
@@ -26,11 +31,9 @@
    </select>
   </div>
   
-  <div *ngIf="isOk">
-    <div class="error message">
-      <div class="header">Forbidden value</div>
-      <p>Should not be empty. Should only contain a number or a valid Ethereum address.</p>
-    </div>
+  <div *ngIf="showErrorMessageForAmount" class="ui negative message">
+   <div class="header">Forbidden amount</div>
+      <p>This field should contain a valid number of ETH. Decimals are separated using a dot, not a comma.</p>
   </div>
  </div>
 
@@ -43,14 +46,25 @@
   </div>
  </div>
 
+ <div *ngIf="transactionPending || transactionConfirmed" class="ui segment">
+	 <!-- class="ui progress" attr.data-value="{{ confirmationProgress }}" data-total="24" attr.data-percent_="{{ confirmationPercent }}" id="transactionProgress">
+	 <div class="bar" style="transition-duration: 300ms;" attr.width="{{ confirmationPercent +10 }}%">
+	  <div class="progress">{{ confirmationProgress }} / 24</div>
+  </div-->
+  <div class="label" *ngIf="transactionPending">You can go to step 3 below, or leave this page while the recording of your vote is being confirmed on the blockchain. {{ confirmationProgress }} / 24 confirmations received.</div>
+  <div class="label" *ngIf="transactionConfirmed">Vote confirmation fully completed. It should be taken into account on the home page now.</div>
+ </div>
+ <div *ngIf="transactionPending || transactionConfirmed">
  <h2 class="ui header">3. Tweet why you voted so about this address</h2>
  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I voted YES for {{ (address | slice:0:10) }} because [...]"</a></p>
- <h2 class="ui header">4. Go <a routerLink="/revolution">back to the home page</a> and wait for your browser to confirm your vote transaction, then reload the home page to see new verdicts</h2>
+ <h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is fully confirmed.</h2>
+ </div>
  <h3 class="ui header">More details about verdicts</h3>
  <div class="ui icon">
    <i class="icon balance scale"></i>
-   Your vote may randomly close their trial. When their trial closes, the YES stakes and the NO stakes are summed and compared. The verdict is issued accordingly. The loosing voters loose their stakes. The bastille takes a share of the lost stakes as a tax. And the rest of the lost stakes are shared among winning voters proportionately to their winning stakes, which they also get back (minus transaction safety fees). Read <a href="https://siggg.gitlab.io/culottes/rules/#step-5-verdict-and-rewards">step 5 of the rules of the Culottes board game</a> for a better understanding of the behavior of this revolution when issuing verdicts and distributing vote stakes. If you can read source code, you can also audit <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#code">the smart contract of this revolution and its detailed parameters</a>.
+   Your vote may randomly close their trial (50% chance of verdict per distribution period). When their trial closes, the YES stakes and the NO stakes are summed and compared. The verdict is issued accordingly. The loosing voters loose their stakes. The bastille takes a share of the lost stakes as a tax. And the rest of the lost stakes are shared among winning voters proportionately to their winning stakes, which they also get back (minus transaction safety fees). Read <a href="https://siggg.gitlab.io/culottes/rules/#step-5-verdict-and-rewards">step 5 of the rules of the Culottes board game</a> for a better understanding of the behavior of this revolution when issuing verdicts and distributing vote stakes. If you can read source code, you can also audit <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#code">the smart contract of this revolution and its detailed parameters</a>.
  </div> 
+
  
  <div class="results"></div>
 </form>

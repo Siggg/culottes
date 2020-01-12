@@ -62,6 +62,12 @@ contract('RevolutionFactory', function(accounts) {
     expect(status.sansculotteScale.toNumber()).to.equal(0);
     expect(status.privilegedScale.toNumber()).to.equal(0);
 
+    // Let's cast an invalid vote
+
+    assertRevert(
+      revolution.vote(true, citizen, {value: 1}),
+      "Can't vote with less than distributionAmount / 2");
+
     // Let's cast a vote
     
     let receipt = await revolution.vote(true, citizen, {value: 100});
@@ -179,23 +185,23 @@ contract('RevolutionFactory', function(accounts) {
     
     // votes
     
-    await revolution.vote(true, citizen, {from: A, value: 1});
-    await revolution.vote(true, citizen, {from: B, value: 2});
-    await revolution.vote(true, citizen, {from: C, value: 3});
+    await revolution.vote(true, citizen, {from: A, value: 10});
+    await revolution.vote(true, citizen, {from: B, value: 20});
+    await revolution.vote(true, citizen, {from: C, value: 30});
 
     // after votes
 
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotteScale.toNumber()).to.equal(6);
+    expect(status.sansculotteScale.toNumber()).to.equal(60);
     expect(status.privilegedScale.toNumber()).to.equal(0);
     expect(status.opened).to.equal(true);
 
-    await revolution.vote(false, citizen, {from: D, value: 2});
-    await revolution.vote(false, citizen, {from: E, value: 2});
+    await revolution.vote(false, citizen, {from: D, value: 20});
+    await revolution.vote(false, citizen, {from: E, value: 20});
 
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotteScale.toNumber()).to.equal(6);
-    expect(status.privilegedScale.toNumber()).to.equal(4);
+    expect(status.sansculotteScale.toNumber()).to.equal(60);
+    expect(status.privilegedScale.toNumber()).to.equal(40);
     expect(status.opened).to.equal(true);
     
     // before closing trial
@@ -206,8 +212,8 @@ contract('RevolutionFactory', function(accounts) {
     let bastilleBalanceBeforeClosing = await revolution.bastilleBalance();
     let revolutionBalanceBeforeClosing = await web3.eth.getBalance(revolution.address);
 
-    // The revolution received 1+2+3+2+2 = 10 cakes as votes and sent none.
-    expect(web3.utils.toBN(revolutionBalanceBeforeClosing).sub(web3.utils.toBN(revolutionBalanceBeforeVotes)).toNumber()).to.equal(10);
+    // The revolution received 10 + 20 + 30 + 20 + 20 = 100 cakes as votes and sent none.
+    expect(web3.utils.toBN(revolutionBalanceBeforeClosing).sub(web3.utils.toBN(revolutionBalanceBeforeVotes)).toNumber()).to.equal(100);
     // None of these cakes went to the Bastille before the closing of the trial.
     expect(web3.utils.toBN(bastilleBalanceBeforeClosing).sub(web3.utils.toBN(bastilleBalanceBeforeVotes)).toNumber()).to.equal(0);
 
@@ -225,16 +231,16 @@ contract('RevolutionFactory', function(accounts) {
 
     // Winners should have got their winning cakes back and should have received a fair share
     // of the lost cakes, as rewards.
-    expect(web3.utils.toBN(aBalanceAfterClosing).sub(web3.utils.toBN(aBalanceBeforeClosing)).toNumber()).to.equal(1+0);
-    expect(web3.utils.toBN(bBalanceAfterClosing).sub(web3.utils.toBN(bBalanceBeforeClosing)).toNumber()).to.equal(2+1);
-    expect(web3.utils.toBN(cBalanceAfterClosing).sub(web3.utils.toBN(cBalanceBeforeClosing)).toNumber()).to.equal(3+1);
-    // The Bastille should have got 1 of the lost cakes.
-    expect(web3.utils.toBN(bastilleBalanceAfterClosing).sub(web3.utils.toBN(bastilleBalanceBeforeClosing)).toNumber()).to.equal(2);
+    expect(web3.utils.toBN(aBalanceAfterClosing).sub(web3.utils.toBN(aBalanceBeforeClosing)).toNumber()).to.equal(10 + 5);
+    expect(web3.utils.toBN(bBalanceAfterClosing).sub(web3.utils.toBN(bBalanceBeforeClosing)).toNumber()).to.equal(20 + 10);
+    expect(web3.utils.toBN(cBalanceAfterClosing).sub(web3.utils.toBN(cBalanceBeforeClosing)).toNumber()).to.equal(30 + 15);
+    // The Bastille should have got 10 of the lost cakes.
+    expect(web3.utils.toBN(bastilleBalanceAfterClosing).sub(web3.utils.toBN(bastilleBalanceBeforeClosing)).toNumber()).to.equal(10);
     // The Revolution should manage less cakes :
     // - winning cakes should have been sent back to winners
-    // - lost cakes but 1 should have been shared among winners
-    // - the Bastille should have received 1 cakes that's still managed by the Revolution contract
-    expect(web3.utils.toBN(revolutionBalanceAfterClosing).sub(web3.utils.toBN(revolutionBalanceBeforeClosing)).toNumber()).to.equal(-1-2-3-4+2);
+    // - lost cakes should have been shared among winners
+    // - the Bastille should have received 10 cakes that's still managed by the Revolution contract
+    expect(web3.utils.toBN(revolutionBalanceAfterClosing).sub(web3.utils.toBN(revolutionBalanceBeforeClosing)).toNumber()).to.equal(-10 - 20 - 30 - 40 + 10);
 
     status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(0);
@@ -299,14 +305,14 @@ contract('RevolutionFactory', function(accounts) {
     
     // votes should succeed when revolution locked and bastille not empty
     
-    await revolution.vote(true, citizen, {from: A, value: 5});
+    await revolution.vote(true, citizen, {from: A, value: 50});
     
-    await revolution.vote(false, citizen, {from: B, value: 2});
+    await revolution.vote(false, citizen, {from: B, value: 20});
     expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(await revolution.bastilleBalance())).toNumber()).to.equal(0);
     
     status = await revolution.trialStatus(citizen);
-    expect(status.sansculotteScale.toNumber()).to.equal(5);
-    expect(status.privilegedScale.toNumber()).to.equal(2);
+    expect(status.sansculotteScale.toNumber()).to.equal(50);
+    expect(status.privilegedScale.toNumber()).to.equal(20);
     expect(status.opened).to.equal(true);
     
     revolution.closeTrial(citizen);
@@ -317,19 +323,19 @@ contract('RevolutionFactory', function(accounts) {
     
     // distribution should succeed but only after 3 blocks
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(40);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(55);
     
     console.log("Block number = " + await web3.eth.getBlockNumber());
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(33);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(48);
 
     console.log("Block number = " + await web3.eth.getBlockNumber());
     console.log("distribute");
     await revolution.distribute();
      
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(33);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(48);
     
     // i.e. no distribution yet
 
@@ -355,7 +361,7 @@ contract('RevolutionFactory', function(accounts) {
     await revolution.distribute();
     
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(26);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(41);
     
     await advanceBlock();
     await advanceBlock();
@@ -364,7 +370,7 @@ contract('RevolutionFactory', function(accounts) {
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(19);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(34);
     
     await advanceBlock();
     await advanceBlock();
@@ -373,7 +379,7 @@ contract('RevolutionFactory', function(accounts) {
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(12);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(27);
     
     await advanceBlock();
     await advanceBlock();
@@ -382,9 +388,27 @@ contract('RevolutionFactory', function(accounts) {
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(5);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(20);
+
+    await advanceBlock();
+    await advanceBlock();
+    await advanceBlock();
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
+    await revolution.distribute();
     
-    // even if bastille balance (4) is less than distribution amount (7)
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(13);
+
+    await advanceBlock();
+    await advanceBlock();
+    await advanceBlock();
+    console.log("Block number = " + await web3.eth.getBlockNumber());
+    console.log("distribute");
+    await revolution.distribute();
+    
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(6);
+    
+    // even if bastille balance (6) is less than distribution amount (7)
     
     await advanceBlock();
     await advanceBlock();

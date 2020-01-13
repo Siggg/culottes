@@ -24,14 +24,15 @@ export class CitizenComponent implements OnInit {
 	showErrorMessageForAddress: boolean = false;
 	showErrorMessageForAmount: boolean = false;
 	confirmationProgress: number = 0;
-        confirmationPercent: number = 0;
+  confirmationPercent: number = 0;
 	transactionPending: boolean = false;
+	showErrorMessageForVote: boolean = true;
+  errorDuringVote: String = "";
 	transactionConfirmed = false;
 	web3_eth_contract: any;
 	hashtagWithoutSymbol: String = "CulottesRevolution";
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     private web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {
@@ -81,23 +82,24 @@ export class CitizenComponent implements OnInit {
         component.confirmationProgress = 0;
 	component.confirmationPercent = 0;
         console.log('transactionHash received');
-	// component.cdRef.detectChanges();
       })
       .on('confirmation', function(confirmationNumber, receipt) {
         component.transactionPending = true;
         component.confirmationProgress += 1; //confirmationNumber; // up to 24
 	component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
         console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
-        // component.cdRef.detectChanges();
       })
       .on('receipt', function(receipt){
         // receipt example
         console.log('receipt received: ', receipt);
 	component.transactionPending = false;
 	component.transactionConfirmed = true;
-        // component.cdRef.detectChanges();
       })
-      .on('error', console.error); // If there's an out of gas error the second parameter is the receipt.
+      .on('error', function(error, receipt){
+        console.error;
+        this.showErrorMessageForVote = true;
+        this.errorDuringVote = error;
+      }); // If there's an out of gas error the second parameter is the receipt.
   }
 
   async cakeVote(vote) {

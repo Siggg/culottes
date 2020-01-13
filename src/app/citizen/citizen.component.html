@@ -46,13 +46,20 @@
   </div>
  </div>
 
+ <div *ngIf="showErrorMessageForVote" class="ui negative message">
+  <div class="content">
+   <div class="header">Vote failed</div>
+   <p>{{ errorDuringVote }}</p>
+  </div>
+ </div>
+
  <div *ngIf="transactionPending" class="ui positive message">
   <div class="content">
    <div class="header">Vote confirmation started</div>
    <p>You can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. {{ confirmationProgress }} / 24 confirmations received.</p>
   </div>
  </div>
-
+        
  <div *ngIf="transactionConfirmed" class="ui positive message">
   <div class="content">
    <div class="header">Vote fully confirmed</div>

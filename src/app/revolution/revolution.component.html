@@ -171,4 +171,10 @@
  </div>
  Technical details:  <div class="content" [innerHTML]="web3Status">
   </div>
+  
+ <div class="ui segment">
+  <div class="content" *ngFor="let cEvent of contractEvents">
+  {{ cEvent }}
+  </div>
+ </div>
 </div>

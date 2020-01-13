@@ -101,7 +101,7 @@ contract Revolution {
   // End of trial for a given citizen
   event TrialClosed(string indexed _eventName, address indexed _citizen, bool _matchesCriteria);
   // New cake-vote received for a given citizen
-  event VoteReceived(string indexed _eventName, address _from, address indexed _citizen, bool _vote, uint indexed _amount);
+  event VoteReceived(string indexed _eventName, address indexed _from, address indexed _citizen, bool _vote, uint _amount);
   // 
   event Distribution(string indexed _eventName, address indexed _citizen, uint _distributionAmount);
 

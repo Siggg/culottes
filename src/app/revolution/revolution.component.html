@@ -34,8 +34,8 @@
        <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word">{{ citizen.address }}</span></a>
       </div>
       <a [routerLink]="['/citizen', citizen.address]"><div *ngIf="citizen.opened" class="ui tag label">No consensual verdict yet: {{ citizen.sansculotteScale / 1000000000000000000 }} ETH on YES vs. {{ citizen.privilegedScale / 1000000000000000000 }} ETH on NO</div>
-	      <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> Consensual verdict: YES, they are.{{ (citizen.sansculotteScale != 0) ? 'And '+(citizen.sansculotteScale / 1000000000000000000)+' ETH is on YES.':'' }}</div>
-      <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> Consensual verdict: NO, they are not.{{ (citizen.privilegedScale != 0) ? 'And '+(citizen.privilegedScale / 1000000000000000000)+' ETH is on NO.':'' }}</div>
+	      <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> Consensual verdict: YES, they are.{{ (citizen.sansculotteScale != 0) ? ' And '+(citizen.sansculotteScale / 1000000000000000000)+' ETH is still on YES.':'' }}</div>
+      <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> Consensual verdict: NO, they are not.{{ (citizen.privilegedScale != 0) ? ' And '+(citizen.privilegedScale / 1000000000000000000)+' ETH is still on NO.':'' }}</div>
       <button class="ui left labeled icon button secondary" data-tooltip="Click to vote and bet." data-position="top right"><i class="envelope icon"></i><span *ngIf="citizen.opened">Cast your vote and bet: YES or NO ?</span><span *ngIf="!citizen.opened">Re-open their trial</span></button></a>
     </div>
    </div>
@@ -171,10 +171,30 @@
  </div>
  Technical details:  <div class="content" [innerHTML]="web3Status">
   </div>
-  
- <div class="ui segment">
-  <div class="content" *ngFor="let cEvent of contractEvents">
-  event : {{ cEvent }}
-  </div>
+</div>
+
+<div class="ui segment">
+ <div class="content">
+  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">The history of events of this revolution can be audited here.</a>
+ </div>
+ <div class="content" *ngIf="false"> <!-- *ngFor="let cEvent of contractEvents"-->
+  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">block #{{ cEvent.blockNumber }}: 
+  <span *ngIf="cEvent.event == 'RevolutionCreated'">
+	  this {{ cEvent.returnValues._hashtag }} revolution was created.
+  </span>
+  <span *ngIf="cEvent.event == 'TrialOpened'">
+   the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was opened.
+  </span>
+  <span *ngIf="cEvent.event == 'TrialClosed'">
+   the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria }}.
+  </span>
+  <span *ngIf="cEvent.event == 'VoteReceived'">
+   {{ cEvent.returnValues._from | slice:0:8 }} voted {{ cEvent.returnValues._vote }} with {{ cEvent.returnValues._amount }} Wei about {{ cEvent.returnValues._citizen | slice:0:8 }}.
+  </span>
+  <span *ngIf="cEvent.event == 'Distribution'">
+   {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.
+  </span>
+  </a>
  </div>
 </div>
+

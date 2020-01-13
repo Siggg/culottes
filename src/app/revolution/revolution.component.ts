@@ -38,6 +38,7 @@ export class RevolutionComponent implements OnInit {
   web3ModalActivity: String = "";
   lockModalActivity: String = "";
   otherRevolutions = {};
+  contractEvents: any;
 
   constructor(
     private web3Service: Web3Service,

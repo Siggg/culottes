@@ -2,7 +2,7 @@
 
 https://siggg.github.io/culottes
 
-(Use a web3 browser such as Firefox with Metamask add-on or Coinbase Wallet on mobile)
+(Use a web3/dapp/Ethereum browser such as Firefox with Metamask add-on on PC or Cipher on mobile)
 
 # Demo use case
 

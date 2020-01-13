@@ -152,7 +152,7 @@ export class RevolutionComponent implements OnInit {
         var seconds = blocks * 15; // about 15 seconds per block
         if (seconds < 60) {
           this.distributionPeriodUnit = "seconds";
-	  this.distributionPeriod = seconds;
+          this.distributionPeriod = seconds;
         } else if (seconds < 3600) {
           this.distributionPeriodUnit = "minutes";
           this.distributionPeriod = seconds / 60;
@@ -219,7 +219,19 @@ export class RevolutionComponent implements OnInit {
       i += 1;
     }
     // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
-    
+    this.contractEvents = await web3_eth_contract
+      .methods
+      .getPastEvents("allEvents")
+      .then( (events) => {
+        console.log(events);
+      })
+      .catch( (error) => {
+        console.error(error);
+        this
+          .web3Service
+          .web3Status
+          .next("An error occured while reading past events: " + error);
+      });
   }
 
   async watchAccount() {

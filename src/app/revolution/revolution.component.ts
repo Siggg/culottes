@@ -221,7 +221,6 @@ export class RevolutionComponent implements OnInit {
     }
     // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
     this.contractEvents = await web3_eth_contract
-      .methods
       .getPastEvents("allEvents")
       .then( (events) => {
         console.log(events);

@@ -172,6 +172,7 @@
  <div class="header">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">History of events of this revolution:</a>
  </div>
+ <div *ngIf="contractEvents">
  <div class="content" *ngFor="let cEvent of contractEvents.slice().reverse()">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">#{{ cEvent.blockNumber }}: 
   <span *ngIf="cEvent.event == 'RevolutionCreated'">
@@ -190,6 +191,7 @@
    {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.
   </span>
   </a>
+ </div>
  </div>
 </div>
 

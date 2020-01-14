@@ -179,7 +179,7 @@
 	  this {{ cEvent.returnValues._hashtag }} revolution was created.
   </span>
   <span *ngIf="cEvent.event == 'TrialOpened'">
-   the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was opened.
+   the trial of {{ cEvent.raw.topics[2] | slice:0:8 }} was opened.
   </span>
   <span *ngIf="cEvent.event == 'TrialClosed'">
    the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria ? 'YES' : 'NO' }}.

@@ -44,9 +44,8 @@
 
  <div class="ui segment" id="trust">
   <h3 class="ui header">4. How much can you trust this app?</h3>
-  <div class="ui segment form" id="criteriaLabel">
  
-  <p> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille reserve of this app is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the bastille is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
+  <p id="criteriaLabel"> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless the bastille reserve of this app is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the bastille is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
 
   <p> These rules (and more detailed rules) are hard-coded into a smart contract running on the public Ethereum blockchain. This smart contract may still contain bugs or design flaws or security vulnerabilities. But <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">you can read and verify its open source code and history of transactions (votes, distributions, ...) on the Etherem blockchain using a blockchain explorer such as Etherscan</a>. The current web interface you are using does not come from the blockchain itself but <a href="https://github.com/siggg/culottes">you can check its open source code from your web browser and on github</a>. And <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/dapp/{{ revolutionAddress }}">you can use an alternative web interface to interact with the contract (voting, donating, ...) such as the dapp view offered by Etherscan even though it is less convenient</a>. You can trust your coding skills if you have any or ask a skillful friend or trust the crowd or pay an audit firm. You can also trust any malicious hacker to study this technology and to quickly exploit any defect to grab the money in this app before you even know. In the end the code is 100% verifiable in a fairly trustable way. And time will tell how secure it is. </p>
  
@@ -55,7 +54,7 @@
  <p> You can challenge and discuss this publicly <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on Twitter <span id="hashtag">{{ hashtag }}</span></a>.Tell how much you can or cannot trust this app!</p>
 
  <p> Conclusion : you can reasonably trust this app at least for small amount of money and low-stake votes.</p>
- </div>
+</div>
 
  <div class="ui segment form">
   <h3 class="ui header">5. Donate Eth to be distributed</h3>
@@ -89,6 +88,7 @@
  </div>
 
  <div class="ui segment">Status:
+  <div [innerHTML]="web3Status"></div>
   <div class="field">
    <label>Address of this revolution</label>
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
@@ -100,8 +100,6 @@
    </select>
   </div>
  </div>
- <div [innerHTML]="web3Status"></div>
-</div>
 
 <div class="ui {{ lockModalActivity }} modal">
   <div class="ui icon header">

@@ -170,16 +170,16 @@
 
 <div class="ui segment">
  <div class="header">
-  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">History of events of this revolution:</a>
+  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">Events of this revolution:</a>
  </div>
  <div *ngIf="contractEvents">
  <div class="content" *ngFor="let cEvent of contractEvents.slice().reverse()">
-  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">#{{ cEvent.blockNumber }}: 
+  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">#{{ cEvent.blockNumber }}{{ cEvent.logIndex ? ',' + cEvent.logIndex : '' }}: 
   <span *ngIf="cEvent.event == 'RevolutionCreated'">
 	  this {{ cEvent.returnValues._hashtag }} revolution was created.
   </span>
   <span *ngIf="cEvent.event == 'TrialOpened'">
-   the trial of {{ cEvent.raw.topics[2] | slice:0:8 }} was opened.
+   a trial opened. {{ cEvent }}
   </span>
   <span *ngIf="cEvent.event == 'TrialClosed'">
    the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria ? 'YES' : 'NO' }}.
@@ -188,7 +188,7 @@
    {{ cEvent.returnValues._citizen | slice:0:8 }} received a  {{ cEvent.returnValues._vote ? 'YES' : 'NO' }} vote.
   </span>
   <span *ngIf="cEvent.event == 'Distribution'">
-   {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.
+   {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} ETH was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.
   </span>
   </a>
  </div>

@@ -177,7 +177,7 @@
  <div class="content">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">The history of events of this revolution can be audited here.</a>
  </div>
- <div class="content" *ngIf="false"> <!-- *ngFor="let cEvent of contractEvents"-->
+ <div class="content" *ngFor="let cEvent of contractEvents">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">block #{{ cEvent.blockNumber }}: 
   <span *ngIf="cEvent.event == 'RevolutionCreated'">
 	  this {{ cEvent.returnValues._hashtag }} revolution was created.
@@ -186,10 +186,10 @@
    the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was opened.
   </span>
   <span *ngIf="cEvent.event == 'TrialClosed'">
-   the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria }}.
+   the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria ? 'YES' : 'NO' }}.
   </span>
   <span *ngIf="cEvent.event == 'VoteReceived'">
-   {{ cEvent.returnValues._from | slice:0:8 }} voted {{ cEvent.returnValues._vote }} with {{ cEvent.returnValues._amount }} Wei about {{ cEvent.returnValues._citizen | slice:0:8 }}.
+   {{ cEvent.returnValues._from | slice:0:8 }} voted {{ cEvent.returnValues._vote ? 'YES' : 'NO' }} about {{ cEvent.returnValues._citizen | slice:0:8 }}.
   </span>
   <span *ngIf="cEvent.event == 'Distribution'">
    {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.

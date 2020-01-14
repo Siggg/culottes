@@ -185,7 +185,7 @@
    the trial of {{ cEvent.returnValues._citizen | slice:0:8 }} was closed. The verdict is {{ cEvent.returnValues._matchesCriteria ? 'YES' : 'NO' }}.
   </span>
   <span *ngIf="cEvent.event == 'VoteReceived'">
-   {{ cEvent.returnValues._from | slice:0:8 }} voted {{ cEvent.returnValues._vote ? 'YES' : 'NO' }} about {{ cEvent.returnValues._citizen | slice:0:8 }}.
+   {{ cEvent.returnValues._citizen | slice:0:8 }} received a  {{ cEvent.returnValues._vote ? 'YES' : 'NO' }} vote.
   </span>
   <span *ngIf="cEvent.event == 'Distribution'">
    {{ cEvent.returnValues._distributionAmount /  1000000000000000000 }} was distributed to {{ cEvent.returnValues._citizen | slice:0:8 }}.

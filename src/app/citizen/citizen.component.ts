@@ -26,7 +26,7 @@ export class CitizenComponent implements OnInit {
 	confirmationProgress: number = 0;
   confirmationPercent: number = 0;
 	transactionPending: boolean = false;
-	showErrorMessageForVote: boolean = true;
+	showErrorMessageForVote: boolean = false;
   errorDuringVote: String = "";
 	transactionConfirmed = false;
 	web3_eth_contract: any;

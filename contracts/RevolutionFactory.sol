@@ -134,8 +134,8 @@ contract Revolution {
 
     // can't vote on a locked revolution with an empty bastille
     require(locked == false || bastilleBalance > 0);
-    // can't vote with less than distributionAmount / 2
-    require(msg.value >= distributionAmount / 2);
+    // can't vote with less than distributionAmount / 10
+    require(msg.value >= distributionAmount / 10);
 
     Trial storage trial = trials[_citizen];
     // open the trial if the vote is not the same as the verdict

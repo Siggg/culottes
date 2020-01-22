@@ -17,6 +17,7 @@ export class CitizenComponent implements OnInit {
 	revolutionAddress: String = "0x0000...";
 	revolutionBlockchain: String = "";
 	criteria: String = "default criteria from citizen.component.ts";
+	distributionAmount: number = 0;
 	culottes: any;
 	account: any;
 	accounth: any;
@@ -39,36 +40,57 @@ export class CitizenComponent implements OnInit {
 
   }
 
+
   async ngOnInit() {
     this.getAddress();
     this.watchAccount();
     this.web3Service.artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
-  	this.web3_eth_contract = web3_eth_contract;
-	return web3_eth_contract.methods.criteria().call();
-        })
+  	    this.web3_eth_contract = web3_eth_contract;
+	      return web3_eth_contract.methods.criteria().call();
+      })
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
-        });
-    this.web3Service.artifactsToContract(contractABI)
-      .then((web3_eth_contract) => {
-        this.web3_eth_contract = web3_eth_contract;
-        return web3_eth_contract.methods.hashtag().call();
-        })
-      .then((hashtag) => {
-	if (hashtag != null && hashtag.length>0) {
-          this.hashtagWithoutSymbol = hashtag.substring(1);
-	} else {
-	  this.hashtagWithoutSymbol = "CulottesRevolution";
-	}
       });
-    this.revolutionAddress = this
-      .web3Service
-      .revolutionAddress;
-    this.revolutionBlockchain = this
-      .web3Service
-      .revolutionBlockchain;
+      this.web3Service
+        .artifactsToContract(contractABI)
+        .then((web3_eth_contract) => {
+          this.web3_eth_contract = web3_eth_contract;
+          this.distributionAmount = await web3_eth_contract
+      .methods
+      .distributionAmount()
+      .call()
+      .then( (result) => {
+	      if (result === null) {
+    	  /* this
+          .web3Service
+          .web3Status
+          .next("distributionAmount at this bastille is null!");*/
+	        this
+	          .web3Service
+	          .statusError = true;
+	      } else {
+	        return this
+            .web3Service
+	          .weiToEther(result);
+	      }
+      });
+          return web3_eth_contract.methods.hashtag().call();
+        })
+        .then((hashtag) => {
+          if (hashtag != null && hashtag.length>0) {
+            this.hashtagWithoutSymbol = hashtag.substring(1);
+          } else {
+            this.hashtagWithoutSymbol = "CulottesRevolution";
+          }
+        });
+      this.revolutionAddress = this
+        .web3Service
+        .revolutionAddress;
+      this.revolutionBlockchain = this
+        .web3Service
+        .revolutionBlockchain;
   }
 
   sendVote(vote, weiAmount) {

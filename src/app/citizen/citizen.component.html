@@ -15,7 +15,7 @@
  <div class="field">
   <label>How much ether are you staking on this vote ?</label>
   <div class="ui right labeled input">
-   <input [(ngModel)]="amount" type="number" name="amount" placeholder="0.00 Enter amount" />
+   <input [(ngModel)]="amount" type="number" name="amount" placeholder="{{ distributionAmount / 10 }} Minimum amount to bet" />
    <div class="ui label">ETH</div>
   </div>
   <div class="ui action input">

@@ -6,9 +6,12 @@ const assertRevert = require('./assertRevert').assertRevert;
 const desiredHashtag = "#ADesiredHashtag";
 const desiredCriteria = "a desired criteria";
 const desiredDistributionBlockPeriod = 3;
-const desiredDistributionAmount = 7;
+const desiredDistributionAmount = 70;
 
 contract('RevolutionFactory', function(accounts) {
+
+
+
 
   it("Init", async function() {
     const revolutionFactory = await RevolutionFactory.deployed();
@@ -47,6 +50,9 @@ contract('RevolutionFactory', function(accounts) {
 
   });
 
+
+
+
   it("Vote", async function() {
     const revolutionFactory = await RevolutionFactory.deployed();
     await revolutionFactory.createRevolution(desiredCriteria, desiredHashtag, desiredDistributionBlockPeriod, desiredDistributionAmount, true);
@@ -65,8 +71,8 @@ contract('RevolutionFactory', function(accounts) {
     // Let's cast an invalid vote
 
     assertRevert(
-      revolution.vote(true, citizen, {value: 1}),
-      "Can't vote with less than distributionAmount / 2");
+      revolution.vote(true, citizen, {value: desiredDistributionAmount / 10 - 1}),
+      "Can't vote with less than distributionAmount / 10");
 
     // Let's cast a vote
     
@@ -101,6 +107,9 @@ contract('RevolutionFactory', function(accounts) {
     expect(status2.matchesCriteria).to.equal(false);
     
   });
+
+
+
 
   it("Vote closing", async function() {
     const revolutionFactory = await RevolutionFactory.deployed();
@@ -148,6 +157,9 @@ contract('RevolutionFactory', function(accounts) {
     expect(status.matchesCriteria).to.equal(false);
 
   });
+  
+  
+  
 
   it("Play", async function() {
     let blockNumber = await web3.eth.getBlockNumber();
@@ -270,7 +282,7 @@ contract('RevolutionFactory', function(accounts) {
     let citizenBalanceAfterDistribution = await web3.eth.getBalance(citizen);
     console.log('citizenBalanceAfterDistribution: ', citizenBalanceAfterDistribution);
 
-    let distributionAmount = 7; // set in migrations script at the moment
+    let distributionAmount = desiredDistributionAmount;
     expect(web3.utils.toBN(citizenBalanceAfterDistribution).sub(web3.utils.toBN(citizenBalanceBeforeDistribution)).toNumber()).to.equal(distributionAmount);
     expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);

@@ -34,7 +34,7 @@
        <a href="#" (click)="fullCAddressShown = !fullCAddressShown"><span *ngIf="!fullCAddressShown">{{ (citizen.address.length>8)? (citizen.address | slice:0:8)+'...':(citizen.address) }}</span><span *ngIf="fullCAddressShown" style="word-wrap: break-word">{{ citizen.address }}</span></a>
       </div>
       <a [routerLink]="['/citizen', citizen.address]"><div *ngIf="citizen.opened" class="ui tag label">No consensual verdict yet: {{ citizen.sansculotteScale / 1000000000000000000 }} ETH on YES vs. {{ citizen.privilegedScale / 1000000000000000000 }} ETH on NO</div>
-	      <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> Consensual verdict: YES, they are.{{ (citizen.sansculotteScale != 0) ? ' And '+(citizen.sansculotteScale / 1000000000000000000)+' ETH is still on YES.':'' }}</div>
+	      <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> Consensual verdict: YES, they are.{{ (citizen.sansculotteScale != 0) ? ' And '+(citizen.sansculotteScale / 1000000000000000000)+' ETH more is on YES.':'' }}</div>
       <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> Consensual verdict: NO, they are not.{{ (citizen.privilegedScale != 0) ? ' And '+(citizen.privilegedScale / 1000000000000000000)+' ETH is still on NO.':'' }}</div>
       <button class="ui left labeled icon button secondary" data-tooltip="Click to vote and bet." data-position="top right"><i class="envelope icon"></i><span *ngIf="citizen.opened">Cast your vote and bet: YES or NO ?</span><span *ngIf="!citizen.opened">Re-open their trial</span></button></a>
     </div>

@@ -263,16 +263,6 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     expect(sansculotteAmount.toNumber()).to.equal(0);
     privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(0);
-    
-  console.log();
-  console.log("citizen balance: ", await web3.eth.getBalance(citizen));
-    console.log("bastille balance: ", await revolution.bastilleBalance());
-  console.log("// donate enough for next distribution");
-    
-    web3.eth.sendTransaction({from: citizen, to: revolution.address, value: desiredDistributionAmount});
-    console.log("citizen balance: ", await web3.eth.getBalance(citizen));
-      console.log("bastille balance: ", await revolution.bastilleBalance());
-  
     console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
     let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);
     console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
@@ -280,6 +270,15 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     blockNumber = await web3.eth.getBlockNumber();
     console.log('end blockNumber: ' + blockNumber);
 
+  console.log();
+  console.log("citizen balance: ", await web3.eth.getBalance(citizen));
+    console.log("bastille balance: ", await revolution.bastilleBalance().toNumber());
+  console.log("// donate enough for next distribution");
+    
+    web3.eth.sendTransaction({from: citizen, to: revolution.address, value: desiredDistributionAmount});
+    console.log("citizen balance: ", await web3.eth.getBalance(citizen));
+    let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
+      console.log("bastilleBalanceBeforeDistribution: ", bastilleBalanceBeforeDistribution.toNumber());
     console.log("// distribute");
 
     await revolution.distribute();
@@ -293,7 +292,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
 
     let distributionAmount = desiredDistributionAmount;
     expect(web3.utils.toBN(citizenBalanceAfterDistribution).sub(web3.utils.toBN(citizenBalanceBeforeDistribution)).toNumber()).to.equal(distributionAmount);
-    expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
+    expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceBeforeDistribution)).toNumber()).to.equal(-distributionAmount);
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
     
     // donations succeed before lock

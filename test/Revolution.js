@@ -295,11 +295,11 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceBeforeDistribution)).toNumber()).to.equal(-distributionAmount);
     expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceBeforeDistribution)).toNumber()).to.equal(-distributionAmount);
     
-    // donations succeed before lock
+    console.log("// donations succeed before lock");
     
     web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: 3});
     
-    // lock
+    console.log("// lock");
     
     let locked = await revolution.locked();
     expect(locked).to.equal(false);
@@ -311,7 +311,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
 
     let citizenBalanceAfterLock = await web3.eth.getBalance(citizen);
 
-    // donation should fail after lock
+    console.log("// donation should fail after lock");
     
     let bastilleBalanceBeforeDonation = await revolution.bastilleBalance();
     
@@ -323,7 +323,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     
     expect(web3.utils.toBN(bastilleBalanceAfterDonation).sub(web3.utils.toBN(bastilleBalanceBeforeDonation)).toNumber()).to.equal(0);
     
-    // votes should succeed when revolution locked and bastille not empty
+    console.log("// votes should succeed when revolution locked and bastille not empty");
     
     await revolution.vote(true, citizen, {from: A, value: 50});
     
@@ -341,7 +341,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     expect(status.opened).to.equal(false);
     expect(status.matchesCriteria).to.equal(true);
     
-    // distribution should succeed but only after 3 blocks
+    console.log("// distribution should succeed but only after 3 blocks");
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(55);
     
@@ -357,7 +357,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
      
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(48);
     
-    // i.e. no distribution yet
+    console.log("// i.e. no distribution yet");
 
     let advanceBlock = () => {
   return new Promise((resolve, reject) => {
@@ -428,7 +428,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(6);
     
-    // even if bastille balance (6) is less than distribution amount (7)
+    console.log("// even if bastille balance (6) is less than distribution amount (7)");
     
     await advanceBlock();
     await advanceBlock();
@@ -439,7 +439,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     
     expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(0);
     
-    // once bastille balance is empty, votes should fail, this revolution is over
+    console.log("// once bastille balance is empty, votes should fail, this revolution is over");
     
     console.log("vote on empty and locked revolution");
     assertRevert(

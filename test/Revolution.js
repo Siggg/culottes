@@ -216,7 +216,7 @@ contract('RevolutionFactory', function(accounts) {
     expect(status.privilegedScale.toNumber()).to.equal(40);
     expect(status.opened).to.equal(true);
     
-    // before closing trial
+      console.log("// before closing trial");
 
     let aBalanceBeforeClosing = await web3.eth.getBalance(A);
     let bBalanceBeforeClosing = await web3.eth.getBalance(B);
@@ -224,16 +224,16 @@ contract('RevolutionFactory', function(accounts) {
     let bastilleBalanceBeforeClosing = await revolution.bastilleBalance();
     let revolutionBalanceBeforeClosing = await web3.eth.getBalance(revolution.address);
 
-    // The revolution received 10 + 20 + 30 + 20 + 20 = 100 cakes as votes and sent none.
+      console.log("// The revolution received 10 + 20 + 30 + 20 + 20 = 100 cakes as votes and sent none.");
     expect(web3.utils.toBN(revolutionBalanceBeforeClosing).sub(web3.utils.toBN(revolutionBalanceBeforeVotes)).toNumber()).to.equal(100);
-    // None of these cakes went to the Bastille before the closing of the trial.
+      console.log("// None of these cakes went to the Bastille before the closing of the trial.");
     expect(web3.utils.toBN(bastilleBalanceBeforeClosing).sub(web3.utils.toBN(bastilleBalanceBeforeVotes)).toNumber()).to.equal(0);
 
-    // close trial
+    console.log("// close trial");
 
     await revolution.closeTrial(citizen);
     
-    // after closing trial
+    console.log("// after closing trial");
 
     let aBalanceAfterClosing = await web3.eth.getBalance(A);
     let bBalanceAfterClosing = await web3.eth.getBalance(B);
@@ -241,17 +241,17 @@ contract('RevolutionFactory', function(accounts) {
     let bastilleBalanceAfterClosing = await revolution.bastilleBalance();
     let revolutionBalanceAfterClosing = await web3.eth.getBalance(revolution.address);
 
-    // Winners should have got their winning cakes back and should have received a fair share
-    // of the lost cakes, as rewards.
+console.log("// Winners should have got their winning cakes back and should have received a fair share of the lost cakes, as rewards.");
     expect(web3.utils.toBN(aBalanceAfterClosing).sub(web3.utils.toBN(aBalanceBeforeClosing)).toNumber()).to.equal(10 + 5);
     expect(web3.utils.toBN(bBalanceAfterClosing).sub(web3.utils.toBN(bBalanceBeforeClosing)).toNumber()).to.equal(20 + 10);
     expect(web3.utils.toBN(cBalanceAfterClosing).sub(web3.utils.toBN(cBalanceBeforeClosing)).toNumber()).to.equal(30 + 15);
-    // The Bastille should have got 10 of the lost cakes.
+console.log("// The Bastille should have got 10 of the lost cakes.");
     expect(web3.utils.toBN(bastilleBalanceAfterClosing).sub(web3.utils.toBN(bastilleBalanceBeforeClosing)).toNumber()).to.equal(10);
-    // The Revolution should manage less cakes :
-    // - winning cakes should have been sent back to winners
-    // - lost cakes should have been shared among winners
-    // - the Bastille should have received 10 cakes that's still managed by the Revolution contract
+    
+  console.log("// The Revolution should manage less cakes :");
+    console.log("// - winning cakes should have been sent back to winners");
+    console.log("// - lost cakes should have been shared among winners");
+      console.log("// - the Bastille should have received 10 cakes that's still managed by the Revolution contract");
     expect(web3.utils.toBN(revolutionBalanceAfterClosing).sub(web3.utils.toBN(revolutionBalanceBeforeClosing)).toNumber()).to.equal(-10 - 20 - 30 - 40 + 10);
 
     status = await revolution.trialStatus(citizen);
@@ -264,10 +264,15 @@ contract('RevolutionFactory', function(accounts) {
     privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(0);
     
-  console.log(" // donate enough for next distribution");
+  console.log();
+  console.log("citizen balance: ", await web3.eth.getBalance(citizen));
+    console.log("bastille balance: ", await revolution.bastilleBalance());
+  console.log("// donate enough for next distribution");
     
     web3.eth.sendTransaction({from: citizen, to: revolution.address, value: desiredDistributionAmount});
-  console.log('bastilleBalanceAfterClosing: ', bastilleBalanceAfterClosing.toNumber());
+    console.log("citizen balance: ", await web3.eth.getBalance(citizen));
+      console.log("bastille balance: ", await revolution.bastilleBalance());
+  
     console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
     let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);
     console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
@@ -275,6 +280,7 @@ contract('RevolutionFactory', function(accounts) {
     blockNumber = await web3.eth.getBlockNumber();
     console.log('end blockNumber: ' + blockNumber);
 
+    console.log("// distribute");
 
     await revolution.distribute();
 

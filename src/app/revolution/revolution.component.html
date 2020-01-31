@@ -4,21 +4,12 @@
 
  <div class="ui segment" id="discuss">
   <h3 class="ui header">1. Who does or does not match this criteria?</h3>
-  <div class="content">Discover and discuss it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline.</div>
+  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline. Ask for their Ethereum address. Demand proofs that they really are {{ criteria }}. Verify them. Challenge them. Debate. Build your opinion.</div>
  </div>
  
- <div class="ui segment" id="add">
-  <h3 class="ui header">2. What's their unique Ethereum address to be put on trial?</h3>
-  <div class="content"><a routerLink="/citizen">
-   <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
-    <i class="envelope scale icon"></i>
-    Add the Ethereum address of <strong>{{ criteria }}</strong>
-   </button>
-  </a></div>
- </div>
 
  <div class="ui segment" id="vote">
-  <h3 class="ui header">3. Are they really {{criteria}} ?</h3>
+  <h3 class="ui header">2. Are they really {{criteria}} ?</h3>
   <div class="ui relaxed celled list">
    <div class="item">
     <div class="content">
@@ -40,6 +31,18 @@
     </div>
    </div>
   </div>
+ </div>
+ 
+ 
+  <div class="ui segment" id="add">
+  <h3 class="ui header">3. What's a new Ethereum address to be put on trial?</h3>
+  <div class="content">You can add your own address if you are {{ criteria }}. Your address can be copied from your Ethereum wallet (such as Metamask, Cipher, Coinbase, ...).</div>
+  <div class="content"><a routerLink="/citizen">
+   <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
+    <i class="envelope scale icon"></i>
+    Add the Ethereum address of <strong>{{ criteria }}</strong>
+   </button>
+  </a></div>
  </div>
  
  

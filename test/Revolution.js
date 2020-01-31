@@ -264,8 +264,6 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(0);
     console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
-    let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);
-    console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
 
     blockNumber = await web3.eth.getBlockNumber();
     console.log('end blockNumber: ' + blockNumber);
@@ -276,7 +274,8 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
   console.log("// donate enough for next distribution");
     
     web3.eth.sendTransaction({from: citizen, to: revolution.address, value: desiredDistributionAmount});
-    console.log("citizen balance: ", await web3.eth.getBalance(citizen));
+    let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);
+    console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
     let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
       console.log("bastilleBalanceBeforeDistribution: ", bastilleBalanceBeforeDistribution.toNumber());
     console.log("// distribute");

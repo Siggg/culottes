@@ -343,19 +343,19 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     
     console.log("// distribution should succeed but only after 3 blocks");
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(55);
+        let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
     
     console.log("Block number = " + await web3.eth.getBlockNumber());
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(48);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - distributionAmount);
 
     console.log("Block number = " + await web3.eth.getBlockNumber());
     console.log("distribute");
     await revolution.distribute();
      
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(48);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - distributionAmount);
     
     console.log("// i.e. no distribution yet");
 
@@ -381,7 +381,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     await revolution.distribute();
     
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(41);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 2*distributionAmount);
     
     await advanceBlock();
     await advanceBlock();
@@ -390,7 +390,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(34);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 3*distributionAmount);
     
     await advanceBlock();
     await advanceBlock();
@@ -399,7 +399,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(27);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 4*distributionAmount);
     
     await advanceBlock();
     await advanceBlock();
@@ -408,7 +408,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(20);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 5*distributionAmount);
 
     await advanceBlock();
     await advanceBlock();
@@ -417,7 +417,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(13);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 6*distributionAmount);
 
     await advanceBlock();
     await advanceBlock();
@@ -426,9 +426,11 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log("distribute");
     await revolution.distribute();
     
-    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(6);
+    expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.equal(bastilleBalanceBeforeDistribution - 7*distributionAmount);
     
-    console.log("// even if bastille balance (6) is less than distribution amount (7)");
+        expect(web3.utils.toBN(await revolution.bastilleBalance()).toNumber()).to.lessThan(distributionAmount);
+    
+    console.log("// even if bastille balance is less than distribution amount");
     
     await advanceBlock();
     await advanceBlock();

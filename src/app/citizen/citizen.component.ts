@@ -70,7 +70,7 @@ export class CitizenComponent implements OnInit {
     	    this
             .web3Service
             .web3Status
-            .next("distributionAmount at this bastille is null!");
+            .next("distributionAmount at this revolution is null!");
 	        this
 	          .web3Service
 	          .statusError = true;

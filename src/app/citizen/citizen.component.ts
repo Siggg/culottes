@@ -44,47 +44,59 @@ export class CitizenComponent implements OnInit {
   async ngOnInit() {
     this.getAddress();
     this.watchAccount();
-    this.web3Service.artifactsToContract(contractABI)
+    this.web3Service
+      .artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
   	    this.web3_eth_contract = web3_eth_contract;
-	      return web3_eth_contract.methods.criteria().call();
+	      return web3_eth_contract
+	        .methods
+	        .criteria()
+	        .call();
       })
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
       });
-      this.web3Service
-        .artifactsToContract(contractABI)
-        .then((web3_eth_contract) => {
-          this.web3_eth_contract = web3_eth_contract;
-          this.distributionAmount = web3_eth_contract
-      .methods
-      .distributionAmount()
-      .call()
-      .then( (result) => {
-	      if (result === null) {
-    	  /* this
-          .web3Service
-          .web3Status
-          .next("distributionAmount at this bastille is null!");*/
+    this.web3Service
+      .artifactsToContract(contractABI)
+      .then((web3_eth_contract) => {
+        return web3_eth_contract
+          .methods
+          .distributionAmount()
+          .call();
+      })
+      .then( (distributionAmount) => {
+	      if (distributionAmount === null) {
+    	    this
+            .web3Service
+            .web3Status
+            .next("distributionAmount at this bastille is null!");
 	        this
 	          .web3Service
 	          .statusError = true;
 	      } else {
-	        return this
+	        this.distributionAmount = this
             .web3Service
-	          .weiToEther(result);
+	          .weiToEther(distributionAmount);
 	      }
       });
-          return web3_eth_contract.methods.hashtag().call();
-        })
-        .then((hashtag) => {
-          if (hashtag != null && hashtag.length>0) {
+          this.web3Service
+      .artifactsToContract(contractABI)
+      .then((web3_eth_contract) => {
+  	    this.web3_eth_contract = web3_eth_contract;
+	      return web3_eth_contract
+	        .methods
+	        .hashtag()
+	        .call();
+      })
+      .then((hashtag) => {
+        console.log("hashtag: ", hashtag);
+        if (hashtag != null && hashtag.length>0) {
             this.hashtagWithoutSymbol = hashtag.substring(1);
           } else {
             this.hashtagWithoutSymbol = "CulottesRevolution";
           }
-        });
+      });
       this.revolutionAddress = this
         .web3Service
         .revolutionAddress;

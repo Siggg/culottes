@@ -57,7 +57,7 @@ export class CitizenComponent implements OnInit {
         .artifactsToContract(contractABI)
         .then((web3_eth_contract) => {
           this.web3_eth_contract = web3_eth_contract;
-          this.distributionAmount = await web3_eth_contract
+          this.distributionAmount = web3_eth_contract
       .methods
       .distributionAmount()
       .call()

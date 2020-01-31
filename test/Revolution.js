@@ -272,7 +272,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
 
   console.log();
   console.log("citizen balance: ", await web3.eth.getBalance(citizen));
-    console.log("bastille balance: ", await revolution.bastilleBalance().toNumber());
+    console.log("bastille balance: ", await revolution.bastilleBalance());
   console.log("// donate enough for next distribution");
     
     web3.eth.sendTransaction({from: citizen, to: revolution.address, value: desiredDistributionAmount});

@@ -343,7 +343,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     
     console.log("// distribution should succeed but only after 3 blocks");
     
-        let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
+        bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
     
     console.log("Block number = " + await web3.eth.getBlockNumber());
     console.log("distribute");

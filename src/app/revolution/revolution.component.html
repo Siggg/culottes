@@ -4,7 +4,7 @@
 
  <div class="ui segment" id="discuss">
   <h3 class="ui header">1. Who does or does not match this criteria?</h3>
-  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline. Ask for their Ethereum address. Demand proofs that they really are {{ criteria }}. Verify them. Challenge them. Debate. Build your opinion.</div>
+  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline. Ask for their Ethereum address. Demand proofs that they really are {{ criteria }}. Verify them. Challenge them. Debate. Build your opinion.</div>
  </div>
  
 
@@ -83,10 +83,10 @@
  
   <p id="criteriaLabel"> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
 
-  <p> These rules are hard-coded into a smart contract running on the public Ethereum blockchain. It may still contain bugs or design flaws or security vulnerabilities. But <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">you can read and verify its open source code and history of transactions</a>. The source code of current web interface you are using <a href="https://github.com/siggg/culottes">can be audited  from your web browser and from  github</a>. <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/dapp/{{ revolutionAddress }}">You can also use an alternative less convenient web interface</a>.</p>
+  <p> These rules are hard-coded into a smart contract running on the public Ethereum blockchain. It may still contain bugs or design flaws or security vulnerabilities. But <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}" target="_blank">you can read and verify its open source code and history of transactions</a>. The source code of current web interface you are using <a href="https://github.com/siggg/culottes" target="_blank">can be audited  from your web browser and from  github</a>. <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/dapp/{{ revolutionAddress }}" target="_blank">You can also use an alternative less convenient web interface</a>.</p>
  
  <p> According to the source code of this web interface and of the smart contract, your Ethereum money, once donated to this app, gets strictly out of the reach of any human being. Contrary to a non profit organization managing donations or to a state managing taxes, this system is not governed by humans but by fully automated code which was written and published by humans. Nobody (even the authors of this code) can retrieve the money donated to this revolution except by receiving a "YES" consensual verdict from voters. Anyone can vote. People can be influenced or coerced into voting unfairly but the rules coded are designed to incentivize anyone to vote reasonably and against anyone trying to fool others : the more honestly you vote, the more chance you have to vote as the majority of voters will. So the higher the probability you will win the trial and receive a fair share of the money put on stake by the loosing minority of voters. The more malicious voters lie while voting, the more money they put at stake, the more money anyone can make by voting against them and promoting the verifiable  truth so that the majority of the crowd will see who has more chance to win.</p>
- <p> You can challenge and discuss this publicly <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}">on Twitter <span id="hashtag">{{ hashtag }}</span></a>.</p>
+ <p> You can challenge and discuss this publicly <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on Twitter <span id="hashtag">{{ hashtag }}</span></a>.</p>
 </div>
 
 
@@ -97,7 +97,7 @@
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
   <div class="field">
-   <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md">Spark a revolution for your own cause or join another revolution</a></label>
+   <label><a href="https://github.com/Siggg/culottes/blob/master/how_to.md" target="_blank">Spark a revolution for your own cause or join another revolution</a></label>
    <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
 	   <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
    </select>
@@ -132,10 +132,10 @@
     <div class="content">
       you must install and use an Ethereum browser
       <button class="ui left labeled icon primary button">
-       <i class="plug icon"></i><a href="https://metamask.io/">Install Metamask on PC</a>
+       <i class="plug icon"></i><a href="https://metamask.io/" target="_blank">Install Metamask on PC</a>
       </button>
       <button class="ui left labeled icon primary button">
-       <i class="plug icon"></i><a href="https://www.cipherbrowser.com/">Install Cipher on mobile</a>
+       <i class="plug icon"></i><a href="https://www.cipherbrowser.com/" target="_blank">Install Cipher on mobile</a>
       </button>
     </div>
    </div>
@@ -182,7 +182,7 @@
 
 <div class="ui segment">
  <div class="header">
-  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events">Events of this revolution</a>
+  <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events" target="_blank">Events of this revolution</a>
  </div>
  <!--div *ngIf="contractEvents">
  <div class="content" *ngFor="let cEvent of contractEvents.slice().reverse()">

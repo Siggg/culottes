@@ -263,7 +263,6 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     expect(sansculotteAmount.toNumber()).to.equal(0);
     privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(0);
-    console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
 
     blockNumber = await web3.eth.getBlockNumber();
     console.log('end blockNumber: ' + blockNumber);
@@ -278,16 +277,17 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
     let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
       console.log("bastilleBalanceBeforeDistribution: ", bastilleBalanceBeforeDistribution.toNumber());
+    console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
     console.log("// distribute");
 
     await revolution.distribute();
-
+    
+        let citizenBalanceAfterDistribution = await web3.eth.getBalance(citizen);
+    console.log('citizenBalanceAfterDistribution: ', citizenBalanceAfterDistribution);
     let bastilleBalanceAfterDistribution = await revolution.bastilleBalance();
     console.log('bastilleBalanceAfterDistribution: ', bastilleBalanceAfterDistribution.toNumber());
     let revolutionBalanceAfterDistribution = await web3.eth.getBalance(revolution.address);
     console.log('revolutionBalanceAfterDistribution: ', revolutionBalanceAfterDistribution);
-    let citizenBalanceAfterDistribution = await web3.eth.getBalance(citizen);
-    console.log('citizenBalanceAfterDistribution: ', citizenBalanceAfterDistribution);
 
     let distributionAmount = desiredDistributionAmount;
     expect(web3.utils.toBN(citizenBalanceAfterDistribution).sub(web3.utils.toBN(citizenBalanceBeforeDistribution)).toNumber()).to.equal(distributionAmount);

@@ -264,9 +264,9 @@ contract('RevolutionFactory', function(accounts) {
     privilegedAmount = await revolution.getScaleAmount(false, citizen);
     expect(privilegedAmount.toNumber()).to.equal(0);
     
-    // donate enough for next distribution
+  console.log(" // donate enough for next distribution");
     
-    web3.eth.sendTransaction({from: accounts[1], to: revolution.address, value: desiredDistributionAmount});
+    web3.eth.sendTransaction({from: accounts[9], to: revolution.address, value: desiredDistributionAmount});
   console.log('bastilleBalanceAfterClosing: ', bastilleBalanceAfterClosing.toNumber());
     console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
     let citizenBalanceBeforeDistribution = await web3.eth.getBalance(citizen);

@@ -277,7 +277,8 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     console.log('citizenBalanceBeforeDistribution: ', citizenBalanceBeforeDistribution);
     let bastilleBalanceBeforeDistribution = await revolution.bastilleBalance();
       console.log("bastilleBalanceBeforeDistribution: ", bastilleBalanceBeforeDistribution.toNumber());
-    console.log('revolutionBalanceAfterClosing: ', revolutionBalanceAfterClosing);
+    let revolutionBalanceBeforeDistribution = await web3.eth.getBalance(revolution.address);
+    console.log('revolutionBalanceBeforeDistribution: ', revolutionBalanceBeforeDistribution);
     console.log("// distribute");
 
     await revolution.distribute();
@@ -292,7 +293,7 @@ console.log("// The Bastille should have got 10 of the lost cakes.");
     let distributionAmount = desiredDistributionAmount;
     expect(web3.utils.toBN(citizenBalanceAfterDistribution).sub(web3.utils.toBN(citizenBalanceBeforeDistribution)).toNumber()).to.equal(distributionAmount);
     expect(web3.utils.toBN(bastilleBalanceAfterDistribution).sub(web3.utils.toBN(bastilleBalanceBeforeDistribution)).toNumber()).to.equal(-distributionAmount);
-    expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceAfterClosing)).toNumber()).to.equal(-distributionAmount);
+    expect(web3.utils.toBN(revolutionBalanceAfterDistribution).sub(web3.utils.toBN(revolutionBalanceBeforeDistribution)).toNumber()).to.equal(-distributionAmount);
     
     // donations succeed before lock
     

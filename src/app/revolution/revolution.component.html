@@ -36,7 +36,7 @@
  
   <div class="ui segment" id="add">
   <h3 class="ui header">3. What's a new Ethereum address to be put on trial?</h3>
-  <div class="content">You can add your own address if you are {{ criteria }}. Your address can be copied from your Ethereum wallet (such as Metamask, Cipher, Coinbase, ...).</div>
+  <div class="content">You can add your own address if you are {{ criteria }}. Your address can be copied from your Ethereum wallet.</div>
   <div class="content"><a routerLink="/citizen">
    <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
     <i class="envelope scale icon"></i>
@@ -130,7 +130,13 @@
    <div class="item" *ngIf="!dappStatus()['statusWeb3']">
     <i class="x icon"></i>
     <div class="content">
-      you must install and use an Ethereum browser such as <a href="https://metamask.io/">Metamask on PC</a> or <a href="https://www.cipherbrowser.com/">Cipher on mobile</a>
+      you must install and use an Ethereum browser
+      <button class="ui left labeled icon primary button">
+       <i class="plug icon"></i><a href="https://metamask.io/">Install Metamask on PC</a>
+      </button>
+      <button class="ui left labeled icon primary button">
+       <i class="plug icon"></i><a href="https://www.cipherbrowser.com/">Install Cipher on mobile</a>
+      </button>
     </div>
    </div>
    <div class="item" *ngIf="dappStatus()['statusNetwork']">

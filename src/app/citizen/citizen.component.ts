@@ -140,7 +140,10 @@ export class CitizenComponent implements OnInit {
     let addressIsValid = true;
     let component = this;
     try {
-      this.address = window.web3.utils.toChecksumAddress(this.address)
+      this.address = window
+        .web3
+        .utils
+        .toChecksumAddress(this.address);
     } catch(e) { 
       addressIsValid = false;
       console.error('invalid ethereum address', e.message);
@@ -158,7 +161,7 @@ export class CitizenComponent implements OnInit {
             window.web3.eth.getAccounts((err, accs) => {
               this.account = accs[0];
               console.log("Accounts refreshed, vote by: " + this.account);
-	      this.sendVote(vote, weiAmount);
+              this.sendVote(vote, weiAmount);
             });
           });
         } catch (error) {
@@ -166,18 +169,18 @@ export class CitizenComponent implements OnInit {
         }
       } else {
         console.log("Vote by: " + this.account);
-	this.sendVote(vote, weiAmount);
+        this.sendVote(vote, weiAmount);
       }
     } else {
       if (!this.amount) {
         this.showErrorMessageForAmount = true;
       } else {
-	this.showErrorMessageForAmount = false;
+        this.showErrorMessageForAmount = false;
       }
       if (!this.address || addressIsValid == false) {
         this.showErrorMessageForAddress = true;
       } else {
-	this.showErrorMessageForAddress = false;
+	      this.showErrorMessageForAddress = false;
       }
     }
   }
@@ -195,9 +198,12 @@ export class CitizenComponent implements OnInit {
   }
 
   async watchAccount() {
-    this.web3Service.accountsObservable.subscribe((accounts) => {
-      this.account = accounts[0];
-    });
+    this
+      .web3Service
+      .accountsObservable
+      .subscribe((accounts) => {
+        this.account = accounts[0];
+      });
   }
   
   public onCurrencyChange(event): void {  // event will give you full breif of action

@@ -151,7 +151,9 @@ export class CitizenComponent implements OnInit {
     if (this.amount && addressIsValid == true) {
       this.showErrorMessageForAmount=false;
       this.showErrorMessageForAddress = false;
-      const weiAmount = this.web3Service.etherToWei(this.amount.toString());
+      const weiAmount = this
+        .web3Service
+        .etherToWei(this.amount.toString());
       console.log("Stake (in wei): " + weiAmount.toString());
       if (this.account == undefined) {
         // Maybe metamask has not been enabled yet

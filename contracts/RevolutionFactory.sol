@@ -88,6 +88,10 @@ contract Revolution {
 
   // Citizens known at this Revolution
   address payable [] public citizens;
+
+  // Names of these citizens at this Revolution
+  mapping (address => string) public names;
+
   // Trials known at this Revolution
   mapping (address => Trial) private trials;
 
@@ -328,7 +332,7 @@ contract Revolution {
   }
 
 
-  function getScaleAmount(bool _vote, address _citizen) public view returns (uint){
+  function getScaleAmount(bool _vote, address _citizen) public view returns (uint) {
 
     Trial storage trial = trials[_citizen]; 
     if (_vote == true)
@@ -344,6 +348,17 @@ contract Revolution {
     Trial memory trial = trials[_citizen];
     return (trial.opened, trial.matchesCriteria, trial.sansculotteScale.amount, trial.privilegedScale.amount);
 
+  }
+
+
+  function getName(address payable _citizen) public view returns (string memory name) {
+    return names[_citizen];
+  }
+
+
+  function setName(address payable _citizen, string memory _name) public {
+    require(msg.sender == _citizen);
+    names[_citizen] = _name;
   }
 
 

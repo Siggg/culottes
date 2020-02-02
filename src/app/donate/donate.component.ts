@@ -18,7 +18,6 @@ export class DonateComponent implements OnInit {
 	criteria: String = "default criteria from donate.component.ts"
 	culottes: any;
 	account: any;
-	accounth: any;
 	amount;
 	isOk = false;
 	web3_eth_contract: any;

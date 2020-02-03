@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RevolutionComponent } from './revolution.component';
-import { OpentrialComponent } from "../open_trial/open_trial.component";
-import { ClosedtrialComponent } from "../closed_trial/closed_trial.component";
 
 import { Web3Service } from '../util/web3.service';
 
@@ -20,9 +18,7 @@ describe('RevolutionComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule ],
 	    declarations: [
-	      RevolutionComponent,
-	      OpentrialComponent,
-	      ClosedtrialComponent ],
+	      RevolutionComponent ],
 	    providers: [ Web3Service ]
     })
     .compileComponents();

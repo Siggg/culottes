@@ -7,6 +7,11 @@
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Cipher." />
  </div>
 
+ <div *ngIf="address == account.address" class="ui message">
+  <div class="header">Hey, this is your own address!</div>
+  <input [(ngModel)]="name" name="name" type="text" placeholder="You can give your address a public name." />
+ </div>
+
  <div *ngIf="showErrorMessageForAddress" class="ui negative message">
   <div class="header">Forbidden address</div>
   <p>This field should contain a valid Ethereum address (starting with 0x). You may copy it from your Ethereum browser or wallet such as Metamask on PC or Cipher or mobile.</p>
@@ -37,12 +42,19 @@
   <p>This field should contain a valid number of ETH. Decimals are separated using a dot, not a comma.</p>
  </div>
 
+ <div *ngIf="showErrorMessageForBalance" class="ui negative message">
+  <div class="header">Insufficient funds in your wallet</div>
+  <p>Your wallet does not have enough ETH. You should set a lower amount of ETH for this vote. Or you can buy more ETH using your wallet options or from an Exchange such as <a href="https://www.coinbase.com">Coinbase</a></p>
+ </div>
+
+ <div class="content">Note that your vote may also cost up to one additional dollar or euro due to the so-called "mining fees" (network fees due to blockchain miners who verify transactions such as your vote). Fees are much lower when the number of people using the Ethereum blockchain is not too high. Your wallet will display the exact cost of these fees when you are confirming your vote.</div>
+
  <div class="field">
   <h2 class="ui header"><label>2. Cast your bet and vote: Does the address above really belong to <strong>{{ criteria }}</strong>? And is this their unique address here?</label></h2>
   <div class="ui buttons">
-   <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES</div>
+   <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES. Start confirmation.</div>
    <div class="or"></div>
-   <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO<i class="icon thumbs down"></i></div>
+   <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO. Start confirmation.<i class="icon thumbs down"></i></div>
   </div>
  </div>
 
@@ -56,7 +68,9 @@
  <div *ngIf="transactionPending" class="ui positive message">
   <div class="content">
    <div class="header">Vote confirmation started</div>
-   <p>You can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. {{ confirmationProgress }} / 24 confirmations received.</p>
+   <p *ngLet="vote = 'YES'" *ngLet="voteAmount = 0.001">You voted {{ vote }} with {{ voteAmount }} ETH.</p>
+   <p>Now you can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. <span *ngIf="confimationProgress">{{ confirmationProgress }} / 24 confirmations received.</span></p>
+   <p>{{ transactionHashes[-1] }} <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">See details of your vote transaction on Etherscan</a></p>
   </div>
  </div>
         
@@ -68,6 +82,9 @@
  </div>
 
  <div *ngIf="transactionPending || transactionConfirmed">
+  <div class="content" *ngIf="transactionHashes != []" *ngFor="let txHash of transactionHashes">
+    {{ txHash }}
+  </div>
   <h2 class="ui header">3. Tweet why you voted so about this address</h2>
   <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I voted YES for {{ (address | slice:0:10) }} because [...]"</a></p>
   <h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is fully confirmed.</h2>

@@ -24,10 +24,11 @@ export class CitizenComponent implements OnInit {
 	amount;
 	showErrorMessageForAddress: boolean = false;
 	showErrorMessageForAmount: boolean = false;
+	showErrorMessageForVote: boolean = false;
+	showErrorMessageForBalance: boolean = false;
 	confirmationProgress: number = 0;
         confirmationPercent: number = 0;
 	transactionPending: boolean = false;
-	showErrorMessageForVote: boolean = false;
         errorDuringVote: String = "";
 	transactionConfirmed = false;
 	transactionHashes = [];

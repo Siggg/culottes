@@ -18,8 +18,6 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import {UtilModule} from './util/util.module';
 import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
-import { OpentrialComponent } from "./open_trial/open_trial.component";
-import { ClosedtrialComponent } from "./closed_trial/closed_trial.component";
 import { DonateComponent } from "./donate/donate.component";
 import { CitizenComponent } from "./citizen/citizen.component";
 
@@ -28,8 +26,6 @@ import { CitizenComponent } from "./citizen/citizen.component";
     AppComponent,
     RevolutionComponent,
     AboutComponent,
-    OpentrialComponent,
-    ClosedtrialComponent,
     DonateComponent,
     CitizenComponent
   ],

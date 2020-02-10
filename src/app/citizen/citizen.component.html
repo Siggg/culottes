@@ -68,7 +68,7 @@
  <div *ngIf="transactionPending" class="ui positive message">
   <div class="content">
    <div class="header">Vote confirmation started</div>
-   <p *ngLet="vote = 'YES'" *ngLet="voteAmount = 0.001">You voted {{ vote }} with {{ voteAmount }} ETH.</p>
+   <p *ngLet="'YES' as vote"><span *ngLet="0.001 as voteAmount">You voted {{ vote }} with {{ voteAmount }} ETH.</span></p>
    <p>Now you can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. <span *ngIf="confimationProgress">{{ confirmationProgress }} / 24 confirmations received.</span></p>
    <p>{{ transactionHashes[-1] }} <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">See details of your vote transaction on Etherscan</a></p>
   </div>
@@ -82,8 +82,8 @@
  </div>
 
  <div *ngIf="transactionPending || transactionConfirmed">
-  <div class="content" *ngIf="transactionHashes != []" *ngFor="let txHash of transactionHashes">
-    {{ txHash }}
+  <div class="content" *ngIf="transactionHashes != []"><span *ngFor="let txHash of transactionHashes">
+   {{ txHash }}</span>
   </div>
   <h2 class="ui header">3. Tweet why you voted so about this address</h2>
   <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I voted YES for {{ (address | slice:0:10) }} because [...]"</a></p>

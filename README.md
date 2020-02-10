@@ -44,6 +44,16 @@ See [the description of our demo use case](demo_use_case.md).
 
 Here are some useful command lines for contributing code once you have cloned this repo. This is more or less my workflow.
 
+On ubuntu 18.04, install nodejs v.10 (not 12 nor 14).
+
+  wget -qO- https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  sudo apt install nodejs
+
+Then clone the github repo and prepare dependencies
+
+  git clone https://github.com/Siggg/culottes.git
+  ci/install-dep.sh 
+
 Will incorporate latest changes from the remote repo into the current branch of your local repo :
 
   git pull
@@ -86,3 +96,5 @@ Will update your node then angular dependencies and audit them for issues then p
   ng update --all
   npm audit
   npm audit fix
+
+

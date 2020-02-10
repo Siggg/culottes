@@ -46,15 +46,15 @@
   <div class="header">Insufficient funds in your wallet</div>
   <p>Your wallet does not have enough ETH. You should set a lower amount of ETH for this vote. Or you can buy more ETH using your wallet options or from an Exchange such as <a href="https://www.coinbase.com">Coinbase</a></p>
  </div>
-
- <div class="content">Note that your vote may also cost up to one additional dollar or euro due to the so-called "mining fees" (network fees due to blockchain miners who verify transactions such as your vote). Fees are much lower when the number of people using the Ethereum blockchain is not too high. Your wallet will display the exact cost of these fees when you are confirming your vote.</div>
+ <div class="content">Note that your vote may also cost up to one additional dollar or euro due to the mining fees. These fees are awarded to the owners of computers securing the blockchain. Your wallet will display the exact cost of these fees after you click on a voting button below and before you confirm it from your wallet.</div>
 
  <div class="field">
   <h2 class="ui header"><label>2. Cast your bet and vote: Does the address above really belong to <strong>{{ criteria }}</strong>? And is this their unique address here?</label></h2>
+  <div class="content">Clicking 'YES' or 'NO' will prepare your vote. You will have to confirm it from your wallet.</div>
   <div class="ui buttons">
-   <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES. Start confirmation.</div>
+   <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES. Prepare my vote.</div>
    <div class="or"></div>
-   <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO. Start confirmation.<i class="icon thumbs down"></i></div>
+   <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO. Prepare my vote.<i class="icon thumbs down"></i></div>
   </div>
  </div>
 

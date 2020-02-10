@@ -146,7 +146,7 @@ export class RevolutionComponent implements OnInit {
       });
     this.distributionBlockPeriod = await web3_eth_contract
       .methods
-      .distributionBlockPeriod
+      .distributionBlockPeriod()
       .call()
       .then( (blocks) => {
         // Convert distribution period from number of blocks to time units

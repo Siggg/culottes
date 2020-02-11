@@ -23,7 +23,7 @@
     <div class="content" #userInput>
      <button
       class="ui button"
-      attr.data-tooltip="Their Ethereum address: {{ citizen.address }}. Click to copy it."
+      attr.data-tooltip="Their Ethereum address: {{ citizen.address }}"
       data-position="top left"
       ngxClipboard [cbContent]="citizen.address"
       (cbOnSuccess)="copied = citizen.address">

@@ -44,10 +44,11 @@ See [the description of our demo use case](demo_use_case.md).
 
 Here are some useful command lines for contributing code once you have cloned this repo. This is more or less my workflow.
 
-On ubuntu 18.04, install nodejs v.10 (not 12 nor 14).
+On ubuntu 18.04, install nodejs v.12.14.1 using nvm.
 
-  wget -qO- https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  sudo apt install nodejs
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+  nvm install v.12.14.1
+  nvm use v.12.14.1
 
 Then clone the github repo and prepare dependencies
 
@@ -63,7 +64,11 @@ Will build and test your code :
   export CHROME_BIN=/usr/bin/chromium-browser
   ci/build.sh
 
-If ever you run into an error where it's being complained that your version of Chrome (chromium-browser --version) is ahead of the version supported by the chromedriver used for running tests, then you may have to upgrade protractor to a later version.
+If ever you run into an error where it's being complained that your version of Chrome (chromium-browser --version) is ahead of the version supported by the chromedriver used for running tests, then you may have to upgrade protractor to a later version. Or tweak with the webdriver-manager lines in ci/install-deps.sh
+
+If ever you run into an error where typescript is said to be of a too recent version (for instance 3.7.0 instead of being <= 3.6.0), then you may have to manually set this version :
+
+  npm install typescript@3.5.3
 
 Will run a local version of your dapp so that you can live test your changes :
 
@@ -92,8 +97,6 @@ Will deploy your smart contract :
 Will update your node then angular dependencies and audit them for issues then possibly fix these issues :
 
   npm install-test
-  ng update
-  ng update --all
   npm audit
   npm audit fix
 

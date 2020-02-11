@@ -21,6 +21,7 @@ export class CitizenComponent implements OnInit {
 	distributionAmount: number = 0;
 	culottes: any;
 	account: any;
+	accountBalance: number = undefined;
 	amount: number = undefined;
 	vote: boolean = undefined;
 	showErrorMessageForAddress: boolean = false;
@@ -190,7 +191,7 @@ export class CitizenComponent implements OnInit {
     }
 
     // Check balance
-    if (this.amount >= this.account.balance) {
+    if (this.amount >= component.accountBalance) {
       canVote = false;
       this.showErrorMessageForBalance = true;
     } else {
@@ -221,16 +222,25 @@ export class CitizenComponent implements OnInit {
   }
 
   async watchAccount() {
+    let component = this;
     this
       .web3Service
       .accountsObservable
       .subscribe((accounts) => {
-        this.account = accounts[0];
+        component.account = accounts[0];
+        window.web3.eth.getBalance(this.account, (err, balance) => {
+          component.accountBalance = window.web3.utils.fromWei(balance, 'ether');
+        });
       });
   }
   
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
+  }
+
+  public onAmountChange(event): void {
+    this.showErrorMessageForAmount = false;
+    this.showErrorMessageForBalance = false;
   }
 
   public convertToFiat(amount) {

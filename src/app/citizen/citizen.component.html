@@ -20,7 +20,7 @@
  <div class="field">
   <label>How much ether are you staking on this vote ?</label>
   <div class="ui right labeled input">
-   <input [(ngModel)]="amount" type="number" name="amount" placeholder="{{ distributionAmount / 10 }} or more, amount to bet" />
+   <input [(ngModel)]="amount" type="number" name="amount" placeholder="{{ distributionAmount / 10 }} or more, amount to bet" (change)="onAmountChange()"/>
    <div class="ui label">ETH</div>
   </div>
   <div class="ui action input">
@@ -44,7 +44,7 @@
 
  <div *ngIf="showErrorMessageForBalance" class="ui negative message">
   <div class="header">Insufficient funds in your wallet</div>
-  <p>Your wallet does not have enough ETH. You should set a lower amount of ETH for this vote. Or you can buy more ETH using your wallet options or from an Exchange such as <a href="https://www.coinbase.com">Coinbase</a></p>
+  <p>You want to stake {{ amount }} ETH but your wallet only contains {{ accountBalance }} ETH. You should set a lower amount of ETH for this vote. Or you can buy more ETH using your wallet options or from an Exchange such as <a href="https://www.coinbase.com">Coinbase</a>. Also think you will have mining fees to pay.</p>
  </div>
  <div class="content">Note that your vote may also cost up to one additional dollar or euro due to the mining fees. These fees are awarded to the owners of computers securing the blockchain. Your wallet will display the exact cost of these fees after you click on a voting button below and before you confirm it from your wallet.</div>
  <p>&nbsp;</p>

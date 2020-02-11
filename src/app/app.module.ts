@@ -21,6 +21,8 @@ import { AboutComponent } from "./about/about.component";
 import { DonateComponent } from "./donate/donate.component";
 import { CitizenComponent } from "./citizen/citizen.component";
 
+import { ClipboardModule } from 'ngx-clipboard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { CitizenComponent } from "./citizen/citizen.component";
     MatInputModule,
     MatToolbarModule,
     FormsModule,
+    ClipboardModule,
     HttpClientModule,
     RouterModule,
     AppRoutingModule,

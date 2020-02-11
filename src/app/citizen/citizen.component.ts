@@ -21,7 +21,8 @@ export class CitizenComponent implements OnInit {
 	distributionAmount: number = 0;
 	culottes: any;
 	account: any;
-	amount;
+	amount: number = undefined;
+	vote: boolean = undefined;
 	showErrorMessageForAddress: boolean = false;
 	showErrorMessageForAmount: boolean = false;
 	showErrorMessageForVote: boolean = false;
@@ -109,6 +110,7 @@ export class CitizenComponent implements OnInit {
 
   sendVote(vote, weiAmount) {
     let component = this;
+    component.vote = vote;
     this.web3_eth_contract
       .methods
       .vote(vote, this.address)

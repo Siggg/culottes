@@ -39,7 +39,7 @@
   
  <div *ngIf="showErrorMessageForAmount" class="ui negative message">
   <div class="header">Forbidden amount</div>
-  <p>This field should contain a valid number of ETH. Decimals are separated using a dot, not a comma.</p>
+  <p>This field should contain a number of ETH superior to {{ distributionAmount / 10 }}. Decimals are separated using a dot.</p>
  </div>
 
  <div *ngIf="showErrorMessageForBalance" class="ui negative message">

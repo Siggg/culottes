@@ -183,7 +183,7 @@ export class CitizenComponent implements OnInit {
     }
 
     // Check amount
-    if (!this.amount) {
+    if (this.amount < this.distributionAmount / 10) {
       canVote = false;
       this.showErrorMessageForAmount = true;
     } else {

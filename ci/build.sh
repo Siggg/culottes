@@ -11,7 +11,7 @@ truffle migrate
 truffle test
 
 npm test
-ng e2e
+ng e2e --webdriver-update=false
 # ng lint
 
 npm run build

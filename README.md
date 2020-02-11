@@ -97,4 +97,4 @@ Will update your node then angular dependencies and audit them for issues then p
   npm audit
   npm audit fix
 
-
+If you have issues with the version of chrome that webdriver-manager uses for running tests, have a look at ci/install-deps.sh for specify the version of webdriver-manager and of the browser it uses.

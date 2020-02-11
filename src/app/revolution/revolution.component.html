@@ -23,10 +23,10 @@
     <div class="content" #userInput>
      <button
       class="ui button"
-      attr.data-tooltip="Their Ethereum address: {{ citizen.address }} Click to copy."
+      attr.data-tooltip="Their Ethereum address: {{ citizen.address }}"
       data-position="top left"
-      ngxClipboard [cbContent]="citizen.address"
-      (cbOnSuccess)="copied = citizen.address">
+      <!-- ngxClipboard [cbContent]="citizen.address"
+      (cbOnSuccess)="copied = citizen.address"-->
       {{ (citizen.address | slice:0:8)+'...' }}<span *ngIf="copied == citizen.address"> Copied</span>
      </button>
      <a [routerLink]="['/citizen', citizen.address]">

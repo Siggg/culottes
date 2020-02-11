@@ -68,7 +68,7 @@
  <div *ngIf="transactionPending" class="ui positive message">
   <div class="content">
    <div class="header">Vote confirmation started</div>
-   <p *ngLet="'YES' as vote"><span *ngLet="0.001 as voteAmount">You voted {{ vote }} with {{ voteAmount }} ETH.</span></p>
+   <!--p>You voted FIXME with FIXME ETH.></p-->
    <p>Now you can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. <span *ngIf="confimationProgress">{{ confirmationProgress }} / 24 confirmations received.</span></p>
    <p>{{ transactionHashes[-1] }} <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}">See details of your vote transaction on Etherscan</a></p>
   </div>

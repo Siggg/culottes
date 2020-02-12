@@ -26,3 +26,12 @@
   min-height: auto !important;
   height: 0.5em;
 }
+
+.btn-success {
+    background-color: #469900;
+}
+
+.btn-success:hover {
+    background-color: #266900;
+}
+

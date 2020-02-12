@@ -8,6 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { ClipboardModule } from 'ngx-clipboard';
+
 describe('RevolutionComponent', () => {
   let component: RevolutionComponent;
   let fixture: ComponentFixture<RevolutionComponent>;
@@ -16,10 +18,11 @@ describe('RevolutionComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        ClipboardModule,
         HttpClientTestingModule ],
-	    declarations: [
-	      RevolutionComponent ],
-	    providers: [ Web3Service ]
+      declarations: [
+        RevolutionComponent ],
+      providers: [ Web3Service ]
     })
     .compileComponents();
   }));

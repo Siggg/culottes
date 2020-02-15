@@ -122,6 +122,11 @@ contract('RevolutionFactory', function(accounts) {
     name = await revolution.getName(accounts[7]);
     expect(name.toString()).to.equal("");
 
+    console.log("// You can vote and set your name in one single transaction");
+    await revolution.voteAndSetName(true, accounts[0], "a new name", {value: 300});
+    name = await revolution.getName(accounts[0]);
+    expect(name.toString()).to.equal("a new name");
+
   });
 
 
@@ -136,7 +141,7 @@ contract('RevolutionFactory', function(accounts) {
     let citizen = accounts[9];
 
     let balance = await web3.eth.getBalance(revolution.address);
-    expect(balance).to.equal('401');
+    expect(balance).to.equal('701');
     let status = await revolution.trialStatus(citizen);
     expect(status.sansculotteScale.toNumber()).to.equal(100);
     expect(status.privilegedScale.toNumber()).to.equal(300);
@@ -153,11 +158,11 @@ contract('RevolutionFactory', function(accounts) {
     // In other words, they get 60 lost cakes as rewards.
     // And the Bastille will get 200/500 of the 100 lost cakes.
     // And that makes 40 lost cakes put into the Bastille balance.
-    console.log("// There should remain 41 cakes in the contract. 1 was already there before.");
+    console.log("// There should remain 341 cakes in the contract. 1 was already there before.");
     balance = await web3.eth.getBalance(revolution.address);
-    expect(balance).to.equal('41');
+    expect(balance).to.equal('341');
 
-    console.log("// And these 41 cakes should be in the Bastille.");
+    console.log("// And 41 cakes should be in the Bastille.");
     let bastilleBalance = await revolution.bastilleBalance();
     expect(bastilleBalance.toNumber()).to.equal(41);
 

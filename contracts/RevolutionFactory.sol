@@ -362,6 +362,11 @@ contract Revolution {
   }
 
 
+  function voteAndSetName(bool _vote, address payable _citizen, string memory _name) public payable {
+    vote(_vote, _citizen);
+    setName(_citizen, _name);
+  }
+
   function() payable external {
 
     require(locked == false);

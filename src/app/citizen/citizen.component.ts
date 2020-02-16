@@ -109,13 +109,28 @@ export class CitizenComponent implements OnInit {
       .revolutionBlockchain;
   }
 
-  sendVote(vote, weiAmount) {
+  async sendVote(vote, weiAmount) {
     let component = this;
     component.vote = vote;
-    this.web3_eth_contract
+    let method = this.web3_eth_contract
       .methods
-      .vote(vote, this.address)
-      .send({from: this.account, value: weiAmount, gas: 1000000})
+      .vote(vote, this.address);
+    if (this.account == this.address) {
+      console.log('voting for oneself');
+      let myName = await this.web3_eth_contract
+        .methods
+        .getName()
+        .call();
+      if (myName != this.name) {
+        // Change one's name
+	console.log('your name was: ', myName);
+	console.log('vote and set it to: ', this.name);
+        method = this.web3_eth_contract
+          .methods
+          .voteAndSetName(vote, this.address, this.name);
+      }
+    }
+    method.send({from: this.account, value: weiAmount, gas: 1000000})
       .on('transactionHash', function(hash) {
         component.transactionPending = true;
         component.confirmationProgress = 0;

@@ -200,13 +200,20 @@ export class RevolutionComponent implements OnInit {
           .trialStatus(address)
           .call()
           .then( (result) => {
+            let name;
+	    try {
+              name = result[4];
+	    } catch(e) {
+	      name = undefined;
+              console.log("Could read name from contract: ", e);
+            }
             return {
               address: address,
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],
               privilegedScale: result[3],
-              name: result[4]
+              name: name
             };
           })
           .catch( (error) => {

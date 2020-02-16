@@ -194,12 +194,14 @@ export class RevolutionComponent implements OnInit {
             .next("An error occured while reading citizen " + i.toString() + " : " + error);
           return ""
       });
+      // console.log("read citizen: ", address);
       if (address != "" && address != null) {
         citizen = await web3_eth_contract
           .methods
           .trialStatus(address)
           .call()
           .then( (result) => {
+	    // console.log("citizen result: ", result);
             let name;
 	    try {
               name = result[4];
@@ -217,6 +219,7 @@ export class RevolutionComponent implements OnInit {
             };
           })
           .catch( (error) => {
+            console.log("error: ", error);
             this
               .web3Service
               .web3Status

@@ -7,6 +7,7 @@ const contractABI = require("../../../build/contracts/Revolution.json");
 
 interface ICitizen {
    address: string;
+   name: string;
    opened: boolean;
    matchesCriteria: boolean;
    sansculotteScale: number;
@@ -204,7 +205,8 @@ export class RevolutionComponent implements OnInit {
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],
-              privilegedScale: result[3]
+              privilegedScale: result[3],
+              name: result[4]
             };
           })
           .catch( (error) => {

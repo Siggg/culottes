@@ -52,7 +52,9 @@ export class CitizenComponent implements OnInit {
       .artifactsToContract(contractABI)
       .then((web3_eth_contract) => {
         this.web3_eth_contract = web3_eth_contract;
-        return web3_eth_contract
+	
+	// Get revolution's criteria
+        return this.web3_eth_contract
           .methods
           .criteria()
           .call();
@@ -60,11 +62,9 @@ export class CitizenComponent implements OnInit {
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
-      });
-    this.web3Service
-      .artifactsToContract(contractABI)
-      .then((web3_eth_contract) => {
-        return web3_eth_contract
+
+	// Get revolution's distributionAmout
+        return this.web3_eth_contract
           .methods
           .distributionAmount()
           .call();
@@ -83,12 +83,9 @@ export class CitizenComponent implements OnInit {
             .web3Service
             .weiToEther(distributionAmount);
         }
-    });
-    this.web3Service
-      .artifactsToContract(contractABI)
-      .then((web3_eth_contract) => {
-        this.web3_eth_contract = web3_eth_contract;
-        return web3_eth_contract
+
+	// Get revolution's hashtag
+        return this.web3_eth_contract
           .methods
           .hashtag()
           .call();
@@ -100,6 +97,20 @@ export class CitizenComponent implements OnInit {
         } else {
           this.hashtagWithoutSymbol = "CulottesRevolution";
         }
+
+	// Get citizen's name
+	if (this.address != "") {
+	  return this.web3_eth_contract
+	    .methods
+	    .getName(this.address)
+	    .call();
+	} else {
+	  return undefined;
+	}
+      })
+      .then((name) => {
+	console.log("name: ", name);
+	this.name = name;
       });
     this.revolutionAddress = this
       .web3Service

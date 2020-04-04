@@ -1,0 +1,96 @@
+<form class="ui form" name="citizen">
+
+ <h2 class="ui header">1. Fill the address and amount of your vote and bet</h2>
+ 
+ <div class="field">
+  <label>Their address</label>
+  <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Trust Wallet." />
+ </div>
+
+ <div *ngIf="address == account" class="ui message">
+  <div class="header">Hey, this is your own address! Name it so that they know it is yours.</div>
+  <input [(ngModel)]="name" name="name" type="text" placeholder="You can give your address a public name." />
+ </div>
+
+ <div *ngIf="showErrorMessageForAddress" class="ui negative message">
+  <div class="header">Forbidden address</div>
+  <p>This field should contain a valid Ethereum address (starting with 0x). You may copy it from your Ethereum browser or wallet (Metamask, Trust Wallet, Coinbase Wallet, Cipher, ...).</p>
+ </div>
+
+ <div class="field">
+  <label>How much ether are you staking on this vote ?</label>
+  <div class="ui right labeled input">
+   <input [(ngModel)]="amount" type="number" name="amount" placeholder="{{ distributionAmount / 10 }} or more, amount to bet" (change)="onAmountChange($event)"/>
+   <div class="ui label">ETH</div>
+  </div>
+  <div class="ui action input">
+   <div class="ui right aligned label fluid" style="text-align:right;">= {{ convertToFiat(amount) }}</div>
+   <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">
+    <option value="EUR" [selected]="currency() == 'EUR'">€</option>
+    <option value="USD" [selected]="currency() == 'USD'">$</option>
+    <option [selected]="currency() == 'AUD'">AUD</option>
+    <option [selected]="currency() == 'CAD'">CAD</option>
+    <option [selected]="currency() == 'CNY'">CNY</option>
+    <option value="GBP" [selected]="currency() == 'GBP'">£</option>
+    <option value="JPY" [selected]="currency() == 'JPY'">¥</option>
+   </select>
+  </div>
+ </div>
+  
+ <div *ngIf="showErrorMessageForAmount" class="ui negative message">
+  <div class="header">Forbidden amount</div>
+  <p>This field should contain a number of ETH superior to {{ distributionAmount / 10 }}. Decimals are separated using a dot.</p>
+ </div>
+
+ <div *ngIf="showErrorMessageForBalance" class="ui negative message">
+  <div class="header">Insufficient funds in your wallet</div>
+  <p>You want to stake {{ amount }} ETH but your wallet only contains {{ accountBalance }} ETH. You should set a lower amount of ETH for this vote. Or you can buy more ETH using your wallet options or from an Exchange such as <a href="https://www.coinbase.com">Coinbase</a>. Also think you will have mining fees to pay.</p>
+ </div>
+ <div class="content">Note that your vote may also cost up to one additional dollar or euro due to the mining fees. These fees are awarded to the owners of computers securing the blockchain. Your wallet will display the exact cost of these fees after you click on a voting button below and before you confirm it from your wallet.</div>
+ <p>&nbsp;</p>
+ <div class="field">
+	 <h2 class="ui header"><label>2. Cast your bet and vote: Does the address above really belong to <strong>{{ criteria }}</strong>? And is this their unique address here?</label></h2>
+  <div class="content">Clicking 'YES' or 'NO' will prepare your vote. You will have to confirm it from your wallet.</div>
+  <div class="ui buttons">
+   <div class="ui button positive secondary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>YES. Open my wallet for confirmation.</div>
+   <div class="or"></div>
+   <div class="ui button negative primary icon right labeled" (click)="onClickMeF()">NO. Open my wallet for confirmation.<i class="icon thumbs down"></i></div>
+  </div>
+ </div>
+
+ <div *ngIf="showErrorMessageForVote" class="ui negative message">
+  <div class="content">
+   <div class="header">Vote failed</div>
+   <p>{{ errorDuringVote }}</p>
+  </div>
+ </div>
+
+ <div *ngIf="transactionPending" class="ui positive message">
+  <div class="content">
+   <div class="header">Vote confirmation started</div>
+   <p>You voted {{ vote == true ? 'YES' : 'NO' }} with {{ amount }} ETH.</p>
+   <p>Now you can go to step 3 below, or leave this page while the recording of your vote is being confirmed by the blockchain. <!--FIXME span *ngIf="confimationProgress"-->{{ confirmationProgress }} / 24 confirmations received.<!--/span--></p>
+   <p>{{ transactionHashes[-1] }} <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ transactionHashes[0] }}" target="_blank">See details of your vote transaction on Etherscan</a></p>
+  </div>
+ </div>
+        
+ <div *ngIf="transactionConfirmed" class="ui positive message">
+  <div class="content">
+   <div class="header">Vote fully confirmed</div>
+   <p>Vote confirmation fully completed. It should be taken into account on the home page now.</p>
+  </div>
+ </div>
+
+ <div *ngIf="transactionPending || transactionConfirmed">
+  <h2 class="ui header">3. Tweet why you voted so about this address</h2>
+  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because [...]"</a></p>
+  <h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is confirmed.</h2>
+ </div>
+
+ <h3 class="ui header">More details about verdicts</h3>
+ <div class="ui icon">
+   <i class="icon balance scale"></i>
+   Your vote may randomly close their trial (50% chance of verdict per distribution period). When their trial closes, the YES stakes and the NO stakes are summed and compared. The verdict is issued accordingly. The loosing voters loose their stakes. A share of the lost stakes is donated for further distributions. And the rest of the lost stakes are shared among winning voters proportionately to their winning stakes, which they also get back (minus transaction safety fees). Read <a href="https://siggg.gitlab.io/culottes/rules/#step-5-verdict-and-rewards">step 5 of the rules of the Culottes board game</a> for a better understanding of the behavior of this revolution when issuing verdicts and distributing vote stakes. If you can read source code, you can also audit <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#code">the smart contract of this revolution and its detailed parameters</a>.
+ </div> 
+
+</form>

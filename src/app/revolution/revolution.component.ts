@@ -303,7 +303,7 @@ export class RevolutionComponent implements OnInit {
       });
   }
 
-  onCloseLockModal(event): void {
+  onCloseLockModal(): void {
     console.log("Closing lock modal");
     this.lockModalActivity = "";
   }

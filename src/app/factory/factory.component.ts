@@ -13,33 +13,34 @@ const contractABI = require('../../../build/contracts/Revolution.json');
 })
 export class FactoryComponent implements OnInit {
 
+        criteria: String; // = "default criteria from factory.component.ts";
+        distributionAmount: number; // = 0;
+        showErrorMessageForCriteria: boolean = false;
+        showErrorMessageForHashtag: boolean = false;
+        showErrorMessageForPeriod: boolean = false;
+        showErrorMessageForAmount: boolean = false;
+        showErrorMessageForCreation: boolean = false;
+        transactionPending = false;
+        transactionConfirmed = false;
+        hashtag: String; // = "#MyNewRevolution";
+        distributionBlockPeriod: number; // = 0;
+        web3_eth_contract: any;
+	account: any;
+        confirmationProgress: number = 0;
+        confirmationPercent: number = 0;
+	transactionHashes = [];
+
+
 	// address: String = "0x";
 	// name: String = "";
 	// revolutionAddress: String = "0x0000...";
 	// revolutionBlockchain: String = "";
-	criteria: String; // = "default criteria from factory.component.ts";
-	distributionAmount: number; // = 0;
 	// culottes: any;
-	// account: any;
 	// accountBalance: number = undefined;
 	// amount: number = undefined;
 	// vote: boolean = undefined;
-	showErrorMessageForCriteria: boolean = false;
-	showErrorMessageForHashtag: boolean = false;
-	showErrorMessageForPeriod: boolean = false;
-	showErrorMessageForAmount: boolean = false;
-	showErrorMessageForCreation: boolean = false;
-	// confirmationProgress: number = 0;
-        // confirmationPercent: number = 0;
-	// transactionPending: boolean = false;
         // errorDuringVote: String = "";
-	transactionPending = false;
-	transactionConfirmed = false;
-	// transactionHashes = [];
-	// web3_eth_contract: any;
-	hashtag: String; // = "#MyNewRevolution";
 	// hashtagWithoutSymbol: String = "CulottesRevolution";
-	distributionBlockPeriod: number; // = 0;
 
   constructor(
     private web3Service: Web3Service,
@@ -240,27 +241,65 @@ export class FactoryComponent implements OnInit {
   } */
 
   onRevolutionCreate() {
+    let canCreate = true;
     if (this.criteria == undefined || this.criteria.length == 0) {
       this.showErrorMessageForCriteria = true;
+      canCreate = false;
     } else {
       this.showErrorMessageForCriteria = false;
     }
     if (this.hashtag == undefined || this.hashtag.length < 2) {
       this.showErrorMessageForHashtag = true;
+      canCreate = false;
     } else if (this.hashtag[0] != '#') {
       this.showErrorMessageForHashtag = true;
+      canCreate = false;
     } else {
       this.showErrorMessageForHashtag = false;
     }
     if (this.distributionBlockPeriod == undefined || this.distributionBlockPeriod < 1 || Math.floor(this.distributionBlockPeriod) != this.distributionBlockPeriod) {
       this.showErrorMessageForPeriod = true;
+      canCreate = false;
     } else {
       this.showErrorMessageForPeriod = false;
     }
     if (this.distributionAmount == undefined || this.distributionAmount <= 0) {
       this.showErrorMessageForAmount = true;
+      canCreate = false;
     } else {
       this.showErrorMessageForAmount = false;
+    }
+    if (canCreate == true) {
+      console.log('about to create revolution');
+      let method = this.web3_eth_contract
+        .methods
+        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, this.distributionAmount, false);
+      let component = this;
+      method.call({from: this.account, gas: 1000000})
+        .on('transactionHash', function(hash) {
+          component.transactionPending = true;
+          component.confirmationProgress = 0;
+          component.confirmationPercent = 0;
+          component.transactionHashes.push(hash);
+          console.log('transactionHash received');
+        })
+        .on('confirmation', function(confirmationNumber, receipt) {
+          component.transactionPending = true;
+          component.confirmationProgress += 1; //confirmationNumber; // up to 24
+          component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+          console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
+        })
+        .on('receipt', function(receipt){
+          // receipt example
+          console.log('receipt received: ', receipt);
+          component.transactionPending = false;
+          component.transactionConfirmed = true;
+        })
+        .on('error', function(error, receipt){
+          console.error;
+          this.showErrorMessageForCreation = true;
+          this.errorDuringCreation = error;
+        }); // If there's an out of gas error the second parameter is the receipt.
     }
   }
 

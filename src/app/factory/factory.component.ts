@@ -17,8 +17,8 @@ export class FactoryComponent implements OnInit {
 	// name: String = "";
 	// revolutionAddress: String = "0x0000...";
 	// revolutionBlockchain: String = "";
-	criteria: String = "default criteria from factory.component.ts";
-	distributionAmount: number = 0;
+	criteria: String; // = "default criteria from factory.component.ts";
+	distributionAmount: number; // = 0;
 	// culottes: any;
 	// account: any;
 	// accountBalance: number = undefined;
@@ -37,9 +37,9 @@ export class FactoryComponent implements OnInit {
 	transactionConfirmed = false;
 	// transactionHashes = [];
 	// web3_eth_contract: any;
-	hashtag: String = "#MyNewRevolution";
+	hashtag: String; // = "#MyNewRevolution";
 	// hashtagWithoutSymbol: String = "CulottesRevolution";
-	distributionBlockPeriod: number = 0;
+	distributionBlockPeriod: number; // = 0;
 
   constructor(
     private web3Service: Web3Service,

@@ -240,7 +240,28 @@ export class FactoryComponent implements OnInit {
   } */
 
   onRevolutionCreate() {
-    // this.cakeVote(true);
+    if (this.criteria == undefined || this.criteria.length == 0) {
+      this.showErrorMessageForCriteria = true;
+    } else {
+      this.showErrorMessageForCriteria = false;
+    }
+    if (this.hashtag == undefined || this.hashtag.length < 2) {
+      this.showErrorMessageForHashtag = true;
+    } else if (this.hashtag[0] != '#') {
+      this.showErrorMessageForHashtag = true;
+    } else {
+      this.showErrorMessageForHashtag = false;
+    }
+    if (this.distributionBlockPeriod == undefined || this.distributionBlockPeriod < 1 || Math.floor(this.distributionBlockPeriod) != this.distributionBlockPeriod) {
+      this.showErrorMessageForPeriod = true;
+    } else {
+      this.showErrorMessageForPeriod = false;
+    }
+    if (this.distributionAmount == undefined || this.distributionAmount <= 0) {
+      this.showErrorMessageForAmount = true;
+    } else {
+      this.showErrorMessageForAmount = false;
+    }
   }
 
   /* getAddress(): void {

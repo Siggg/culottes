@@ -72,9 +72,9 @@
  <div class="content">Note that creating a new revolution may cost up to one dollar or euro due to the mining fees. These fees are awarded to the owners of computers securing the blockchain. Your wallet will display the exact cost of these fees after you click on the creation button below and before you confirm it from your wallet.</div>
  <p>&nbsp;</p>
  <div class="field">
-	 <h2 class="ui header"><label>2. Create your new revolution</label></h2>
+  <h2 class="ui header"><label>2. Create your new revolution</label></h2>
   <div class="content">Clicking the button will prepare your vote. You will have to confirm it from your wallet.</div>
-  <div class="ui button positive primary icon labeled" (click)="onRevolutionCreate()"><i class="icon thumbs up"></i>CREATE. Open my wallet for confirmation.</div>
+  <div class="ui button primary icon labeled" data-tooltip="Click to create a new revolution with the parameters set above." (click)="onRevolutionCreate()"><i class="icon envelope"></i>CREATE. Open my wallet for confirmation.</div>
  </div>
 
  <div *ngIf="showErrorMessageForCreation" class="ui negative message">

@@ -1,5 +1,5 @@
 <form class="ui form" name="factory">
-
+ <h1>Create your own revolution from this one</h1>
  <h2 class="ui header">1. Set the criteria, the hashtag, the distribution period and the distribution amount of your new revolution.</h2>
  
  <div class="field">
@@ -28,8 +28,8 @@
  </div>
 
  <div class="field">
-  <label>How many Ethereum blocks should be mined before the next distribution of ETH by your revolution?</label>
-  <div class="description">It takes approximately 13 secondes to mine 1 Ethereum block on average.</div>
+  <label>How many Ethereum blocks should be mined between two distributions of ETH by your revolution?</label>
+  <div class="description">It takes approximately 13 seconds to mine 1 Ethereum block on average.</div>
   <input [(ngModel)]="distributionBlockPeriod" type="number" name="distributionBlockPeriod" placeholder="Enter the number of Ethereum blocks which should be mined before the next distribution by your revolution? One block is mined on average every 13 seconds."/>
   <div class="description" *ngIf="distributionBlockPeriod">So {{ distributionBlockPeriod }} blocks take approximately {{ distributionBlockPeriod * 13 }} seconds or {{ (distributionBlockPeriod * 13 / 60)+'' | slice:0:10 }} minutes or {{ (distributionBlockPeriod * 13 / 3600)+'' | slice:0:8 }} hours or {{ (distributionBlockPeriod * 13 / 3600 / 24)+'' | slice:0:6 }} days.</div>
  </div>

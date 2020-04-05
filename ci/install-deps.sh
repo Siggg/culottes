@@ -2,6 +2,7 @@
 set -x
 npm install -g truffle
 npm install -g ganache-cli
+npm install typescript@3.5.3
 npm install
 
 # Lines below because of https://github.com/angular/webdriver-manager/issues/404

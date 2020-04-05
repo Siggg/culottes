@@ -74,7 +74,7 @@
  <div class="field">
 	 <h2 class="ui header"><label>2. Create your new revolution</label></h2>
   <div class="content">Clicking the button will prepare your vote. You will have to confirm it from your wallet.</div>
-  <div class="ui button positive primary icon labeled" (click)="onClickMeT()"><i class="icon thumbs up"></i>CREATE. Open my wallet for confirmation.</div>
+  <div class="ui button positive primary icon labeled" (click)="onRevolutionCreate()"><i class="icon thumbs up"></i>CREATE. Open my wallet for confirmation.</div>
  </div>
 
  <div *ngIf="showErrorMessageForCreation" class="ui negative message">
@@ -103,13 +103,6 @@
  <div *ngIf="transactionPending || transactionConfirmed">
   <h2 class="ui header">3. Announce your revolution on twitter !</h2>
   <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20created%20the%20{{ hashtag }}%20revolution%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I icreated the {{ hashtag }} revolution because [...]"</a></p>
-  <!--h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is confirmed.</h2>
  </div>
-
- <h3 class="ui header">More details about verdicts</h3>
- <div class="ui icon">
-   <i class="icon balance scale"></i>
-   Your vote may randomly close their trial (50% chance of verdict per distribution period). When their trial closes, the YES stakes and the NO stakes are summed and compared. The verdict is issued accordingly. The loosing voters loose their stakes. A share of the lost stakes is donated for further distributions. And the rest of the lost stakes are shared among winning voters proportionately to their winning stakes, which they also get back (minus transaction safety fees). Read <a href="https://siggg.gitlab.io/culottes/rules/#step-5-verdict-and-rewards">step 5 of the rules of the Culottes board game</a> for a better understanding of the behavior of this revolution when issuing verdicts and distributing vote stakes. If you can read source code, you can also audit <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#code">the smart contract of this revolution and its detailed parameters</a>.
- </div--> 
 
 </form>

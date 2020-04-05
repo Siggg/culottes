@@ -17,25 +17,29 @@ export class FactoryComponent implements OnInit {
 	// name: String = "";
 	// revolutionAddress: String = "0x0000...";
 	// revolutionBlockchain: String = "";
-	// criteria: String = "default criteria from citizen.component.ts";
-	// distributionAmount: number = 0;
+	criteria: String = "default criteria from factory.component.ts";
+	distributionAmount: number = 0;
 	// culottes: any;
 	// account: any;
 	// accountBalance: number = undefined;
 	// amount: number = undefined;
 	// vote: boolean = undefined;
-	// showErrorMessageForAddress: boolean = false;
-	// showErrorMessageForAmount: boolean = false;
-	// showErrorMessageForVote: boolean = false;
-	// showErrorMessageForBalance: boolean = false;
+	showErrorMessageForCriteria: boolean = false;
+	showErrorMessageForHashtag: boolean = false;
+	showErrorMessageForPeriod: boolean = false;
+	showErrorMessageForAmount: boolean = false;
+	showErrorMessageForCreation: boolean = false;
 	// confirmationProgress: number = 0;
         // confirmationPercent: number = 0;
 	// transactionPending: boolean = false;
         // errorDuringVote: String = "";
-	// transactionConfirmed = false;
+	transactionPending = false;
+	transactionConfirmed = false;
 	// transactionHashes = [];
 	// web3_eth_contract: any;
+	hashtag: String = "#MyNewRevolution";
 	// hashtagWithoutSymbol: String = "CulottesRevolution";
+	distributionBlockPeriod: number = 0;
 
   constructor(
     private web3Service: Web3Service,
@@ -235,13 +239,9 @@ export class FactoryComponent implements OnInit {
     }
   } */
 
-  /* onClickMeT() {
-    this.cakeVote(true);
+  onRevolutionCreate() {
+    // this.cakeVote(true);
   }
-
-  onClickMeF() {
-    this.cakeVote(false);
-  } */
 
   /* getAddress(): void {
     this.address = this.route.snapshot.paramMap.get('address');
@@ -260,14 +260,13 @@ export class FactoryComponent implements OnInit {
       });
   } */
   
-  /* public onCurrencyChange(event): void {  // event will give you full breif of action
+  public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
-  } */
+  }
 
-  /* public onAmountChange(event): void {
+  public onAmountChange(event): void {
     this.showErrorMessageForAmount = false;
-    this.showErrorMessageForBalance = false;
-  } */
+  }
 
   public convertToFiat(amount) {
     return this

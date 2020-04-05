@@ -1,17 +1,22 @@
 <div class="ui raised segment mainbox ">
   <div class="ui secondary menu">
     <div class="left item">
-    <img
-     src="assets/logo/Bonnet_Phrygien.png"
-     class="logo"
-     routerLink="/revolution"
-    />
+      <img
+       src="assets/logo/Bonnet_Phrygien.png"
+       class="logo"
+       routerLink="/revolution"
+      />
     </div>
     <a class="item" routerLink="/revolution" style="display: none"
       >Your revolution</a
     >
-    <div class="right menu">
+    <div class="center menu">
       <a class="item" routerLink="/about">About</a>
+    </div>
+    <div class="right item">
+      <a class="ui red right ribbon label" routerLink="/factory">
+        <i class="copy outline icon"></i>Fork me
+      </a>
     </div>
   </div>
   <router-outlet></router-outlet>

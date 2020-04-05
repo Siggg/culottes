@@ -115,8 +115,9 @@
   </div>
  </div>
 
-<div class="ui {{ lockModalActivity }} modal">
-  <div class="ui icon header">
+<div class="ui fullscreen longer {{ lockModalActivity }} modal">
+   <i class="close outline icon" (click)="onCloseLockModal()"></i>
+   <div class="ui icon header">
     <i class="lock icon"></i>
     Locked
   </div>

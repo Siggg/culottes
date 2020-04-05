@@ -302,6 +302,11 @@ export class RevolutionComponent implements OnInit {
 	console.log("redirect failed: ", err);
       });
   }
+
+  onCloseLockModal(event): void {
+    console.log("Closing lock modal");
+    this.lockModalActivity = false;
+  }
   
   getAddress(): void { 
     var ra = "";

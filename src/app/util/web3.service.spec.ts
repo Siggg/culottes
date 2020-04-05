@@ -2,9 +2,7 @@ import {TestBed, inject} from '@angular/core/testing';
 const Web3 = require('web3');
 
 import {Web3Service} from './web3.service';
-
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import revolution_artifacts from '../../../build/contracts/Revolution.json';
 
 declare let window: any;
@@ -37,8 +35,8 @@ describe('Web3Service', () => {
     };
 
     service.bootstrapWeb3();
-
-    return service.artifactsToContract(revolution_artifacts).then((abstraction) => {
+    let address = undefined;
+    return service.artifactsToContract(revolution_artifacts, address).then((abstraction) => {
       expect(abstraction.currentProvider.host).toBe('http://localhost:1337');
     });
   }));

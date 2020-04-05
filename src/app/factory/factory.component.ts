@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 declare let require: any;
 declare let window: any;
-const contractABI = require('../../../build/contracts/Revolution.json');
+const revolutionContractABI = require('../../../build/contracts/Revolution.json');
+const factoryContractABI = require('../../../build/contracts/RevolutionFactory.json');
 
 @Component({
   selector: 'app-citizen',
@@ -24,7 +25,8 @@ export class FactoryComponent implements OnInit {
         transactionConfirmed = false;
         hashtag: String;
         distributionBlockPeriod: number;
-        web3_eth_contract: any;
+        revolutionContract: any;
+	factoryContract: any;
 	account: any;
         confirmationProgress: number = 0;
         confirmationPercent: number = 0;
@@ -36,6 +38,7 @@ export class FactoryComponent implements OnInit {
 	name: String = "";
 	revolutionAddress: String = "0x0000...";
 	revolutionBlockchain: String = "";
+	factoryAddress: String;
 	// culottes: any;
 	// accountBalance: number = undefined;
 
@@ -50,13 +53,16 @@ export class FactoryComponent implements OnInit {
   async ngOnInit() {
     this.getParams();
     // this.watchAccount();
+    this.revolutionAddress = this
+      .web3Service
+      .revolutionAddress;
     this.web3Service
-      .artifactsToContract(contractABI)
-      .then((web3_eth_contract) => {
-        this.web3_eth_contract = web3_eth_contract;
+      .artifactsToContract(revolutionContractABI, this.revolutionAddress)
+      .then((revolutionContract) => {
+        this.revolutionContract = revolutionContract;
 	
 	// Get revolution's criteria
-        return this.web3_eth_contract
+        return this.revolutionContract
           .methods
           .criteria()
           .call();
@@ -66,7 +72,7 @@ export class FactoryComponent implements OnInit {
         this.criteria = criteria;
 
 	// Get revolution's distributionAmout
-        return this.web3_eth_contract
+        return this.revolutionContract
           .methods
           .distributionAmount()
           .call();
@@ -87,7 +93,7 @@ export class FactoryComponent implements OnInit {
         }
 
 	// Get revolution's distributionBlockPeriod
-        return this.web3_eth_contract
+        return this.revolutionContract
           .methods
           .distributionBlockPeriod()
           .call();
@@ -106,7 +112,7 @@ export class FactoryComponent implements OnInit {
         }
 
         // Get revolution's hashtag
-        return this.web3_eth_contract
+        return this.revolutionContract
           .methods
           .hashtag()
           .call();
@@ -120,23 +126,24 @@ export class FactoryComponent implements OnInit {
           this.hashtagWithoutSymbol = "CulottesRevolution";
         }
 
-	// Get citizen's name
-	if (this.address != "") {
-	  return this.web3_eth_contract
-	    .methods
-	    .getName(this.address)
-	    .call();
-	} else {
-	  return undefined;
-	}
+	return this.revolutionContract
+	  .methods
+	  .factory()
+	  .call();
       })
-      .then((name) => {
-	console.log("name: ", name);
-	this.name = name;
+      .then((factoryAddress) => {
+        this.factoryAddress = factoryAddress;
+        console.log("factory address: ", factoryAddress);
+        return factoryAddress;
+      })
+      .then((factoryAddress) => {
+        this.web3Service
+          .artifactsToContract(factoryContractABI, this.factoryAddress)
+          .then((factoryContract) => {
+            this.factoryContract = factoryContract;
+            console.log("Factory contract: ", factoryContract);
+          });
       });
-    this.revolutionAddress = this
-      .web3Service
-      .revolutionAddress;
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
@@ -180,7 +187,7 @@ export class FactoryComponent implements OnInit {
         await window.ethereum.enable().then(() =>  {
           window.web3.eth.getAccounts((err, accs) => {
             this.account = accs[0];
-            console.log("Accounts refreshed, vote by: " + this.account);
+            console.log("Accounts refreshed, creation requested by: " + this.account);
           });
         });
       } catch (error) {
@@ -194,7 +201,7 @@ export class FactoryComponent implements OnInit {
 
     if (canCreate == true) {
       console.log('about to create revolution');
-      let method = this.web3_eth_contract
+      let method = this.revolutionContract
         .methods
         .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, this.distributionAmount, false);
       let component = this;

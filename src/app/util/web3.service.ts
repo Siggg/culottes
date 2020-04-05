@@ -197,16 +197,16 @@ export class Web3Service {
     }
   }
 
-  public async artifactsToContract(artifacts) {
+  public async artifactsToContract(artifacts, address) {
     if (!this.web3) {
       const delay = new Promise(resolve => setTimeout(resolve, 100));
       await delay;
-      return await this.artifactsToContract(artifacts);
+      return await this.artifactsToContract(artifacts, address);
     }
     const contractAbstraction = new this
       .web3
       .eth
-      .Contract(artifacts.abi, this.revolutionAddress);
+      .Contract(artifacts.abi, address);
     contractAbstraction
       .setProvider(this.web3.currentProvider);
     

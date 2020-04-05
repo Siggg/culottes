@@ -52,14 +52,15 @@ export class RevolutionComponent implements OnInit {
     this.getAddress();
     this.otherRevolutions = this.web3Service.revolutions;
     this.watchAccount();
-    let web3_eth_contract = await this
-      .web3Service
-      .artifactsToContract(
-        contractABI
-      );
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
+    let web3_eth_contract = await this
+      .web3Service
+      .artifactsToContract(
+        contractABI,
+        this.revolutionAddress
+      );
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;

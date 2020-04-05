@@ -48,8 +48,11 @@ export class CitizenComponent implements OnInit {
   async ngOnInit() {
     this.getAddress();
     this.watchAccount();
+    this.revolutionAddress = this
+      .web3Service
+      .revolutionAddress;
     this.web3Service
-      .artifactsToContract(contractABI)
+      .artifactsToContract(contractABI, this.revolutionAddress)
       .then((web3_eth_contract) => {
         this.web3_eth_contract = web3_eth_contract;
 	
@@ -112,9 +115,6 @@ export class CitizenComponent implements OnInit {
 	console.log("name: ", name);
 	this.name = name;
       });
-    this.revolutionAddress = this
-      .web3Service
-      .revolutionAddress;
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;

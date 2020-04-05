@@ -31,20 +31,20 @@ export class DonateComponent implements OnInit {
 	async ngOnInit() {
 	  this.revolutionAddress = this.web3Service.revolutionAddress;
 	  this.revolutionBlockchain = this.web3Service.revolutionBlockchain;
-		this.watchAccount();
-		this
-	  	.web3Service
-	  	.artifactsToContract(contractABI)
-			.then((web3_eth_contract) => {
-				this.web3_eth_contract = web3_eth_contract;
-				return web3_eth_contract
-				  .methods
-				  .criteria()
-				  .call();
-			})
-			.then((criteria) => {
-				console.log("criteria: ", criteria);
-			});
+          this.watchAccount();
+          this
+            .web3Service
+            .artifactsToContract(contractABI, this.revolutionAddress)
+            .then((web3_eth_contract) => {
+              this.web3_eth_contract = web3_eth_contract;
+              return web3_eth_contract
+                .methods
+                .criteria()
+                .call();
+              })
+            .then((criteria) => {
+              console.log("criteria: ", criteria);
+            });
 	}
 
 	async onClickMe() {

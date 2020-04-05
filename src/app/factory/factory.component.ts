@@ -201,9 +201,11 @@ export class FactoryComponent implements OnInit {
 
     if (canCreate == true) {
       console.log('about to create revolution');
-      let method = this.revolutionContract
+      let distributionWeiAmount = this.web3Service.etherToWei(this.distributionAmount);
+      console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionWeiAmount); 
+      let method = this.factoryContract
         .methods
-        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, this.distributionAmount, false);
+        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionWeiAmount, false);
       let component = this;
       method.call({from: this.account, gas: 1000000})
         .on('transactionHash', function(hash) {

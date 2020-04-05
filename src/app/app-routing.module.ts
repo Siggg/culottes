@@ -4,6 +4,7 @@ import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
 import { DonateComponent } from "./donate/donate.component";
 import { CitizenComponent } from "./citizen/citizen.component";
+import { FactoryComponent } from "./factory/factory.component";
 
 const routes: Routes = [
   { path: "", component: RevolutionComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: "about", component: AboutComponent },
   { path: "citizen", component: CitizenComponent },
   { path: "citizen/:address", component: CitizenComponent },
+  { path: "factory", component: FactoryComponent },
   { path: "donate", component: DonateComponent }
 ];
 

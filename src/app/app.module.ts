@@ -20,6 +20,7 @@ import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
 import { DonateComponent } from "./donate/donate.component";
 import { CitizenComponent } from "./citizen/citizen.component";
+import { FactoryComponent } from "./factory/factory.component";
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -29,7 +30,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     RevolutionComponent,
     AboutComponent,
     DonateComponent,
-    CitizenComponent
+    CitizenComponent,
+    FactoryComponent
   ],
   imports: [
     //  SuiModule,

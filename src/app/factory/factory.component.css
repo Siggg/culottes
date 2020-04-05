@@ -1,0 +1,37 @@
+
+.title {
+	text-align: center;
+}
+
+.criteria {
+	position: relative;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 1em;
+}
+
+.ethAmount {
+	position:relative;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	text-align: center;
+	min-width: 135px;
+}
+
+.tab {
+	margin-top: 15px;
+}
+
+.fiat {
+  min-height: auto !important;
+  height: 0.5em;
+}
+
+.btn-success {
+    background-color: #469900;
+}
+
+.btn-success:hover {
+    background-color: #266900;
+}
+

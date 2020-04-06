@@ -66,7 +66,8 @@ module.exports = {
 
     mainnetInfura: {
       provider: () => new PrivateKeyProvider(privateKeyOfContractOwner, "https://mainnet.infura.io/v3/" + infuraAPIKey),
-      network_id: "1",
+      network_id: 1
+      // networkCheckTimeout: 100000 
     },
 
     // Another network with more advanced options...
@@ -100,6 +101,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
+    /// enableTimeouts: false,
     // timeout: 100000
   },
 

@@ -250,9 +250,9 @@ export class FactoryComponent implements OnInit {
       .accountsObservable
       .subscribe((accounts) => {
         component.account = accounts[0];
-        window.web3.eth.getBalance(this.account, (err, balance) => {
+        /* window.web3.eth.getBalance(this.account, (err, balance) => {
           component.accountBalance = window.web3.utils.fromWei(balance, 'ether');
-        });
+        }); */
       });
   }
   

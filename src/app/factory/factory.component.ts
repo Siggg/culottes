@@ -52,7 +52,7 @@ export class FactoryComponent implements OnInit {
 
   async ngOnInit() {
     this.getParams();
-    // this.watchAccount();
+    this.watchAccount();
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
@@ -207,7 +207,8 @@ export class FactoryComponent implements OnInit {
         .methods
         .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionWeiAmount, false);
       let component = this;
-      method.call({from: this.account, gas: 1000000})
+      console.log("this.account:", this.account);
+      method.send({from: this.account, gas: 10000000})
         .on('transactionHash', function(hash) {
           component.transactionPending = true;
           component.confirmationProgress = 0;
@@ -242,7 +243,7 @@ export class FactoryComponent implements OnInit {
     this.distributionAmount = parseFloat(this.route.snapshot.paramMap.get('distributionAmount'));
   }
 
-  /* async watchAccount() {
+  async watchAccount() {
     let component = this;
     this
       .web3Service
@@ -253,7 +254,7 @@ export class FactoryComponent implements OnInit {
           component.accountBalance = window.web3.utils.fromWei(balance, 'ether');
         });
       });
-  } */
+  }
   
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;

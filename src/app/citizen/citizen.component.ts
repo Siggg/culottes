@@ -126,7 +126,7 @@ export class CitizenComponent implements OnInit {
     let method = this.web3_eth_contract
       .methods
       .vote(vote, this.address);
-    if (this.account == this.address) {
+    if (this.account == this.address && this.address != "" && this.address != undefined ) {
       console.log('voting for oneself');
       let myName = await this.web3_eth_contract
         .methods

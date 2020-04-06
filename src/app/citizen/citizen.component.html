@@ -7,7 +7,7 @@
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Trust Wallet." />
  </div>
 
- <div *ngIf="address == account" class="ui message">
+ <div *ngIf="address != '' && address != undefined && address == account" class="ui message">
   <div class="header">Hey, this is your own address! Name it so that they know it is yours.</div>
   <input [(ngModel)]="name" name="name" type="text" placeholder="You can give your address a public name." />
  </div>

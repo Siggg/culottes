@@ -132,13 +132,15 @@ export class CitizenComponent implements OnInit {
         .methods
         .getName()
         .call();
+      console.log('Your name was: ', myName);
       if (myName != this.name) {
         // Change one's name
-	console.log('your name was: ', myName);
 	console.log('vote and set it to: ', this.name);
         method = this.web3_eth_contract
           .methods
           .voteAndSetName(vote, this.address, this.name);
+      } else {
+        console.log('  it does not have to change');
       }
     }
     method.send({from: this.account, value: weiAmount, gas: 1000000})

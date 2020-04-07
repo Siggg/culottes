@@ -208,31 +208,37 @@ export class FactoryComponent implements OnInit {
         .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionWeiAmount, false);
       let component = this;
       console.log("this.account:", this.account);
-      method.send({from: this.account, gas: 10000000})
-        .on('transactionHash', function(hash) {
-          component.transactionPending = true;
-          component.confirmationProgress = 0;
-          component.confirmationPercent = 0;
-          component.transactionHashes.push(hash);
-          console.log('transactionHash received');
-        })
-        .on('confirmation', function(confirmationNumber, receipt) {
-          component.transactionPending = true;
-          component.confirmationProgress += 1; //confirmationNumber; // up to 24
-          component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
-          console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
-        })
-        .on('receipt', function(receipt){
-          // receipt example
-          console.log('receipt received: ', receipt);
-          component.transactionPending = false;
-          component.transactionConfirmed = true;
-        })
-        .on('error', function(error, receipt){
-          console.error;
-          this.showErrorMessageForCreation = true;
-          this.errorDuringCreation = error;
-        }); // If there's an out of gas error the second parameter is the receipt.
+      method.estimateGas({from: this.account, gas: 3000000})
+	.then((gasAmount) => {
+          console.log('estimated gas amount: ', gasAmount);
+          method.send({from: this.account, gasPrice: "2000000000", gas: gasAmount + 100000})
+            .on('transactionHash', function(hash) {
+              component.transactionPending = true;
+              component.confirmationProgress = 0;
+              component.confirmationPercent = 0;
+              component.transactionHashes.push(hash);
+              console.log('transactionHash received');
+            })
+            .on('confirmation', function(confirmationNumber, receipt) {
+              component.transactionPending = true;
+              component.confirmationProgress += 1; //confirmationNumber; // up to 24
+              component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+              console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
+            })
+            .on('receipt', function(receipt){
+              // receipt example
+              console.log('receipt received: ', receipt);
+              component.transactionPending = false;
+              component.transactionConfirmed = true;
+            })
+            .on('error', function(error, receipt){
+              console.log('oops: ', error);
+              console.log('receipt: ', receipt);
+              console.error;
+              this.showErrorMessageForCreation = true;
+              this.errorDuringCreation = error;
+            }); // If there's an out of gas error the second parameter is the receipt.
+        });
     }
   }
 

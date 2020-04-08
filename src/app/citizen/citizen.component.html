@@ -83,7 +83,7 @@
 
  <div *ngIf="transactionPending || transactionConfirmed">
   <h2 class="ui header">3. Tweet why you voted so about this address</h2>
-  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because [...]"</a></p>
+  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank">Click here to complete your tweet : "I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because [...]"</a></p>
   <h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is confirmed.</h2>
  </div>
 

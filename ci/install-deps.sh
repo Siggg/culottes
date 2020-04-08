@@ -11,5 +11,6 @@ cd node_modules/protractor
 # Sometimes webdriver-manager will know of a chrome version which is not already available on your system.
 # Then you have to force that system version on webdriver-manager or it will fail.
 bin/webdriver-manager clean
-bin/webdriver-manager update --versions.chrome 79.0.3945.130
+bin/webdriver-manager update --versions.chrome 80.0.3987.106
+# 79.0.3945.130
 cd ../..

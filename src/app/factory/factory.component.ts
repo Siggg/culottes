@@ -224,11 +224,11 @@ export class FactoryComponent implements OnInit {
               component.confirmationProgress += 1; //confirmationNumber; // up to 24
               component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
               console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
-              console.log('receipt received: ', receipt);
+              // console.log('receipt received: ', receipt);
             })
             .on('receipt', function(receipt){
               // receipt example
-              console.log('receipt received: ', receipt);
+              // console.log('receipt received: ', receipt);
               component.transactionPending = false;
               component.transactionConfirmed = true;
             })

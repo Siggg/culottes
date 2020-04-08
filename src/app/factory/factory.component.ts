@@ -141,7 +141,7 @@ export class FactoryComponent implements OnInit {
           .artifactsToContract(factoryContractABI, this.factoryAddress)
           .then((factoryContract) => {
             this.factoryContract = factoryContract;
-            console.log("Factory contract: ", factoryContract);
+            // console.log("Factory contract: ", factoryContract);
           });
       });
     this.revolutionBlockchain = this
@@ -217,13 +217,14 @@ export class FactoryComponent implements OnInit {
               component.confirmationProgress = 0;
               component.confirmationPercent = 0;
               component.transactionHashes.push(hash);
-              console.log('transactionHash received');
+              console.log('transactionHash received: ', hash);
             })
             .on('confirmation', function(confirmationNumber, receipt) {
               component.transactionPending = true;
               component.confirmationProgress += 1; //confirmationNumber; // up to 24
               component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
               console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
+              console.log('receipt received: ', receipt);
             })
             .on('receipt', function(receipt){
               // receipt example

@@ -87,7 +87,7 @@
  <div *ngIf="transactionPending" class="ui positive message">
   <div class="content">
    <div class="header">Creation confirmation started</div>
-   <p>You created the {{ hashtag }} revolution with {{ distributionAmount }} ETH to be distributed every {{ distributionBlockPeriod }} blocks (approximately {{ distributionBlockPeriod * 13 }} seconds or {{ distributionBlockPeriod * 13 / 60 }} minutes or {{ distributionBlockPeriod * 13 / 3600 }} hours or {{ distributionBlockPeriod * 13 / 3600 / 24 }} days...</p>
+   <p>You created the {{ hashtag }} revolution with {{ distributionAmount }} ETH to be distributed every {{ distributionBlockPeriod }} blocks (approximately {{ distributionBlockPeriod * 13 }} seconds or {{ (distributionBlockPeriod * 13 / 60)+'' | slice:0:10 }} minutes or {{ (distributionBlockPeriod * 13 / 3600)+'' | slice:0:8 }} hours or {{ (distributionBlockPeriod * 13 / 3600 / 24)+'' | slice:0:6 }} days)...</p>
    <p>Now you can go to step 3 below, or leave this page while the recording of your creation is being confirmed by the blockchain. <!--FIXME span *ngIf="confimationProgress"-->{{ confirmationProgress }} / 24 confirmations received.<!--/span--></p>
    <p>{{ transactionHashes[-1] }} <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ transactionHashes[0] }}" target="_blank">See details of your creation transaction on Etherscan</a></p>
   </div>
@@ -102,7 +102,7 @@
 
  <div *ngIf="transactionPending || transactionConfirmed">
   <h2 class="ui header">3. Announce your revolution on twitter !</h2>
-  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20created%20the%20%23{{ hashtagWithoutSymbol }}%20revolution%20because%20...&hashtags={{ hashtagWithoutSymbol }}">Click here to complete your tweet : "I created the {{ hashtag }} revolution because [...]"</a></p>
+  <p><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&text=I%20created%20the%20%23{{ hashtag | slice:1 }}%20revolution%20because%20...&hashtags={{ hashtag | slice:1 }}" target="_blank">Click here to complete your tweet : "I created the {{ hashtag }} revolution because [...]"</a></p>
  </div>
 
 </form>

@@ -211,7 +211,12 @@ export class Web3Service {
       .Contract(artifacts.abi, address);
     contractAbstraction
       .setProvider(this.web3.currentProvider);
-    
+
+    return contractAbstraction;
+  }
+
+  public async updateWeb3Status(artifacts, address) {
+    const contractAbstraction = await this.artifactsToContract(artifacts, address);
     try {
       contractAbstraction
         .methods
@@ -235,9 +240,6 @@ export class Web3Service {
       this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should try switching your blockchain browser or node to the Ethereum ' + this.revolutionBlockchain + '  blockchain. The error message was: " + error.toString());
       this.statusError = true;
     }
-    
-    return contractAbstraction;
-
   }
 
   public refreshAccounts() {

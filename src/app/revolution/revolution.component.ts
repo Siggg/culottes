@@ -279,6 +279,7 @@ export class RevolutionComponent implements OnInit {
       }
     } while (revolutionHashtag != null);
     console.log('hashtags: ', this.otherRevolutions);
+    await this.web3Service.updateWeb3Status(revolutionContractABI, this.revolutionAddress);
   }
 
   async watchAccount() {

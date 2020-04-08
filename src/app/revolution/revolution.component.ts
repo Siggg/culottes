@@ -3,7 +3,8 @@ import { Web3Service } from "../util/web3.service";
 import { Router, ActivatedRoute } from '@angular/router';
 
 declare let require: any;
-const contractABI = require("../../../build/contracts/Revolution.json");
+const revolutionContractABI = require("../../../build/contracts/Revolution.json");
+const factoryContractABI = require('../../../build/contracts/RevolutionFactory.json');
 
 interface ICitizen {
    address: string;
@@ -40,6 +41,7 @@ export class RevolutionComponent implements OnInit {
   lockModalActivity: String = "";
   otherRevolutions = {};
   contractEvents: any;
+  factoryAddress: String;
 
   constructor(
     private web3Service: Web3Service,
@@ -55,20 +57,20 @@ export class RevolutionComponent implements OnInit {
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
-    let web3_eth_contract = await this
+    let revolutionContract = await this
       .web3Service
       .artifactsToContract(
-        contractABI,
+        revolutionContractABI,
         this.revolutionAddress
       );
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
-    this.criteria = await web3_eth_contract
+    this.criteria = await revolutionContract
       .methods
       .criteria()
       .call();
-    this.hashtag = await web3_eth_contract
+    this.hashtag = await revolutionContract
       .methods
       .hashtag()
       .call()
@@ -84,7 +86,7 @@ export class RevolutionComponent implements OnInit {
         }
         return hashtag;
     });
-    this.lockModalActivity = await web3_eth_contract
+    this.lockModalActivity = await revolutionContract
       .methods
       .locked()
       .call()
@@ -95,7 +97,7 @@ export class RevolutionComponent implements OnInit {
           return "";
         }
       });
-    this.bastilleBalance = await web3_eth_contract
+    this.bastilleBalance = await revolutionContract
       .methods
       .bastilleBalance()
       .call()
@@ -127,7 +129,7 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading bastille balance: " + error);
       });
-    this.distributionAmount = await web3_eth_contract
+    this.distributionAmount = await revolutionContract
       .methods
       .distributionAmount()
       .call()
@@ -146,7 +148,7 @@ export class RevolutionComponent implements OnInit {
 	          .weiToEther(result);
 	      }
       });
-    this.distributionBlockPeriod = await web3_eth_contract
+    this.distributionBlockPeriod = await revolutionContract
       .methods
       .distributionBlockPeriod()
       .call()
@@ -181,7 +183,7 @@ export class RevolutionComponent implements OnInit {
     let address = "";
     let citizen: ICitizen;
     while (address != null) {
-      address = await web3_eth_contract
+      address = await revolutionContract
         .methods
         .citizens(i)
         .call()
@@ -197,7 +199,7 @@ export class RevolutionComponent implements OnInit {
       });
       // console.log("read citizen: ", address);
       if (address != "" && address != null) {
-        citizen = await web3_eth_contract
+        citizen = await revolutionContract
           .methods
           .trialStatus(address)
           .call()
@@ -233,10 +235,10 @@ export class RevolutionComponent implements OnInit {
       i += 1;
     }
     // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
-    this.contractEvents = await web3_eth_contract
+    this.contractEvents = await revolutionContract
       .getPastEvents("allEvents", { fromBlock: 0, toBlock: "latest" })
       .then( (events) => {
-        console.log("All events: ", events);
+        // console.log("All events: ", events);
         return events;
       })
       .catch( (error) => {
@@ -246,6 +248,37 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
+    this.factoryAddress = await revolutionContract
+      .methods
+      .factory()
+      .call();
+    let factoryContract = await this
+      .web3Service
+      .artifactsToContract(
+        factoryContractABI,
+        this.factoryAddress
+      );
+    console.log("Got factoryContract");
+    let revolutionIndex = 0;
+    let revolutionHashtag = "";
+    let otherRevolution;
+    do {
+      revolutionHashtag = await factoryContract
+        .methods
+        .hashtags(revolutionIndex)
+        .call();
+      console.log('revolutionHashTag: ', revolutionHashtag);
+      if (revolutionHashtag != null) {
+	otherRevolution = await factoryContract
+          .methods
+          .getRevolution(revolutionHashtag)
+          .call();
+	console.log('  with revolution: ', otherRevolution);
+        this.otherRevolutions[otherRevolution] = revolutionHashtag;
+	revolutionIndex += 1;
+      }
+    } while (revolutionHashtag != null);
+    console.log('hashtags: ', this.otherRevolutions);
   }
 
   async watchAccount() {

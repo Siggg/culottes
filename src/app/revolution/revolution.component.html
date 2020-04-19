@@ -30,7 +30,10 @@
       [class.btn-success]="copied == citizen.address"
       attr.data-tooltip="Their Ethereum address: {{ citizen.address }}. Click to copy it."
       data-position="top left">
-      <span *ngIf="citizen.name">{{ (citizen.name | slice:0:12) }} </span>
+      <span *ngIf="citizen.name">
+       <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
+       <span *ngIf="citizen.name.length <= 14">{{ citizen.name }}</span>
+      </span>
       {{ (citizen.address | slice:0:8)+'...' }}<span *ngIf="copied == citizen.address"> Copied</span>
      </button>
      <a [routerLink]="['/citizen', citizen.address]">

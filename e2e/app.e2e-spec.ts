@@ -1,10 +1,22 @@
 import { AppPage } from './app.po';
+import { browser } from 'protractor';
 
 describe('angular-truffle-box App', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
+  });
+
+  afterEach(function () {
+    browser.manage().logs().get('browser').then(function(browserLogs) {
+       // browserLogs is an array of objects with level and message fields
+       browserLogs.forEach(function(log){
+          if (log.level.value > -1000) { // level > 900 means it's an error log
+            console.log(log.message);
+          }
+       });
+    });
   });
 
   it('should display the criteria label', () => {

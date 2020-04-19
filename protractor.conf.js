@@ -10,7 +10,12 @@ exports.config = {
   ],
   capabilities: {
     'browserName': 'chrome',
-    chromeOptions: {
+    'loggingPrefs': {
+      'driver': 'WARNING',
+      'server': 'WARNING',
+      'browser': 'INFO'
+    },
+    'chromeOptions': {
       args: [ "--headless", "--no-sandbox", "--disable-gpu", "--window-size=800,600" ]
     }
   },

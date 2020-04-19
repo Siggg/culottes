@@ -130,7 +130,7 @@ export class CitizenComponent implements OnInit {
       console.log('voting for oneself');
       let myName = await this.web3_eth_contract
         .methods
-        .getName()
+        .getName(this.address)
         .call();
       console.log('Your name was: ', myName);
       if (myName != this.name) {

@@ -180,11 +180,52 @@ export class RevolutionComponent implements OnInit {
         }
       return blocks;
     });
+        console.log("Getting other revolutions from this factory");
+    this.factoryAddress = await revolutionContract
+      .methods
+      .factory()
+      .call();
+    if (this.factoryAddress == null) {
+      console.log("factoryAddress is null !");
+      // TODO : figure out a way for web3 to work properly in e2e protractor tests
+      this.factoryAddress = "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D";
+    }
+    console.log("factoryAddress: ", this.factoryAddress);
+    let factoryContract = await this
+      .web3Service
+      .artifactsToContract(
+        factoryContractABI,
+        this.factoryAddress
+      );
+    console.log("Got factoryContract");
+    let revolutionIndex = 0;
+    let revolutionHashtag = "";
+    let otherRevolution;
+    do {
+      revolutionHashtag = await factoryContract
+        .methods
+        .hashtags(revolutionIndex)
+        .call();
+      console.log('revolutionHashTag: ', revolutionHashtag);
+      if (revolutionHashtag != null) {
+        otherRevolution = await factoryContract
+          .methods
+          .getRevolution(revolutionHashtag)
+          .call();
+        console.log('  with revolution: ', otherRevolution);
+        this.otherRevolutions[otherRevolution] = revolutionHashtag;
+        revolutionIndex += 1;
+      }
+    } while (revolutionHashtag != null);
+    console.log('hashtags: ', this.otherRevolutions);
+    await this.web3Service.updateWeb3Status(revolutionContractABI, this.revolutionAddress);
+
+    console.log("Getting citzens");
     let i = 0;
-    let address = "";
+    let citizenAddress = "";
     let citizen: ICitizen;
-    while (address != null) {
-      address = await revolutionContract
+    while (citizenAddress != null) {
+      citizenAddress = await revolutionContract
         .methods
         .citizens(i)
         .call()
@@ -198,11 +239,11 @@ export class RevolutionComponent implements OnInit {
             .next("An error occured while reading citizen " + i.toString() + " : " + error);
           return ""
       });
-      // console.log("read citizen: ", address);
-      if (address != "" && address != null) {
+      // console.log("read citizen: ", citizenAddress);
+      if (citizenAddress != "" && citizenAddress != null) {
         citizen = await revolutionContract
           .methods
-          .trialStatus(address)
+          .trialStatus(citizenAddress)
           .call()
           .then( (result) => {
 	    // console.log("citizen result: ", result);
@@ -213,8 +254,11 @@ export class RevolutionComponent implements OnInit {
 	      name = undefined;
               console.log("Could read name from contract: ", e);
             }
+	    if (citizenAddress in this.otherRevolutions) {
+              name = this.otherRevolutions[citizenAddress];
+	    }
             return {
-              address: address,
+              address: citizenAddress,
               opened: result[0],
               matchesCriteria: result[1],
               sansculotteScale: result[2],
@@ -249,45 +293,6 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
-    console.log("reading factory address");
-    this.factoryAddress = await revolutionContract
-      .methods
-      .factory()
-      .call();
-    if (this.factoryAddress == null) {
-      console.log("factoryAddress is null !");
-      // TODO : figure out a way for web3 to work properly in e2e protractor tests
-      this.factoryAddress = "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D";
-    }
-    console.log("factoryAddress: ", this.factoryAddress);
-    let factoryContract = await this
-      .web3Service
-      .artifactsToContract(
-        factoryContractABI,
-        this.factoryAddress
-      );
-    console.log("Got factoryContract");
-    let revolutionIndex = 0;
-    let revolutionHashtag = "";
-    let otherRevolution;
-    do {
-      revolutionHashtag = await factoryContract
-        .methods
-        .hashtags(revolutionIndex)
-        .call();
-      console.log('revolutionHashTag: ', revolutionHashtag);
-      if (revolutionHashtag != null) {
-	otherRevolution = await factoryContract
-          .methods
-          .getRevolution(revolutionHashtag)
-          .call();
-	console.log('  with revolution: ', otherRevolution);
-        this.otherRevolutions[otherRevolution] = revolutionHashtag;
-	revolutionIndex += 1;
-      }
-    } while (revolutionHashtag != null);
-    console.log('hashtags: ', this.otherRevolutions);
-    await this.web3Service.updateWeb3Status(revolutionContractABI, this.revolutionAddress);
   }
 
   async watchAccount() {

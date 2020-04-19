@@ -1,9 +1,10 @@
 <form class="ui form" name="citizen">
-
+ <h1>Cast your vote and bet on an Ethereum address</h1>
  <h2 class="ui header">1. Fill the address and amount of your vote and bet</h2>
  
  <div class="field">
   <label>Their address</label>
+  If ever you don't know their Ethereum address, ask them. If you still don't know, you can <a routerLink="/factory">create a new revolution</a> using their name as the criteria and hashtag of that new revolution, then copy the address of that new revolution and paste it below. Their Ethereum address can be added to that revolution later.
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Trust Wallet." />
  </div>
 

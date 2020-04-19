@@ -41,7 +41,6 @@ export class CitizenComponent implements OnInit {
     private web3Service: Web3Service,
     private route: ActivatedRoute,
     private router: Router) {
-
   }
 
 
@@ -118,6 +117,21 @@ export class CitizenComponent implements OnInit {
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
+    if (this.account == undefined) {
+      // Maybe metamask has not been enabled yet
+      try {
+        // Request account access if needed
+        await window.ethereum.enable().then(() =>  {
+          window.web3.eth.getAccounts((err, accs) => {
+            this.account = accs[0];
+            console.log("Accounts refreshed, vote by: " + this.account);
+          });
+        });
+      } catch (error) {
+        console.log('Metamask not enabled');
+      }
+    } 
+    console.log("address, account, equal ?: ", this.address, this.account, this.address == this.account);
   }
 
   async sendVote(vote, weiAmount) {
@@ -280,5 +294,5 @@ export class CitizenComponent implements OnInit {
   public currency() {
     return this.web3Service.currency;
   }
-  
+
 }

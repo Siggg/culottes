@@ -100,9 +100,9 @@ export class CitizenComponent implements OnInit {
         } else {
           this.hashtagWithoutSymbol = "CulottesRevolution";
         }
-
-	// Get citizen's name
-	if (this.address != "") {
+        // console.log("Get citizen's name");
+	// console.log("this.address: ", this.address);
+	if (this.address != "" && this.address != null) {
 	  return this.web3_eth_contract
 	    .methods
 	    .getName(this.address)

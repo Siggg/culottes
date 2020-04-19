@@ -1,10 +1,10 @@
 <div>
   <h1 class="ui header">{{ hashtag }}</h1>
-  <p><strong>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for {{ criteria }}</strong></p>
+  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for anyone matching this criteria: <strong>{{ criteria }}</strong>.</p>
 
  <div class="ui segment" id="discuss">
   <h3 class="ui header">1. Who does or does not match this criteria?</h3>
-  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media <span id="hashtag">{{ hashtag }}</span></a> or offline. Ask for their Ethereum address. Demand proofs that they really are {{ criteria }}. Verify them. Challenge them. Debate. Build your opinion.</div>
+  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media using the <span id="hashtag">{{ hashtag }}</span></a> hashtag. Or offline. Demand proofs that they really are <strong>{{ criteria }}</strong>. Verify them. Challenge them. Debate. Build your opinion. Then ask for their Ethereum address.</div>
  </div>
  
 
@@ -50,7 +50,7 @@
  
   <div class="ui segment" id="add">
   <h3 class="ui header">3. What's a new Ethereum address to be put on trial?</h3>
-  <div class="content">You can add your own address if you are {{ criteria }}. Your address can be copied from your Ethereum wallet (Metamask, Coinbase, ...).</div>
+  <div class="content">You can add your own address if you are <strong>{{ criteria }}</strong>. Your address can be copied from your Ethereum wallet (Metamask, Coinbase, ...).</div>
   <div class="content"><a routerLink="/citizen">
    <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
     <i class="envelope scale icon"></i>
@@ -62,10 +62,10 @@
  
   <div class="ui segment form">
   <h3 class="ui header">4. Donate Eth to be distributed</h3>
-  This revolution collects donations sent to the address <a href="#" (click)="fullAddressShown = !fullAddressShown"><span *ngIf="!fullAddressShown">{{ (revolutionAddress.length>8)? (revolutionAddress | slice:0:8)+'...':(revolutionAddress) }}</span><span *ngIf="fullAddressShown">{{ revolutionAddress }}</span></a> on the Ethereum {{ revolutionBlockchain }} blockchain. 100% of these donations are directly re-distributed as income, minus transaction safety fees (also known as network mining fees).
+  This revolution collects donations sent to the address <strong>{{ revolutionAddress }}</strong> on the Ethereum {{ revolutionBlockchain }} blockchain. 100% of these donations are directly re-distributed as income, minus transaction safety fees (also known as network mining fees).
 
   <div class="field">
-   <label>Current amount in this revolution</label>
+   <label>Current amount in this revolution:</label>
    <div class="ui large label">
     <span id="balance">
      {{ bastilleBalance }}
@@ -92,11 +92,21 @@
  </div>
  
  
- <div class="ui segment" id="trust">
-  <h3 class="ui header">5. How much can you trust this app?</h3>
- 
-  <p id="criteriaLabel"> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
+ <div class="ui segment" id="other">
+  <h3 class="ui header">5. Join another revolution or create a new one</h3>
+  <div class="field">
+   <label>Join another revolution:</label>
+   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
+    <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
+   </select>
+   <p>or <a routerLink="/factory">create a new one.</a>
+  </div>
+ </div>
 
+
+ <div class="ui segment" id="trust">
+  <h3 class="ui header">6. How much can you trust this app?</h3>
+  <p id="criteriaLabel"> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
   <ul>If you are a skillful smart contract auditor, you can :
     <li><a href="https://github.com/siggg/culottes" target="_blank">read and check the open source code of this application on Github</a></li>
     <li><a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}" target="_blank">scan the blockchain at the address of this revolution and check that this smart contract was created by another contract which indeed runs the source code seen on Github</a></li>
@@ -104,17 +114,11 @@
  </div>
 
 
- <div class="ui segment">Status:
+ <div class="ui segment">Technical status:
   <div [innerHTML]="web3Status"></div>
   <div class="field">
    <label>Address of this revolution</label>
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
-  </div>
-  <div class="field">
-   <label><a routerLink="/factory">Spark a revolution for your own cause</a> or join another revolution:</label>
-   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
-    <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
-   </select>
   </div>
  </div>
 

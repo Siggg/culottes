@@ -41,7 +41,7 @@ export class RevolutionComponent implements OnInit {
   lockModalActivity: String = "";
   otherRevolutions = {};
   contractEvents: any;
-  factoryAddress: String;
+  factoryAddress: string;
 
   constructor(
     private web3Service: Web3Service,
@@ -70,6 +70,7 @@ export class RevolutionComponent implements OnInit {
       .methods
       .criteria()
       .call();
+    console.log("criteria: ", this.criteria);
     this.hashtag = await revolutionContract
       .methods
       .hashtag()
@@ -248,10 +249,17 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
+    console.log("reading factory address");
     this.factoryAddress = await revolutionContract
       .methods
       .factory()
       .call();
+    if (this.factoryAddress == null) {
+      console.log("factoryAddress is null !");
+      // TODO : figure out a way for web3 to work properly in e2e protractor tests
+      this.factoryAddress = "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D";
+    }
+    console.log("factoryAddress: ", this.factoryAddress);
     let factoryContract = await this
       .web3Service
       .artifactsToContract(

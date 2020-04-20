@@ -15,7 +15,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
 // import { SuiModule } from "ng2-semantic-ui";
-import {UtilModule} from './util/util.module';
+import { UtilModule } from './util/util.module';
 import { RevolutionComponent } from "./revolution/revolution.component";
 import { AboutComponent } from "./about/about.component";
 import { DonateComponent } from "./donate/donate.component";
@@ -23,6 +23,11 @@ import { CitizenComponent } from "./citizen/citizen.component";
 import { FactoryComponent } from "./factory/factory.component";
 
 import { ClipboardModule } from 'ngx-clipboard';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+// the second parameter 'fr-FR' is optional
+registerLocaleData(localeFr, 'fr-FR');
 
 @NgModule({
   declarations: [

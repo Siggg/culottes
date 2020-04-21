@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="fr-FR">
+    <body>
+      <trans-unit id="9a7e08e14e7968db6a521e677f244b7b8c0a6f4b" datatype="html">
+        <source>About</source>
+        <target state="translated">À propos</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Hyperlink to the about section</note>
+        <note priority="1" from="meaning">about link</note>
+      </trans-unit>
+      <trans-unit id="forkLink" datatype="html">
+        <source>
+        <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/>Fork this revolution
+      </source>
+        <target state="translated">Forker cette révolution</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">Hyperlink to the forking factory</note>
+        <note priority="1" from="meaning">fork link</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

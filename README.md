@@ -101,3 +101,7 @@ Will update your node then angular dependencies and audit them for issues then p
   npm audit fix
 
 If you have issues with the version of chrome that webdriver-manager uses for running tests, have a look at ci/install-deps.sh for specify the version of webdriver-manager and of the browser it uses.
+
+Will extract i18n HTML text messages and store them into the appropriate source files so that you can edit their translations with an XLIFF editor such as poedit
+
+  ng xi18n --output-path locale

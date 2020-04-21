@@ -31,6 +31,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
+	      "localize": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -49,7 +50,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "angular-truffle-box:build"
-          },
+	  },
           "configurations": {
             "production": {
               "browserTarget": "angular-truffle-box:build:production"

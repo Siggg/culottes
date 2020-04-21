@@ -6,5 +6,9 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "app works!";
+  title = "The Culottes Revolution";
+  /* languageList = [
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' }
+  ]; */
 }

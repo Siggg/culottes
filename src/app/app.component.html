@@ -11,12 +11,19 @@
       >Your revolution</a
     >
     <div class="center menu">
-      <a class="item" routerLink="/about">About</a>
+      <a i18n="about link|Hyperlink to the about section" class="item" routerLink="/about">About</a>
     </div>
     <div class="right item">
       <a class="ui red right ribbon label" routerLink="/factory">
-        <i class="copy outline icon"></i>Fork this revolution
+        <i class="copy outline icon"></i><ng-container i18n="fork link|Hyperlink to the forking factory@@forkLink">Fork this revolution</ng-container>
       </a>
+      <!-- ul>
+       <li *ngFor="let language of languageList">
+        <a href="/{{language.code}}/">
+         {{language.label}}
+        </a>
+       </li>
+      </ul-->
     </div>
   </div>
   <router-outlet></router-outlet>

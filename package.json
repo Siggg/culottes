@@ -12,7 +12,8 @@
     "postinstall": "node patch.js",
     "deploy": "ng build --prod --base-href /culottes/ --deploy-url /culottes/ --output-path docs && npx ngh --dir=docs",
     "snyk-protect": "snyk protect",
-    "prepublish": "export NODE_OPTIONS=--max-old-space-size=4096 && echo 'I would run this if it did not fail : npm run snyk-protect'"
+    "prepublish": "export NODE_OPTIONS=--max-old-space-size=4096 && echo 'I would run this if it did not fail : npm run snyk-protect'",
+    "int:extract": "ng xi18n --output-path locale"
   },
   "private": true,
   "dependencies": {

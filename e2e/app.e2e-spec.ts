@@ -21,7 +21,7 @@ describe('angular-truffle-box App', () => {
 
   it('should display the criteria label', () => {
     page.navigateTo();
-    expect(page.getCriteriaLabel()).toContain('an income from this app if and only if they are');
+    expect(page.getCriteriaLabel()).toContain('an income from this app if and only if they are the address of');
   });
 
   it('should display the criteria question', () => {

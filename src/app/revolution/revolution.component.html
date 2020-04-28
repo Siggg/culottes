@@ -1,19 +1,19 @@
 <div>
   <h1 class="ui header">{{ hashtag }}</h1>
-  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} for anyone matching this criteria: <strong>{{ criteria }}</strong>.</p>
+  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} distributed to the Ethereum address of: <strong>{{ criteria }}</strong>.</p>
 
  <div class="ui segment" id="discuss">
-  <h3 class="ui header">1. Who does or does not match this criteria?</h3>
-  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media using the <span id="hashtag">{{ hashtag }}</span></a> hashtag. Or offline. Demand proofs that they really are <strong>{{ criteria }}</strong>. Verify them. Challenge them. Debate. Build your opinion. Then ask for their Ethereum address.</div>
+  <h3 class="ui header">1. Who or what does or does not match this criteria?</h3>
+  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media using the <span id="hashtag">{{ hashtag }}</span></a> hashtag. Or by offline discussions. Demand proofs that this really is the address of <strong>{{ criteria }}</strong>. Fact check it. Challenge it. Debate it. Build your own opinion.</div>
  </div>
  
 
  <div class="ui segment" id="vote">
-  <h3 class="ui header">2. Are they really {{criteria}} ?</h3>
+  <h3 class="ui header">2. Here are the addresses currently under trial.</h3>
   <div class="ui relaxed celled list">
    <div class="item">
     <div class="content">
-     <div class="header"><label>Bet and vote on their trial, see consensual verdicts</label></div>
+     <div class="header"><label>Bet and vote on their trial, challenge the consensual verdicts.</label></div>
     </div>
    </div>
   </div>
@@ -28,7 +28,7 @@
       [cbContent]="citizen.address"
       (cbOnSuccess)="copied = citizen.address"
       [class.btn-success]="copied == citizen.address"
-      attr.data-tooltip="{{ citizen.name }} Their Ethereum address: {{ citizen.address }}. Click to copy it."
+      attr.data-tooltip="{{ citizen.name }} The Ethereum address: {{ citizen.address }}. Click to copy it."
       data-position="top left">
       <span *ngIf="citizen.name">
        <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
@@ -49,8 +49,8 @@
  
  
   <div class="ui segment" id="add">
-  <h3 class="ui header">3. Whose Ethereum address should be put on trial?</h3>
-  <div class="content">You can add your own address if you are <strong>{{ criteria }}</strong>. Your address can be copied from your Ethereum wallet (Metamask, Coinbase, Trust, ...). If you don't know their address, you can create a new revolution using their name as its criteria and hashtag, then use the address of that new revolution in order to add it here.</div>
+  <h3 class="ui header">3. What additional Ethereum address should be put on trial?</h3>
+  <div class="content">You can add any Ethereum address (even yours) if it indeed is the address of <strong>{{ criteria }}</strong>. Your own address can be copied from your Ethereum wallet (Metamask, Coinbase, Trust, ...). If you don't know the proper Ethereum address to use, you can <a routerLink="/factory">create a new revolution using a full name or precise definition as its criteria and a short name or pseudonyme as a hashtag</a>, then use the address of that new revolution in order to put it on trial.</div>
   <div class="content"><a routerLink="/citizen">
    <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">
     <i class="envelope scale icon"></i>
@@ -106,10 +106,10 @@
 
  <div class="ui segment" id="trust">
   <h3 class="ui header">6. How much can you trust this app?</h3>
-  <p id="criteriaLabel"> The owners of the addresses listed above get an income from this app if and only if they are <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. Their income is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
+  <p id="criteriaLabel"> The Ethereum addresses listed above receive an income from this application if and only if they are the address of <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. The income received is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
   <ul>If you are a skillful smart contract auditor, you can :
-    <li><a href="https://github.com/siggg/culottes" target="_blank">read and check the open source code of this application on Github</a></li>
-    <li><a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}" target="_blank">scan the blockchain at the address of this revolution and check that this smart contract was created by another contract which indeed runs the source code seen on Github</a></li>
+    <li><a href="https://github.com/siggg/culottes" target="_blank">read and check the open source code of this application and smart contract on Github</a></li>
+    <li><a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}" target="_blank">scan the blockchain at the address of this revolution and check that this smart contract was created by the factory contract which indeed runs the source code seen on Github (the factory contract should have been verified on Etherscan)</a></li>
   </ul>
  </div>
 

@@ -3,13 +3,13 @@
  <h2 class="ui header">1. Fill the address and amount of your vote and bet</h2>
  
  <div class="field">
-  <label>Their address</label>
-  If ever you don't know their Ethereum address, ask them. If you still don't know, you can <a routerLink="/factory">create a new revolution</a> using their name as the criteria and hashtag of that new revolution, then copy the address of that new revolution and paste it below. Their Ethereum address can be added to that revolution later.
+  <label>The Ethereum address you want to vote about</label>
+  If ever you don't know that Ethereum address, try to find and copy it from <a routerlin="/">the list of known addresses at the home page of this revolution</a>. If you want to add your on address, you may copy it from your Ethereum browser or wallet such as Metamask or Trust Wallet. If you still can't find that address and nobody can help, you can <a routerLink="/factory">create a new revolution representing the person or object you want to vote about</a>, copy the address of that new revolution and then use it here.
   <input [(ngModel)]="address" name="address" type="text" placeholder="Enter an address 0x... you may copy it from your Ethereum browser or wallet such as Metamask or Trust Wallet." />
  </div>
 
  <div *ngIf="address != '' && address != undefined && address == account" class="ui message">
-  <div class="header">Hey, this is your own address! Give it a name so that they know it is yours.</div>
+  <div class="header">Hey, this is your own address! Give it your name or pseudonym so that they know it is yours.</div>
   <input [(ngModel)]="name" name="name" type="text" placeholder="You can give your address a public name." />
  </div>
 

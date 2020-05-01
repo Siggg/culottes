@@ -45,6 +45,7 @@ export class RevolutionComponent implements OnInit {
   otherRevolutions = {};
   contractEvents: any;
   factoryAddress: string;
+  canLockRevolution: boolean = false;
 
   constructor(
     private web3Service: Web3Service,

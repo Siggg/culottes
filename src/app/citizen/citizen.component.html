@@ -9,7 +9,7 @@
  </div>
 
  <div *ngIf="address != '' && address != undefined && address != account && name != '' && name != undefined" class="ui message">
-  <div class="header">The owner of this address gave it this name or pseudonym : <strong>{{ name }}</strong>.</div>
+   <div><i class="tag icon"></i>The owner of this address gave it this name or pseudonym : <strong>{{ name }}</strong></div>
  </div>
 
   <div *ngIf="address != '' && address != undefined && address == account" class="ui message">

@@ -133,7 +133,7 @@
    <label>Address of this revolution</label>
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
-  <div *ngIf="owner == account">
+  <div *ngIf="revolutionOwner == account || factoryOwner == account">
    <a class="ui button red" href="#donate">
     <i class="lock icon"></i>Lock this revolution
    </a>

@@ -17,7 +17,7 @@
    </a>
     </div>
    </div>
-  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any Ethereum address under the control of: <strong>{{ criteria }}</strong>.</p>
+  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any unique Ethereum address promoted by: <strong>{{ criteria }}</strong>.</p>
   <p style="text-align:right;"><em><a href="#other">Visit other revolutions</a></em></p>
 
 
@@ -134,7 +134,7 @@
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
   <div *ngIf="revolutionOwner == account || factoryOwner == account">
-   <a class="ui button red" href="#donate">
+   <a class="ui button red" (click)="onClickLock()">
     <i class="lock icon"></i>Lock this revolution
    </a>
   </div>

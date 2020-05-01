@@ -1,6 +1,5 @@
 <div>
   <h1 class="ui header">The {{ hashtag }} revolution</h1>
-  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} distributed to anyone or anything matching this criteria: <strong>{{ criteria }}</strong>.</p>
   <div class="field" style="text-align:right;">
    <div class="ui action input">
     <div class="ui right aligned label" style="text-align:right;">{{ bastilleBalance }} ETH = {{ convertToFiat(bastilleBalance) }}</div>
@@ -13,14 +12,18 @@
     <option value="GBP" [selected]="currency() == 'GBP'">£</option>
     <option value="JPY" [selected]="currency() == 'JPY'">¥</option>
    </select>
+   <a class="ui button primary" href="#donate">
+    <i class="heart icon"></i>
+   </a>
     </div>
    </div>
+  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} distributed to anyone or anything matching this criteria: <strong>{{ criteria }}</strong>.</p>
   <p style="text-align:right;"><em><a href="#other">Visit other revolutions</a></em></p>
 
 
  <div class="ui segment" id="discuss">
   <h3 class="ui header">1. Who or what does or does not match this criteria?</h3>
-  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media using the <span id="hashtag">{{ hashtag }}</span></a> hashtag. Or by offline discussions. Demand proofs that this really is the address of <strong>{{ criteria }}</strong>. Fact check it. Challenge it. Debate it. Build your own opinion.</div>
+  <div class="content">Discover it <a href="https://twitter.com/hashtag/{{ hashtagWithoutSymbol }}" target="_blank">on social media using the <span id="hashtag">{{ hashtag }}</span> hashtag</a>. Or by offline discussions. Demand proofs that this really is the address of <strong>{{ criteria }}</strong>. Fact check it. Challenge it. Debate it. Build your own opinion.</div>
  </div>
  
 
@@ -76,19 +79,14 @@
  </div>
  
  
-  <div class="ui segment form">
+  <div class="ui segment form" id="donate">
   <h3 class="ui header">4. Donate Eth to be distributed</h3>
   This revolution collects donations sent to the address <strong>{{ revolutionAddress }}</strong> on the Ethereum {{ revolutionBlockchain }} blockchain. 100% of these donations are directly re-distributed as income, minus transaction safety fees (also known as network mining fees).
 
   <div class="field">
    <label>Current amount in this revolution:</label>
-   <div class="ui large label">
-    <span id="balance">
-     {{ bastilleBalance }}
-    </span> ETH
-   </div>
    <div class="ui action input">
-    <div class="ui right aligned label" style="text-align:right;">= {{ convertToFiat(bastilleBalance) }}</div>
+    <div class="ui right aligned label" style="text-align:right;"><span id="balance">{{ bastilleBalance }}</span> ETH = {{ convertToFiat(bastilleBalance) }}</div>
    <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>

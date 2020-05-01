@@ -306,20 +306,6 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
-    if (this.account == undefined) {
-      // Maybe metamask has not been enabled yet
-      try {
-        // Request account access if needed
-        await window.ethereum.enable().then(() =>  {
-          window.web3.eth.getAccounts((err, accs) => {
-            this.account = accs[0];
-            console.log("Accounts refreshed, vote by: " + this.account);
-          });
-        });
-      } catch (error) {
-        console.log('Metamask not enabled');
-      }
-    } 
   }
 
   async watchAccount() {
@@ -345,6 +331,16 @@ export class RevolutionComponent implements OnInit {
           this.web3ModalActivity = "";
         }
       });
+    if (account != undefined) {
+      if (this.revolutionOwner == account || this.factoryOwner == account) {
+        this.canLockRevolution = true;
+      }
+      else {
+        this.canLockRevolution = false;
+      }
+    } else {
+      this.canLockRevolution = false;
+    }
   }
   
   public onCurrencyChange(event): void {  // event will give you full breif of action

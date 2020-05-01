@@ -31,6 +31,7 @@ export class RevolutionComponent implements OnInit {
   distributionPeriod: number = 0;
   distributionPeriodUnit: String = "?";
   revolutionAddress: String = "0x0000000...";
+  revolutionContract
   revolutionBlockchain: String = "";
   culottes: any;
   account: any;
@@ -59,7 +60,7 @@ export class RevolutionComponent implements OnInit {
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
-    let revolutionContract = await this
+    this.revolutionContract = await this
       .web3Service
       .artifactsToContract(
         revolutionContractABI,
@@ -68,12 +69,12 @@ export class RevolutionComponent implements OnInit {
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
-    this.criteria = await revolutionContract
+    this.criteria = await this.revolutionContract
       .methods
       .criteria()
       .call();
     console.log("criteria: ", this.criteria);
-    this.hashtag = await revolutionContract
+    this.hashtag = await this.revolutionContract
       .methods
       .hashtag()
       .call()
@@ -89,7 +90,7 @@ export class RevolutionComponent implements OnInit {
         }
         return hashtag;
     });
-    this.lockModalActivity = await revolutionContract
+    this.lockModalActivity = await this.revolutionContract
       .methods
       .locked()
       .call()
@@ -100,7 +101,7 @@ export class RevolutionComponent implements OnInit {
           return "";
         }
       });
-    this.bastilleBalance = await revolutionContract
+    this.bastilleBalance = await this.revolutionContract
       .methods
       .bastilleBalance()
       .call()
@@ -132,7 +133,7 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading bastille balance: " + error);
       });
-    this.distributionAmount = await revolutionContract
+    this.distributionAmount = await this.revolutionContract
       .methods
       .distributionAmount()
       .call()
@@ -151,7 +152,7 @@ export class RevolutionComponent implements OnInit {
 	          .weiToEther(result);
 	      }
       });
-    this.distributionBlockPeriod = await revolutionContract
+    this.distributionBlockPeriod = await this.revolutionContract
       .methods
       .distributionBlockPeriod()
       .call()
@@ -182,13 +183,13 @@ export class RevolutionComponent implements OnInit {
         }
       return blocks;
     });
-    this.revolutionOwner = await revolutionContract
+    this.revolutionOwner = await this.revolutionContract
       .methods
       .owner()
       .call();
     console.log("Revolution owner: ", this.revolutionOwner);
     console.log("Getting other revolutions from this factory");
-    this.factoryAddress = await revolutionContract
+    this.factoryAddress = await this.revolutionContract
       .methods
       .factory()
       .call();
@@ -237,7 +238,7 @@ export class RevolutionComponent implements OnInit {
     let citizenAddress = "";
     let citizen: ICitizen;
     while (citizenAddress != null) {
-      citizenAddress = await revolutionContract
+      citizenAddress = await this.revolutionContract
         .methods
         .citizens(i)
         .call()
@@ -253,7 +254,7 @@ export class RevolutionComponent implements OnInit {
       });
       // console.log("read citizen: ", citizenAddress);
       if (citizenAddress != "" && citizenAddress != null) {
-        citizen = await revolutionContract
+        citizen = await this.revolutionContract
           .methods
           .trialStatus(citizenAddress)
           .call()
@@ -292,7 +293,7 @@ export class RevolutionComponent implements OnInit {
       i += 1;
     }
     // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
-    this.contractEvents = await revolutionContract
+    this.contractEvents = await this.revolutionContract
       .getPastEvents("allEvents", { fromBlock: 0, toBlock: "latest" })
       .then( (events) => {
         // console.log("All events: ", events);
@@ -374,6 +375,14 @@ export class RevolutionComponent implements OnInit {
       this.revolutionAddress = ra;
       this.web3Service.revolutionAddress = ra;
     }
+  }
+  
+  lockRevolution(): void {
+    this.revolutionContract
+      .methods
+      .lock()
+      .call();
+    console.log("Tried locking revolution");
   }
   
 }

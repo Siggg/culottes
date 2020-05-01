@@ -186,7 +186,7 @@ export class RevolutionComponent implements OnInit {
       .methods
       .owner()
       .call();
-    console.log("Revolution owner: ", revolutionOwner);
+    console.log("Revolution owner: ", this.revolutionOwner);
     console.log("Getting other revolutions from this factory");
     this.factoryAddress = await revolutionContract
       .methods
@@ -209,7 +209,7 @@ export class RevolutionComponent implements OnInit {
       .methods
       .owner()
       .call();
-    console.log("Factory owner: ", factoryOwner);
+    console.log("Factory owner: ", this.factoryOwner);
     let revolutionIndex = 0;
     let revolutionHashtag = "";
     let otherRevolution;

@@ -331,17 +331,16 @@ export class RevolutionComponent implements OnInit {
         } else {
           this.web3ModalActivity = "";
         }
+        if (this.account != undefined) {
+          if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
+            this.canLockRevolution = true;
+          } else {
+            this.canLockRevolution = false;
+          }
+        } else {
+          this.canLockRevolution = false;
+        }
       });
-    if (this.account != undefined) {
-      if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
-        this.canLockRevolution = true;
-      }
-      else {
-        this.canLockRevolution = false;
-      }
-    } else {
-      this.canLockRevolution = false;
-    }
   }
   
   public onCurrencyChange(event): void {  // event will give you full breif of action

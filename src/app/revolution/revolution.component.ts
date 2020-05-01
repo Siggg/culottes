@@ -343,6 +343,7 @@ export class RevolutionComponent implements OnInit {
         } else {
           this.web3ModalActivity = "";
         }
+        console.log("account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
         if (this.account != undefined) {
           if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
             this.canLockRevolution = true;

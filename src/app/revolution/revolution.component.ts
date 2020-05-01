@@ -34,6 +34,8 @@ export class RevolutionComponent implements OnInit {
   revolutionBlockchain: String = "";
   culottes: any;
   account: any;
+  revolutionOwner: any;
+  factoryOwner: any;
   web3Status: String = "Status of connection to your blockchain accounts";
   citizens: Array<ICitizen> = [];
   fullAddressShown: boolean = false;
@@ -180,7 +182,12 @@ export class RevolutionComponent implements OnInit {
         }
       return blocks;
     });
-        console.log("Getting other revolutions from this factory");
+    this.revolutionOwner = await revolutionContract
+      .methods
+      .owner()
+      .call();
+    console.log("Revolution owner: ", revolutionOwner);
+    console.log("Getting other revolutions from this factory");
     this.factoryAddress = await revolutionContract
       .methods
       .factory()
@@ -198,6 +205,11 @@ export class RevolutionComponent implements OnInit {
         this.factoryAddress
       );
     console.log("Got factoryContract");
+    this.factoryOwner = await factoryContract
+      .methods
+      .owner()
+      .call();
+    console.log("Factory owner: ", factoryOwner);
     let revolutionIndex = 0;
     let revolutionHashtag = "";
     let otherRevolution;

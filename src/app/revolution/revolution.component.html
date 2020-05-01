@@ -134,7 +134,7 @@
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
   </div>
   <div *ngIf="revolutionOwner == account || factoryOwner == account">
-   <a class="ui button red" (click)="onClickLock()">
+   <a class="ui button red" (click)="lockRevolution()">
     <i class="lock icon"></i>Lock this revolution
    </a>
   </div>

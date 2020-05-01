@@ -17,7 +17,7 @@
    </a>
     </div>
    </div>
-  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to anyone or anything matching this criteria: <strong>{{ criteria }}</strong>.</p>
+  <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any Ethereum address under the control of: <strong>{{ criteria }}</strong>.</p>
   <p style="text-align:right;"><em><a href="#other">Visit other revolutions</a></em></p>
 
 
@@ -28,7 +28,7 @@
  
 
  <div class="ui segment" id="vote">
-  <h3 class="ui header">2. Here are the trials and verdicts.</h3>
+  <h3 class="ui header">2. Which addresses have been put on trial?</h3>
   <div class="ui relaxed celled list">
    <div class="item">
     <div class="content">
@@ -68,7 +68,7 @@
  
  
   <div class="ui segment" id="add">
-  <h3 class="ui header">3. What additional Ethereum address should be put on trial?</h3>
+  <h3 class="ui header">3. What additional address to be put on trial?</h3>
   <div class="content">You can add any Ethereum address (even yours) if it indeed is the address of <strong>{{ criteria }}</strong>. Your own address can be copied from your Ethereum wallet (Metamask, Coinbase, Trust, ...). If you don't know the proper Ethereum address to use, you can <a routerLink="/factory">create a new revolution using a full name or precise definition as its criteria and a short name or pseudonyme as a hashtag</a>, then use the address of that new revolution in order to put it on trial.</div>
   <div class="content"><a routerLink="/citizen">
    <button class="ui left labeled icon secondary button" data-tooltip="Click to register a new address and bet and vote about it.">

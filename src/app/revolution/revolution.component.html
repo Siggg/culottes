@@ -1,7 +1,7 @@
 <div>
   <h1 class="ui header">The {{ hashtag }} revolution</h1>
   <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} distributed to anyone or anything matching this criteria: <strong>{{ criteria }}</strong>.</p>
-  <div class="field" style="text-align:right;>
+  <div class="field" style="text-align:right;">
    <div class="ui action input">
     <div class="ui right aligned label" style="text-align:right;">{{ bastilleBalance }} ETH = {{ convertToFiat(bastilleBalance) }}</div>
    <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">

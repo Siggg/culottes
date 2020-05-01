@@ -227,7 +227,19 @@ export class RevolutionComponent implements OnInit {
           .getRevolution(revolutionHashtag)
           .call();
         console.log('  with revolution: ', otherRevolution);
-        this.otherRevolutions[otherRevolution] = revolutionHashtag;
+        let otherLocked = await this.revolutionContract
+          .methods
+          .locked()
+          .call();
+        console.log('  is locked ? ', otherLocked);
+        let otherBalance = await this.revolutionContract
+          .methods
+          .bastilleBalance()
+          .call();
+        console.log('  with balance: ', otherBalance);
+        if (otherLocked != true || otherBalance != 0) {
+          this.otherRevolutions[otherRevolution] = revolutionHashtag;
+        }
         revolutionIndex += 1;
       }
     } while (revolutionHashtag != null);

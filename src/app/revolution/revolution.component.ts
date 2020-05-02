@@ -416,11 +416,37 @@ export class RevolutionComponent implements OnInit {
     }
   }
   
-  lockRevolution(): void {
+  async lockRevolution(): void {
+    console.log("Trying to lock revolution");
     this.revolutionContract
       .methods
       .lock()
-      .call();
+      .send({from: this.account, value: 0, gas: 1000000})
+      .on('transactionHash', function(hash) {
+        /* component.transactionPending = true;
+        component.confirmationProgress = 0;
+        component.confirmationPercent = 0;
+        component.transactionHashes.push(hash); */
+        console.log('lock transactionHash received');
+      })
+      .on('confirmation', function(confirmationNumber, receipt) {
+        /* component.transactionPending = true;
+        component.confirmationProgress += 1; //confirmationNumber; // up to 24
+        component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24); */
+        console.log('lock confirmation received, with number: ', confirmationNumber); // , component.confirmationPercent);
+      })
+      .on('receipt', function(receipt){
+        // receipt example
+        console.log('vote receipt received: ', receipt);
+        /* component.transactionPending = false;
+        component.transactionConfirmed = true; */
+      })
+      .on('error', function(error, receipt){
+	console.log("lock error with receipt: ", receipt);
+        console.error;
+        /* this.showErrorMessageForVote = true;
+        this.errorDuringVote = error; */
+      }); // If there's an out of gas error the second parameter is the receipt.
     console.log("Tried locking revolution");
   }
   

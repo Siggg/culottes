@@ -227,17 +227,23 @@ export class RevolutionComponent implements OnInit {
           .getRevolution(revolutionHashtag)
           .call();
         console.log('  with revolution: ', otherRevolution);
-        let otherLocked = await this.revolutionContract
+      let otherRevolutionContract = await this
+        .web3Service
+        .artifactsToContract(
+          revolutionContractABI,
+          otherRevolution
+        );
+      let otherLocked = await otherRevolutionContract
           .methods
           .locked()
           .call();
         console.log('  is locked ? ', otherLocked);
-        let otherBalance = await this.revolutionContract
+        let otherBalance = await otherRevolutionContract
           .methods
           .bastilleBalance()
           .call();
-        console.log('  with balance: ', otherBalance);
-        if (otherLocked != true || otherBalance != 0) {
+        console.log('  with balance: ', otherBalance, otherBalance.isZero());
+        if (otherLocked != true || otherBalance.isZero() == false) {
           this.otherRevolutions[otherRevolution] = revolutionHashtag;
         }
         revolutionIndex += 1;

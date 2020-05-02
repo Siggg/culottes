@@ -157,7 +157,8 @@ export class CitizenComponent implements OnInit {
         console.log('  it does not have to change');
       }
     }
-    method.send({from: this.account, value: weiAmount, gas: 1000000})
+    let estimatedGas = method.estimateGas({from: this.account, gas: 1000000});
+    method.send({from: this.account, value: weiAmount, gas: estimatedGas * 1.1})
       .on('transactionHash', function(hash) {
         component.transactionPending = true;
         component.confirmationProgress = 0;
@@ -171,13 +172,13 @@ export class CitizenComponent implements OnInit {
 	component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
         console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
       })
-      .on('receipt', function(receipt){
+      .on('receipt', function(receipt) {
         // receipt example
         console.log('receipt received: ', receipt);
 	component.transactionPending = false;
 	component.transactionConfirmed = true;
       })
-      .on('error', function(error, receipt){
+      .on('error', function(error, receipt) {
         console.error;
         this.showErrorMessageForVote = true;
         this.errorDuringVote = error;

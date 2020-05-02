@@ -236,7 +236,7 @@ export class RevolutionComponent implements OnInit {
           .methods
           .bastilleBalance()
           .call()
-          .toBigNumber();
+          .toNumber();
         console.log('  with balance: ', otherBalance);
         if (otherLocked != true || otherBalance != 0) {
           this.otherRevolutions[otherRevolution] = revolutionHashtag;

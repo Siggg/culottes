@@ -235,8 +235,7 @@ export class RevolutionComponent implements OnInit {
         let otherBalance = await this.revolutionContract
           .methods
           .bastilleBalance()
-          .call()
-          .toNumber();
+          .call();
         console.log('  with balance: ', otherBalance);
         if (otherLocked != true || otherBalance != 0) {
           this.otherRevolutions[otherRevolution] = revolutionHashtag;

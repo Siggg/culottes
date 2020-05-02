@@ -217,11 +217,11 @@
   </div>
 </div>
 
-<div class="ui segment">
- <!--div class="header">
+<!--div class="ui segment">
+ <div class="header">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/address/{{ revolutionAddress }}#events" target="_blank">Events of this revolution</a>
  </div-->
- <!--div *ngIf="contractEvents">
+ <!-- div *ngIf="contractEvents">
  <div class="content" *ngFor="let cEvent of contractEvents.slice().reverse()">
   <a href="https://{{ revolutionBlockchain == 'Main' || revolutionBlockchain == 'Mainnet' || revolutionBlockchain == 'Unknown' ? 'www' : revolutionBlockchain.toLowerCase() }}.etherscan.io/tx/{{ cEvent.transactionHash }}#eventlog">#{{ cEvent.blockNumber }}{{ cEvent.logIndex ? ',' + cEvent.logIndex : '' }}: 
   <span *ngIf="cEvent.event == 'RevolutionCreated'">
@@ -241,6 +241,6 @@
   </span>
   </a>
  </div>
- </div-->
-</div>
+ </div>
+</div-->
 

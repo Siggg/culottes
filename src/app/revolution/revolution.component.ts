@@ -416,7 +416,7 @@ export class RevolutionComponent implements OnInit {
     }
   }
   
-  async lockRevolution(): void {
+  lockRevolution(): void {
     console.log("Trying to lock revolution");
     this.revolutionContract
       .methods

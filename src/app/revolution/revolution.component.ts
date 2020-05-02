@@ -242,7 +242,7 @@ export class RevolutionComponent implements OnInit {
           .methods
           .bastilleBalance()
           .call();
-        console.log('  with balance: ', otherBalance, otherBalance.isZero());
+        console.log('  with empty bastille balance? ', otherBalance.isZero());
         if (otherLocked != true || otherBalance.isZero() == false) {
           this.otherRevolutions[otherRevolution] = revolutionHashtag;
         }

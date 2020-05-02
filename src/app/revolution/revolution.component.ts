@@ -325,6 +325,16 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
+      console.log("#2 account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
+      if (this.account != undefined) {
+        if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
+          this.canLockRevolution = true;
+        } else {
+          this.canLockRevolution = false;
+        }
+      } else {
+        this.canLockRevolution = false;
+      }
   }
 
   async watchAccount() {

@@ -41,7 +41,22 @@
     <i class="large balance scale middle aligned icon"></i>
     <div class="content" #userInput>
      <div
+      class="ui button"
+      *ngIf="otherRevolutions[citizen.address]"
+      attr.data-tooltip="Ethereum address of the '{{ citizen.name }}' revolution: {{ citizen.address }}"
+      data-position="top left">
+      <a
+       *ngIf="otherRevolutions[citizen.address]"
+       routerLink="{{ citizen.address }}">
+       <span *ngIf="citizen.name">
+        <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
+        <span *ngIf="citizen.name.length <= 14">{{ citizen.name }}</span>
+       </span>
+      </a>
+     </div>
+     <div
       class="ui large label"
+      *ngIf="!otherRevolutions[citizen.address]"
       attr.data-tooltip="{{ citizen.name }} Their Ethereum address: {{ citizen.address }}"
       data-position="top left">
       <span *ngIf="citizen.name">

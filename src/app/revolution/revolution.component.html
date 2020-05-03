@@ -2,7 +2,7 @@
   <h1 class="ui header">The {{ hashtag }} revolution</h1>
   <div class="field" style="text-align:right;">
    <div class="ui action input">
-    <div class="ui right aligned label" style="text-align:right;">{{ bastilleBalance }} ETH = {{ convertToFiat(bastilleBalance) }}</div>
+    <div class="ui right aligned big label" style="text-align:right;">{{ bastilleBalance }} ETH = {{ convertToFiat(bastilleBalance) }}</div>
    <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>
@@ -40,26 +40,33 @@
    <div class="item">
     <i class="large balance scale middle aligned icon"></i>
     <div class="content" #userInput>
-     <button
-      class="ui button"
-      type="button"
-      ngxClipboard
-      [cbContent]="citizen.address"
-      (cbOnSuccess)="copied = citizen.address"
-      [class.btn-success]="copied == citizen.address"
-      attr.data-tooltip="{{ citizen.name }} Their Ethereum address: {{ citizen.address }}. Click to copy it."
+     <div
+      class="ui large label"
+      attr.data-tooltip="{{ citizen.name }} Their Ethereum address: {{ citizen.address }}"
       data-position="top left">
       <span *ngIf="citizen.name">
        <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
        <span *ngIf="citizen.name.length <= 14">{{ citizen.name }}</span>
       </span>
-      {{ (citizen.address | slice:0:8)+'...' }}<span *ngIf="copied == citizen.address"> Copied</span>
+      {{ (citizen.address | slice:0:8)+'...' }}
+     </div>
+     <button
+      class="ui icon tiny button"
+      type="button"
+      ngxClipboard
+      [cbContent]="citizen.address"
+      (cbOnSuccess)="copied = citizen.address"
+      [class.btn-success]="copied == citizen.address"
+      data-tooltip="Click to copy the Ethereum address"
+      data-position="top left">
+      <i class="copy icon"></i>
+      <span *ngIf="copied == citizen.address">Copied</span>
      </button>
      <a [routerLink]="['/citizen', citizen.address]">
       <div *ngIf="citizen.opened" class="ui tag label">No consensual verdict yet: {{ citizen.sansculotteScale / 1000000000000000000 }} ETH on YES vs. {{ citizen.privilegedScale / 1000000000000000000 }} ETH on NO</div>
       <div *ngIf="!citizen.opened && citizen.matchesCriteria" class="ui green tag label"><i class="thumbs up icon"></i> Consensual verdict: YES, they are.{{ (citizen.sansculotteScale != 0) ? ' And '+(citizen.sansculotteScale / 1000000000000000000)+' ETH more is on YES.':'' }}</div>
       <div *ngIf="!citizen.opened && !citizen.matchesCriteria"  class="ui red tag label"><i class="thumbs down icon"></i> Consensual verdict: NO, they are not.{{ (citizen.privilegedScale != 0) ? ' And '+(citizen.privilegedScale / 1000000000000000000)+' ETH is still on NO.':'' }}</div>
-      <button class="ui left labeled icon button secondary" data-tooltip="Click to vote and bet." data-position="top right"><i class="envelope icon"></i><span *ngIf="citizen.opened">Cast your vote and bet: YES or NO ?</span><span *ngIf="!citizen.opened">Re-open their trial</span></button>
+      <button class="ui left labeled icon tiny button secondary" data-tooltip="Click to vote and bet." data-position="top right"><i class="envelope icon"></i><span *ngIf="citizen.opened">Cast your vote and bet: YES or NO ?</span><span *ngIf="!citizen.opened">Re-open their trial</span></button>
      </a>
     </div>
    </div>
@@ -86,7 +93,7 @@
   <div class="field">
    <label>Current amount in this revolution:</label>
    <div class="ui action input">
-    <div class="ui right aligned label" style="text-align:right;"><span id="balance">{{ bastilleBalance }}</span> ETH = {{ convertToFiat(bastilleBalance) }}</div>
+    <div class="ui right aligned big label" style="text-align:right;"><span id="balance">{{ bastilleBalance }}</span> ETH = {{ convertToFiat(bastilleBalance) }}</div>
    <select (change)="onCurrencyChange($event)" class="ui compact dropdown label" style="max-width:6em;">
     <option value="EUR" [selected]="currency() == 'EUR'">€</option>
     <option value="USD" [selected]="currency() == 'USD'">$</option>

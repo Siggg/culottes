@@ -18,7 +18,12 @@
     </div>
    </div>
   <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any unique Ethereum address promoted by: <strong>{{ criteria }}</strong>.</p>
-  <p style="text-align:right;"><em><a href="#other">Visit other revolutions</a></em></p>
+  <div class="field" style="text-align:right;">
+   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
+    <option [selected]="true">Other revolutions...</option>
+    <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
+   </select>
+  </div>
 
 
  <div class="ui segment" id="discuss">
@@ -41,13 +46,13 @@
     <i class="large balance scale middle aligned icon"></i>
     <div class="content" #userInput>
      <div
-      class="ui button"
+      class="ui basic button"
       *ngIf="otherRevolutions[citizen.address]"
       attr.data-tooltip="Ethereum address of the '{{ citizen.name }}' revolution: {{ citizen.address }}"
       data-position="top left">
       <a
        *ngIf="otherRevolutions[citizen.address]"
-       routerLink="{{ citizen.address }}">
+       routerLink="/revolution/{{ citizen.address }}">
        <span *ngIf="citizen.name">
         <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
         <span *ngIf="citizen.name.length <= 14">{{ citizen.name }}</span>
@@ -127,20 +132,8 @@
  </div>
  
  
- <div class="ui segment" id="other">
-  <h3 class="ui header">5. Other revolutions</h3>
-  <div class="field">
-   <label>Visit another revolution:</label>
-   <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
-    <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
-   </select>
-   <p>or <a routerLink="/factory">Create a new revolution.</a>
-  </div>
- </div>
-
-
  <div class="ui segment" id="trust">
-  <h3 class="ui header">6. How much can you trust this app?</h3>
+  <h3 class="ui header">5. How much can you trust this app?</h3>
   <p id="criteriaLabel"> The Ethereum addresses listed above receive an income from this application if and only if they are the address of <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. The income received is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
   <ul>If you are a skillful smart contract auditor, you can :
     <li><a href="https://github.com/siggg/culottes" target="_blank">read and check the open source code of this application and smart contract on Github</a></li>
@@ -149,18 +142,18 @@
  </div>
 
 
- <div class="ui segment">Technical status:
+ <!--div class="ui segment">Technical status:
   <div [innerHTML]="web3Status"></div>
   <div class="field">
    <label>Address of this revolution</label>
    <div class="ui label">{{ revolutionAddress }} on the {{ revolutionBlockchain }} blockchain</div>
-  </div>
+  </div-->
   <div *ngIf="canLockRevolution == true">
    <a class="ui button red" (click)="lockRevolution()">
     <i class="lock icon"></i>Lock the {{ hashtag }} revolution
    </a>
   </div>
- </div>
+ <!--/div-->
 
 <div class="ui fullscreen longer {{ lockModalActivity }} modal">
    <i class="close outline icon" (click)="onCloseLockModal()"></i>

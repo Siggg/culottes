@@ -52,7 +52,7 @@
       data-position="top left">
       <a
        *ngIf="otherRevolutions[citizen.address]"
-       routerLink="/revolution/{{ citizen.address }}">
+       [routerLink]="['/revolution', citizen.address]">
        <span *ngIf="citizen.name">
         <span *ngIf="citizen.name.length > 14">{{ (citizen.name | slice:0:12)+'...' }}</span>
         <span *ngIf="citizen.name.length <= 14">{{ citizen.name }}</span>

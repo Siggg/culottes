@@ -17,6 +17,9 @@ exports.config = {
     },
     'chromeOptions': {
       args: [ "--headless", "--no-sandbox", "--disable-gpu", "--window-size=800,600" ]
+    },
+    'moz:firefoxOptions': {
+      args: [ "--headless" ]
     }
   },
   directConnect: true,

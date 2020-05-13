@@ -390,20 +390,25 @@ export class RevolutionComponent implements OnInit {
     return this.web3Service.dappStatus();
   }
   
-  public onRevolutionChange(event): void {  // event will give you full brief of action
-    if (event.target.value == "menu") {
+  public onRevolutionRedirectTo(revolutionAddress): void {
+    console.log("redirect to: /revolution/" + revolutionAddress);
+    if (revolutionAddress == "menu") {
       return;
     } else {
-      console.log("redirect to: /revolution/" + event.target.value);
-      this.router.navigateByUrl('/revolution/' + event.target.value)
+      this.router
+        .navigateByUrl('/revolution/' + revolutionAddress)
         .then( nav => {
-          console.log("redirect succeeded: ", nav);
-          this.ngOnInit();
-          window.location.reload();
-        }, err => {
-	  console.log("redirect failed: ", err);
-        });
+            console.log("redirect succeeded: ", nav);
+            this.ngOnInit();
+            window.location.reload();
+          }, err => {
+	    console.log("redirect failed: ", err);
+          });
     }
+  }
+
+  public onRevolutionChange(event): void {  
+    this.onRevolutionRedirectTo(event.target.value);
   }
 
   onCloseLockModal(): void {

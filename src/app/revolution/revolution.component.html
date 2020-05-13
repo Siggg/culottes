@@ -48,6 +48,7 @@
      <div
       class="ui basic button"
       *ngIf="otherRevolutions[citizen.address]"
+      (click)="onRevolutionRedirectTo(citizen.address)"
       attr.data-tooltip="Ethereum address of the '{{ citizen.name }}' revolution: {{ citizen.address }}"
       data-position="top left">
       <a

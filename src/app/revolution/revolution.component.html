@@ -20,7 +20,7 @@
   <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any unique Ethereum address promoted by: <strong>{{ criteria }}</strong>.</p>
   <div class="field" style="text-align:right;">
    <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
-    <option [selected]="true">Other revolutions...</option>
+    <option value="menu" [selected]="true">Other revolutions...</option>
     <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}" [selected]="revolution.value == hashtag">{{ revolution.value }}</option>
    </select>
   </div>

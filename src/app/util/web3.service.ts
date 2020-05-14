@@ -21,8 +21,9 @@ export class Web3Service {
   private web3: any;
   private accounts: string[];
   public revolutions = {
-    "0x10EC3a3E3B198D8b787f94ccCe6fB6C477Db7d65": "#Top3Contributors", // @mainnet with #Top3Contributors, 5760, 0.1 ETH, false, from revolution factory
+    "0xdfA817cd0cf502D9d8eFFEB13f9b4A4312DAE003": "#OpenSourceContributor", // @mainnet
   };
+        // "0x10EC3a3E3B198D8b787f94ccCe6fB6C477Db7d65": "#Top3Contributors", // @mainnet with #Top3Contributors, 5760, 0.1 ETH, false, from revolution factory
         // "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D" <= this is our factory !
     	// "0xb3aC6256C0DCAAF45b1E7c60993Ed5EDee10e1fa": "#Top3Contributors", // @mainnet with #Top3Contributors, 5760, 0.1 ETH, false
     	// "0xEcBA11d40bF907DE0E7e937e83898E8Af5cfC9cb": "#UniversalBasicIncome" // @mainnet with #UniversalBasicIncome, 175680, 0.5 ETH, false

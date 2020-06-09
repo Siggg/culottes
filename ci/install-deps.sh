@@ -12,6 +12,7 @@ cd node_modules/protractor
 # Then you have to force that system version on webdriver-manager or it will fail.
 # You can check Travis logs in order to identify the available chrome version on your system
 # or run chrome --version to read it from the command line
+# or read the latest version of chromedriver at this URL : https://chromedriver.storage.googleapis.com/LATEST_RELEASE
 bin/webdriver-manager clean
 bin/webdriver-manager update --chrome=true --gecko=false --standalone=false --versions.chrome 83.0.4103.97-1
 # 81.0.4044.138-1

@@ -94,10 +94,13 @@ export class CitizenComponent implements OnInit {
       })
       .then((hashtag) => {
         console.log("hashtag: ", hashtag);
-        if (hashtag != null && hashtag.length>0) {
-          this.hashtagWithoutSymbol = hashtag.substring(1);
-        } else {
+        if (hashtag == null || hashtag.length == 0) {
           this.hashtagWithoutSymbol = "CulottesRevolution";
+        } else if (hashtag[0] != '#') {
+          this.hashtagWithoutSymbol = hashtag;
+          hashtag = '#' + hashtag;
+        } else {
+          this.hashtagWithoutSymbol = hashtag.substring(1);
         }
         // console.log("Get citizen's name");
 	// console.log("this.address: ", this.address);
@@ -162,14 +165,14 @@ export class CitizenComponent implements OnInit {
       .on('transactionHash', function(hash) {
         component.transactionPending = true;
         component.confirmationProgress = 0;
-	component.confirmationPercent = 0;
+        component.confirmationPercent = 0;
         component.transactionHashes.push(hash);
         console.log('transactionHash received');
       })
       .on('confirmation', function(confirmationNumber, receipt) {
         component.transactionPending = true;
         component.confirmationProgress += 1; //confirmationNumber; // up to 24
-	component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+        component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
         console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
       })
       .on('receipt', function(receipt) {

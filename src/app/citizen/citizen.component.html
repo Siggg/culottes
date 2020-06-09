@@ -87,11 +87,11 @@
 
  <div *ngIf="transactionPending || transactionConfirmed">
   <h2 class="ui header">3. Share your reason for voting so</h2>
-  <p>
-   <div class="ui icon">
+  <div class="ui raised segment">
+   <p><div class="ui icon">
     <i class="icon quote left"></i>
    </div>
-   I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because [...]"
+   I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because ...
    <div class="ui icon">
     <i class="icon quote right"></i>
    </div>

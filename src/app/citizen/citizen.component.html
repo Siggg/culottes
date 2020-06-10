@@ -87,13 +87,13 @@
 
  <div *ngIf="transactionPending || transactionConfirmed">
   <h2 class="ui header">3. Share your reason for voting so</h2>
-  <div class="ui raised segment" *ngFor="let revolutionURL of ['https%3A%2F%2Fsiggg.github.io%2Fculottes%2F%23%2Frevolution%2F{{ revolutionAddress }}']">
+  <div class="ui raised segment">
    <div class="ui icon">
     <i class="icon quote left"></i>
    I voted {{ vote == true ? 'YES' : 'NO' }} for {{ name }} {{ (address | slice:0:10) }} because ...
     <i class="icon quote right"></i>
    </div>
-   <a href="https://twitter.com/intent/tweet?url={{ revolutionURL }}&text=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ name }} %20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank"><button class="ui twitter button">
+   <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsiggg.github.io%2Fculottes%2F%23%2Frevolution%2F{{ revolutionAddress }}&text=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ name }} %20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank"><button class="ui twitter button">
     <i class="twitter icon"></i>
     Twitter
    </button></a>
@@ -101,11 +101,11 @@
     <i class="icon reddit"></i>
     Reddit
    </button></a>
-   <a href="https://www.facebook.com/sharer/sharer.php?u={{ revolutionURL }}" target="_blank"><button class="ui facebook button">
+   <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsiggg.github.io%2Fculottes%2F%23%2Frevolution%2F{{ revolutionAddress }}" target="_blank"><button class="ui facebook button">
     <i class="icon facebook"></i>
     Facebook
    </button></a>
-   <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ revolutionURL }}&sourceURL={{ revolutionURL }}&title={{ hashtagWithoutSymbol }}%20{{ name }} %20{{ (address | slice:0:10) }}%20{{ vote == true ? 'YES' : 'NO' }}&summary=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ name }} %20{{ (address | slice:0:10) }}%20in%20the%20{{ hashtagWithoutSymbol }}%20revolution%20because%20..." target="_blank"><button class="ui linkedin button">
+   <a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fsiggg.github.io%2Fculottes%2F%23%2Frevolution%2F{{ revolutionAddress }}&sourceURL={{ revolutionURL }}&title={{ hashtagWithoutSymbol }}%20{{ name }} %20{{ (address | slice:0:10) }}%20{{ vote == true ? 'YES' : 'NO' }}&summary=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ name }} %20{{ (address | slice:0:10) }}%20in%20the%20{{ hashtagWithoutSymbol }}%20revolution%20because%20..." target="_blank"><button class="ui linkedin button">
     <i class="icon linkedin"></i>
     LinkedIn
    </button></a>

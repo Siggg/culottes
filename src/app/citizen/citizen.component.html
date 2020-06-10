@@ -90,9 +90,7 @@
   <div class="ui raised segment">
    <div class="ui icon">
     <i class="icon quote left"></i>
-   </div>
    I voted {{ vote == true ? 'YES' : 'NO' }} for {{ (address | slice:0:10) }} because ...
-   <div class="ui icon">
     <i class="icon quote right"></i>
    </div>
    <button class="ui twitter button">
@@ -101,16 +99,16 @@
    </button>
    <button class="ui reddit button">
     <i class="icon reddit"></i>
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fsiggg.github.io%2Fculottes&title=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank">Reddit</a>
+    <a href="https://reddit.com/r/culottesrevolutions/submit?selftext=true&title={{ hashtagWithoutSymbol }}%20{{ (address | slice:0:10) }}%20{{ vote == true ? 'YES' : 'NO' }}&text=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ (address | slice:0:10) }}%20because%20..." target="_blank">Reddit</a>
    </button>
    <button class="ui facebook button">
     <i class="icon facebook"></i>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsiggg.github.io%2Fculottes&title=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsiggg.github.io%2Fculottes&title=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank">Facebook</a>
    </button>
-   <button class="ui linkedin button">
+   <a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fsiggg.github.io%2Fculottes&title={{ hashtagWithoutSymbol }}%20{{ (address | slice:0:10) }}%20{{ vote == true ? 'YES' : 'NO' }}&summary=I%20voted%20{{ vote == true ? 'YES' : 'NO' }}%20for%20{{ (address | slice:0:10) }}%20in%20the%20{{ hashtagWithoutSymbol }}%20revolution%20because%20..." target="_blank"><button class="ui linkedin button">
     <i class="icon linkedin"></i>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fsiggg.github.io%2Fculottes&title={{ hashtagWithoutSymbol }}&summary=I%20voted%20YES%20for%20{{ (address | slice:0:10) }}%20because%20...&hashtags={{ hashtagWithoutSymbol }}" target="_blank">LinkedIn</a>
-   </button>
+    LinkedIn
+   </button></a>
  </div>
 
  <h2 class="ui header">4. Your vote and maybe its resulting verdict will be displayed <a routerLink="/revolution">on the home page</a> once your vote is confirmed.</h2>

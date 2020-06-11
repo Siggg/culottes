@@ -11,7 +11,12 @@
       >Your revolution</a
     >
     <div class="center menu">
-      <a i18n="about link|Hyperlink to the about section" class="item" routerLink="/about">About</a>
+      <a href="https://www.youtube.com/watch?v=yZBNfpnjqVM" target="_blank">
+       <button class="ui youtube button">
+        <i class="youtube icon">Intro video</i>
+       </button>
+      </a>
+      <!-- a i18n="about link|Hyperlink to the about section" class="item" routerLink="/about">About</a-->
     </div>
     <div class="right item">
       <a class="ui red right ribbon label" routerLink="/factory">
@@ -27,4 +32,5 @@
     </div>
   </div>
   <router-outlet></router-outlet>
+  <a i18n="about link|Hyperlink to the about section" class="item" routerLink="/about">About</a>
 </div>

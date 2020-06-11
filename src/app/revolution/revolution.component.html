@@ -132,7 +132,10 @@
    </a>
  </div>
  
- 
+ <div class="ui segment" id="intro">
+  <iframe width="100%" height="100%" src="https://www.youtube.com/embed/yZBNfpnjqVM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ </div>
+  
  <div class="ui segment" id="trust">
   <h3 class="ui header">5. How much can you trust this app?</h3>
   <p id="criteriaLabel"> The Ethereum addresses listed above receive an income from this application if and only if they are the address of <strong class="criteria" id="criteria">{{ criteria }}</strong> according to the consensual verdict of their trial. The income received is then, at most, of {{ distributionAmount }} ETH every {{ distributionBlockPeriod }} blocks of the Ethereum {{ revolutionBlockchain }} blockchain (about {{ convertToFiat(distributionAmount) }} {{ currency() }} every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }}) unless this revolution is empty and needs further donations. First addresses added above get their income first. Last addresses may not get any income during this distribution round if the revolution is empty. Distribution rounds are triggered by new votes. Voters pay mining fees. Voters earn ETH if the consensual verdict is aligned with their vote and loose their bet otherwise. </p>
@@ -259,4 +262,3 @@
  </div>
  </div>
 </div-->
-<iframe width="853" height="480" src="https://www.youtube.com/embed/yZBNfpnjqVM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

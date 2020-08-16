@@ -90,6 +90,10 @@ Will commit and push these to the git repo :
 
   git commit -m "<some commit message>" && git push
 
+Monitor your new commit being automatically integrated, test and, hopefully deployed on GitHub pages via Travis CI:
+
+  e.g. https://travis-ci.org/Siggg/culottes/
+
 Will deploy your smart contract :
 
   truffle compile && truffle build && truffle migrate -f 2 --network rinkebyInfura --reset --compile-all
@@ -99,6 +103,10 @@ Will update your node then angular dependencies and audit them for issues then p
   npm install-test
   npm audit
   npm audit fix
+
+Then review fixes requiring manual intervention (breaking changes) :
+
+  npm audit
 
 If you have issues with the version of chrome that webdriver-manager uses for running tests, have a look at ci/install-deps.sh for specify the version of webdriver-manager and of the browser it uses.
 

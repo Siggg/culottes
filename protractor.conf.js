@@ -16,7 +16,13 @@ exports.config = {
       'browser': 'INFO'
     },
     'chromeOptions': {
-      args: [ "--headless", "--no-sandbox", "--disable-gpu", "--window-size=800,600" ]
+      args: [ "--no-sandbox",
+	      "--headless",
+	      "--disable-gpu", 
+	      "--disable-extension", 
+	      "--disable-dev-shm-usage",
+	      "--remote-debugging-port=9222",
+	      "--window-size=800,600" ]
     },
     'moz:firefoxOptions': {
       args: [ "--headless" ]

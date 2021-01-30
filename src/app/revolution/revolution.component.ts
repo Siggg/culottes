@@ -57,7 +57,6 @@ export class RevolutionComponent implements OnInit {
     // console.log(this);
     this.getAddress();
     this.otherRevolutions = this.web3Service.revolutions;
-    this.watchAccount();
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
@@ -70,15 +69,9 @@ export class RevolutionComponent implements OnInit {
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
-    this.criteria = await this.revolutionContract
-      .methods
-      .criteria()
-      .call();
+    this.criteria = await this.revolutionContract.criteria();
     console.log("criteria: ", this.criteria);
-    this.hashtag = await this.revolutionContract
-      .methods
-      .hashtag()
-      .call()
+    this.hashtag = await this.revolutionContract.hashtag()
       .then( (hashtag) => {
         if (hashtag == null || hashtag.length == 0) {
           hashtag = "#CulottesRevolution";
@@ -91,10 +84,7 @@ export class RevolutionComponent implements OnInit {
         }
         return hashtag;
     });
-    this.lockModalActivity = await this.revolutionContract
-      .methods
-      .locked()
-      .call()
+    this.lockModalActivity = await this.revolutionContract.locked()
       .then( (locked) => {
         if (locked == true) {
           return "active";
@@ -102,10 +92,7 @@ export class RevolutionComponent implements OnInit {
           return "";
         }
       });
-    this.bastilleBalance = await this.revolutionContract
-      .methods
-      .bastilleBalance()
-      .call()
+    this.bastilleBalance = await this.revolutionContract.bastilleBalance()
       .then( (result) => {
         if (result === null) {
           this
@@ -125,7 +112,7 @@ export class RevolutionComponent implements OnInit {
             .statusError = false;
           return this
             .web3Service
-            .weiToEther(result);
+            .formatUnits(result, "ether");
         }
       })
       .catch( (error) => {
@@ -134,29 +121,24 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading bastille balance: " + error);
       });
-    this.distributionAmount = await this.revolutionContract
-      .methods
-      .distributionAmount()
-      .call()
+    this.distributionAmount = await this.revolutionContract.distributionAmount()
       .then( (result) => {
-	      if (result === null) {
+        if (result === null) {
     	  /* this
           .web3Service
           .web3Status
           .next("distributionAmount at this bastille is null!");*/
-	        this
-	          .web3Service
-	          .statusError = true;
-	      } else {
-	        return this
+          this
             .web3Service
-	          .weiToEther(result);
-	      }
+            .statusError = true;
+        } else {
+          return this
+            .web3Service
+            .formatUnits(result, "ether");
+        }
       });
     this.distributionBlockPeriod = await this.revolutionContract
-      .methods
       .distributionBlockPeriod()
-      .call()
       .then( (blocks) => {
         // Convert distribution period from number of blocks to time units
         var seconds = blocks * 15; // about 15 seconds per block
@@ -184,16 +166,10 @@ export class RevolutionComponent implements OnInit {
         }
       return blocks;
     });
-    this.revolutionOwner = await this.revolutionContract
-      .methods
-      .owner()
-      .call();
+    this.revolutionOwner = await this.revolutionContract.owner();
     console.log("Revolution owner: ", this.revolutionOwner);
     console.log("Getting other revolutions from this factory");
-    this.factoryAddress = await this.revolutionContract
-      .methods
-      .factory()
-      .call();
+    this.factoryAddress = await this.revolutionContract.factory();
     if (this.factoryAddress == null) {
       console.log("factoryAddress is null !");
       // TODO : figure out a way for web3 to work properly in e2e protractor tests
@@ -207,25 +183,16 @@ export class RevolutionComponent implements OnInit {
         this.factoryAddress
       );
     console.log("Got factoryContract");
-    this.factoryOwner = await factoryContract
-      .methods
-      .owner()
-      .call();
+    this.factoryOwner = await factoryContract.owner();
     console.log("Factory owner: ", this.factoryOwner);
     let revolutionIndex = 0;
     let revolutionHashtag = "";
     let otherRevolution;
     do {
-      revolutionHashtag = await factoryContract
-        .methods
-        .hashtags(revolutionIndex)
-        .call();
+      revolutionHashtag = await factoryContract.hashtags(revolutionIndex);
       console.log('revolutionHashTag: ', revolutionHashtag);
       if (revolutionHashtag != null) {
-        otherRevolution = await factoryContract
-          .methods
-          .getRevolution(revolutionHashtag)
-          .call();
+        otherRevolution = await factoryContract.getRevolution(revolutionHashtag);
         console.log('  with revolution: ', otherRevolution);
       let otherRevolutionContract = await this
         .web3Service
@@ -233,15 +200,9 @@ export class RevolutionComponent implements OnInit {
           revolutionContractABI,
           otherRevolution
         );
-      let otherLocked = await otherRevolutionContract
-          .methods
-          .locked()
-          .call();
+      let otherLocked = await otherRevolutionContract.locked();
         console.log('  is locked ? ', otherLocked);
-        let otherBalance = await otherRevolutionContract
-          .methods
-          .bastilleBalance()
-          .call();
+        let otherBalance = await otherRevolutionContract.bastilleBalance();
         console.log('  with empty bastille balance? ', otherBalance.isZero());
         if (otherLocked != true || otherBalance.isZero() == false) {
           this.otherRevolutions[otherRevolution] = revolutionHashtag;
@@ -258,9 +219,7 @@ export class RevolutionComponent implements OnInit {
     let citizen: ICitizen;
     while (citizenAddress != null) {
       citizenAddress = await this.revolutionContract
-        .methods
         .citizens(i)
-        .call()
         .then( (result) => {
           return result;
         })
@@ -274,9 +233,7 @@ export class RevolutionComponent implements OnInit {
       // console.log("read citizen: ", citizenAddress);
       if (citizenAddress != "" && citizenAddress != null) {
         citizen = await this.revolutionContract
-          .methods
           .trialStatus(citizenAddress)
-          .call()
           .then( (result) => {
 	    // console.log("citizen result: ", result);
             let name;
@@ -325,7 +282,13 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       });
-      console.log("#2 account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
+      this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+      if (this.web3Service.statusError) {
+        this.web3ModalActivity = "active";
+      } else {
+        this.web3ModalActivity = "";
+      }
+      console.log("account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
       if (this.account != undefined) {
         if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
           this.canLockRevolution = true;
@@ -337,41 +300,6 @@ export class RevolutionComponent implements OnInit {
       }
   }
 
-  async watchAccount() {
-    this
-      .web3Service
-      .web3Status
-      .subscribe(status => {
-        this.web3Status = status;
-        if (this.web3Service.statusError) {
-          this.web3ModalActivity = "active";
-        } else {
-          this.web3ModalActivity = "";
-        }
-      });
-    this
-      .web3Service
-      .accountsObservable
-      .subscribe(accounts => {
-        this.account = accounts[0];
-        if (this.web3Service.statusError) {
-          this.web3ModalActivity = "active";
-        } else {
-          this.web3ModalActivity = "";
-        }
-        console.log("account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
-        if (this.account != undefined) {
-          if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
-            this.canLockRevolution = true;
-          } else {
-            this.canLockRevolution = false;
-          }
-        } else {
-          this.canLockRevolution = false;
-        }
-      });
-  }
-  
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }
@@ -428,7 +356,6 @@ export class RevolutionComponent implements OnInit {
   lockRevolution(): void {
     console.log("Trying to lock revolution");
     this.revolutionContract
-      .methods
       .lock()
       .send({from: this.account, value: 0, gas: 1000000})
       .on('transactionHash', function(hash) {

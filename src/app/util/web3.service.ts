@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import contract from 'truffle-contract';
 import { HttpClient } from '@angular/common/http';
-import {Subject} from 'rxjs';
-import {BehaviorSubject} from 'rxjs';
+import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { ethers } from "ethers";
 
 declare let require: any;
-const Web3 = require('web3');
 declare let window: any;
 
 const networks = {
@@ -18,8 +18,8 @@ const networks = {
 
 @Injectable()
 export class Web3Service {
-  private web3: any;
-  private accounts: string[];
+  private provider: any;
+  private signer: any;
   public revolutions = {
     "0xdfA817cd0cf502D9d8eFFEB13f9b4A4312DAE003": "#OpenSourceContributor", // @mainnet
   };
@@ -52,7 +52,7 @@ export class Web3Service {
   // Dapp communication seems to be OK ?
   public statusError = true;
 	
-  public accountsObservable = new Subject<string[]>();
+  // public accountsObservable = new Subject<string[]>();
   
   public web3Status = new BehaviorSubject<string>("no attempt to access your blockchain accounts yet, please wait or reload the app");
   
@@ -97,50 +97,43 @@ export class Web3Service {
   public bootstrapWeb3() {
     // Modern dapp browsers...
     if (window.ethereum) {
-        let ethereum = window.ethereum;
-        window.web3 = new Web3(ethereum);
-        this.web3 = window.web3;
+	this.provider = new ethers.providers.Web3Provider(window.ethereum);
         this.web3Status.next("connecting to the blockchain");
         this.statusWeb3 = true;
     }
-    // Legacy dapp browsers...
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    else if (typeof window.web3 !== 'undefined') {
-      // Use Mist/MetaMask's provider
-	    this.web3 = new Web3(window.web3.currentProvider);
-	    this.web3Status.next("connecting to the blockchain via Metamask or Mist");
-	    this.statusWeb3 = true;
-    }
     else {
       console.log('No web3? You should consider trying MetaMask!');
-      
-      // Hack to provide backwards compatibility for Truffle, which uses web3js 0.20.x
-      Web3
-        .providers
-        .HttpProvider
-        .prototype
-        .sendAsync = Web3
-          .providers
-          .HttpProvider
-          .prototype
-          .send;
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-      this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-      this.web3Status.next('Could not detect a blockchain-enabled browser (also called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.trustwallet.com/">Truet Wallet</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + '. You might ignore this message if your machine is running a blockchain node on port 8545.');
+      this.provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+      this.web3Status.next('Could not detect a blockchain-enabled browser (also called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain.<br />On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.trustwallet.com/">Trust Wallet</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + '. You might ignore this message if your machine is running a blockchain node on port 8545.');
       this.statusError = true;
     }
     this.checkNetwork();
-    setInterval(() => this.refreshAccounts(), 100);
+    // setInterval(() => this.refreshAccounts(), 100);
     
+  }
+
+  public async getAccount() {
+    this.signer = this.provider.getSigner();
+    if (this.signer == undefined) {
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+        this.statusAuthorized = true;
+      } catch (error) {
+        this.web3Status.next('User denied account access...');
+        this.statusError = true;
+      }
+      this.signer = this.provider.getSigner();
+    }
+    return this.signer;
   }
   
   public checkNetwork() {
     this
-      .web3
-      .eth
-      .net
-      .getId((id) => {
-        let networkName = networks[id];
+      .provider
+      .getNetwork((network) => {
+        let networkName = network[name];
         if (networkName != undefined) {
           networkName = networkName.toLowerCase();
         } else {
@@ -159,70 +152,24 @@ export class Web3Service {
       });
   }
 
-  public etherToWei(etherAmount) {
-    return this
-      .web3
-      .utils
-      .toWei(etherAmount.toString());
-  }
-
-  public weiToEther(weiAmount) {
-    return this
-      .web3
-      .utils
-      .fromWei(weiAmount.toString());
-  }
-  
   public async sendTransaction(tx) {
-    if (window.ethereum) {
-      try {
-        // Request account access if needed
-        await window.ethereum.enable();
-        // Acccounts now exposed
-        this.web3.eth.sendTransaction(tx);
-        this.statusAuthorized = true;
-      } catch (error) {
-        this.web3Status.next('User denied account access...');
-        this.statusError = true;
-      }
-    }
-    // Legacy dapp browsers...
-    else if (window.web3) {
-      // Acccounts always exposed
-      this.web3.eth.sendTransaction(tx);
-      this.statusAuthorized = true;
-    }
-    // Non-dapp browsers...
-    else {
-      this.web3Status.next('Could not detect a blockchain-enabled browser (so called web3 browser, dapp browser or dapp wallet) connected to the ' + this.revolutionBlockchain + ' Ethereum blockchain. On desktop, you should install <a href="http://metamask.io">Metamask for Firefox or for Chrome</a>. On mobile, you should install one of these wallet apps : <a href="https://www.trustwallet.com/">Trust Wallet</a>,  <a href="http://metamask.io">Metamask</a>, <a href="https://dev.status.im/get/">Status IM</a> or <a href="https://wallet.coinbase.com/">Coinbase Wallet</a>. And switch it to ' + this.revolutionBlockchain + ' . Meanwhile trying to connect to a blockchain node on your machine with port 8545.');
-      this.statusWeb3 = false;
-      this.statusError = true;
-    }
+      await this.getAccount().then((account) => { return account.sendTransaction(tx); });
   }
 
   public async artifactsToContract(artifacts, address) {
-    if (!this.web3) {
+    if (!this.provider) {
       const delay = new Promise(resolve => setTimeout(resolve, 100));
       await delay;
       return await this.artifactsToContract(artifacts, address);
     }
-    const contractAbstraction = new this
-      .web3
-      .eth
-      .Contract(artifacts.abi, address);
-    contractAbstraction
-      .setProvider(this.web3.currentProvider);
-
-    return contractAbstraction;
+    return new ethers.Contract(address, artifacts.abi, this.provider);
   }
 
   public async updateWeb3Status(artifacts, address) {
     const contractAbstraction = await this.artifactsToContract(artifacts, address);
     try {
       contractAbstraction
-        .methods
-        .criteria
-        .call()
+        .criteria()
       .then( (result) => {
         if (result === null) {
           this.web3Status.next("This revolution can not be reached on the blokchain you are connected to. You should switch your blockchain browser or node to the Ethereum " + this.revolutionBlockchain + " blockchain.");
@@ -243,41 +190,6 @@ export class Web3Service {
     }
   }
 
-  public refreshAccounts() {
-    this.web3.eth.getAccounts((err, accs) => {
-      // console.log('Refreshing accounts');
-      if (err != null && err != false) {
-        console.warn('There was an error fetching your accounts.');
-        this.web3Status.next("Connected to your blockchain browser or node but an error occurred while trying to access your accounts on the blockchain. Error message was ´´ " + err.toString() + err.message + " ´´ .");
-        this.statusError = true;
-        return;
-      }
-
-      // Get the initial account balance so it can be displayed.
-      if (accs.length === 0) {
-        //console.warn('Couldn\'t get any account! Make sure your Ethereum client is configured correctly.');
-        // console.log('err: ', err);
-        // console.log('accs: ', accs);
-        this.web3Status.next("Connected to your blockchain browser or node but it could not find your accounts on the blockchain.");
-        // this.statusError = true;
-        return;
-      }
-
-      if (!this.accounts ||
-        this.accounts.length !== accs.length ||
-        this.accounts[0] !== accs[0]) {
-        console.log('Observed new accounts');
-        this
-          .accountsObservable
-          .next(accs);
-        this.accounts = accs;
-        // this.web3Status.next("Blockchain accounts ready.");
-        this.statusAccount = true;
-      }
-
-    });
-  }
-  
   public dappStatus() {
     return {
       statusWeb3: this.statusWeb3,
@@ -287,4 +199,21 @@ export class Web3Service {
 	    statusError: this.statusError
     };
   }
+
+  public parseUnits(value, unit) {
+    return ethers.utils.parseUnits(value, unit=unit);
+  }
+
+  public formatUnits(value, unit) {
+    return ethers.utils.formatUnits(value, unit=unit);
+  }
+
+  public getChecksumAddress(address) {
+    return ethers.utils.getAddress(address);
+  }
+
+  public getBalance(address) {
+    return ethers.utils.formatUnits(this.provider.getBalance(address), "ether");
+  }
+
 }

@@ -52,7 +52,7 @@ export class FactoryComponent implements OnInit {
 
   async ngOnInit() {
     this.getParams();
-    this.watchAccount();
+    // this.watchAccount();
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
@@ -62,22 +62,16 @@ export class FactoryComponent implements OnInit {
         this.revolutionContract = revolutionContract;
 	
 	// Get revolution's criteria
-        return this.revolutionContract
-          .methods
-          .criteria()
-          .call();
+        return this.revolutionContract.criteria();
       })
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
 
 	// Get revolution's distributionAmout
-        return this.revolutionContract
-          .methods
-          .distributionAmount()
-          .call();
+        return this.revolutionContract.distributionAmount();
       })
-      .then( (distributionAmount) => {
+      .then((distributionAmount) => {
         if (distributionAmount === null) {
           this
             .web3Service
@@ -87,16 +81,15 @@ export class FactoryComponent implements OnInit {
             .web3Service
             .statusError = true;
         } else {
-          this.distributionAmount = this
+          this.distributionAmount = parseFloat(this
             .web3Service
-            .weiToEther(distributionAmount);
+            .formatUnits(this
+              .web3Service
+              .parseUnits(distributionAmount, "wei"), "ether"));
         }
 
 	// Get revolution's distributionBlockPeriod
-        return this.revolutionContract
-          .methods
-          .distributionBlockPeriod()
-          .call();
+        return this.revolutionContract.distributionBlockPeriod();
       })
       .then( (distributionBlockPeriod) => {
         if (distributionBlockPeriod === null) {
@@ -112,10 +105,7 @@ export class FactoryComponent implements OnInit {
         }
 
         // Get revolution's hashtag
-        return this.revolutionContract
-          .methods
-          .hashtag()
-          .call();
+        return this.revolutionContract.hashtag();
       })
       .then((hashtag) => {
         this.hashtag = hashtag;
@@ -126,10 +116,7 @@ export class FactoryComponent implements OnInit {
           this.hashtagWithoutSymbol = "CulottesRevolution";
         }
 
-	return this.revolutionContract
-	  .methods
-	  .factory()
-	  .call();
+	return this.revolutionContract.factory();
       })
       .then((factoryAddress) => {
         this.factoryAddress = factoryAddress;
@@ -180,32 +167,17 @@ export class FactoryComponent implements OnInit {
     }
 
     // Check account
+    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
     if (this.account == undefined) {
-      // Maybe metamask has not been enabled yet
-      try {
-        // Request account access if needed
-        await window.ethereum.enable().then(() =>  {
-          window.web3.eth.getAccounts((err, accs) => {
-            this.account = accs[0];
-            console.log("Accounts refreshed, creation requested by: " + this.account);
-          });
-        });
-      } catch (error) {
-        canCreate = false;
-        console.log('Metamask not enabled?');
-      }
-    }        
-    if (this.account == undefined) {
-      canCreate = true;
+      canCreate = false;
     }
 
     if (canCreate == true) {
       console.log('about to create revolution');
-      let distributionWeiAmount = this.web3Service.etherToWei(this.distributionAmount);
-      console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionWeiAmount); 
+      let distributionAmount = this.web3Service.parseUnits(this.distributionAmount, "ether");
+      console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionAmount); 
       let method = this.factoryContract
-        .methods
-        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionWeiAmount, false);
+        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
       let component = this;
       console.log("this.account:", this.account);
       method.estimateGas({from: this.account, gas: 3000000})
@@ -250,19 +222,6 @@ export class FactoryComponent implements OnInit {
     this.distributionAmount = parseFloat(this.route.snapshot.paramMap.get('distributionAmount'));
   }
 
-  async watchAccount() {
-    let component = this;
-    this
-      .web3Service
-      .accountsObservable
-      .subscribe((accounts) => {
-        component.account = accounts[0];
-        /* window.web3.eth.getBalance(this.account, (err, balance) => {
-          component.accountBalance = window.web3.utils.fromWei(balance, 'ether');
-        }); */
-      });
-  }
-  
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }

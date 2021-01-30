@@ -46,7 +46,6 @@ export class CitizenComponent implements OnInit {
 
   async ngOnInit() {
     this.getAddress();
-    this.watchAccount();
     this.revolutionAddress = this
       .web3Service
       .revolutionAddress;
@@ -56,22 +55,16 @@ export class CitizenComponent implements OnInit {
         this.web3_eth_contract = web3_eth_contract;
 	
 	// Get revolution's criteria
-        return this.web3_eth_contract
-          .methods
-          .criteria()
-          .call();
+        return this.web3_eth_contract.criteria();
       })
       .then((criteria) => {
         console.log("criteria: ", criteria);
         this.criteria = criteria;
 
 	// Get revolution's distributionAmout
-        return this.web3_eth_contract
-          .methods
-          .distributionAmount()
-          .call();
+        return this.web3_eth_contract.distributionAmount();
       })
-      .then( (distributionAmount) => {
+      .then((distributionAmount) => {
         if (distributionAmount === null) {
           this
             .web3Service
@@ -81,16 +74,15 @@ export class CitizenComponent implements OnInit {
             .web3Service
             .statusError = true;
         } else {
-          this.distributionAmount = this
+          this.distributionAmount = parseFloat(this
             .web3Service
-            .weiToEther(distributionAmount);
+            .formatUnits(this
+              .web3Service
+              .parseUnits(distributionAmount, "wei"), "ether"));
         }
 
 	// Get revolution's hashtag
-        return this.web3_eth_contract
-          .methods
-          .hashtag()
-          .call();
+        return this.web3_eth_contract.hashtag();
       })
       .then((hashtag) => {
         console.log("hashtag: ", hashtag);
@@ -105,10 +97,7 @@ export class CitizenComponent implements OnInit {
         // console.log("Get citizen's name");
 	// console.log("this.address: ", this.address);
 	if (this.address != "" && this.address != null) {
-	  return this.web3_eth_contract
-	    .methods
-	    .getName(this.address)
-	    .call();
+	  return this.web3_eth_contract.getName(this.address);
 	} else {
 	  return undefined;
 	}
@@ -120,42 +109,23 @@ export class CitizenComponent implements OnInit {
     this.revolutionBlockchain = this
       .web3Service
       .revolutionBlockchain;
-    if (this.account == undefined) {
-      // Maybe metamask has not been enabled yet
-      try {
-        // Request account access if needed
-        await window.ethereum.enable().then(() =>  {
-          window.web3.eth.getAccounts((err, accs) => {
-            this.account = accs[0];
-            console.log("Accounts refreshed, vote by: " + this.account);
-          });
-        });
-      } catch (error) {
-        console.log('Metamask not enabled');
-      }
-    } 
-    console.log("address, account, equal ?: ", this.address, this.account, this.address == this.account);
+    // console.log("address, account, equal ?: ", this.address, this.account, this.address == this.account);
   }
 
   async sendVote(vote, weiAmount) {
     let component = this;
     component.vote = vote;
-    let method = this.web3_eth_contract
-      .methods
-      .vote(vote, this.address);
+    let method = this.web3_eth_contract.vote(vote, this.address);
+    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    this.accountBalance = parseFloat(this.web3Service.formatUnits(this.web3Service.getBalance(this.account), "ether"));
     if (this.account == this.address && this.address != "" && this.address != undefined ) {
       console.log('voting for oneself');
-      let myName = await this.web3_eth_contract
-        .methods
-        .getName(this.address)
-        .call();
+      let myName = await this.web3_eth_contract.getName(this.address);
       console.log('Your name was: ', myName);
       if (myName != this.name) {
         // Change one's name
 	console.log('vote and set it to: ', this.name);
-        method = this.web3_eth_contract
-          .methods
-          .voteAndSetName(vote, this.address, this.name);
+        method = this.web3_eth_contract.voteAndSetName(vote, this.address, this.name);
       } else {
         console.log('  it does not have to change');
       }
@@ -195,10 +165,7 @@ export class CitizenComponent implements OnInit {
 
     // Check address
     try {
-      this.address = window
-        .web3
-        .utils
-        .toChecksumAddress(this.address);
+      this.address = this.web3Service.getChecksumAddress(this.address);
       this.showErrorMessageForAddress = false;
     } catch(e) {
       canVote = false;
@@ -209,21 +176,8 @@ export class CitizenComponent implements OnInit {
     }
 
     // Check account
-    if (this.account == undefined) {
-      // Maybe metamask has not been enabled yet
-      try {
-        // Request account access if needed
-        await window.ethereum.enable().then(() =>  {
-          window.web3.eth.getAccounts((err, accs) => {
-            this.account = accs[0];
-            console.log("Accounts refreshed, vote by: " + this.account);
-          });
-        });
-      } catch (error) {
-        canVote = false;
-        console.log('Metamask not enabled');
-      }
-    }        
+    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    console.log("Vote by this account: " + this.account);
     if (this.account == undefined) {
       canVote = false;
     }
@@ -245,7 +199,7 @@ export class CitizenComponent implements OnInit {
     }
     const weiAmount = this
       .web3Service
-      .etherToWei(this.amount.toString());
+      .parseUnits(this.amount, "ether");
     console.log("Stake (in wei): " + weiAmount.toString());
 
     // Vote if everything is fine
@@ -267,18 +221,16 @@ export class CitizenComponent implements OnInit {
     this.address = this.route.snapshot.paramMap.get('address');
   }
 
-  async watchAccount() {
+  /* async watchAccount() {
     let component = this;
     this
       .web3Service
       .accountsObservable
       .subscribe((accounts) => {
         component.account = accounts[0];
-        window.web3.eth.getBalance(this.account, (err, balance) => {
-          component.accountBalance = window.web3.utils.fromWei(balance, 'ether');
-        });
+        component.accountBalance = this.web3Service.getBalance(this.account);
       });
-  }
+  } */
   
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;

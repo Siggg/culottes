@@ -31,69 +31,33 @@ export class DonateComponent implements OnInit {
 	async ngOnInit() {
 	  this.revolutionAddress = this.web3Service.revolutionAddress;
 	  this.revolutionBlockchain = this.web3Service.revolutionBlockchain;
-          this.watchAccount();
           this
             .web3Service
             .artifactsToContract(contractABI, this.revolutionAddress)
             .then((web3_eth_contract) => {
               this.web3_eth_contract = web3_eth_contract;
-              return web3_eth_contract
-                .methods
-                .criteria()
-                .call();
+              return web3_eth_contract.criteria();
               })
             .then((criteria) => {
               console.log("criteria: ", criteria);
             });
 	}
 
-	async onClickMe() {
-		if (!this.amount)
-			this.isOk=true;
-		else {
-			this.isOk=false;
-			console.log("amount to be donated:" + this.amount);
-			var wei = this.web3Service.etherToWei(this.amount.toString());
-			if (this.account == undefined) {
-			  // Maybe metamask has not been enabled yet 
-        try {
-          // Request account access if needed
-          await window
-            .ethereum
-            .enable()
-            .then(() =>  {
-              window
-                .web3
-                .eth
-                .getAccounts((err, accs) => {
-				          this.account = accs[0];
-			            console.log("Accounts refreshed: " + this.account);
-                  this
-                    .web3Service
-                    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
-			          });
-			    });
-        } catch (error) {
-          console.log('Metamask not enabled');
-        }
-      } else {
-			  console.log("donated from: " + this.account);
-			  this
-			    .web3Service
-			    .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
-			}
-		}
-	}
-	
-	async watchAccount() {
-		this
-		  .web3Service
-		  .accountsObservable
-		  .subscribe((accounts) => {
-			  this.account = accounts[0];
-		});
-	}
-  
+  async onClickMe() {
+    if (!this.amount) {
+      this.isOk=true;
+    } else {
+      this.isOk=false;
+      console.log("amount to be donated:" + this.amount);
+      var wei = this.web3Service.parseUnits(this.amount.toString(), "wei");
+      this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+      console.log("donated from: " + this.account);
+      this
+        .web3Service
+        .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
+    }
+  }
+
   public onCurrencyChange(event): void {  // event will give you full breif of action
     this.web3Service.currency = event.target.value;
   }

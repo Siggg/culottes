@@ -40,12 +40,14 @@ export class RevolutionComponent implements OnInit {
   web3Status: String = "Status of connection to your blockchain accounts";
   citizens: Array<ICitizen> = [];
   fullAddressShown: boolean = false;
-  web3ModalActivity: String = "";
+  web3ModalActivity: String = "active";
   lockModalActivity: String = "";
   otherRevolutions = {};
   contractEvents: any;
   factoryAddress: string;
   canLockRevolution: boolean = false;
+  citizensLoaderActivity: String = "active";
+  loadingRevolutions: boolean = true;
 
   constructor(
     private web3Service: Web3Service,
@@ -166,110 +168,15 @@ export class RevolutionComponent implements OnInit {
         }
       return blocks;
     });
-    this.revolutionOwner = await this.revolutionContract.owner();
-    console.log("Revolution owner: ", this.revolutionOwner);
-    console.log("Getting other revolutions from this factory");
-    this.factoryAddress = await this.revolutionContract.factory();
-    if (this.factoryAddress == null) {
-      console.log("factoryAddress is null !");
-      // TODO : figure out a way for web3 to work properly in e2e protractor tests
-      this.factoryAddress = "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D";
+    if (this.web3Service.statusError) {
+      this.web3ModalActivity = "active";
+    } else {
+      this.web3ModalActivity = "";
     }
-    console.log("factoryAddress: ", this.factoryAddress);
-    let factoryContract = await this
-      .web3Service
-      .artifactsToContract(
-        factoryContractABI,
-        this.factoryAddress
-      );
-    console.log("Got factoryContract");
-    this.factoryOwner = await factoryContract.owner();
-    console.log("Factory owner: ", this.factoryOwner);
-    let revolutionIndex = 0;
-    let revolutionHashtag = "";
-    let otherRevolution;
-    do {
-      revolutionHashtag = await factoryContract.hashtags(revolutionIndex);
-      console.log('revolutionHashTag: ', revolutionHashtag);
-      if (revolutionHashtag != null) {
-        otherRevolution = await factoryContract.getRevolution(revolutionHashtag);
-        console.log('  with revolution: ', otherRevolution);
-      let otherRevolutionContract = await this
-        .web3Service
-        .artifactsToContract(
-          revolutionContractABI,
-          otherRevolution
-        );
-      let otherLocked = await otherRevolutionContract.locked();
-        console.log('  is locked ? ', otherLocked);
-        let otherBalance = await otherRevolutionContract.bastilleBalance();
-        console.log('  with empty bastille balance? ', otherBalance.isZero());
-        if (otherLocked != true || otherBalance.isZero() == false) {
-          this.otherRevolutions[otherRevolution] = revolutionHashtag;
-        }
-        revolutionIndex += 1;
-      }
-    } while (revolutionHashtag != null);
-    console.log('hashtags: ', this.otherRevolutions);
-    await this.web3Service.updateWeb3Status(revolutionContractABI, this.revolutionAddress);
 
-    console.log("Getting citzens");
-    let i = 0;
-    let citizenAddress = "";
-    let citizen: ICitizen;
-    while (citizenAddress != null) {
-      citizenAddress = await this.revolutionContract
-        .citizens(i)
-        .then( (result) => {
-          return result;
-        })
-        .catch( (error) => {
-          this
-            .web3Service
-            .web3Status
-            .next("An error occured while reading citizen " + i.toString() + " : " + error);
-          return ""
-      });
-      // console.log("read citizen: ", citizenAddress);
-      if (citizenAddress != "" && citizenAddress != null) {
-        citizen = await this.revolutionContract
-          .trialStatus(citizenAddress)
-          .then( (result) => {
-	    // console.log("citizen result: ", result);
-            let name;
-	    try {
-              name = result[4];
-	    } catch(e) {
-	      name = undefined;
-              console.log("Could read name from contract: ", e);
-            }
-	    if (citizenAddress in this.otherRevolutions) {
-              name = this.otherRevolutions[citizenAddress];
-	    }
-            return {
-              address: citizenAddress,
-              opened: result[0],
-              matchesCriteria: result[1],
-              sansculotteScale: result[2],
-              privilegedScale: result[3],
-              name: name
-            };
-          })
-          .catch( (error) => {
-            console.log("error: ", error);
-            this
-              .web3Service
-              .web3Status
-              .next("An error occured while reading trialStatus of citizen #" + i.toString() + " : " + error);
-          });
-        if (citizen != undefined) {
-          this.citizens.push(citizen);
-        }
-      }
-      i += 1;
-    }
-    // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
-    this.contractEvents = await this.revolutionContract
+    this.loadOtherRevolutionsThenCitizens();
+
+    /* this.contractEvents = await this.revolutionContract
       .getPastEvents("allEvents", { fromBlock: 0, toBlock: "latest" })
       .then( (events) => {
         // console.log("All events: ", events);
@@ -281,23 +188,23 @@ export class RevolutionComponent implements OnInit {
           .web3Service
           .web3Status
           .next("An error occured while reading past events: " + error);
-      });
-      this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
-      if (this.web3Service.statusError) {
+      }); */
+    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    if (this.web3Service.statusError) {
         this.web3ModalActivity = "active";
       } else {
         this.web3ModalActivity = "";
       }
-      console.log("account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
-      if (this.account != undefined) {
-        if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
-          this.canLockRevolution = true;
-        } else {
-          this.canLockRevolution = false;
-        }
+    console.log("account, revolutionOwner, factoryOwner: ", this.account, this.revolutionOwner, this.factoryOwner);
+    if (this.account != undefined) {
+      if (this.revolutionOwner == this.account || this.factoryOwner == this.account) {
+        this.canLockRevolution = true;
       } else {
         this.canLockRevolution = false;
       }
+    } else {
+      this.canLockRevolution = false;
+    }
   }
 
   public onCurrencyChange(event): void {  // event will give you full breif of action
@@ -386,4 +293,118 @@ export class RevolutionComponent implements OnInit {
     console.log("Tried locking revolution");
   }
   
+  private async loadOtherRevolutionsThenCitizens() {
+    this.revolutionOwner = await this.revolutionContract.owner();
+    console.log("Revolution owner: ", this.revolutionOwner);
+    console.log("Getting other revolutions from this factory");
+    this.factoryAddress = await this.revolutionContract.factory();
+    if (this.factoryAddress == null) {
+      console.log("factoryAddress is null !");
+      // TODO : figure out a way for web3 to work properly in e2e protractor tests
+      this.factoryAddress = "0x598Bbb5819E8349Eb4D06D4f5aF149444aD8a11D";
+    }
+    console.log("factoryAddress: ", this.factoryAddress);
+    let factoryContract = await this
+      .web3Service
+      .artifactsToContract(
+        factoryContractABI,
+        this.factoryAddress
+      );
+    console.log("Got factoryContract");
+    this.factoryOwner = await factoryContract.owner();
+    console.log("Factory owner: ", this.factoryOwner);
+    let revolutionIndex = 0;
+    let revolutionHashtag = "";
+    let otherRevolution;
+    do {
+      console.log('revolutionIndex: ', revolutionIndex);
+      try {
+        revolutionHashtag = await factoryContract.hashtags(revolutionIndex);
+      } catch (error) {
+        console.log('error while retrieving hashtag: ', error);
+        revolutionHashtag = null;
+      }
+      console.log('revolutionHashTag: ', revolutionHashtag);
+      if (revolutionHashtag != null) {
+        otherRevolution = await factoryContract.getRevolution(revolutionHashtag);
+        console.log('  with revolution: ', otherRevolution);
+      let otherRevolutionContract = await this
+        .web3Service
+        .artifactsToContract(
+          revolutionContractABI,
+          otherRevolution
+        );
+      let otherLocked = await otherRevolutionContract.locked();
+        console.log('  is locked ? ', otherLocked);
+        let otherBalance = await otherRevolutionContract.bastilleBalance();
+        console.log('  with empty bastille balance? ', otherBalance.isZero());
+        if (otherLocked != true || otherBalance.isZero() == false) {
+          this.otherRevolutions[otherRevolution] = revolutionHashtag;
+        }
+        revolutionIndex += 1;
+      }
+    } while (revolutionHashtag != null);
+    console.log('hashtags: ', this.otherRevolutions);
+    this.loadingRevolutions = false;
+
+    await this.web3Service.updateWeb3Status(revolutionContractABI, this.revolutionAddress);
+    console.log("Getting citzens");
+    let i = 0;
+    let citizenAddress = "";
+    let citizen: ICitizen;
+    while (citizenAddress != null) {
+      citizenAddress = await this.revolutionContract
+        .citizens(i)
+        .then( (result) => {
+          return result;
+        })
+        .catch( (error) => {
+          this
+            .web3Service
+            .web3Status
+            .next("An error occured while reading citizen " + i.toString() + " : " + error);
+          return null;
+      });
+      console.log("read citizen: ", citizenAddress);
+      if (citizenAddress != "" && citizenAddress != null) {
+        citizen = await this.revolutionContract
+          .trialStatus(citizenAddress)
+          .then( (result) => {
+            console.log("citizen result: ", result);
+            let name;
+            try {
+              name = result[4];
+            } catch(e) {
+              name = undefined;
+              console.log("Could read name from contract: ", e);
+            }
+            if (citizenAddress in this.otherRevolutions) {
+              name = this.otherRevolutions[citizenAddress];
+            }
+            return {
+              address: citizenAddress,
+              opened: result[0],
+              matchesCriteria: result[1],
+              sansculotteScale: result[2],
+              privilegedScale: result[3],
+              name: name
+            };
+          })
+          .catch( (error) => {
+            console.log("error: ", error);
+            this
+              .web3Service
+              .web3Status
+              .next("An error occured while reading trialStatus of citizen #" + i.toString() + " : " + error);
+          });
+        if (citizen != undefined) {
+          this.citizens.push(citizen);
+        }
+      }
+      i += 1;
+    }
+    this.citizensLoaderActivity="";
+    // this.web3Service.web3Status.next("Here are the citizens known at this bastille : " + this.citizens.toString());
+  }
+
 }

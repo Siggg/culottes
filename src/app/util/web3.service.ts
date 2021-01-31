@@ -165,7 +165,7 @@ export class Web3Service {
     return new ethers.Contract(address, artifacts.abi, this.provider);
   }
 
-  public async updateWeb3Status(artifacts, address) {
+  public async updateWeb3Status(artifacts, address) { // Try to load revolution contract at this address
     const contractAbstraction = await this.artifactsToContract(artifacts, address);
     try {
       contractAbstraction

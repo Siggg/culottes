@@ -18,10 +18,11 @@
     </div>
    </div>
   <p>Up to {{ convertToFiat(distributionAmount) }} {{ currency() }} ({{ distributionAmount }} ETH) automatically distributed every {{ distributionPeriod.toFixed(1) }} {{ distributionPeriodUnit }} to any unique Ethereum address promoted by: <strong>{{ criteria }}</strong>.</p>
-  <div class="field" style="text-align:right;">
+  <div class="field ui basic segment" style="text-align:right;">
    <select (change)="onRevolutionChange($event)" class="ui compact dropdown label">
     <option value="menu" [selected]="true">Other revolutions...</option>
     <option *ngFor="let revolution of otherRevolutions | keyvalue" value="{{ revolution.key }}">{{ revolution.value }}</option>
+    <option *ngIf="loadingRevolutions">(reading from blockchain, please wait)</option>
    </select>
   </div>
 
@@ -40,10 +41,6 @@
      <div class="header"><label>Bet and vote on their trial, challenge the consensual verdicts.</label></div>
     </div>
    </div>
-  </div>
-  <div class="ui icon header">
-    <i class="spinner loading icon"></i>
-    Connecting to the blockchain
   </div>
   <div class="ui relaxed celled list" *ngFor="let citizen of citizens">
    <div class="item">
@@ -96,6 +93,7 @@
     </div>
    </div>
   </div>
+  <div class="ui {{ citizensLoaderActivity }} text inline loader">Reading from the blockchain</div>
  </div>
  
  

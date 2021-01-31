@@ -188,8 +188,8 @@ export class FactoryComponent implements OnInit {
 	.then((gasAmount) => {
           console.log('estimated gas amount: ', gasAmount);
 	  let tx = this.factoryContract.populateTransaction.createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
-          tx.gasPrice = "2000000000";
-          tx.gasLimit = gasAmount + 100000;
+          // tx.gasPrice = "2000000000";
+          tx.gasLimit = gasAmount * 1.1;
 	  function updateUIOnBlock(blockNumber) {
             component.transactionPending = false;
             component.confirmationProgress += 1; // up to 24 

@@ -115,7 +115,8 @@ export class CitizenComponent implements OnInit {
   async sendVote(vote, weiAmount) {
     let component = this;
     component.vote = vote;
-    let method = this.web3_eth_contract.vote(vote, this.address);
+    let txRequest = this.web3_eth_contract.populateTransaction.vote(vote, this.address);
+    let estimatedGas = await this.web3_eth_contract.estimateGas.vote(vote, this.address);
     this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
     this.accountBalance = parseFloat(this.web3Service.formatUnits(this.web3Service.getBalance(this.account), "ether"));
     if (this.account == this.address && this.address != "" && this.address != undefined ) {
@@ -125,37 +126,39 @@ export class CitizenComponent implements OnInit {
       if (myName != this.name) {
         // Change one's name
 	console.log('vote and set it to: ', this.name);
-        method = this.web3_eth_contract.voteAndSetName(vote, this.address, this.name);
+        txRequest = this.web3_eth_contract.populateTransaction.voteAndSetName(vote, this.address, this.name);
+        estimatedGas = await this.web3_eth_contract.estimateGas.voteAndSetName(vote, this.address, this.name);
       } else {
         console.log('  it does not have to change');
       }
     }
-    let estimatedGas = method.estimateGas({from: this.account, gas: 1000000});
-    method.send({from: this.account, value: weiAmount, gas: estimatedGas * 1.1})
-      .on('transactionHash', function(hash) {
+    tx.gas = estimatedGas * 1.1;
+    tx.value = weiAmount;
+    function updateUIOnBlock(blockNumber) {
+      component.transactionPending = false;
+      component.confirmationProgress += 1; // up to 24 
+      component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+      console.log('confirmation received, with number and %: ', component.confirmationProgress, component.confirmationPercent);
+      component.transactionConfirmed = true;
+    }
+    this.web3Service.sendTransaction(txRequest)
+      .then((tx) => {
         component.transactionPending = true;
         component.confirmationProgress = 0;
         component.confirmationPercent = 0;
-        component.transactionHashes.push(hash);
-        console.log('transactionHash received');
+        component.transactionHashes.push(tx.hash);
+        console.log('transactionHash received: ', tx.hash);
+        this.web3Service.addEventListener("block", updateUIOnBlock);
+        return tx.wait(24).then((receipt) => {
+          this.web3Service.removeEventListener("block", updateUIOnBlock);
+        });
       })
-      .on('confirmation', function(confirmationNumber, receipt) {
-        component.transactionPending = true;
-        component.confirmationProgress += 1; //confirmationNumber; // up to 24
-        component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
-        console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
-      })
-      .on('receipt', function(receipt) {
-        // receipt example
-        console.log('receipt received: ', receipt);
-	component.transactionPending = false;
-	component.transactionConfirmed = true;
-      })
-      .on('error', function(error, receipt) {
+      .catch((error) => {
+        console.log('oops: ', error);
         console.error;
         this.showErrorMessageForVote = true;
         this.errorDuringVote = error;
-      }); // If there's an out of gas error the second parameter is the receipt.
+      }); // If there's an out of gas error, maybe the second parameter is the receipt.
   }
 
   async cakeVote(vote) {

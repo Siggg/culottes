@@ -115,7 +115,7 @@ export class Web3Service {
 
   public async getAccount() {
     this.signer = this.provider.getSigner();
-    if (this.signer == undefined) {
+    if (this.signer.address == undefined) {
       try {
         // Request account access if needed
         await window.ethereum.enable();

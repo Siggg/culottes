@@ -167,7 +167,6 @@ export class FactoryComponent implements OnInit {
 
     // Check account
     this.account = await this.web3Service.getAccount().then((account) => {
-	    console.log("account: ", account);
 	    return account.getAddress(); });
     if (this.account == undefined) {
       canCreate = false;
@@ -175,7 +174,7 @@ export class FactoryComponent implements OnInit {
 
     if (canCreate == true) {
       console.log('about to create revolution');
-      let distributionAmount = this.web3Service.parseUnits(this.distributionAmount, "ether");
+      let distributionAmount = this.distributionAmount;
       console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionAmount); 
       let method = this.factoryContract
         .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);

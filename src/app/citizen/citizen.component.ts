@@ -132,8 +132,8 @@ export class CitizenComponent implements OnInit {
         console.log('  it does not have to change');
       }
     }
-    tx.gas = estimatedGas * 1.1;
-    tx.value = weiAmount;
+    txRequest.gas = estimatedGas * 1.1;
+    txRequest.value = weiAmount;
     function updateUIOnBlock(blockNumber) {
       component.transactionPending = false;
       component.confirmationProgress += 1; // up to 24 

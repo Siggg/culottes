@@ -174,10 +174,8 @@ export class FactoryComponent implements OnInit {
 
     if (canCreate == true) {
       console.log('about to create revolution');
-      let distributionAmount = this.distributionAmount;
+      let distributionAmount = this.web3Service.parseUnits(this.distributionAmount.toString(), "ether");
       console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionAmount); 
-      // let method = this.factoryContract
-      //  .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
       let component = this;
       console.log("this.account:", this.account);
       this
@@ -187,9 +185,6 @@ export class FactoryComponent implements OnInit {
 	   //  ({from: this.account, gas: 3000000})
 	.then((gasAmount) => {
           console.log('estimated gas amount: ', gasAmount);
-	  let tx = this.factoryContract.populateTransaction.createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
-          // tx.gasPrice = "2000000000";
-          tx.gasLimit = gasAmount * 1.1;
 	  function updateUIOnBlock(blockNumber) {
             component.transactionPending = false;
             component.confirmationProgress += 1; // up to 24 
@@ -197,7 +192,17 @@ export class FactoryComponent implements OnInit {
             console.log('confirmation received, with number and %: ', component.confirmationProgress, component.confirmationPercent);
             component.transactionConfirmed = true;
           }
-          this.web3Service.sendTransaction(tx)
+	  this.web3Service.addSigner(this.factoryContract)
+            .then((factoryContract) => {
+              this.factoryContract = factoryContract
+              return factoryContract.createRevolution(
+		this.criteria,
+		this.hashtag,
+		this.distributionBlockPeriod,
+		distributionAmount,
+		false,
+		{ gasLimit: gasAmount.add(gasAmount.div(10))});
+            })
             .then((tx) => {
               component.transactionPending = true;
               component.confirmationProgress = 0;
@@ -213,7 +218,7 @@ export class FactoryComponent implements OnInit {
               console.log('oops: ', error);
               console.error;
               this.showErrorMessageForCreation = true;
-              this.errorDuringCreation = error;
+              this.errorDuringCreation = error.message;
             }); // If there's an out of gas error the second parameter is the receipt.
         });
     }

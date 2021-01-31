@@ -121,6 +121,7 @@ export class Web3Service {
         await window.ethereum.enable();
         this.statusAuthorized = true;
       } catch (error) {
+	console.log("error: ", error);
         this.web3Status.next('User denied account access...');
         this.statusError = true;
       }
@@ -153,7 +154,11 @@ export class Web3Service {
   }
 
   public async sendTransaction(tx) {
-      return await this.getAccount().then((account) => { return account.sendTransaction(tx); });
+    return await this.getAccount().then((account) => { return account.sendTransaction(tx); });
+  }
+
+  public async addSigner(contract) {
+    return await this.getAccount().then((account) => { return contract.connect(account); });
   }
 
   public addEventListener(event, listener) {

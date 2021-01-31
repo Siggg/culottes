@@ -153,7 +153,15 @@ export class Web3Service {
   }
 
   public async sendTransaction(tx) {
-      await this.getAccount().then((account) => { return account.sendTransaction(tx); });
+      return await this.getAccount().then((account) => { return account.sendTransaction(tx); });
+  }
+
+  public addEventListener(event, listener) {
+    return this.signer.on(event, listener);
+  }
+
+  public removeEventListener(event, listener) {
+    return this.signer.removeEventListener(event, listener);
   }
 
   public async artifactsToContract(artifacts, address) {

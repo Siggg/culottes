@@ -197,16 +197,16 @@ export class FactoryComponent implements OnInit {
             console.log('confirmation received, with number and %: ', component.confirmationProgress, component.confirmationPercent);
             component.transactionConfirmed = true;
           }
-          this.web3Service.signer.sendTransaction(tx)
+          this.web3Service.sendTransaction(tx)
             .then((tx) => {
               component.transactionPending = true;
               component.confirmationProgress = 0;
               component.confirmationPercent = 0;
               component.transactionHashes.push(tx.hash);
               console.log('transactionHash received: ', tx.hash);
-	      this.web3Service.signer.on("block", updateUIOnBlock);
+	      this.web3Service.addEventListener("block", updateUIOnBlock);
               return tx.wait(24).then((receipt) => {
-	        this.web3Service.signer.removeEventListener("block", updateUIOnBlock);
+	        this.web3Service.removeEventListener("block", updateUIOnBlock);
 	      });
 	    })
             .catch((error) => {

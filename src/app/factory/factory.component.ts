@@ -72,6 +72,7 @@ export class FactoryComponent implements OnInit {
         return this.revolutionContract.distributionAmount();
       })
       .then((distributionAmount) => {
+	console.log("distributionAmount: ", distributionAmount);
         if (distributionAmount === null) {
           this
             .web3Service
@@ -83,9 +84,7 @@ export class FactoryComponent implements OnInit {
         } else {
           this.distributionAmount = parseFloat(this
             .web3Service
-            .formatUnits(this
-              .web3Service
-              .parseUnits(distributionAmount, "wei"), "ether"));
+            .formatUnits(distributionAmount, "ether"));
         }
 
 	// Get revolution's distributionBlockPeriod
@@ -167,7 +166,9 @@ export class FactoryComponent implements OnInit {
     }
 
     // Check account
-    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    this.account = await this.web3Service.getAccount().then((account) => {
+	    console.log("account: ", account);
+	    return account.getAddress(); });
     if (this.account == undefined) {
       canCreate = false;
     }

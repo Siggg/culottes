@@ -182,7 +182,6 @@ export class FactoryComponent implements OnInit {
         .factoryContract
         .estimateGas
         .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false)
-	   //  ({from: this.account, gas: 3000000})
 	.then((gasAmount) => {
           console.log('estimated gas amount: ', gasAmount);
 	  function updateUIOnBlock(blockNumber) {

@@ -115,8 +115,8 @@ export class CitizenComponent implements OnInit {
   async sendVote(vote, weiAmount) {
     let component = this;
     component.vote = vote;
-    let txRequest = this.web3_eth_contract.populateTransaction.vote(vote, this.address);
-    let estimatedGas = await this.web3_eth_contract.estimateGas.vote(vote, this.address);
+    let nameChange = false;
+    let estimatedGas;
     this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
     this.accountBalance = parseFloat(this.web3Service.formatUnits(this.web3Service.getBalance(this.account), "ether"));
     if (this.account == this.address && this.address != "" && this.address != undefined ) {
@@ -126,14 +126,11 @@ export class CitizenComponent implements OnInit {
       if (myName != this.name) {
         // Change one's name
 	console.log('vote and set it to: ', this.name);
-        txRequest = this.web3_eth_contract.populateTransaction.voteAndSetName(vote, this.address, this.name);
-        estimatedGas = await this.web3_eth_contract.estimateGas.voteAndSetName(vote, this.address, this.name);
+	nameChange = true;
       } else {
         console.log('  it does not have to change');
       }
     }
-    txRequest.gas = estimatedGas * 1.1;
-    txRequest.value = weiAmount;
     function updateUIOnBlock(blockNumber) {
       component.transactionPending = false;
       component.confirmationProgress += 1; // up to 24 
@@ -141,7 +138,21 @@ export class CitizenComponent implements OnInit {
       console.log('confirmation received, with number and %: ', component.confirmationProgress, component.confirmationPercent);
       component.transactionConfirmed = true;
     }
-    this.web3Service.sendTransaction(txRequest)
+    if (nameChange == true) {
+      estimatedGas = await this.web3_eth_contract.estimateGas.voteAndSetName(vote, this.address, this.name);
+    } else {
+      estimatedGas = await this.web3_eth_contract.estimateGas.vote(vote, this.address);
+    }
+    estimatedGas = estimatedGas.add(estimatedGas.div(10));
+    this.web3Service.addSigner(this.web3_eth_contract)
+      .then((contract) => {
+        this.web3_eth_contract = contract;
+	if (nameChange == true) {
+          return contract.voteAndSetName(vote, this.address, this.name, { gasLimit: estimatedGas });  
+        } else {
+	  return contract.vote(vote, this.address, { gasLimit: estimatedGas });
+        }
+      })
       .then((tx) => {
         component.transactionPending = true;
         component.confirmationProgress = 0;

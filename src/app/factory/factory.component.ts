@@ -176,37 +176,41 @@ export class FactoryComponent implements OnInit {
       console.log('about to create revolution');
       let distributionAmount = this.distributionAmount;
       console.log('  with parameters: ', this.criteria, this.hashtag, this.distributionBlockPeriod.toString(), distributionAmount); 
-      let method = this.factoryContract
-        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
+      // let method = this.factoryContract
+      //  .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
       let component = this;
       console.log("this.account:", this.account);
-      method.estimateGas({from: this.account, gas: 3000000})
+      this
+        .factoryContract
+        .estimateGas
+        .createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false)
+	   //  ({from: this.account, gas: 3000000})
 	.then((gasAmount) => {
           console.log('estimated gas amount: ', gasAmount);
-          method.send({from: this.account, gasPrice: "2000000000", gas: gasAmount + 100000})
-            .on('transactionHash', function(hash) {
+	  let tx = this.factoryContract.populateTransaction.createRevolution(this.criteria, this.hashtag, this.distributionBlockPeriod, distributionAmount, false);
+          tx.gasPrice = "2000000000";
+          tx.gasLimit = gasAmount + 100000;
+	  function updateUIOnBlock(blockNumber) {
+            component.transactionPending = false;
+            component.confirmationProgress += 1; // up to 24 
+            component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
+            console.log('confirmation received, with number and %: ', component.confirmationProgress, component.confirmationPercent);
+            component.transactionConfirmed = true;
+          }
+          this.web3Service.signer.sendTransaction(tx)
+            .then((tx) => {
               component.transactionPending = true;
               component.confirmationProgress = 0;
               component.confirmationPercent = 0;
-              component.transactionHashes.push(hash);
-              console.log('transactionHash received: ', hash);
-            })
-            .on('confirmation', function(confirmationNumber, receipt) {
-              component.transactionPending = true;
-              component.confirmationProgress += 1; //confirmationNumber; // up to 24
-              component.confirmationPercent = Math.round(100 * component.confirmationProgress / 24);
-              console.log('confirmation received, with number and %: ', confirmationNumber, component.confirmationPercent);
-              // console.log('receipt received: ', receipt);
-            })
-            .on('receipt', function(receipt){
-              // receipt example
-              // console.log('receipt received: ', receipt);
-              component.transactionPending = false;
-              component.transactionConfirmed = true;
-            })
-            .on('error', function(error, receipt){
+              component.transactionHashes.push(tx.hash);
+              console.log('transactionHash received: ', tx.hash);
+	      this.web3Service.signer.on("block", updateUIOnBlock);
+              return tx.wait(24).then((receipt) => {
+	        this.web3Service.signer.removeEventListener("block", updateUIOnBlock);
+	      });
+	    })
+            .catch((error) => {
               console.log('oops: ', error);
-              console.log('receipt: ', receipt);
               console.error;
               this.showErrorMessageForCreation = true;
               this.errorDuringCreation = error;

@@ -166,8 +166,7 @@ export class FactoryComponent implements OnInit {
     }
 
     // Check account
-    this.account = await this.web3Service.getAccount().then((account) => {
-	    return account.getAddress(); });
+    this.account = await this.web3Service.getSignerAddress();
     if (this.account == undefined) {
       canCreate = false;
     }

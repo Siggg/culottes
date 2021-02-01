@@ -189,7 +189,7 @@ export class RevolutionComponent implements OnInit {
           .web3Status
           .next("An error occured while reading past events: " + error);
       }); */
-    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    this.account = await this.web3Service.getSignerAddress();
     if (this.web3Service.statusError) {
         this.web3ModalActivity = "active";
       } else {

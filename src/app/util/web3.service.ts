@@ -113,23 +113,33 @@ export class Web3Service {
     
   }
 
-  public async getAccount() {
-    this.signer = this.provider.getSigner();
-    if (this.signer.address == undefined) {
-      try {
-        // Request account access if needed
-        await window.ethereum.enable();
-        this.statusAuthorized = true;
-      } catch (error) {
-	console.log("error: ", error);
-        this.web3Status.next('User denied account access...');
-        this.statusError = true;
-      }
+  private async getSigner() {
+    if (this.signer == undefined) {
       this.signer = this.provider.getSigner();
     }
     return this.signer;
   }
-  
+
+  public async getSignerAddress() {
+    this.getSigner();
+    console.log("signer: ", this.signer);
+    let address;
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      this.statusAuthorized = true;
+      address = await this.signer.getAddress();
+    } catch (error) {
+      console.log("error: ", error);
+      this.web3Status.next('User denied account access...');
+      this.statusError = true;
+    }
+    console.log("address: ", address);
+    if (address == undefined) {
+      throw("no address for signer: ", this.signer);
+    }
+    return address;
+  }
+ 
   public checkNetwork() {
     this
       .provider
@@ -154,11 +164,11 @@ export class Web3Service {
   }
 
   public async sendTransaction(tx) {
-    return await this.getAccount().then((account) => { return account.sendTransaction(tx); });
+    return await this.getSigner().then((signer) => { return signer.sendTransaction(tx); });
   }
 
   public async addSigner(contract) {
-    return await this.getAccount().then((account) => { return contract.connect(account); });
+    return await this.getSigner().then((signer) => { return contract.connect(signer); });
   }
 
   public addEventListener(event, listener) {
@@ -225,8 +235,8 @@ export class Web3Service {
     return ethers.utils.getAddress(address);
   }
 
-  public getBalance(address) {
-    return ethers.utils.formatUnits(this.provider.getBalance(address), "ether");
+  public async getBalance(address) {
+    return ethers.utils.formatUnits(await this.provider.getBalance(address), "ether");
   }
 
 }

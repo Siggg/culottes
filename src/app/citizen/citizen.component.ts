@@ -65,6 +65,7 @@ export class CitizenComponent implements OnInit {
         return this.web3_eth_contract.distributionAmount();
       })
       .then((distributionAmount) => {
+        console.log("distributionAmount: ", distributionAmount);
         if (distributionAmount === null) {
           this
             .web3Service
@@ -76,9 +77,7 @@ export class CitizenComponent implements OnInit {
         } else {
           this.distributionAmount = parseFloat(this
             .web3Service
-            .formatUnits(this
-              .web3Service
-              .parseUnits(distributionAmount, "wei"), "ether"));
+            .formatUnits(distributionAmount, "ether"));
         }
 
 	// Get revolution's hashtag
@@ -95,7 +94,7 @@ export class CitizenComponent implements OnInit {
           this.hashtagWithoutSymbol = hashtag.substring(1);
         }
         // console.log("Get citizen's name");
-	// console.log("this.address: ", this.address);
+        console.log("this.address: ", this.address);
 	if (this.address != "" && this.address != null) {
 	  return this.web3_eth_contract.getName(this.address);
 	} else {
@@ -117,8 +116,9 @@ export class CitizenComponent implements OnInit {
     component.vote = vote;
     let nameChange = false;
     let estimatedGas;
-    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
-    this.accountBalance = parseFloat(this.web3Service.formatUnits(this.web3Service.getBalance(this.account), "ether"));
+    this.account = await this.web3Service.getSignerAddress();
+    this.accountBalance = await this.web3Service.getBalance(this.account);
+    console.log("balance: ", this.accountBalance);
     if (this.account == this.address && this.address != "" && this.address != undefined ) {
       console.log('voting for oneself');
       let myName = await this.web3_eth_contract.getName(this.address);
@@ -143,6 +143,7 @@ export class CitizenComponent implements OnInit {
     } else {
       estimatedGas = await this.web3_eth_contract.estimateGas.vote(vote, this.address);
     }
+    console.log("estimatedGas: ", estimatedGas);
     estimatedGas = estimatedGas.add(estimatedGas.div(10));
     this.web3Service.addSigner(this.web3_eth_contract)
       .then((contract) => {
@@ -190,13 +191,13 @@ export class CitizenComponent implements OnInit {
     }
 
     // Check account
-    this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+    this.account = await this.web3Service.getSignerAddress();
     console.log("Vote by this account: " + this.account);
     if (this.account == undefined) {
       canVote = false;
     }
 
-    // Check amount
+    console.log("Check amount");
     if (this.amount < this.distributionAmount / 10) {
       canVote = false;
       this.showErrorMessageForAmount = true;
@@ -204,7 +205,7 @@ export class CitizenComponent implements OnInit {
       this.showErrorMessageForAmount = false;
     }
 
-    // Check balance
+    console.log("Check balance");
     if (this.amount >= component.accountBalance) {
       canVote = false;
       this.showErrorMessageForBalance = true;
@@ -213,8 +214,8 @@ export class CitizenComponent implements OnInit {
     }
     const weiAmount = this
       .web3Service
-      .parseUnits(this.amount, "ether");
-    console.log("Stake (in wei): " + weiAmount.toString());
+      .parseUnits(this.amount.toString(), "ether");
+    console.log("Stake (in wei): ", weiAmount);
 
     // Vote if everything is fine
     if (canVote == true) {

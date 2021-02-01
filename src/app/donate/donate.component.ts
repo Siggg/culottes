@@ -50,11 +50,11 @@ export class DonateComponent implements OnInit {
       this.isOk=false;
       console.log("amount to be donated:" + this.amount);
       var wei = this.web3Service.parseUnits(this.amount.toString(), "wei");
-      this.account = await this.web3Service.getAccount().then((account) => { return account.getAddress(); });
+      this.account = await this.web3Service.getSignerAddress();
       console.log("donated from: " + this.account);
       this
         .web3Service
-        .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gas: 60000});
+        .sendTransaction({from: this.account, to: this.revolutionAddress, value: wei, gasLimit: 60000});
     }
   }
 

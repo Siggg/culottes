@@ -117,7 +117,7 @@ export class CitizenComponent implements OnInit {
     let nameChange = false;
     let estimatedGas;
     this.account = await this.web3Service.getSignerAddress();
-    this.accountBalance = await this.web3Service.getBalance(this.account);
+    this.accountBalance = parseFloat(await this.web3Service.getBalance(this.account));
     console.log("balance: ", this.accountBalance);
     if (this.account == this.address && this.address != "" && this.address != undefined ) {
       console.log('voting for oneself');

@@ -135,7 +135,7 @@ export class Web3Service {
     }
     console.log("address: ", address);
     if (address == undefined) {
-      throw("no address for signer: ", this.signer);
+      throw("no address for signer: " + this.signer);
     }
     return address;
   }
